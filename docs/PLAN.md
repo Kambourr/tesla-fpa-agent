@@ -50,7 +50,7 @@ Docs only, before product code. Section 11.
 - **Acceptance:** `docs/BRIEF.md` matches the build brief byte for byte; `AGENTS.md` and `CLAUDE.md` are the section 11 instruction and match each other; `.cursor/rules/handoff.mdc` is always applied and carries that same instruction; `docs/PLAN.md`, `docs/PROGRESS.md`, and `docs/DECISIONS.md` exist; the branch is `task/M0-T1-handoff-docs` with a pull request into `main`.
 - **Depends on:** none
 - **Can run in parallel with:** none
-- **Status:** done (PENDING_COMMIT)
+- **Status:** done (d0b5373c1000411fc88ad7d362bfca2ed6a31d0c)
 
 ## M1 — Setup and data ingest
 
