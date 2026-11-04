@@ -433,7 +433,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** A simple inline SVG diagram (not a screenshot of code) shows the stages. The copy covers verification rules, public SEC and investor-relations sources only, the leasing limitation on the revenue bridge, and that visitors do not call the model. No Tesla logo, wordmark, or product image.
 - **Depends on:** M5-T2
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T14
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M5-T14 — About
 
