@@ -138,7 +138,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Config states how deliveries, automotive ASP, automotive sales revenue, regulatory credits, energy, services, gross margin, operating expenses, and capex are projected, and the bull/base/bear percentages applied to deliveries, ASP, and gross margin. A test loads the config. The choices are recorded in `docs/DECISIONS.md`. No look-ahead is described in the formulas (same-quarter-last-year and recent growth use only data before the cutoff).
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M2-T2 — Cutoff date and no-look-ahead tests
 
