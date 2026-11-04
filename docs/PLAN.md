@@ -102,7 +102,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Tests use fixtures, not the live SEC site. The client sends `User-Agent` from `SEC_USER_AGENT` and fails closed when the variable is empty. Responses are cached under `data/cache/` and a second request for the same URL does not hit the network. The client stays at or below 10 requests per second. The companyfacts URL is `https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json`. No email address is hardcoded.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T4, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T7 — Q4 derivation and year-to-date cash-flow de-cumulation
 
@@ -110,7 +110,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `uv run pytest` (or `pytest`) passes tests where Q4 equals the annual figure minus Q1–Q3, and where a year-to-date cash-flow series de-cumulates into single quarters (Q1 unchanged, Q2 minus Q1, Q3 minus Q2). The tests cover operating cash flow and capex. Free cash flow is computed as CFO minus capex on the quarterly values.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T4, M1-T6, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T8 — Per-filing value storage
 
