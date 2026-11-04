@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 17 of 53 (32%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 18 of 53 (34%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -170,7 +170,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test on a fixture computes absolute percent error for those three lines and the average across quarters. The published table includes quarters where the error is large. No error is dropped or clipped to look better.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (71192a1da7659c1ab05acc6839cafa7f223f4b4e)
 
 ### M2-T6 — Revenue bridge
 
