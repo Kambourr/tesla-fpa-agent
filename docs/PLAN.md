@@ -70,7 +70,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** The config covers total revenue, automotive sales, automotive regulatory credits, automotive leasing, energy generation and storage, services and other, cost of revenues (total and by segment where reported), gross profit, R&D, SG&A, total operating expenses, operating income, net cash from operating activities, and purchases of property and equipment. A test fails if a required metric has no tag. Gaps and tag changes are documented in the config, and the mapping choice is recorded in `docs/DECISIONS.md`.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T3, M1-T4, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T3 — DuckDB schema and SQL
 
