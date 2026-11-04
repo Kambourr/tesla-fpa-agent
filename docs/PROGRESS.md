@@ -2,15 +2,15 @@
 
 ## Current status
 
-- **Current milestone:** M1 setup and data ingest. `M1-T1`, `M1-T4`, `M1-T6`, `M1-T7`, and `M2-T1` are on `main`. `M1-T5` is done on branch `task/M1-T5-check-deliveries` and is not on `main` yet.
-- **Tasks done:** 7 of 53 (13%), counting M1-T5.
-- **What's next:** Merge the M1-T5 pull request. `M1-T2` and `M1-T3` are still `todo` on `main`. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T9` waits on `M1-T5` and `M1-T8`.
+- **Current milestone:** M1 data. `M1-T5` is done on `task/M1-T5-check-deliveries` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T4`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
+- **Tasks done:** 8 of 53 (15%).
+- **What's next:** Merge the M1-T5 pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T6` and `M1-T7` are on `main`. `M1-T9` waits on `M1-T5` and `M1-T8`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. There is no `python -m agent run` yet.
 
 ## 2026-11-04 13:11 (America/Los_Angeles) — Cursor agent
 
@@ -29,6 +29,23 @@
 - (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md`. The private-repo override is in `docs/DECISIONS.md`. Refer to secrets only by env var name. `validate_deliveries` is what ingest should call. Do not call `fetch_source_page` from ingest. Branch `task/M1-T4-M1-T5-deliveries` had claimed M1-T4 and M1-T5 with no implementation; M1-T4 was already on `main` from pull request #3, and this branch is the M1-T5 work. `M1-T6` and `M1-T7` are taken by another agent. The commit named below is the checker. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
 **Last commit:** 8a069eb89a66c93bc57b47c4bb7359b3b9c56d63 on task/M1-T5-check-deliveries
+
+## 2026-11-04 13:06 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M3-T1 (done)
+**What changed:**
+- Added `prompts/manifest.json` (version `2026-11-04.1`, temperature `0.2`), `prompts/memo.md`, and `prompts/questions.json`. The ten section 4 questions are in the questions file. Questions 7 and 8 set `uses_backtest` and say to use all 12 published quarters.
+- Added `agent/narrative.py`. `NarrativeDraft` requires a memo and answers. A claim requires `metric`, `period`, `value`, `unit`, and `sentence_ref`. `load_prompts()` returns the version and a SHA-256 of the three prompt files. `cache_material` is the version plus that hash.
+- An empty or missing `OPENAI_MODEL` now resolves to `gpt-6-luna`. `.env.example` stays blank. The choice is in `docs/DECISIONS.md`.
+- Added `tests/test_narrative_prompts.py` and a blank-model settings test. No test calls the model.
+**Current state:** Prompts and the response schema only. No narration call and no cache yet. After rebasing onto `main`, local `uv run pytest`: 51 passed, which includes the M2-T1 tests. The earlier GitHub Actions run 41913074156 on pull request #7, commit `4f8a5b5`, was before that rebase: job `pytest` succeeded, 43 passed in 2.67s. Ruff check and format check passed.
+**Next step:** Merge the M3-T1 pull request. `M3-T2` should call the model with `PromptBundle` and parse `NarrativeDraft`. `M3-T3` should hash `cache_material` with the input tables and the model id.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live model call needs `OPENAI_API_KEY`. CI does not call the model.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T2`, `M1-T3`, `M1-T5`, or `M5-T1`. The default model id is `gpt-6-luna`; override it with `OPENAI_MODEL`. Do not put an email in a prompt file. The commit named below is the prompts and the schema. Later commits on this branch only update the handoff: the done hash in `docs/PLAN.md`, and this entry in `docs/PROGRESS.md`.
+**Last commit:** 8b9d6f1d0b6d49438adadc60f59ef3708701090b on task/M3-T1-prompts
 
 ## 2026-11-04 13:04 (America/Los_Angeles) — Cursor agent
 

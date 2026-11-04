@@ -22,6 +22,12 @@ Page text matching strips tags, keeps inline tags from splitting a number (`433,
 
 **What this means for later tasks:** M1-T9 calls `validate_deliveries` and does not pass `--fetch`. Saved-page checks stay in `scripts/check_deliveries`. Do not edit a deliveries total because a fetch was blocked.
 
+## 2026-11-04 — Narration prompts and the default model
+
+`OPENAI_MODEL` defaults to `gpt-6-luna` when the variable is missing or blank. Rechecked on 2026-11-04: `https://developers.openai.com/api/docs/models/gpt-6-luna` lists the model id `gpt-6-luna` and lists `structured_outputs` under supported features. The structured-outputs guide says new projects can start with `gpt-6-astra`. Astra's model page lists the same feature, at $10 per million input tokens and $50 per million output tokens. Luna's page prices text at $0.10 per million input tokens and $0.50 per million output tokens. This job is twelve short memos plus ten short answers, so Luna stays inside the dollar limit in section 6. Set `OPENAI_MODEL` to `gpt-6-astra` if a later run needs the flagship. `.env.example` stays blank; the code supplies the default.
+
+Prompt files live in `prompts/`. `manifest.json` holds version `2026-11-04.1` and temperature `0.2`. The loader also hashes the three prompt files. The cache material is the version plus that hash, so an edit that forgets to bump the version still misses. Questions 7 and 8 are the only ones flagged `uses_backtest`, and their text says to use all 12 published quarters. The response schema requires `memo`, `answers`, and claim objects with `metric`, `period`, `value`, `unit`, and `sentence_ref`.
+
 ## 2026-11-04 — Forecast formulas and scenario flexes
 
 **Decision:** `config/forecast.json`, loaded by `agent/forecast_config.py`, is the forecast specification. The cutoff is the previous quarter's filing date. Inputs are the latest stored values available on that date. A numeric forecast needs four earlier quarters, which is the number the site copy will use. Every driver lists the relative quarters it reads, and the loader rejects an offset of zero or a later quarter.
