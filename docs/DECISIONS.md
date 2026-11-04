@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — DuckDB tables, and the as-of query in SQL
+
+**Decision:** `sql/` is the database. `agent/schema.py` runs those files in name order and does not contain the table definitions. `fact` stores one row per metric, period, and accession, so a comparative from a later filing does not replace the earlier row. `filing` holds the form, the filing's own period end, the filing date, and the filing URL. `fact.accession` references `filing`. The view `fact_with_source` joins them. The macro `fact_as_of(cutoff_date)` returns the latest row whose filing date is on or before that cutoff. `quarter_actual`, `forecast`, `bridge`, and `backtest` are created empty for M1-T8 and M2.
+
+Money and forecast amounts are `DECIMAL(24, 4)`. A whole-dollar filing amount stays exact, and a later ratio does too. Delivery counts stay `BIGINT`. Bull, base, and bear are rows in `forecast`, distinguished by `scenario`.
+
+**Alternatives considered:** An as-of query written only in Python would hide the transform the task asks to keep in SQL. One table for facts and forecasts would share a key that does not fit restatements, scenarios, and bridges. Deleting the older fact when a comparative arrives would drop the restatement M1-T8 has to keep.
+
 ## 2026-11-04 — XBRL tags, searched in order
 
 **Decision:** `config/xbrl_tags.json`, loaded by `agent/xbrl_map.py`, is the section 4 tag map. For one filing and one duration, walk that metric's tags in order and use the first fact whose only dimension is the listed member. A tag with no member matches a fact with no dimensions. If none match, leave the metric blank for that period. Do not sum other lines to fill it. `load_xbrl_map()` rejects a required metric that has no tag.
