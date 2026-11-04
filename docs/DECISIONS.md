@@ -90,6 +90,47 @@ Responses are stored as raw bytes under `data/cache/`, which is git-ignored. The
 
 **What this means for later tasks:** M1-T8 should call `SecClient.companyfacts` and `SecClient.filing_index`, then `derive_q4` for income-statement Q4 and `decumulate_ytd` plus `derive_q4` for cash-flow Q4. Free cash flow comes from `quarterly_free_cash_flow` after those single quarters exist. Ingest must not log `SEC_USER_AGENT`. The live client is untested against data.sec.gov in CI on purpose.
 
+## 2026-11-04 — Site toolchain, Pages base path, and dark-mode colors
+
+**Decision:** The dashboard lives in `site/` and uses npm. `site/package-lock.json` is the lockfile. `npm ci` installs it. `npm run build` is `tsc -b && vite build`. Node 22 is the version CI uses. Locked on this date: Vite 8.3.5, React 19.3.1, TypeScript 7.0.2, `@vitejs/plugin-react` 6.2.1, `@fontsource/ibm-plex-sans` 5.3.0, `@fontsource/source-serif-4` 5.3.1.
+
+`vite.config.ts` sets `base` to `/tesla-fpa-agent/`, the GitHub Pages project path for this repository. Asset URLs in `index.html` use `%BASE_URL%`. This task does not enable Pages and does not change repository settings.
+
+Fonts are self-hosted from the latin subsets, not loaded from a third-party stylesheet. IBM Plex Sans 400 and 500 are the interface face. Source Serif 4 400 is the narrative face. `body` sets `font-variant-numeric: tabular-nums`. `.narrative` sets Source Serif 4, line-height 1.55, and a 680px measure. UI copy stays in Plex. The memo and the Q&A are the only text that should use `.narrative`.
+
+Light tokens are the section 6 hexes: Paper `#F4F6F8`, Ink `#18212B`, ledger rule `#CBD3DC`, cobalt `#2448C8`, green `#0E7A5A`, amber `#A85B00`, and white `#FFFFFF` for a raised surface. Measured contrast of the three accents on paper is 6.84, 4.91, and 4.66. Ink on paper is 15.01. All clear WCAG AA for normal text.
+
+Dark mode keeps those hues and lightens the accents:
+
+| Token | Hex | Contrast on `#121820` | Contrast on the raised sheet `#1B2430` |
+|---|---|---|---|
+| Paper | `#121820` |  |  |
+| Ink | `#E6EBF0` | 14.87 | 13.05 |
+| Cobalt | `#7D95E8` | 6.23 | 5.47 |
+| Green | `#15B787` | 6.93 | 6.08 |
+| Amber | `#E67C00` | 6.16 | 5.40 |
+| Ledger rule | `#2A3848` | 1.49 |  |
+| Quiet ink | `#9AABBC` | 7.58 | 6.65 |
+
+The light quiet ink is `#4A596A` (6.62 on paper, 7.17 on white). The dark raised sheet is `#1B2430`, a step off the paper, not white. The dark rule is about as quiet as `#CBD3DC` on light paper (1.40). Green is the small masthead tick only. It is not a page-sized accent.
+
+The page is a document, not the Vite starter. The masthead reads "Tesla FP&A Agent". The heading is the section 5 headline. The empty state says the pipeline has not written a quarter. The footer is the required disclaimer, stored in `site/src/config.ts`. `profileLinks` in that file are empty strings. There is no quarter picker and no waterfall, and the wireframe dollar amounts are not in the source.
+
+`.github/workflows/test.yml` adds a `site build` job on the same pull-request trigger. It runs `npm ci` and `npm run build` with Node 22. `actions/setup-node` is pinned to v7.1.0 (`949feb2413d6458794dcd2491c4babbbce0c15c1`). The job requests no secrets. The root `.gitignore` ignores `node_modules/`, and the secret scan skips `node_modules` and `dist` so it does not walk dependencies or build output. Source is still scanned.
+
+**Why:** M5-T1 asks for a Vite, React, and TypeScript app, a Pages base path, the section 6 palette and type, dark mode, and tabular figures, and it asks for `npm run build` to succeed. Section 6 also requires AA contrast and forbids a template look. Putting the build in the existing test workflow is how that acceptance command runs on the pull request. The workflow still does not deploy.
+
+**Alternatives considered:**
+
+- pnpm or Yarn. Rejected because the task names `npm run build` as the acceptance command.
+- A font stylesheet from a CDN. Rejected because the built site should not depend on a third-party host, and the latin files are small.
+- Leaving the Vite starter page and swapping only the CSS variables. Rejected because the starter reads as a template, which section 6 forbids.
+- Applying Source Serif 4 to the lede and the empty state. Rejected because section 6 reserves that face for the analyst memo and the Q&A answers. The class is ready for those tasks.
+- Skipping the site job and relying on a local build. Rejected because `main` has to keep passing the acceptance check after this merges.
+- Enabling GitHub Pages so the base path could be checked on a live URL. Rejected because Jacob has not approved a settings change. The preview was checked locally at `/tesla-fpa-agent/`.
+
+**What this means for later tasks:** Run `npm ci` in `site/` before `npm run build`. Keep `base` as `/tesla-fpa-agent/`. M5-T2 adds the quarter picker. The header text and the disclaimer are already the required strings. Keep one footer. M5-T4 adds the quarter line and the waterfall under the existing heading. Do not hardcode the wireframe amounts. Use `.narrative` only for the memo and the answers. Fill `profileLinks` only when Jacob supplies URLs. Do not enable Pages from a site task.
+
 ## 2026-11-04 — Deliveries transcription window, totals, and source URLs
 
 **Decision:** `data/manual/deliveries.csv` holds 20 quarters, `2021-Q4` through `2026-Q3`, in that order. `2026-Q3` is the latest production-and-deliveries release available on 2026-11-04 (dated 2026-10-02). `2026-Q4` is not out yet.

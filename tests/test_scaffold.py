@@ -39,6 +39,10 @@ SECRET_PATTERNS = (
 SKIP_PARTS = {
     ".git",
     ".venv",
+    ".vite",
+    "node_modules",
+    "dist",
+    "dist-ssr",
     "__pycache__",
     ".pytest_cache",
     ".ruff_cache",
