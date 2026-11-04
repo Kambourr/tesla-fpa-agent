@@ -2,6 +2,19 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — The Pages workflow is committed and Pages stays off
+
+**Decision:** `.github/workflows/deploy.yml` builds `site/` on a push to `main`, uploads `site/dist` as a Pages artifact, and deploys that artifact with `actions/deploy-pages`. It requests `contents: read`, `pages: write`, and `id-token: write`. It does not read or print `OPENAI_API_KEY` or `SEC_USER_AGENT`. Committing the file does not enable GitHub Pages and does not change who can see the repo.
+
+**Why:** M4-T4 asks for the Pages deploy workflow, and it also says not to enable Pages or change repo settings from the task. The deploy job cannot succeed until Jacob sets the Pages source to GitHub Actions. That switch is a settings change, so it is a question in `docs/PROGRESS.md` and it is not done here.
+
+**Alternatives considered:**
+
+- A workflow that only builds and never calls `deploy-pages`. Rejected because the task asks for the Pages deploy workflow, not a second copy of the test build.
+- Enabling Pages from this environment. Rejected. Jacob said not to change repo settings without his go-ahead.
+
+**What this means for later tasks:** Do not turn Pages on, do not change visibility, and do not add a secret to this workflow.
+
 ## 2026-11-04 — Forecast cutoff is the previous quarter's first filing
 
 **Decision:** `load_forecast_inputs()` dates the forecast for quarter Q at the earliest `filing_date` of a 10-Q, 10-K, or amendment whose own period end is Q-1. Facts are `fact_as_of(cutoff_date)`, so a restatement filed on or before that date replaces the first-reported number. `quarter_actual` stays the first report. A 10-Q/A of Q-1 does not move the cutoff later, so an amendment filed after the original 10-Q is invisible to the forecast for Q. Deliveries and production are included only when the quarter is before Q and the release date is on or before the cutoff. Q's own delivery row is dropped even when its release date is earlier than the cutoff.
