@@ -2,15 +2,33 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T8` is done on `task/M1-T8-per-filing-storage` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
-- **Tasks done:** 12 of 53 (23%).
-- **What's next:** Merge the M1-T8 pull request. `M1-T9` waits on `M1-T5` and `M1-T8`. `M1-T5` is on `main`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M1 data. `M1-T9` is done on `task/M1-T9-ingest` and is not on `main` yet. That branch also contains `M1-T8`, which is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
+- **Tasks done:** 13 of 53 (25%).
+- **What's next:** Merge the M1-T8 pull request, then the M1-T9 pull request. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `apply_schema()` creates the tables. `store_reported_facts()` writes one row per filing, and `assemble_quarter_actuals()` rebuilds the first-reported quarters. `fact_as_of(cutoff_date)` is the latest stored value. Nothing fetches on a test run. `load_xbrl_map()` reads `config/xbrl_tags.json`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+
+## 2026-11-04 13:39 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M1-T9 (done)
+**What changed:**
+- Added `agent/ingest.py` and `agent/__main__.py`. `python -m agent ingest` validates `deliveries.csv`, stores per-filing facts, rebuilds `quarter_actual`, and loads the deliveries table.
+- `--fixtures` reads `companyfacts.json` and `submissions.json` and does not call the SEC client. The default path uses `SecClient`. Neither path prints `SEC_USER_AGENT` or `OPENAI_API_KEY`, and neither path calls `fetch_source_page`.
+- After the load, the database must hold the last 12 `total_revenue` quarters plus the earlier quarters in `config/forecast.json` `input_offsets` (five, through Q-5). Older rows stay, including a restatement in `fact`.
+- Added `tests/test_ingest.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** The ingest command runs from fixtures. Segment lines are still blank because companyfacts has no dimensions. Local `uv run pytest`: 81 passed. Ruff check and format check passed.
+**Next step:** Merge the M1-T8 pull request, then this one. The ingest command is the load step a later `python -m agent run` can call.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not scrape investor-relations pages from ingest. Do not drop an older `fact` row. This branch includes the M1-T8 commits until that pull request is on `main`. The commit named below is the ingest command. Later commits on this branch only update the handoff.
+**Last commit:** d3bf7bf8f1cd840dcb815db458f168976056c530 on task/M1-T9-ingest
 
 ## 2026-11-04 13:33 (America/Los_Angeles) — Cursor agent
 
