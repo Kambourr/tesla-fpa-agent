@@ -6,6 +6,9 @@
 # SEC responses are cached locally. data/manual/ is tracked source data.
 data/cache/
 
+# Database written by `python -m agent ingest`.
+*.duckdb
+
 # Python environments and build output
 .venv/
 __pycache__/

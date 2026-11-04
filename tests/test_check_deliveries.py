@@ -200,7 +200,6 @@ def test_fetch_source_page_uses_the_given_url_and_no_email(
 def test_package_ingest_path_does_not_scrape_source_pages() -> None:
     """Ingest must not fetch delivery pages. The SEC client may still call urlopen."""
     agent_dir = REPO_ROOT / "agent"
-    assert not (agent_dir / "ingest.py").exists()
     offenders: list[str] = []
     for path in sorted(agent_dir.rglob("*.py")):
         if path.name == "deliveries.py":
