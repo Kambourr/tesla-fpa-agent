@@ -2,6 +2,16 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — XBRL tags, searched in order
+
+**Decision:** `config/xbrl_tags.json`, loaded by `agent/xbrl_map.py`, is the section 4 tag map. For one filing and one duration, walk that metric's tags in order and use the first fact whose only dimension is the listed member. A tag with no member matches a fact with no dimensions. If none match, leave the metric blank for that period. Do not sum other lines to fill it. `load_xbrl_map()` rejects a required metric that has no tag.
+
+Automotive sales is the line that changed. The 2021 10-K (accession 0000950170-22-000796) reports it as `us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax` with member `us-gaap:AutomobilesMember` (44,125,000,000 for 2021). The 2022 10-Qs and the 2022 10-K (accession 0000950170-23-001409) report `tsla:AutomotiveSalesRevenue` on member `tsla:AutomotiveRevenuesMember` (67,210,000,000 for 2022). The 2023 10-K, the 2024 10-K (accession 0001628280-25-003063), and the Q3 2026 10-Q (accession 0001628280-26-066775) report the same us-gaap concept with member `tsla:AutomotiveSalesMember` (72,480,000,000 for 2024). Credits and leasing follow the same split: an extension concept in 2022, and a product-or-service member otherwise. In each of those filings the three automotive lines add up to automotive revenue.
+
+**Alternatives considered:** One current tag, `tsla:AutomotiveSalesMember`, would miss 2021 and every 2022 quarter. Reading companyfacts only would miss every segment line: the feed pulled on 2026-11-04 has no `tsla` concepts and no dimensions. Summing members when a total is absent would hide a filing that dropped a line. `tsla:AutomotiveSales` looks like the sales line but is a debit in the 2022 schema (49,599,000,000), equal to neither sales revenue nor automotive cost.
+
+Energy is the parent member `tsla:EnergyGenerationAndStorageMember`, because that member equals energy sales plus energy leasing. Segment cost tries `us-gaap:CostOfRevenue` first. The 2022 10-K has no energy or services member on that concept; `us-gaap:CostOfGoodsAndServicesSold` is the fallback there, and those amounts plus automotive cost equal total cost of revenue. The 2021 10-K tags both concepts with different amounts, so the fallback must stay second. Regulatory-credit cost is not tagged in the filings checked here, so that series is `not_reported`. Free cash flow has no tag; it stays CFO minus capex after `M1-T7`. Deliveries and production stay in the CSV.
+
 ## 2026-11-04 — Deliveries structural checks, and page checks stay opt-in
 
 **Decision:** `agent.deliveries.validate_deliveries` is the no-network check. It fails a quarter label that skips a quarter, a row whose `source_url` is blank or not an `http`/`https` URL, and a quarter-over-quarter move in production or deliveries strictly larger than 50%. The committed CSV passes. `scripts/check_deliveries` always runs that check. It reads saved HTML only with `--pages-dir`, and it GETs `source_url` only with `--fetch`. A normal ingest path does not exist yet and must call `validate_deliveries` rather than `fetch_source_page`.

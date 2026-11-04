@@ -1,0 +1,420 @@
+{
+  "selection": "For one filing and one duration, walk that metric's tags in order. A tag with no member matches a fact with that concept, that duration, and no dimensions. A tag with a member matches a fact with that concept, that duration, that axis, and that member, and no other dimension. Use the first match. Do not sum other members to fill a hole, and do not average two facts that share a concept.",
+  "period_rule": "Income-statement tags are stored for the quarter and for the year to date. A quarterly actual uses the quarter duration, whose start date is the first day of the quarter. Cash-flow tags on a 10-Q are year to date only. M1-T7 de-cumulates those into a quarter and derives Q4 from the 10-K annual amount minus Q1 through Q3. This map does not add a second tag for that arithmetic.",
+  "companyfacts_limit": "The companyfacts feed for CIK 0001318605, pulled on 2026-11-04, contains us-gaap, dei, ffd, and ecd totals. It has no tsla concepts and no dimensions. Any tag with a tsla concept or a member has to be read from the filing instance. A row missing from companyfacts is not a zero.",
+  "gaps_and_tag_changes": [
+    "2021 10-K, accession 0000950170-22-000796, period 2021-01-01 to 2021-12-31: automotive sales is us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with member us-gaap:AutomobilesMember, 44125000000. That filing has no tsla:AutomotiveSalesMember. Credits 1465000000 plus leasing 1642000000 plus that sales amount equal the AutomotiveRevenuesMember total 47232000000.",
+    "2022 10-Qs and the 2022 10-K, accession 0000950170-23-001409, replaced that member with extension concepts on srt:ProductOrServiceAxis member tsla:AutomotiveRevenuesMember: tsla:AutomotiveSalesRevenue, tsla:AutomotiveRegulatoryCredits, and tsla:AutomotiveLeasing. Full-year automotive sales revenue is 67210000000, regulatory credits 1776000000, and leasing 2476000000, which sum to automotive revenue 71462000000. Those filings declare neither tsla:AutomotiveSalesMember nor us-gaap:AutomobilesMember. The Q3 2022 10-Q, accession 0000950170-22-019867, uses the same extension concepts for the quarter 2022-07-01 to 2022-09-30.",
+    "The 2023 10-K, the 2024 10-K accession 0001628280-25-003063, and the Q3 2026 10-Q accession 0001628280-26-066775 dropped the extension concepts. Automotive sales is us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with member tsla:AutomotiveSalesMember. 2024 full year: sales 72480000000 plus credits 2763000000 plus leasing 1827000000 equal automotive revenue 77070000000. The Q3 2026 quarter 2026-07-01 to 2026-09-30: sales 20094000000, credits 113000000, leasing 353000000.",
+    "tsla:AutomotiveSales is a debit in the 2022 schema. On the 2022 full year it is 49599000000, which is neither sales revenue 67210000000 nor automotive cost 51108000000. Do not read it as either line.",
+    "Energy generation and storage is the parent member tsla:EnergyGenerationAndStorageMember. In the 2021, 2022, and 2024 10-Ks that member equals the energy sales member plus the energy leasing member. The sales-only member is not the energy line.",
+    "Cost of automotive regulatory credits is not tagged in the 2021, 2022, 2024, or Q3 2026 filings checked here. Leave it blank. Do not invent a zero.",
+    "Automotive sales cost and automotive leasing cost are separate us-gaap:CostOfRevenue members in the 2024 10-K and the Q3 2026 10-Q. The 2021 and 2022 filings report one combined automotive cost. Leave the split blank for those filings.",
+    "In the 2022 10-K, energy and services costs are us-gaap:CostOfGoodsAndServicesSold members, and those two amounts plus tsla:AutomotiveCostOfRevenues equal total us-gaap:CostOfRevenue. In the 2021 10-K both cost concepts are tagged and they differ, so CostOfRevenue is the one that matches the total. The config tries CostOfRevenue first.",
+    "Services gross profit has no tag. us-gaap:GrossProfit on tsla:AutomotiveSegmentMember includes services, so that member is not automotive sales and it is not services.",
+    "Free cash flow has no tag. It is quarterly operating cash flow minus quarterly purchases of property and equipment after M1-T7. Deliveries and production stay in data/manual/deliveries.csv."
+  ],
+  "do_not_use": [
+    {
+      "concept": "tsla:AutomotiveSales",
+      "member": "tsla:AutomotiveRevenuesMember",
+      "reason": "2022 debit. It matches neither automotive sales revenue nor automotive cost of revenue."
+    },
+    {
+      "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "member": "tsla:AutomotiveSalesWithResaleValueGuaranteeMember",
+      "reason": "A piece of 2021 automotive sales. Using it undercounts the sales line."
+    },
+    {
+      "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "member": "tsla:AutomotiveSalesWithoutResaleValueGuaranteeMember",
+      "reason": "The other piece of 2021 automotive sales. The full line is us-gaap:AutomobilesMember."
+    },
+    {
+      "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "member": "tsla:EnergyGenerationAndStorageSalesMember",
+      "reason": "Energy sales only. The energy line is tsla:EnergyGenerationAndStorageMember, which also includes energy leasing."
+    },
+    {
+      "concept": "us-gaap:SalesRevenueEnergyServices",
+      "member": null,
+      "reason": "Deprecated in 2018. Not used in the filings checked for this map."
+    },
+    {
+      "concept": "us-gaap:SalesRevenueServicesNet",
+      "member": null,
+      "reason": "Deprecated in 2018. Services is tsla:ServicesAndOtherMember."
+    },
+    {
+      "concept": "tsla:PaymentsForSolarEnergySystemsNetOfSales",
+      "member": null,
+      "reason": "Solar systems only. Capital expenditures are us-gaap:PaymentsToAcquirePropertyPlantAndEquipment."
+    },
+    {
+      "concept": "tsla:RevenueReversalDueToTerminatedContract",
+      "member": null,
+      "reason": "Not automotive regulatory credits."
+    }
+  ],
+  "metrics": {
+    "total_revenue": {
+      "label": "Total revenue",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave total revenue blank. Do not add automotive, energy, and services.",
+      "tags": [
+        {
+          "concept": "us-gaap:Revenues",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total on the 2021, 2022, and 2024 10-Ks and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "automotive_sales": {
+      "label": "Automotive sales revenue",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "automotive_sales",
+      "when_missing": "Leave automotive sales blank. Do not subtract credits and leasing from automotive revenue.",
+      "tags": [
+        {
+          "concept": "tsla:AutomotiveSalesRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRevenuesMember",
+          "filed_in": "2022 10-Qs and the 2022 10-K."
+        },
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveSalesMember",
+          "filed_in": "2023 10-K, 2024 10-K, and the Q3 2026 10-Q."
+        },
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "us-gaap:AutomobilesMember",
+          "filed_in": "2021 10-K, which has no AutomotiveSalesMember."
+        }
+      ]
+    },
+    "automotive_regulatory_credits": {
+      "label": "Automotive regulatory credits",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "regulatory_credits",
+      "when_missing": "Leave regulatory credits blank. Do not use a revenue reversal or a terminated-contract concept.",
+      "tags": [
+        {
+          "concept": "tsla:AutomotiveRegulatoryCredits",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRevenuesMember",
+          "filed_in": "2022 10-Qs and the 2022 10-K."
+        },
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRegulatoryCreditsMember",
+          "filed_in": "2021 10-K, 2024 10-K, and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "automotive_leasing": {
+      "label": "Automotive leasing",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave automotive leasing blank. Do not add an operating-lease concept on top of a matched tag. In the 2021, 2022, and 2024 filings the matched amount is the leasing piece that ties to automotive revenue.",
+      "tags": [
+        {
+          "concept": "tsla:AutomotiveLeasing",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRevenuesMember",
+          "filed_in": "2022 10-Qs and the 2022 10-K."
+        },
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveLeasingMember",
+          "filed_in": "2021 10-K, 2024 10-K, and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "energy_generation_and_storage": {
+      "label": "Energy generation and storage",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "energy",
+      "when_missing": "Leave energy blank. Do not substitute the energy sales member, which excludes energy leasing.",
+      "tags": [
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:EnergyGenerationAndStorageMember",
+          "filed_in": "2021, 2022, and 2024 10-Ks and the Q3 2026 10-Q. The member equals energy sales plus energy leasing."
+        }
+      ]
+    },
+    "services_and_other": {
+      "label": "Services and other",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "services",
+      "when_missing": "Leave services blank. Do not use the automotive segment total, which includes services plus automotive revenue.",
+      "tags": [
+        {
+          "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:ServicesAndOtherMember",
+          "filed_in": "2021, 2022, and 2024 10-Ks and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "cost_of_revenue": {
+      "label": "Cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave total cost of revenue blank. Do not add the segment costs.",
+      "tags": [
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total on the 2021, 2022, and 2024 10-Ks and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "cost_of_revenue_automotive": {
+      "label": "Automotive cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave automotive cost blank. Do not add services cost, and do not sum sales and leasing cost to invent a total.",
+      "tags": [
+        {
+          "concept": "tsla:AutomotiveCostOfRevenues",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRevenuesMember",
+          "filed_in": "2022 10-Qs and the 2022 10-K. This is the combined automotive cost."
+        },
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveRevenuesMember",
+          "filed_in": "2021 and 2024 10-Ks. Sales cost plus leasing cost, excluding services."
+        }
+      ]
+    },
+    "cost_of_revenue_automotive_sales": {
+      "label": "Automotive sales cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave automotive sales cost blank. The 2021 and 2022 filings report only the combined automotive cost.",
+      "tags": [
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveSalesMember",
+          "filed_in": "2024 10-K and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "cost_of_revenue_automotive_leasing": {
+      "label": "Automotive leasing cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave automotive leasing cost blank. The 2021 and 2022 filings do not split it from automotive sales cost.",
+      "tags": [
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:AutomotiveLeasingMember",
+          "filed_in": "2024 10-K and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "cost_of_revenue_energy": {
+      "label": "Energy generation and storage cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave energy cost blank. Do not subtract energy gross profit from energy revenue.",
+      "tags": [
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:EnergyGenerationAndStorageMember",
+          "filed_in": "2021 and 2024 10-Ks and the Q3 2026 10-Q."
+        },
+        {
+          "concept": "us-gaap:CostOfGoodsAndServicesSold",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:EnergyGenerationAndStorageMember",
+          "filed_in": "2022 10-K, where CostOfRevenue has no energy member and this amount is the one that ties to total cost."
+        }
+      ]
+    },
+    "cost_of_revenue_services": {
+      "label": "Services and other cost of revenues",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave services cost blank. Do not subtract a computed margin from services revenue.",
+      "tags": [
+        {
+          "concept": "us-gaap:CostOfRevenue",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:ServicesAndOtherMember",
+          "filed_in": "2021 and 2024 10-Ks and the Q3 2026 10-Q."
+        },
+        {
+          "concept": "us-gaap:CostOfGoodsAndServicesSold",
+          "axis": "srt:ProductOrServiceAxis",
+          "member": "tsla:ServicesAndOtherMember",
+          "filed_in": "2022 10-K, where CostOfRevenue has no services member and this amount is the one that ties to total cost."
+        }
+      ]
+    },
+    "gross_profit": {
+      "label": "Gross profit",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave gross profit blank. Do not subtract cost from revenue.",
+      "tags": [
+        {
+          "concept": "us-gaap:GrossProfit",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total on the 2021, 2022, and 2024 10-Ks and the Q3 2026 10-Q."
+        }
+      ]
+    },
+    "research_and_development": {
+      "label": "Research and development",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave research and development blank. Do not treat it as part of SG&A.",
+      "tags": [
+        {
+          "concept": "us-gaap:ResearchAndDevelopmentExpense",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Present in companyfacts and in the 2021 and 2024 10-Ks."
+        }
+      ]
+    },
+    "selling_general_and_administrative": {
+      "label": "Selling, general and administrative",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave SG&A blank. Do not subtract research and development from total operating expenses.",
+      "tags": [
+        {
+          "concept": "us-gaap:SellingGeneralAndAdministrativeExpense",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Present in companyfacts and in the 2021 and 2024 10-Ks."
+        }
+      ]
+    },
+    "operating_expenses": {
+      "label": "Total operating expenses",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "operating_expenses",
+      "when_missing": "Leave operating expenses blank. Do not add research and development and SG&A.",
+      "tags": [
+        {
+          "concept": "us-gaap:OperatingExpenses",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Present in companyfacts and in the 2021 and 2024 10-Ks."
+        }
+      ]
+    },
+    "operating_income": {
+      "label": "Operating income",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": null,
+      "when_missing": "Leave operating income blank. Do not subtract operating expenses from gross profit.",
+      "tags": [
+        {
+          "concept": "us-gaap:OperatingIncomeLoss",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Present in companyfacts and in the 2021 and 2024 10-Ks."
+        }
+      ]
+    },
+    "net_cash_from_operating_activities": {
+      "label": "Net cash from operating activities",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "operating_cash_flow",
+      "when_missing": "Leave operating cash flow blank. A 10-Q fact is year to date; M1-T7 de-cumulates it. Do not use a different concept for the quarter.",
+      "tags": [
+        {
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Annual on a 10-K and year to date on a 10-Q."
+        }
+      ]
+    },
+    "purchases_of_property_and_equipment": {
+      "label": "Purchases of property and equipment",
+      "required": true,
+      "source": "xbrl",
+      "forecast_driver": "capex",
+      "when_missing": "Leave capex blank. Do not use the solar-systems concept, and do not change the sign. The reported purchases are positive.",
+      "tags": [
+        {
+          "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+          "axis": null,
+          "member": null,
+          "filed_in": "Consolidated total. Annual on a 10-K and year to date on a 10-Q."
+        }
+      ]
+    },
+    "free_cash_flow": {
+      "label": "Free cash flow",
+      "required": false,
+      "source": "computed",
+      "forecast_driver": null,
+      "tags": [],
+      "when_missing": "No tag. Quarterly free cash flow is quarterly operating cash flow minus quarterly purchases of property and equipment, after M1-T7."
+    },
+    "deliveries": {
+      "label": "Deliveries",
+      "required": false,
+      "source": "manual",
+      "forecast_driver": "deliveries",
+      "tags": [],
+      "when_missing": "Not an XBRL fact. Read deliveries_total from data/manual/deliveries.csv."
+    },
+    "production": {
+      "label": "Production",
+      "required": false,
+      "source": "manual",
+      "forecast_driver": null,
+      "tags": [],
+      "when_missing": "Not an XBRL fact. Read production_total from data/manual/deliveries.csv."
+    },
+    "automotive_regulatory_credits_cost": {
+      "label": "Automotive regulatory credits cost",
+      "required": false,
+      "source": "not_reported",
+      "forecast_driver": null,
+      "tags": [],
+      "when_missing": "The 2021, 2022, 2024, and Q3 2026 filings checked for this map do not tag a cost for regulatory credits. Leave the quarter blank."
+    }
+  }
+}
