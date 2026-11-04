@@ -345,7 +345,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The latest quarter is selected by default and a picker can select an earlier one. The footer text is exactly: "Independent analysis built from Tesla's public SEC filings and investor-relations releases. Not affiliated with or endorsed by Tesla, Inc. Not investment advice." Header reads "Tesla FP&A Agent". An empty state such as "No forecast for this quarter: it needs four earlier quarters of history." renders when the fixture says so. Layout matches the widths and ledger-rule rules above.
 - **Depends on:** M5-T1
 - **Can run in parallel with:** M4-T4
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M5-T3 — Tick marks and legend
 
