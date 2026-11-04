@@ -2,6 +2,31 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Deliveries transcription window, totals, and source URLs
+
+**Decision:** `data/manual/deliveries.csv` holds 20 quarters, `2021-Q4` through `2026-Q3`, in that order. `2026-Q3` is the latest production-and-deliveries release available on 2026-11-04 (dated 2026-10-02). `2026-Q4` is not out yet.
+
+`quarter` is `YYYY-Qn`. `release_date` is the date Tesla published the release, which in this window is the 2nd of the following month (January for Q4). That date is the press-release date. When the 2nd falls on a weekend or holiday, the Form 8-K is sometimes filed the next business day. The CSV keeps the press-release date.
+
+`production_total` and `deliveries_total` are the Total row of that quarter's first investor-relations production-and-deliveries release. They are not the rounded lead sentence ("over 305,000") and not a figure reprinted later in a shareholder update or a 10-Q. The same Total row appears in the Exhibit 99.1 attached to the Form 8-K Tesla filed for that release. Those exhibits were the check that the live pages still show the first-release table.
+
+`source_url` is the `https://ir.tesla.com/press-release/...` page for that release. Slug spelling follows the live page. The 2025 Q2, Q3, and Q4 slugs omit the word "and" before "deployments". The quarters around them include it. No pipeline code fetches these pages. There is still no ingest command.
+
+The Q4 release also prints an annual Total row. The four quarters of 2022, 2023, 2024, and 2025 sum to those annual totals (production and deliveries). That is the cross-check for a one-cell typo. 2021 and 2026 are partial years in this file, so they are not part of that check.
+
+**Why:** Section 2 and M1-T4 require the last 20 quarters, transcribed from the first official release, with a release date and a source URL, and they require that a normal ingest does not scrape the pages. The table total is the figure Tesla states exactly. The lead sentence is approximate. A later operational summary can be restated. The Q3 2025 shareholder update, for example, later adjusted the operating-lease count. The production and deliveries totals on these first releases were not revised. The 8-K exhibit is the frozen copy of the first release. The IR page is the source URL the brief asks for, and it is the page M1-T5 will re-fetch.
+
+**Alternatives considered:**
+
+- Start the window at `2022-Q1` and stop at a later quarter. Rejected because `2026-Q4` has no release yet, and "the last 20 quarters" means the 20 most recent releases.
+- Store the rounded headline figures. Rejected because they are not the table totals and would not match the page M1-T5 checks.
+- Store model-level rows or energy-storage deployments. Rejected because the brief's columns are vehicle production and delivery totals only.
+- Use the shareholder-letter operational summary, or the 10-Q delivery count, when it differs. Rejected because M1-T4 says the first release, not a later revision.
+- Put the SEC exhibit URL in `source_url`. Rejected because the brief asks for the investor-relations release. The exhibit was the transcription check, not the cited source.
+- Add an ingest client that downloads the pages. Rejected because M1-T4 says no pipeline fetch, and M1-T5 owns the optional re-fetch checker.
+
+**What this means for later tasks:** M1-T5 can re-fetch `source_url` and look for that row's production and deliveries figures on the page. It should compare against this CSV, not against a shareholder deck. Ingest loads the file from disk. Do not add a scraper under `agent/` for these pages. Jacob still spot-checks the CSV. Extending the file past `2026-Q3` is a later edit once Tesla publishes the next release.
+
 ## 2026-11-04 — Python toolchain, package layout, and the test workflow
 
 **Decision:** The Python project uses uv. `uv.lock` is the lockfile, `.python-version` pins 3.11, and `requires-python` is `>=3.11`. The install command is `uv sync`. It downloads CPython 3.11 when the machine does not already have it, and it installs the project plus pytest.
