@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Backtest keeps every miss, including a large one
+
+**Decision:** Absolute percent error is `100 * abs(forecast - actual) / abs(actual)`, stored as a percent. A result of 300 means the miss was three times the actual. The value is not clipped. An actual of zero, or a null forecast, stores the quarter with a null error. The average is the mean of the non-null errors for that metric. It is computed from the table and is not inserted as a quarter named `average`.
+
+**Alternatives considered:** Dropping a zero actual would hide the quarter. Capping the error at 100 percent would make a bad forecast look bounded. Storing the average under `quarter = 'average'` would make a later loop treat it as a period.
+
 ## 2026-11-04 — Scenarios flex three drivers and compound sales
 
 **Decision:** `scenario_forecasts()` starts from `base_forecast()` and writes bull, base, and bear. The flex amounts and units are read from `config/forecast.json` at call time. Deliveries and ASP move by a percent of themselves. Gross margin moves by basis points, which is an absolute ratio change (`100` basis points is `0.01`). Automotive sales is the flexed delivery count times the flexed ASP. Total revenue, gross profit, and operating income are rebuilt from those flexed pieces. Credits, leasing, energy, services, operating expenses, CFO, capex, and free cash flow stay at the base amount. An empty base forecast stays empty in all three scenarios.
