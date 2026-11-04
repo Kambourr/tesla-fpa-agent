@@ -337,7 +337,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** `npm run build` (or the package manager the repo actually uses, recorded in `docs/DECISIONS.md`) succeeds. `base` is set for the repo name. Fonts and color tokens match the constraints above, including a dark mode. Tabular numbers are on for figures.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M2, M3
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M5-T2 — Shell, quarter picker, and disclaimer
 
