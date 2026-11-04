@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T2` is done on `task/M1-T2-xbrl-tag-map` and `M1-T3` is done on `task/M1-T3-duckdb-schema`. Neither is on `main` yet. `M0-T1`, `M1-T1`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
+- **Current milestone:** M1 data. `M1-T3` is done on `task/M1-T3-duckdb-schema` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
 - **Tasks done:** 10 of 53 (19%).
-- **What's next:** Merge the M1-T2 pull request first, then the M1-T3 pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T6` and `M1-T7` are on `main`. Do not claim `M1-T6` or `M1-T7`.
+- **What's next:** Merge the M1-T3 pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T2`, `M1-T6`, and `M1-T7` are on `main`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
@@ -20,14 +20,14 @@
 - Added `sql/008_fact_with_source.sql`, the join that puts the filing date and URL on each fact, and `sql/009_fact_as_of.sql`, the macro that returns the latest row on or before a cutoff and leaves older rows in `fact`.
 - Added `agent/schema.py`, which only executes those files in name order, and `tests/test_schema.py`. Money columns are `DECIMAL(24, 4)`. The choice is in `docs/DECISIONS.md`.
 **Current state:** A new DuckDB file gets the raw tables and the empty tables later stages fill. Local `uv run pytest`: 56 passed. Ruff check and format check passed.
-**Next step:** Merge the M1-T2 pull request first, then this one. `M1-T8` should insert per-filing rows into `fact` and read `fact_as_of(cutoff_date)` for the latest value. `M1-T9` should call `apply_schema()` before loading.
+**Next step:** Merge the M1-T3 pull request. `M1-T8` should insert per-filing rows into `fact` and read `fact_as_of(cutoff_date)` for the latest value. `M1-T9` should call `apply_schema()` before loading.
 **Blockers / questions for Jacob:**
 - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
 - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
 - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not drop an older `fact` row when a later filing repeats the period. This branch sits on the rebased M1-T2 branch, assuming that pull request merges first. The commit named below is the SQL and the loader after that rebase. Later commits on this branch only update the handoff: the done hash in `docs/PLAN.md`, and this entry in `docs/PROGRESS.md`.
-**Last commit:** bc510a40ff4c1a140757f2265d5d50591de66411 on task/M1-T3-duckdb-schema
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not drop an older `fact` row when a later filing repeats the period. This branch is rebased onto `main` after the M1-T2 squash. The commit named below is the SQL and the loader after that rebase. Later commits on this branch only update the handoff: the done hash in `docs/PLAN.md`, and this entry in `docs/PROGRESS.md`.
+**Last commit:** 129229b4fdf1e0e6a86c4053fd8abb35701a77a4 on task/M1-T3-duckdb-schema
 
 ## 2026-11-04 13:20 (America/Los_Angeles) — Cursor agent
 
