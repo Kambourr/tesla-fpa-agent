@@ -178,7 +178,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test asserts exact equality of volume (change in deliveries times forecast ASP) + price/mix (change in ASP times actual deliveries) + regulatory credits + leasing + energy + services and other with total revenue variance. ASP is automotive sales revenue divided by total deliveries. Each bar is labeled favorable or unfavorable. The leasing limitation (leased units sit inside deliveries) is recorded for the methods copy in M5-T13.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M2-T7 — Gross profit bridge
 
