@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""Check deliveries.csv without making ingest scrape the release pages.
+
+Structural checks always run and never use the network. Pass ``--pages-dir``
+to read saved pages, or ``--fetch`` to GET each row's ``source_url``.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+import urllib.error
+from pathlib import Path
+
+from agent.deliveries import (
+    DeliveryRow,
+    PageCheck,
+    check_page,
+    default_csv_path,
+    fetch_source_page,
+    format_page_report,
+    format_structural_report,
+    load_deliveries,
+    validate_deliveries,
+)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--csv", type=Path, default=default_csv_path())
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument(
+        "--pages-dir",
+        type=Path,
+        help="Directory of saved pages named {quarter}.html. Does not use the network.",
+    )
+    source.add_argument(
+        "--fetch",
+        action="store_true",
+        help="GET each source_url. Omit this on a normal ingest run.",
+    )
+    parser.add_argument("--timeout", type=float, default=30.0)
+    args = parser.parse_args(argv)
+
+    issues = validate_deliveries(args.csv)
+    print(format_structural_report(issues))
+    if issues:
+        return 1
+
+    if args.pages_dir is None and not args.fetch:
+        return 0
+
+    rows = _rows_for_pages(args.csv)
+    failed = False
+    for row in rows:
+        result = _fetch_check(row, args.timeout) if args.fetch else _file_check(row, args.pages_dir)
+        print(format_page_report(result))
+        failed = failed or not result.matched
+    return 1 if failed else 0
+
+
+def _rows_for_pages(path: Path) -> list[DeliveryRow]:
+    try:
+        return load_deliveries(path)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
+
+
+def _file_check(row: DeliveryRow, pages_dir: Path) -> PageCheck:
+    page = _page_path(pages_dir, row.quarter)
+    if page is None:
+        return PageCheck(
+            quarter=row.quarter,
+            production_total=row.production_total,
+            deliveries_total=row.deliveries_total,
+            production_found=False,
+            deliveries_found=False,
+            error=f"no saved page for {row.quarter}",
+        )
+    return check_page(row, page.read_text(encoding="utf-8"))
+
+
+def _page_path(pages_dir: Path, quarter: str) -> Path | None:
+    for suffix in (".html", ".htm"):
+        candidate = pages_dir / f"{quarter}{suffix}"
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _fetch_check(row: DeliveryRow, timeout: float) -> PageCheck:
+    try:
+        html = fetch_source_page(row.source_url, timeout=timeout)
+    except (OSError, urllib.error.URLError) as exc:
+        return PageCheck(
+            quarter=row.quarter,
+            production_total=row.production_total,
+            deliveries_total=row.deliveries_total,
+            production_found=False,
+            deliveries_found=False,
+            error=f"{type(exc).__name__}: {exc}",
+        )
+    return check_page(row, html)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -2,6 +2,26 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Deliveries structural checks, and page checks stay opt-in
+
+**Decision:** `agent.deliveries.validate_deliveries` is the no-network check. It fails a quarter label that skips a quarter, a row whose `source_url` is blank or not an `http`/`https` URL, and a quarter-over-quarter move in production or deliveries strictly larger than 50%. The committed CSV passes. `scripts/check_deliveries` always runs that check. It reads saved HTML only with `--pages-dir`, and it GETs `source_url` only with `--fetch`. A normal ingest path does not exist yet and must call `validate_deliveries` rather than `fetch_source_page`.
+
+The 50% line is above the largest move in the transcribed series: production rose 41.5% from 2022-Q2 (258,580) to 2022-Q3 (365,923). A move of half the prior quarter, or more, is the implausible case the test fixture uses.
+
+Page text matching strips tags, keeps inline tags from splitting a number (`433,3<b>7</b>1` still counts as 433,371), and refuses a longer grouped number (`1,433,371` is not 433,371).
+
+**Why:** M1-T5 asks for a re-fetch tool and for a check the pipeline can run every time without scraping. M1-T9 will call the structural check during ingest and must not scrape the release pages.
+
+**Live fetch on this date:** `scripts/check_deliveries --fetch` got HTTP 403 for all 20 `source_url` values. Headless Chrome got Akamai "Access Denied" for the same host. No response body was available, so no total was compared and no CSV cell was changed. This is a fetch failure, not a mismatch. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+
+**Alternatives considered:**
+
+- A 40% limit. Rejected because the committed 2022-Q3 production rebound is 41.5%, and the file has to pass.
+- Fetching inside `validate_deliveries` or during ingest. Rejected because M1-T5 says a normal ingest run does not scrape the source pages.
+- Treating the same-day Form 8-K exhibit as a successful check of `source_url`. Rejected because the column points at the investor-relations page. The exhibit was the M1-T4 transcription check. A 403 is not a match.
+
+**What this means for later tasks:** M1-T9 calls `validate_deliveries` and does not pass `--fetch`. Saved-page checks stay in `scripts/check_deliveries`. Do not edit a deliveries total because a fetch was blocked.
+
 ## 2026-11-04 — Deliveries transcription window, totals, and source URLs
 
 **Decision:** `data/manual/deliveries.csv` holds 20 quarters, `2021-Q4` through `2026-Q3`, in that order. `2026-Q3` is the latest production-and-deliveries release available on 2026-11-04 (dated 2026-10-02). `2026-Q4` is not out yet.
