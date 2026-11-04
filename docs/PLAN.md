@@ -86,7 +86,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** The file has the columns `quarter`, `production_total`, `deliveries_total`, `release_date`, and `source_url`; 20 contiguous quarters; every row's numbers taken from the first release, not a later revision; every row has a release date and a source URL. No pipeline code fetches these pages during ingest.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T5 — Check and validate deliveries
 
