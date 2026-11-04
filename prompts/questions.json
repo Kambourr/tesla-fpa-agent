@@ -1,0 +1,52 @@
+[
+  {
+    "number": 1,
+    "uses_backtest": false,
+    "text": "What drove the revenue variance versus forecast this quarter?"
+  },
+  {
+    "number": 2,
+    "uses_backtest": false,
+    "text": "Why did gross margin move?"
+  },
+  {
+    "number": 3,
+    "uses_backtest": false,
+    "text": "How much did regulatory credits contribute, and why does that matter?"
+  },
+  {
+    "number": 4,
+    "uses_backtest": false,
+    "text": "How did energy storage contribute?"
+  },
+  {
+    "number": 5,
+    "uses_backtest": false,
+    "text": "What changed in operating expenses?"
+  },
+  {
+    "number": 6,
+    "uses_backtest": false,
+    "text": "How did free cash flow compare with the forecast, and why?"
+  },
+  {
+    "number": 7,
+    "uses_backtest": true,
+    "text": "Which driver was hardest to forecast over the last 12 quarters? Answer from the backtest table across all 12 published quarters."
+  },
+  {
+    "number": 8,
+    "uses_backtest": true,
+    "text": "How accurate has the model been overall? Answer from the backtest table across all 12 published quarters."
+  },
+  {
+    "number": 9,
+    "uses_backtest": false,
+    "text": "What does the bear scenario assume, and what would it mean for operating income?"
+  },
+  {
+    "number": 10,
+    "uses_backtest": false,
+    "text": "What would you watch next quarter? Name metrics to watch, not predictions."
+  }
+]
