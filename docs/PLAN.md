@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 11 of 53 (21%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 12 of 53 (23%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -118,7 +118,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** A fixture with the same period in two filings produces two stored rows, each with its accession number, filing date, and filing URL. Actuals for quarter Q are the values as first reported in Q's own 10-Q, or the Q4 derivation from M1-T7 for a 10-K. A later comparative does not overwrite that first-reported row. The rows needed for "latest value as of a cutoff date" are queryable. The restatement itself is kept for the verification report in M3-T8.
 - **Depends on:** M1-T2, M1-T3, M1-T6, M1-T7
 - **Can run in parallel with:** M1-T5
-- **Status:** todo
+- **Status:** done (3251c5e109cf7bd758292d7d103d90362bf0ae34)
 
 ### M1-T9 — Ingest command
 

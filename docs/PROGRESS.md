@@ -2,15 +2,33 @@
 
 ## Current status
 
-- **Current milestone:** M5 dashboard. The site shell is on branch `task/M5-T1-site-shell` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
-- **Tasks done:** 11 of 53 (21%).
-- **What's next:** Merge the M5-T1 pull request. `M5-T2` is already claimed on `task/M5-T2-shell-quarter-picker`. `M1-T8` can start: `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7` are on `main`. `M1-T9` waits on `M1-T8`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M1 data. `M1-T8` is done on `task/M1-T8-per-filing-storage` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
+- **Tasks done:** 12 of 53 (23%).
+- **What's next:** Merge the M1-T8 pull request. `M1-T9` waits on `M1-T5` and `M1-T8`. `M1-T5` is on `main`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `apply_schema()` runs `sql/` against a DuckDB connection and does not fetch. `load_xbrl_map()` reads `config/xbrl_tags.json` and does not fetch. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `apply_schema()` creates the tables. `store_reported_facts()` writes one row per filing, and `assemble_quarter_actuals()` rebuilds the first-reported quarters. `fact_as_of(cutoff_date)` is the latest stored value. Nothing fetches on a test run. `load_xbrl_map()` reads `config/xbrl_tags.json`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+
+## 2026-11-04 13:33 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M1-T8 (done)
+**What changed:**
+- Added `agent/actuals.py`. `store_reported_facts()` inserts one `filing` row and one `fact` row per accession. A second filing of the same period is another row, with its own accession, filing date, and filing URL.
+- `assemble_quarter_actuals()` rebuilds `quarter_actual`. Q1–Q3 income lines come from the 10-Q whose period end is that quarter. A later comparative stays in `fact`. Q4 is `derive_q4` from the 10-K annual amount minus those three quarters. Cash-flow lines go through `cash_flow_quarters`.
+- `facts_from_companyfacts()` reads consolidated tags only. Member tags are skipped because companyfacts has no dimensions. The choice is in `docs/DECISIONS.md`.
+- Added `tests/test_actuals.py`.
+**Current state:** Facts and first-reported quarters can be loaded from a fixture. No ingest command yet, and no filing-instance read for segment lines. Local `uv run pytest`: 78 passed. Ruff check and format check passed.
+**Next step:** Merge the M1-T8 pull request. `M1-T9` should call `apply_schema()`, `store_reported_facts()`, `assemble_quarter_actuals()`, and `validate_deliveries`. It should not fetch investor-relations pages.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not drop an older `fact` row when a later filing repeats the period. Do not fill a segment line from companyfacts. This branch is rebased onto `main` after the M5-T1 squash. The commit named below is the storage loader after that rebase. Later commits on this branch only update the handoff.
+**Last commit:** 3251c5e109cf7bd758292d7d103d90362bf0ae34 on task/M1-T8-per-filing-storage
 
 ## 2026-11-04 13:22 (America/Los_Angeles) — Cursor agent
 
