@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from pydantic import SecretStr, ValidationError
 
-from agent.settings import Settings
+from agent.settings import DEFAULT_OPENAI_MODEL, Settings
 
 SETTING_NAMES = (
     "OPENAI_API_KEY",
@@ -24,9 +24,17 @@ def clean_env(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_defaults_leave_secrets_empty_and_forward_forecast_off(clean_env: None) -> None:
     settings = Settings(_env_file=None)
     assert settings.openai_api_key.get_secret_value() == ""
-    assert settings.openai_model == ""
+    assert settings.openai_model == DEFAULT_OPENAI_MODEL
     assert settings.sec_user_agent.get_secret_value() == ""
     assert settings.publish_forward_forecast is False
+
+
+def test_a_blank_model_uses_the_documented_default(
+    monkeypatch: pytest.MonkeyPatch, clean_env: None
+) -> None:
+    monkeypatch.setenv("OPENAI_MODEL", "   ")
+    settings = Settings(_env_file=None)
+    assert settings.openai_model == "gpt-6-luna"
 
 
 def test_env_file_matches_the_template(tmp_path: Path, clean_env: None) -> None:
