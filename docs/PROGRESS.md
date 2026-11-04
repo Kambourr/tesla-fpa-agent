@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T9` is done on `task/M1-T9-ingest` and is not on `main` yet. That branch also contains `M1-T8`, which is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
+- **Current milestone:** M1 data. `M1-T9` is done on `task/M1-T9-ingest` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
 - **Tasks done:** 13 of 53 (25%).
-- **What's next:** Merge the M1-T8 pull request, then the M1-T9 pull request. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
+- **What's next:** Merge the M1-T9 pull request. `M2-T2` waits on `M1-T9` and `M2-T1`. `M2-T1` is on `main`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
@@ -21,14 +21,14 @@
 - After the load, the database must hold the last 12 `total_revenue` quarters plus the earlier quarters in `config/forecast.json` `input_offsets` (five, through Q-5). Older rows stay, including a restatement in `fact`.
 - Added `tests/test_ingest.py`. The choice is in `docs/DECISIONS.md`.
 **Current state:** The ingest command runs from fixtures. Segment lines are still blank because companyfacts has no dimensions. Local `uv run pytest`: 81 passed. Ruff check and format check passed.
-**Next step:** Merge the M1-T8 pull request, then this one. The ingest command is the load step a later `python -m agent run` can call.
+**Next step:** Merge the M1-T9 pull request. The ingest command is the load step a later `python -m agent run` can call.
 **Blockers / questions for Jacob:**
 - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
 - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
 - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not scrape investor-relations pages from ingest. Do not drop an older `fact` row. This branch includes the M1-T8 commits until that pull request is on `main`. The commit named below is the ingest command. Later commits on this branch only update the handoff.
-**Last commit:** d3bf7bf8f1cd840dcb815db458f168976056c530 on task/M1-T9-ingest
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not scrape investor-relations pages from ingest. Do not drop an older `fact` row. This branch is rebased onto `main` after the M1-T8 squash. The commit named below is the ingest command after that rebase. Later commits on this branch only update the handoff.
+**Last commit:** 5da704bcb15846fd72b6e8775e317d70f28575ba on task/M1-T9-ingest
 
 ## 2026-11-04 13:33 (America/Los_Angeles) — Cursor agent
 

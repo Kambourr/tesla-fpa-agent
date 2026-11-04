@@ -126,7 +126,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `python -m agent ingest` (cache or fixtures, no secret printed) loads raw per-filing values, quarterly actuals, and deliveries. The database holds the last 12 reported quarters plus the earlier quarters the forecast needs as history. Deliveries validation from M1-T5 runs; the source pages are not scraped. Filing accession, filing date, and filing URL are stored for every financial value.
 - **Depends on:** M1-T5, M1-T8
 - **Can run in parallel with:** none
-- **Status:** done (d3bf7bf8f1cd840dcb815db458f168976056c530)
+- **Status:** done (5da704bcb15846fd72b6e8775e317d70f28575ba)
 
 ## M2 — Model and variance
 
