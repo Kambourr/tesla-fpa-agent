@@ -254,7 +254,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** Tests show a deliberately wrong number is flagged with the expected value, unit strings normalize (so 1,500,000,000 and $1.5 billion can match), percentages use a tolerance of ±0.1 percentage points, currency uses ±0.5%, and unit counts must match exactly. An unknown metric is `unsupported`. Results are only `verified`, `flagged`, or `unsupported`. The verifier does not rewrite the sentence.
 - **Depends on:** M1-T9, M3-T1
 - **Can run in parallel with:** M2-T2 through M2-T10, M3-T2, M3-T6
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M3-T6 — Keyword guard
 
