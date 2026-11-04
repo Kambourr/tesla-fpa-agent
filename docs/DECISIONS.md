@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Forecast cutoff is the previous quarter's first filing
+
+**Decision:** `load_forecast_inputs()` dates the forecast for quarter Q at the earliest `filing_date` of a 10-Q, 10-K, or amendment whose own period end is Q-1. Facts are `fact_as_of(cutoff_date)`, so a restatement filed on or before that date replaces the first-reported number. `quarter_actual` stays the first report. A 10-Q/A of Q-1 does not move the cutoff later, so an amendment filed after the original 10-Q is invisible to the forecast for Q. Deliveries and production are included only when the quarter is before Q and the release date is on or before the cutoff. Q's own delivery row is dropped even when its release date is earlier than the cutoff.
+
+**Alternatives considered:** Using the latest amendment date as the cutoff would slide the forecast forward and could include Q's delivery report. Reading `quarter_actual` for every input would hide a restatement that was already public on the cutoff. Treating a delivery release date on or before the cutoff as enough would let Q's own deliveries in, which section 8 rules out.
+
 ## 2026-11-04 — Ingest keeps the forecast window and does not scrape
 
 **Decision:** `python -m agent ingest` validates `deliveries.csv` before it opens the database or the SEC client. A validation failure stops the command. The command never calls `fetch_source_page`. `--fixtures` reads local JSON so a test run does not need `SEC_USER_AGENT`. The default path uses `SecClient`, which reads that variable and does not print it.
