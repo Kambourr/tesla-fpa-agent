@@ -2,15 +2,32 @@
 
 ## Current status
 
-- **Current milestone:** M2 model. `M2-T5` is done on `task/M2-T5-backtest` and is not on `main` yet. That branch also contains `M2-T3` and `M2-T4`, which are not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
-- **Tasks done:** 18 of 53 (34%).
-- **What's next:** Merge pull requests #17 and #18, then this one. `M2-T6` through `M2-T9` can follow. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M2 model. `M2-T6` is done on `task/M2-T6-revenue-bridge` and is not on `main` yet. That branch also contains `M2-T3`, `M2-T4`, and `M2-T5`, which are not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
+- **Tasks done:** 19 of 53 (36%).
+- **What's next:** Merge pull requests #17, #18, and #19, then this one. `M2-T7` through `M2-T9` can follow. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_backtest(connection, quarter)` stores absolute percent error for revenue, gross profit, and operating income. A large error is kept. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` stores the six revenue bars. They sum to actual total revenue minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 14:02 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T6 (done)
+**What changed:**
+- Added `agent/revenue_bridge.py`. The six bars are volume, price/mix, regulatory credits, leasing, energy, and services.
+- Volume is the change in total deliveries times forecast ASP. Price/mix is the change in ASP times actual deliveries. ASP is automotive sales divided by total deliveries. A positive bar is favorable.
+- Added `tests/test_revenue_bridge.py`. The leasing limitation is in `docs/DECISIONS.md` for the `M5-T13` methods copy.
+**Current state:** The revenue bridge can be stored for one quarter. Gross profit, operating income, and free cash flow bridges are not built yet. Local `uv run pytest`: 104 passed. Ruff check and format check passed.
+**Next step:** Merge pull requests #17, #18, and #19, then this one. `M2-T7` should split gross-profit variance into volume and margin-rate bars that sum exactly.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Leased units stay inside the delivery total. This branch includes `M2-T3` through `M2-T5` until those pull requests are on `main`. The commit named below is the revenue bridge. Later commits on this branch only update the handoff.
+**Last commit:** 69b9f4eb7a4be1033000e9076f25c1b58d205257 on task/M2-T6-revenue-bridge
 
 ## 2026-11-04 14:01 (America/Los_Angeles) — Cursor agent
 
