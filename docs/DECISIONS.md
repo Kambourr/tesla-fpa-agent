@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Scenarios flex three drivers and compound sales
+
+**Decision:** `scenario_forecasts()` starts from `base_forecast()` and writes bull, base, and bear. The flex amounts and units are read from `config/forecast.json` at call time. Deliveries and ASP move by a percent of themselves. Gross margin moves by basis points, which is an absolute ratio change (`100` basis points is `0.01`). Automotive sales is the flexed delivery count times the flexed ASP. Total revenue, gross profit, and operating income are rebuilt from those flexed pieces. Credits, leasing, energy, services, operating expenses, CFO, capex, and free cash flow stay at the base amount. An empty base forecast stays empty in all three scenarios.
+
+**Alternatives considered:** Flexing sales by a separate percent would ignore the compounding the config notes already describe. Hardcoding 10, 5, and 100 in the scenario function would miss a later config edit. Flexing free cash flow would invent a cash effect the formulas do not have.
+
 ## 2026-11-04 — Base forecast executes the config on cutoff history
 
 **Decision:** `base_forecast()` reads only the `ForecastInputs` from `load_forecast_inputs()`. A target quarter with fewer than `minimum_earlier_quarters` earlier quarters in that input is stored with a null value and `empty_history` true. The count is any earlier quarter that has a delivery row or a mapped financial fact, not a count of one metric.
