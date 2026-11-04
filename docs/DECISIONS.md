@@ -2,6 +2,29 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — SEC client, filing index, and quarter derivation
+
+**Decision:** `agent/sec.py` downloads two documents for CIK 0001318605. Companyfacts is `https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json`. The filing index is `https://data.sec.gov/submissions/CIK0001318605.json`. The client reads `SEC_USER_AGENT` at the moment it builds a request and sends that string as the `User-Agent` header. An empty or blank value raises `MissingUserAgentError` before any request. No email address is written in the client, the tests, or this entry.
+
+Responses are stored as raw bytes under `data/cache/`, which is git-ignored. The file name is the SHA-256 of the URL. A second `get` of the same URL reads that file and does not call the transport. A failed request is not cached. Network calls are serialized and spaced at least 100ms apart, which is 10 requests per second and not more. A cache hit does not count toward that limit.
+
+`agent/quarters.py` is the quarter math M1-T8 will call. `derive_q4` is `annual - q1 - q2 - q3` for figures that are already single quarters (income-statement lines). `decumulate_ytd` turns 10-Q cash-flow year-to-date figures into single quarters: Q1 unchanged, Q2 minus Q1, Q3 minus Q2. Q4 of a cash-flow line is the annual figure minus those three single quarters. Free cash flow is quarterly CFO minus quarterly capex. Capex here is the positive purchases amount, matching the brief's "CFO − capex". A negative single quarter is kept. These functions do not fetch.
+
+`data/manual/deliveries.csv` is unchanged. M1-T4 owns that file.
+
+**Why:** Section 2 requires the companyfacts API, the filing index, the User-Agent from the environment, a local cache, and at most 10 SEC requests per second. M1-T6 says tests use fixtures rather than the live site. The submissions JSON is the filing index that carries accession numbers, form types, and filing dates for the 10-Q and 10-K links. Section 4 says 10-K figures are annual, so Q4 is annual minus Q1–Q3, and 10-Q cash-flow lines are year-to-date and must be de-cumulated. Free cash flow is computed on the quarterly values, not on the year-to-date totals.
+
+**Alternatives considered:**
+
+- Parse companyfacts in this task. Rejected because M1-T8 owns per-filing storage. This task only fetches and derives.
+- Use the HTML EDGAR browse page as the filing index. Rejected because the submissions JSON is the same index, it is one cacheable document, and it does not need scraping.
+- Pace at fewer than 10 requests per second. Rejected because the acceptance check is "at or below 10", and 100ms spacing meets that without adding delay the limit does not require.
+- De-cumulate income-statement lines the same way as cash flow. Rejected because a 10-Q income statement is already one quarter. Running it through year-to-date math would double-count.
+- Treat capex as a negative cash outflow and add it to CFO. Rejected because the brief defines free cash flow as CFO minus capex, and the XBRL purchases concept is a positive amount. The caller passes that positive amount.
+- Edit `deliveries.csv` while adding this client. Rejected because M1-T4 already transcribed it.
+
+**What this means for later tasks:** M1-T8 should call `SecClient.companyfacts` and `SecClient.filing_index`, then `derive_q4` for income-statement Q4 and `decumulate_ytd` plus `derive_q4` for cash-flow Q4. Free cash flow comes from `quarterly_free_cash_flow` after those single quarters exist. Ingest must not log `SEC_USER_AGENT`. The live client is untested against data.sec.gov in CI on purpose.
+
 ## 2026-11-04 — Deliveries transcription window, totals, and source URLs
 
 **Decision:** `data/manual/deliveries.csv` holds 20 quarters, `2021-Q4` through `2026-Q3`, in that order. `2026-Q3` is the latest production-and-deliveries release available on 2026-11-04 (dated 2026-10-02). `2026-Q4` is not out yet.
