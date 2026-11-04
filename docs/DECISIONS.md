@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Ingest keeps the forecast window and does not scrape
+
+**Decision:** `python -m agent ingest` validates `deliveries.csv` before it opens the database or the SEC client. A validation failure stops the command. The command never calls `fetch_source_page`. `--fixtures` reads local JSON so a test run does not need `SEC_USER_AGENT`. The default path uses `SecClient`, which reads that variable and does not print it.
+
+The database keeps every loaded quarter. After the load it checks that `quarter_actual` for `total_revenue`, and the `deliveries` table, both contain the last 12 reported quarters plus the earlier quarters the forecast reads. That history is the deepest `input_offsets` value in `config/forecast.json`, which is five quarters (through Q-5). `minimum_earlier_quarters` is 4, which is shorter than those offsets, so the check uses the offsets. A restatement stays in `fact`.
+
+**Alternatives considered:** Trimming the database to exactly those quarters would drop restatements and the deliveries quarters before the window. Checking only `minimum_earlier_quarters` would leave the Q-5 input unread. Scraping investor-relations pages during ingest would repeat the fetch that already returns HTTP 403 from this network. M1-T5 kept that fetch out of the load path.
+
 ## 2026-11-04 — First-reported quarter actuals, with restatements kept
 
 **Decision:** `agent/actuals.py` writes one `fact` row per metric, period, and accession, then rebuilds `quarter_actual` from those rows. A quarter's income-statement actual is the value on the 10-Q whose own period end is that quarter, using the earliest filing date. A later filing that repeats the period stays in `fact` and does not replace `quarter_actual`. Q4 is `derive_q4` of the 10-K annual amount minus those three first-reported quarters, even when the 10-K also tags a Q4 duration. Cash-flow lines are year-to-date on a 10-Q, so Q1–Q3 go through `cash_flow_quarters` and Q4 is the same derivation. `fact_as_of(cutoff_date)` is the latest stored value on or before a cutoff.
