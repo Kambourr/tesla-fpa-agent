@@ -2,14 +2,31 @@
 
 ## Current status
 
-- **Current milestone:** M1 setup and data ingest. `M1-T1` and `M1-T4` are on `main`. `M1-T6` and `M1-T7` are done on branch `task/M1-T6-M1-T7-sec-quarters` and are not on `main` yet.
-- **Tasks done:** 5 of 53 (9%).
-- **What's next:** Merge the M1-T6 / M1-T7 pull request. `M1-T5` can be claimed now that `M1-T4` is on `main`. These can still be claimed in parallel, each on its own branch, with the claim pushed before any other work: `M1-T2`, `M1-T3`, `M1-T5`, `M2-T1`, `M3-T1`, and `M5-T1`. `M1-T8` still waits on `M1-T2` and `M1-T3` as well as this branch.
+- **Current milestone:** M2 model and variance. `M1-T1`, `M1-T4`, `M1-T6`, and `M1-T7` are on `main`. `M2-T1` is done on branch `task/M2-T1-driver-formulas` and is not on `main` yet.
+- **Tasks done:** 6 of 53 (11%).
+- **What's next:** Merge the M2-T1 pull request. `M2-T2` still waits on `M1-T9`. Do not claim `M1-T2`, `M1-T3`, `M1-T5`, or `M5-T1`; other agents hold those. `M3-T1` is still free on `main`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. That installs Python 3.11 and pytest. There is no `python -m agent run` yet. Deliveries are the committed CSV. Nothing fetches them on a test run.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. That installs Python 3.11 and pytest. There is no `python -m agent run` yet. `load_forecast_config()` reads `config/forecast.json`.
+
+## 2026-11-04 13:04 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T1 (done)
+**What changed:**
+- Added `config/forecast.json` and `agent/forecast_config.py`. The cutoff is the previous quarter's filing date. Drivers read only earlier quarters. The loader rejects an offset of zero or a later quarter.
+- Deliveries are `D(Q-4) * (1 + g)` with `g` from `D(Q-1)` and `D(Q-5)`. ASP is a four-quarter average. Automotive sales are deliveries times ASP. Credits, leasing, energy, services, and operating expenses are a four-quarter run-rate with that same year-over-year growth. Gross margin and capex are four-quarter averages. Free cash flow is forecast CFO minus forecast capex.
+- Bull, base, and bear flex only deliveries (+10 / 0 / -10 percent), ASP (+5 / 0 / -5 percent), and gross margin (+100 / 0 / -100 basis points).
+- Added `tests/test_forecast_config.py`. Recorded the choices in `docs/DECISIONS.md`.
+**Current state:** The formulas are documented and load. They are not executed yet. Local `uv run pytest`: 44 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T1 pull request. M2-T3 should execute this config and keep the empty-forecast rule at four earlier quarters. M2-T4 should read the scenario integers from the config.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md`. The flexes are case-study assumptions, not guidance. `g = 0` when `D(Q-5)` is missing; do not fill it from the target quarter. Leasing uses the run-rate formula and still overlaps total deliveries. Capex and the capex identity use a positive purchases amount. The commit named below is the config and the loader. A later commit on this branch only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 90a90910c6ddcbef6355b3683d6f856d6bcfd36c on task/M2-T1-driver-formulas
 
 ## 2026-11-04 12:58 (America/Los_Angeles) — Cursor agent
 

@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 5 of 53 (9%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 6 of 53 (11%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -138,7 +138,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Config states how deliveries, automotive ASP, automotive sales revenue, regulatory credits, energy, services, gross margin, operating expenses, and capex are projected, and the bull/base/bear percentages applied to deliveries, ASP, and gross margin. A test loads the config. The choices are recorded in `docs/DECISIONS.md`. No look-ahead is described in the formulas (same-quarter-last-year and recent growth use only data before the cutoff).
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** done (90a90910c6ddcbef6355b3683d6f856d6bcfd36c)
 
 ### M2-T2 — Cutoff date and no-look-ahead tests
 
