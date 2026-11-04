@@ -2,15 +2,15 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T3` is done on `task/M1-T3-duckdb-schema` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
-- **Tasks done:** 10 of 53 (19%).
-- **What's next:** Merge the M1-T3 pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T2`, `M1-T6`, and `M1-T7` are on `main`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M5 dashboard. The site shell is on branch `task/M5-T1-site-shell` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
+- **Tasks done:** 11 of 53 (21%).
+- **What's next:** Merge the M5-T1 pull request. `M5-T2` is already claimed on `task/M5-T2-shell-quarter-picker`. `M1-T8` can start: `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7` are on `main`. `M1-T9` waits on `M1-T8`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `apply_schema()` runs `sql/` against a DuckDB connection and does not fetch. `load_xbrl_map()` reads `config/xbrl_tags.json` and does not fetch. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `apply_schema()` runs `sql/` against a DuckDB connection and does not fetch. `load_xbrl_map()` reads `config/xbrl_tags.json` and does not fetch. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
 
 ## 2026-11-04 13:22 (America/Los_Angeles) — Cursor agent
 
@@ -99,6 +99,24 @@
 - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md`. The flexes are case-study assumptions, not guidance. `g = 0` when `D(Q-5)` is missing; do not fill it from the target quarter. Leasing uses the run-rate formula and still overlaps total deliveries. Capex and the capex identity use a positive purchases amount. The commit named below is the config and the loader. A later commit on this branch only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
 **Last commit:** 90a90910c6ddcbef6355b3683d6f856d6bcfd36c on task/M2-T1-driver-formulas
+
+## 2026-11-04 13:01 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M5-T1 (done)
+**What changed:**
+- Added `site/` as a Vite, React, and TypeScript app. `base` is `/tesla-fpa-agent/`. npm is the package manager, and `site/package-lock.json` pins the install. `npm run build` runs `tsc -b && vite build`.
+- Set the section 6 palette, a dark mode, IBM Plex Sans, Source Serif 4, and tabular figures. The dark hexes and their contrast ratios are in `docs/DECISIONS.md` and `site/src/styles/tokens.css`.
+- The page is the workpaper frame: masthead, the section 5 headline, an empty state that names the missing quarter, and the required disclaimer in `site/src/config.ts`. No quarter picker, no waterfall, and no wireframe dollar amounts.
+- Added a `site build` job to `.github/workflows/test.yml`. It runs `npm ci` and `npm run build` on pull requests. It does not receive secrets and does not enable Pages.
+- Added `tests/test_site_shell.py` for the base path, the palette, the type, and WCAG AA contrast.
+**Current state:** Site shell builds. Local `uv run pytest`: 30 passed, including the deliveries tests from `M1-T4` and the new site checks. `npm run build` in `site/` succeeded. A local preview at `http://127.0.0.1:4173/tesla-fpa-agent/` was checked in light and dark, at 1280px and 375px, including keyboard focus. No console warnings. Pages is not enabled.
+**Next step:** Merge the M5-T1 pull request. Then create `task/M5-T2-shell-quarter-picker`, set `M5-T2` to `in progress (agent name, date)`, and push that claim before adding the picker. Keep the existing header string and the disclaimer. Add the empty state "No forecast for this quarter: it needs four earlier quarters of history." when a fixture says the quarter lacks history.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md`. The header already reads "Tesla FP&A Agent" and the footer disclaimer is already the exact section 5 sentence. Do not add a second footer. The `h1` is already the M5-T4 headline. Add the quarter line and the waterfall under it, and do not hardcode the wireframe amounts. `.narrative` is Source Serif 4 at line-height 1.55. Use it only for the memo and the Q&A. `profileLinks` in `site/src/config.ts` are blank on purpose. Dark mode is `data-theme` on the document element. The storage key is `paper-theme`. The inline script in `site/index.html` sets it before paint. Keep `base` as `/tesla-fpa-agent/`. Node 22, `npm ci` in `site/`, then `npm run build`. Do not enable Pages. Do not edit `data/manual/deliveries.csv` in a site task. The commit named below is the site shell. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** f3a797ed4f48512ae53791fd0e25a0fae291affd on task/M5-T1-site-shell
 
 ## 2026-11-04 12:58 (America/Los_Angeles) — Cursor agent
 

@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 10 of 53 (19%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 11 of 53 (21%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -337,7 +337,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** `npm run build` (or the package manager the repo actually uses, recorded in `docs/DECISIONS.md`) succeeds. `base` is set for the repo name. Fonts and color tokens match the constraints above, including a dark mode. Tabular numbers are on for figures.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M2, M3
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (f3a797ed4f48512ae53791fd0e25a0fae291affd)
 
 ### M5-T2 — Shell, quarter picker, and disclaimer
 
