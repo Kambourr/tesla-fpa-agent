@@ -2,15 +2,32 @@
 
 ## Current status
 
-- **Current milestone:** M2 model. `M2-T3` is done on `task/M2-T3-base-forecast` and is not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
-- **Tasks done:** 16 of 53 (30%).
-- **What's next:** Merge the M2-T3 pull request. `M2-T4`, `M2-T5`, `M2-T6`, `M2-T7`, `M2-T8`, and `M2-T9` can follow it. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M2 model. `M2-T4` is done on `task/M2-T4-scenarios` and is not on `main` yet. That branch also contains `M2-T3`, which is not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
+- **Tasks done:** 17 of 53 (32%).
+- **What's next:** Merge the M2-T3 pull request, then this one. `M2-T5` through `M2-T9` can follow. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_base_forecast(connection, quarter)` stores the base scenario from cutoff inputs. A quarter with fewer than four earlier quarters is stored with a null value and `empty_history` true. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_scenarios(connection, quarter)` stores bull, base, and bear. Base matches `write_base_forecast`. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 13:57 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T4 (done)
+**What changed:**
+- Added `agent/scenarios.py`. Bull and bear flex deliveries, ASP, and gross margin by the config percentages. Automotive sales is the product of the flexed factors. The other lines stay at the base forecast.
+- Base rows match `base_forecast()`. An empty base stays empty in all three scenarios.
+- Added `tests/test_scenarios.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** Three scenarios can be stored for one quarter. The backtest and the bridges are not built yet. Local `uv run pytest`: 98 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T3 pull request, then this one. `M2-T5` should measure absolute percent error for revenue, gross profit, and operating income, including large misses.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not hardcode 10, 5, or 100 in the scenario function. This branch includes the M2-T3 commits until that pull request is on `main`. The commit named below is the scenario flex. Later commits on this branch only update the handoff.
+**Last commit:** cb1ef8002daa2194f8a79b0a3d6cb8430098b1f7 on task/M2-T4-scenarios
 
 ## 2026-11-04 13:55 (America/Los_Angeles) — Cursor agent
 
