@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 15 of 53 (28%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 16 of 53 (30%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -154,7 +154,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For a fixture quarter the forecast includes deliveries, automotive sales (deliveries times ASP), regulatory credits, leasing, energy, services, gross profit, operating expenses, operating income, capex, and free cash flow. The result uses only cutoff inputs. Empty history is explicit when a quarter has fewer than the documented minimum of earlier quarters (the site copy later says four).
 - **Depends on:** M2-T2
 - **Can run in parallel with:** none
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (14482876ee1453798badf4a29bc8b81fc9ed8ca4)
 
 ### M2-T4 — Bull, base, and bear scenarios
 

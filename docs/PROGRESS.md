@@ -2,15 +2,33 @@
 
 ## Current status
 
-- **Current milestone:** M5 dashboard. The quarter shell is on `task/M5-T2-shell-quarter-picker` and its pull request targets `main`. It is not merged. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, and `M5-T1` are on `main`.
-- **Tasks done:** 15 of 53 (28%).
-- **What's next:** Merge the M5-T2 pull request. `M5-T13` and `M5-T14` are on their own branches. `M2-T3` can start: `M2-T2` is on `main`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M2 model. `M2-T3` is done on `task/M2-T3-base-forecast` and is not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
+- **Tasks done:** 16 of 53 (30%).
+- **What's next:** Merge the M2-T3 pull request. `M2-T4`, `M2-T5`, `M2-T6`, `M2-T7`, `M2-T8`, and `M2-T9` can follow it. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_forecast_inputs(connection, quarter)` reads facts and deliveries as of the previous quarter's first 10-Q or 10-K filing date. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_base_forecast(connection, quarter)` stores the base scenario from cutoff inputs. A quarter with fewer than four earlier quarters is stored with a null value and `empty_history` true. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 13:55 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T3 (done)
+**What changed:**
+- Added `agent/forecast.py`. `base_forecast()` applies `config/forecast.json` to cutoff inputs. `write_base_forecast()` stores the base scenario.
+- The stored lines are deliveries, ASP, automotive sales, regulatory credits, leasing, energy, services, total revenue, gross margin, gross profit, operating expenses, operating income, CFO, capex, and free cash flow. R&D and SG&A are added when their history can build a run-rate.
+- Fewer than four earlier quarters sets `empty_history` and leaves the value null. A later filing and the target quarter's deliveries are not inputs.
+- Added `tests/test_forecast.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** The base forecast can be written for one quarter. Scenarios, the backtest, and the bridges are not built yet. Local `uv run pytest`: 96 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T3 pull request. `M2-T4` should flex deliveries, ASP, and gross margin from the config percentages and keep base equal to this forecast.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not hardcode the scenario percentages. Capex in `forecast` is `purchases_of_property_and_equipment`. `gross_margin` is the ratio that turns forecast revenue into forecast gross profit. This branch is based on `main` after the M2-T2 merge. The commit named below is the base forecast. Later commits on this branch only update the handoff.
+**Last commit:** 14482876ee1453798badf4a29bc8b81fc9ed8ca4 on task/M2-T3-base-forecast
 
 ## 2026-11-04 13:48 (America/Los_Angeles) — Cursor agent
 
