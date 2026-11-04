@@ -170,7 +170,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test on a fixture computes absolute percent error for those three lines and the average across quarters. The published table includes quarters where the error is large. No error is dropped or clipped to look better.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M2-T6 — Revenue bridge
 
