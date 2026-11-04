@@ -2,14 +2,31 @@
 
 ## Current status
 
-- **Current milestone:** M1 setup and data ingest. Scaffolding is on branch `task/M1-T1-repo-scaffolding` (pull request #2) and is not on `main` yet.
-- **Tasks done:** 2 of 53 (4%).
-- **What's next:** Merge pull request #2. After `M1-T1` is on `main`, claim these in parallel, each on its own branch, and push the claim before any other work: `M1-T2`, `M1-T3`, `M1-T4`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1`. `M1-T5` still waits on `M1-T4`.
+- **Current milestone:** M1 setup and data ingest. `M1-T1` is on `main`. `M1-T4` is done on branch `task/M1-T4-transcribe-deliveries` and is not on `main` yet.
+- **Tasks done:** 3 of 53 (6%).
+- **What's next:** Merge the M1-T4 pull request. That unblocks `M1-T5`. These can still be claimed in parallel, each on its own branch, with the claim pushed before any other work: `M1-T2`, `M1-T3`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. That installs Python 3.11 and pytest. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. That installs Python 3.11 and pytest. There is no `python -m agent run` yet. Deliveries are the committed CSV. Nothing fetches them.
+
+## 2026-11-04 12:52 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M1-T4 (done)
+**What changed:**
+- Filled `data/manual/deliveries.csv` with 20 contiguous quarters, `2021-Q4` through `2026-Q3`. Columns are `quarter`, `production_total`, `deliveries_total`, `release_date`, and `source_url`.
+- Totals are the Total row of each quarter's first investor-relations production-and-deliveries release, checked against that day's Form 8-K Exhibit 99.1. `source_url` is the IR press-release page. `release_date` is the press-release date.
+- Added `tests/test_deliveries.py`. It checks the columns, the contiguous window, the first-release totals, the release date and source URL on every row, and that `agent/` does not reference the IR pages.
+- Recorded the window, the table-versus-headline choice, and the URL slugs in `docs/DECISIONS.md`.
+**Current state:** Manual deliveries only. No ingest command and no fetch of the source pages. `M1-T2` and `M1-T3` were left unclaimed because they are not dependencies of this task. Local `uv run pytest`: 22 passed. `uv run ruff check .` and `uv run ruff format --check .` passed.
+**Next step:** Merge the M1-T4 pull request into `main`. Then `M1-T5` can be claimed: add `scripts/check_deliveries` and the no-network structural checks. Do not start `M1-T5` until this CSV is on `main`.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md`. The private-repo override is in `docs/DECISIONS.md`. Refer to secrets only by env var name. The CSV uses `YYYY-Qn` and the exact table totals, not the rounded lead sentence and not a later shareholder update. 2025 Q2, Q3, and Q4 source slugs omit "and" before "deployments"; the quarters around them include it. Full-year rows for 2022 through 2025 sum to the annual Total row on that year's Q4 release. `data/manual/.gitkeep` is still there next to the CSV. The commit named below is the transcription. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** f28adc81e25a3e983b129faadd5140545e2d3ed7 on task/M1-T4-transcribe-deliveries
 
 ## 2026-11-04 12:44 (America/Los_Angeles) — Cursor agent
 

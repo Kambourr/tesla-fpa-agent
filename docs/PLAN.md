@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 2 of 53 (4%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 3 of 53 (6%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -86,7 +86,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** The file has the columns `quarter`, `production_total`, `deliveries_total`, `release_date`, and `source_url`; 20 contiguous quarters; every row's numbers taken from the first release, not a later revision; every row has a release date and a source URL. No pipeline code fetches these pages during ingest.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (f28adc81e25a3e983b129faadd5140545e2d3ed7)
 
 ### M1-T5 — Check and validate deliveries
 
