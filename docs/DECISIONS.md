@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Revenue bridge uses total deliveries, including leased units
+
+**Decision:** The volume bar is the change in total deliveries times the forecast ASP. The price/mix bar is the change in ASP times actual total deliveries. ASP is automotive sales divided by total deliveries. Regulatory credits, leasing, energy, and services are actual minus forecast. A positive bar is favorable. Zero is not favorable. Leased units sit inside the delivery total, so the volume bar is not a pure retail-unit effect. `M5-T13` should say that in the methods copy.
+
+**Alternatives considered:** Removing leased units from the volume bar would need a leased-unit count the delivery file does not have. Treating a zero leasing bar as favorable would mark an unchanged line as good news.
+
 ## 2026-11-04 — Backtest keeps every miss, including a large one
 
 **Decision:** Absolute percent error is `100 * abs(forecast - actual) / abs(actual)`, stored as a percent. A result of 300 means the miss was three times the actual. The value is not clipped. An actual of zero, or a null forecast, stores the quarter with a null error. The average is the mean of the non-null errors for that metric. It is computed from the table and is not inserted as a quarter named `average`.
