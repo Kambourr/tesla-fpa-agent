@@ -222,7 +222,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** Prompt files under `prompts/` have a version the cache can hash. The ten questions from section 4 are present, and questions 7 and 8 are specified to use the backtest across all 12 quarters. Pydantic models require a memo, answers, and claim objects `{metric, period, value, unit, sentence_ref}`. `OPENAI_MODEL` is read from the environment; the default is a current GPT model that supports structured JSON outputs, chosen from OpenAI's docs at build time and recorded in `docs/DECISIONS.md`.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M2-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M3-T2 — Narrate memos and the latest-quarter Q&A
 
