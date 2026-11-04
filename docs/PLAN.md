@@ -78,7 +78,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Applying `sql/` to a new DuckDB file creates the raw fact, filing, and deliveries tables, plus named tables the later stages will fill. A test applies the SQL and checks those tables exist. Transforms stay in `.sql` files rather than only in Python.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T4, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T4 — Transcribe deliveries.csv
 
