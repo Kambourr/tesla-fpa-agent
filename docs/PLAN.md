@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 8 of 53 (15%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 9 of 53 (17%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -70,7 +70,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** The config covers total revenue, automotive sales, automotive regulatory credits, automotive leasing, energy generation and storage, services and other, cost of revenues (total and by segment where reported), gross profit, R&D, SG&A, total operating expenses, operating income, net cash from operating activities, and purchases of property and equipment. A test fails if a required metric has no tag. Gaps and tag changes are documented in the config, and the mapping choice is recorded in `docs/DECISIONS.md`.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T3, M1-T4, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (d14ad517a677dbe44c91d60068f427502d58ff13)
 
 ### M1-T3 — DuckDB schema and SQL
 

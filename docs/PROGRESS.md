@@ -2,15 +2,34 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T5` is done on `task/M1-T5-check-deliveries` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T4`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
-- **Tasks done:** 8 of 53 (15%).
-- **What's next:** Merge the M1-T5 pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T6` and `M1-T7` are on `main`. `M1-T9` waits on `M1-T5` and `M1-T8`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M1 data. `M1-T2` is done on `task/M1-T2-xbrl-tag-map` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
+- **Tasks done:** 9 of 53 (17%).
+- **What's next:** Merge the M1-T2 pull request. `M1-T3` is a separate pull request. `M1-T8` waits on `M1-T2`, `M1-T3`, `M1-T6`, and `M1-T7`. `M1-T6` and `M1-T7` are on `main`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_xbrl_map()` reads `config/xbrl_tags.json` and does not fetch. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. `load_forecast_config()` reads `config/forecast.json`. `load_prompts()` reads `prompts/` and does not call the model. `SecClient` reads `SEC_USER_AGENT` and does not run in CI. There is no `python -m agent run` yet.
+
+## 2026-11-04 13:20 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M1-T2 (done)
+**What changed:**
+- Added `config/xbrl_tags.json` and `agent/xbrl_map.py`. Each required series has at least one tag. The loader rejects a required metric with an empty tag list.
+- Automotive sales is searched in filing order: `tsla:AutomotiveSalesRevenue` on `tsla:AutomotiveRevenuesMember` (2022), then `us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax` on `tsla:AutomotiveSalesMember` (2023 onward), then the same concept on `us-gaap:AutomobilesMember` (2021). Credits and leasing follow that split. The checked filings' three automotive lines add up to automotive revenue.
+- Energy uses the parent member, which includes energy leasing. Segment cost tries `us-gaap:CostOfRevenue` first and `us-gaap:CostOfGoodsAndServicesSold` only where the 2022 10-K left the member off `CostOfRevenue`. A missing tag stays blank.
+- Documented the companyfacts limit: the feed has no `tsla` concepts and no dimensions, so segment lines come from the filing instance. Free cash flow is computed. Deliveries and production stay in the CSV. The choice is in `docs/DECISIONS.md`.
+- Added `tests/test_xbrl_map.py`.
+**Current state:** The map loads and names every required tag. It does not extract facts yet. Local `uv run pytest`: 59 passed. Ruff check and format check passed.
+**Next step:** Merge the M1-T2 pull request. `M1-T8` should read facts with this map, from the filing instance when a tag has a member or a `tsla` concept, and leave the quarter blank when nothing matches.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not sum members to fill a missing tag, and do not read `tsla:AutomotiveSales` as revenue or cost. The commit named below is the map and the loader after the rebase onto `main`. Later commits on this branch only update the handoff: the done hash in `docs/PLAN.md`, and this entry in `docs/PROGRESS.md`.
+**Last commit:** d14ad517a677dbe44c91d60068f427502d58ff13 on task/M1-T2-xbrl-tag-map
 
 ## 2026-11-04 13:11 (America/Los_Angeles) — Cursor agent
 
