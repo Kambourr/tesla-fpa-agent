@@ -16,6 +16,19 @@ The database keeps every loaded quarter. After the load it checks that `quarter_
 
 **Alternatives considered:** Trimming the database to exactly those quarters would drop restatements and the deliveries quarters before the window. Checking only `minimum_earlier_quarters` would leave the Q-5 input unread. Scraping investor-relations pages during ingest would repeat the fetch that already returns HTTP 403 from this network. M1-T5 kept that fetch out of the load path.
 
+## 2026-11-04 — About links stay blank until Jacob fills them in
+
+**Decision:** The about credit is the sentence in section 5. GitHub, LinkedIn, and résumé come from `profileLinks` in `site/src/config.ts`. All three values stay empty strings. A blank value renders the label and the words "Not filled in yet". It does not render an anchor, so the page has no guessed URL and no link that goes nowhere.
+
+**Why:** M5-T14 says the placeholders are obvious and empty of guessed URLs, and the page still renders when they are blank. An example URL would be a guess.
+
+**Alternatives considered:**
+
+- Placeholder links to `example.com` or `#`. Rejected because they look like real destinations.
+- Hiding the three rows until a URL exists. Rejected because the empty state would not show Jacob where to type.
+
+**What this means for later tasks:** Fill `profileLinks` only when Jacob supplies the URLs. Do not invent them.
+
 ## 2026-11-04 — Methods diagram is an example, not a recorded run
 
 **Decision:** `site/src/methodExample.ts` is the shape of the six section 5 stages. The page says "Example of the pipeline. Not a recorded run." The fixture has no durations, costs, or dollar amounts. Explain is the only stage whose actor is Model. The other five are Code. The word is in the diagram, and Model is also cobalt, so the split does not depend on color. At 480px and below the same stages render as a vertical SVG.
