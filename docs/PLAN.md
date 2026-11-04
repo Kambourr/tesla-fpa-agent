@@ -186,7 +186,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For each segment shown in the filings, a test covers the volume/revenue effect (change in segment revenue times forecast segment margin) and the margin-rate effect (change in segment margin percent times actual segment revenue). Bars group into automotive, energy, and services and other. Their sum equals gross profit variance exactly. Each bar is labeled favorable or unfavorable. Where segment margin is not reported, the total-margin path from section 4 is used and documented.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M2-T8 — Operating income bridge
 
