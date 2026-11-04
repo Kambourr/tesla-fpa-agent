@@ -2,15 +2,15 @@
 
 ## Current status
 
-- **Current milestone:** M2 model. `M2-T2` is done on `task/M2-T2-cutoff-no-lookahead` and is not on `main` yet. That branch also contains `M1-T9`, which is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
-- **Tasks done:** 14 of 53 (26%).
-- **What's next:** Merge the M1-T9 pull request, then this one. `M2-T3` waits on `M2-T2`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M5 dashboard. The quarter shell is on `task/M5-T2-shell-quarter-picker` and its pull request targets `main`. It is not merged. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, and `M5-T1` are on `main`.
+- **Tasks done:** 15 of 53 (28%).
+- **What's next:** Merge the M5-T2 pull request. `M5-T13` and `M5-T14` are on their own branches. `M2-T3` can start: `M2-T2` is on `main`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_forecast_inputs(connection, quarter)` reads facts and deliveries as of the previous quarter's first 10-Q or 10-K filing date. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_forecast_inputs(connection, quarter)` reads facts and deliveries as of the previous quarter's first 10-Q or 10-K filing date. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
 
 ## 2026-11-04 13:48 (America/Los_Angeles) — Cursor agent
 
@@ -47,6 +47,25 @@
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not scrape investor-relations pages from ingest. Do not drop an older `fact` row. This branch is rebased onto `main` after the M1-T8 squash. The commit named below is the ingest command after that rebase. Later commits on this branch only update the handoff.
 **Last commit:** 5da704bcb15846fd72b6e8775e317d70f28575ba on task/M1-T9-ingest
+
+## 2026-11-04 13:36 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M5-T2 (done)
+**What changed:**
+- Added a masthead quarter listbox. Q3 2026, the latest fixture quarter, is selected on load. Choosing Q4 2025 shows the required history sentence once.
+- The fixture in `site/src/quarters.ts` is labels only. Q4 2025 has no forecast. Later quarters do. No wireframe dollar amounts.
+- The open list sits in the masthead, above the double rule, so it does not cover the headline at 375px. The selected row uses an ink tick and the word Selected.
+- Added `site/src/App.test.tsx`. `npm test` runs Vitest. The site CI job runs that command before `npm run build`.
+- Recorded the fixture and the listbox in `docs/DECISIONS.md`.
+**Current state:** The shell can switch quarters. Rebased onto `main` after `M1-T9` and `M2-T2` merged. In `site/`, `npm test` and `npm run build` succeeded on the same site files. A local preview at `http://127.0.0.1:4173/tesla-fpa-agent/` was checked in light and dark, at 1280px and 375px: default quarter Q3 2026, Q4 2025 shows the history sentence, the menu does not cover the headline, keyboard focus is cobalt, and the console had no warnings. Pages is not enabled.
+**Next step:** Merge this pull request. M5-T4 should replace the placeholder lede with published forecast, actual, and variance, and should not hardcode the wireframe amounts.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Keep one footer and the existing h1. `.narrative` is only for the memo and the Q&A. The empty sentence must stay exact when a quarter has fewer than four earlier quarters. Replace `quarterFixture` when published JSON exists. Do not put dollar amounts in that fixture. The commit named below is the picker. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** e81cc88aed6b085284c2e90cadc3841148f6794d on task/M5-T2-shell-quarter-picker
 
 ## 2026-11-04 13:33 (America/Los_Angeles) — Cursor agent
 
