@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 3 of 53 (6%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 4 of 53 (8%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -94,7 +94,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `scripts/check_deliveries` reports a mismatch when a saved page fixture does not contain that row's production or deliveries figure, and confirms a match when it does. Where a live page can be fetched, the script can be pointed at it. Pytest, with no network, fails a fixture that has a quarter gap, a missing source, or an implausible quarter-over-quarter change, and passes the committed CSV on those structural checks. A normal `ingest` run does not scrape the source pages.
 - **Depends on:** M1-T4
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T6, M1-T7, M1-T8
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (8a069eb89a66c93bc57b47c4bb7359b3b9c56d63)
 
 ### M1-T6 — SEC ingest, cache, User-Agent, and rate limit
 

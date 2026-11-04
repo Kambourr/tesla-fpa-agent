@@ -2,14 +2,33 @@
 
 ## Current status
 
-- **Current milestone:** M1 setup and data ingest. `M1-T1` is on `main`. `M1-T4` is done on branch `task/M1-T4-transcribe-deliveries` and is not on `main` yet.
-- **Tasks done:** 3 of 53 (6%).
-- **What's next:** Merge the M1-T4 pull request. That unblocks `M1-T5`. These can still be claimed in parallel, each on its own branch, with the claim pushed before any other work: `M1-T2`, `M1-T3`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1`.
+- **Current milestone:** M1 setup and data ingest. `M1-T1` and `M1-T4` are on `main`. `M1-T5` is done on branch `task/M1-T5-check-deliveries` and is not on `main` yet.
+- **Tasks done:** 4 of 53 (8%).
+- **What's next:** Merge the M1-T5 pull request. `M1-T9` still waits on `M1-T5` and `M1-T8`. These can still be claimed in parallel, each on its own branch, with the claim pushed before any other work: `M1-T2`, `M1-T3`, `M1-T6`, `M1-T7`, `M2-T1`, `M3-T1`, and `M5-T1`. `M1-T6` and `M1-T7` were already assigned to another agent.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. That installs Python 3.11 and pytest. There is no `python -m agent run` yet. Deliveries are the committed CSV. Nothing fetches them.
+  - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. There is no `python -m agent run` yet.
+
+## 2026-11-04 13:11 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M1-T5 (done)
+**What changed:**
+- Added `agent/deliveries.py`. `validate_deliveries` checks the CSV for a quarter gap, a missing source URL, and a quarter-over-quarter move strictly above 50%. It does not fetch.
+- Added `scripts/check_deliveries`. It always runs the structural check. `--pages-dir` reads saved HTML. `--fetch` GETs each `source_url`.
+- Added `tests/test_check_deliveries.py`. Saved-page fixtures cover a match and a mismatch. Structural fixtures cover a gap, a missing source, and an implausible move. The committed CSV passes with the network blocked.
+- Recorded the 50% rule and the opt-in fetch in `docs/DECISIONS.md`.
+**Current state:** Deliveries can be validated without a network. Local `uv run pytest`: 31 passed. `uv run ruff check .` and `uv run ruff format --check .` passed. `scripts/check_deliveries --fetch` returned `FETCH_FAILED` with HTTP 403 for all 20 quarters. No `MISMATCH` line. No CSV number was edited.
+**Next step:** Merge the M1-T5 pull request. Jacob runs `scripts/check_deliveries --fetch` where `https://ir.tesla.com` loads. Do not replace a total because the fetch was blocked.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md`. The private-repo override is in `docs/DECISIONS.md`. Refer to secrets only by env var name. `validate_deliveries` is what ingest should call. Do not call `fetch_source_page` from ingest. Branch `task/M1-T4-M1-T5-deliveries` had claimed M1-T4 and M1-T5 with no implementation; M1-T4 was already on `main` from pull request #3, and this branch is the M1-T5 work. `M1-T6` and `M1-T7` are taken by another agent. The commit named below is the checker. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 8a069eb89a66c93bc57b47c4bb7359b3b9c56d63 on task/M1-T5-check-deliveries
 
 ## 2026-11-04 12:52 (America/Los_Angeles) — Cursor agent
 
