@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — First-reported quarter actuals, with restatements kept
+
+**Decision:** `agent/actuals.py` writes one `fact` row per metric, period, and accession, then rebuilds `quarter_actual` from those rows. A quarter's income-statement actual is the value on the 10-Q whose own period end is that quarter, using the earliest filing date. A later filing that repeats the period stays in `fact` and does not replace `quarter_actual`. Q4 is `derive_q4` of the 10-K annual amount minus those three first-reported quarters, even when the 10-K also tags a Q4 duration. Cash-flow lines are year-to-date on a 10-Q, so Q1–Q3 go through `cash_flow_quarters` and Q4 is the same derivation. `fact_as_of(cutoff_date)` is the latest stored value on or before a cutoff.
+
+Companyfacts has no dimensions, so this step only stores tags with no member. A segment line stays absent until a filing instance is read. The same `store_reported_facts` function accepts those rows later. It does not sum members, and it does not fetch.
+
+**Alternatives considered:** Overwriting `fact` with the latest comparative would make the cutoff query easy and would drop the restatement M3-T8 has to keep. Treating a Q4 duration inside the 10-K as the actual would skip the derivation M1-T7 exists to provide. Reading segment lines out of companyfacts is not possible; the feed does not carry them.
+
 ## 2026-11-04 — DuckDB tables, and the as-of query in SQL
 
 **Decision:** `sql/` is the database. `agent/schema.py` runs those files in name order and does not contain the table definitions. `fact` stores one row per metric, period, and accession, so a comparative from a later filing does not replace the earlier row. `filing` holds the form, the filing's own period end, the filing date, and the filing URL. `fact.accession` references `filing`. The view `fact_with_source` joins them. The macro `fact_as_of(cutoff_date)` returns the latest row whose filing date is on or before that cutoff. `quarter_actual`, `forecast`, `bridge`, and `backtest` are created empty for M1-T8 and M2.
