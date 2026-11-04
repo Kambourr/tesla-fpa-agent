@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T8` is done on `task/M1-T8-per-filing-storage` and is not on `main` yet. That branch also contains `M1-T3`, which is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
+- **Current milestone:** M1 data. `M1-T8` is done on `task/M1-T8-per-filing-storage` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M2-T1`, and `M3-T1` are on `main`.
 - **Tasks done:** 11 of 53 (21%).
-- **What's next:** Merge the M1-T3 pull request, then this one. `M1-T9` waits on `M1-T5` and `M1-T8`. `M1-T5` is on `main`. Do not claim `M1-T6` or `M1-T7`.
+- **What's next:** Merge the M1-T8 pull request. `M1-T9` waits on `M1-T5` and `M1-T8`. `M1-T5` is on `main`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
@@ -21,14 +21,14 @@
 - `facts_from_companyfacts()` reads consolidated tags only. Member tags are skipped because companyfacts has no dimensions. The choice is in `docs/DECISIONS.md`.
 - Added `tests/test_actuals.py`.
 **Current state:** Facts and first-reported quarters can be loaded from a fixture. No ingest command yet, and no filing-instance read for segment lines. Local `uv run pytest`: 78 passed. Ruff check and format check passed.
-**Next step:** Merge the M1-T3 pull request, then this one. `M1-T9` should call `apply_schema()`, `store_reported_facts()`, `assemble_quarter_actuals()`, and `validate_deliveries`. It should not fetch investor-relations pages.
+**Next step:** Merge the M1-T8 pull request. `M1-T9` should call `apply_schema()`, `store_reported_facts()`, `assemble_quarter_actuals()`, and `validate_deliveries`. It should not fetch investor-relations pages.
 **Blockers / questions for Jacob:**
 - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
 - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
 - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not drop an older `fact` row when a later filing repeats the period. Do not fill a segment line from companyfacts. This branch includes the M1-T3 schema commits until that pull request is on `main`. The commit named below is the storage loader. Later commits on this branch only update the handoff.
-**Last commit:** 665145b012b0126989e73221d3914e8da20fdb4f on task/M1-T8-per-filing-storage
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not drop an older `fact` row when a later filing repeats the period. Do not fill a segment line from companyfacts. This branch is rebased onto `main` after the M1-T3 squash. The commit named below is the storage loader after that rebase. Later commits on this branch only update the handoff.
+**Last commit:** a2585e97e37b9a67b65807f1a8db4eb2edefd24b on task/M1-T8-per-filing-storage
 
 ## 2026-11-04 13:22 (America/Los_Angeles) — Cursor agent
 
