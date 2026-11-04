@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 9 of 53 (17%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 10 of 53 (19%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -78,7 +78,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Applying `sql/` to a new DuckDB file creates the raw fact, filing, and deliveries tables, plus named tables the later stages will fill. A test applies the SQL and checks those tables exist. Transforms stay in `.sql` files rather than only in Python.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T4, M1-T6, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (bc510a40ff4c1a140757f2265d5d50591de66411)
 
 ### M1-T4 — Transcribe deliveries.csv
 
