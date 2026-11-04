@@ -146,7 +146,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test fails if the forecast for Q reads a filing dated after the previous quarter's filing date, or if it reads Q's own delivery or production figure. Forecast inputs are the latest stored values available on that cutoff, which may differ from first-reported actuals. The cutoff rule matches section 8.
 - **Depends on:** M1-T9, M2-T1
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M2-T3 — Base driver forecast
 
