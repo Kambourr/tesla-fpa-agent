@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 14 of 53 (26%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 15 of 53 (28%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -345,7 +345,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The latest quarter is selected by default and a picker can select an earlier one. The footer text is exactly: "Independent analysis built from Tesla's public SEC filings and investor-relations releases. Not affiliated with or endorsed by Tesla, Inc. Not investment advice." Header reads "Tesla FP&A Agent". An empty state such as "No forecast for this quarter: it needs four earlier quarters of history." renders when the fixture says so. Layout matches the widths and ledger-rule rules above.
 - **Depends on:** M5-T1
 - **Can run in parallel with:** M4-T4
-- **Status:** todo
+- **Status:** done (e81cc88aed6b085284c2e90cadc3841148f6794d)
 
 ### M5-T3 — Tick marks and legend
 

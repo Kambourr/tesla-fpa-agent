@@ -24,6 +24,28 @@ Companyfacts has no dimensions, so this step only stores tags with no member. A 
 
 **Alternatives considered:** Overwriting `fact` with the latest comparative would make the cutoff query easy and would drop the restatement M3-T8 has to keep. Treating a Q4 duration inside the 10-K as the actual would skip the derivation M1-T7 exists to provide. Reading segment lines out of companyfacts is not possible; the feed does not carry them.
 
+## 2026-11-04 — Quarter fixture, listbox, and site tests
+
+**Decision:** Until published quarter JSON exists, `site/src/quarters.ts` is a label-only stand-in. It has no dollar amounts. Q4 2025 has `hasForecast: false` because a forecast needs four earlier quarters, the same cutoff `config/forecast.json` uses. Q1 2026, Q2 2026, and Q3 2026 have a forecast. The last record is the latest quarter, and the page selects it on load.
+
+The control is a disclosure listbox in the masthead. The open list is part of the masthead flow, above the double rule, aligned to the right on wide screens and to the left below 481px. It is not a native select and not a component-library widget. The selected row shows a tick and the visually hidden word "Selected". The tick is ink, not green. Green stays the verification mark.
+
+When `hasForecast` is false, the lede is exactly: "No forecast for this quarter: it needs four earlier quarters of history." That sentence appears once. The section under it says to select a later quarter or wait until four earlier quarters are on file.
+
+Site interaction tests use Vitest 5.1.0, `@testing-library/react` 16.3.3, `@testing-library/user-event` 14.6.8, and jsdom 30.1.3, locked in `site/package-lock.json`. `npm test` is `vitest run`. The `site build` job runs `npm test` and then `npm run build`. It still requests no secrets and does not deploy.
+
+**Why:** M5-T2 needs a latest quarter, a way to select an earlier one, and the four-quarter empty state before M4-T1 publishes data. An overlay menu covered the headline at 375px. Putting the list in the masthead keeps the headline readable and keeps the control looking like a ledger row rather than a floating card.
+
+**Alternatives considered:**
+
+- A native `<select>`. Rejected because the platform control looks like a template and cannot take the ledger rules and the tick.
+- A dropdown library. Rejected because this page has one control, and a library widget brings its own chrome.
+- Hardcoding the wireframe amounts (`$24.1B` and the rest). Rejected because section 6 says those numbers are placeholders. M5-T4 draws them from published data.
+- Painting the selection tick in tied green. Rejected because green is the audit tick. A selection mark in ink does not look like a verified figure.
+- Leaving the menu as an overlay. Rejected after the 375px check: the list covered the headline.
+
+**What this means for later tasks:** M4-T1 replaces `quarterFixture` with the published quarters. M5-T4 replaces the "once they are published" lede with the real forecast, actual, and variance, and adds the waterfall under the existing heading. Do not put dollar amounts in `quarters.ts`. Do not enable Pages from this task.
+
 ## 2026-11-04 — DuckDB tables, and the as-of query in SQL
 
 **Decision:** `sql/` is the database. `agent/schema.py` runs those files in name order and does not contain the table definitions. `fact` stores one row per metric, period, and accession, so a comparative from a later filing does not replace the earlier row. `filing` holds the form, the filing's own period end, the filing date, and the filing URL. `fact.accession` references `filing`. The view `fact_with_source` joins them. The macro `fact_as_of(cutoff_date)` returns the latest row whose filing date is on or before that cutoff. `quarter_actual`, `forecast`, `bridge`, and `backtest` are created empty for M1-T8 and M2.

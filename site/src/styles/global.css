@@ -130,6 +130,112 @@ button {
   border-bottom-color: var(--cobalt);
 }
 
+.masthead-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.75rem;
+}
+
+.quarter-picker {
+  position: relative;
+}
+
+.quarter-button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.quarter-kicker {
+  color: var(--ink-quiet);
+  font-weight: 400;
+}
+
+.quarter-value {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.quarter-button:hover {
+  border-bottom-color: var(--cobalt);
+}
+
+.quarter-button:hover .quarter-value {
+  color: var(--cobalt);
+}
+
+.quarter-caret {
+  width: 0.7rem;
+  height: 0.45rem;
+  align-self: center;
+  color: var(--ink);
+}
+
+.quarter-caret.is-open {
+  transform: rotate(180deg);
+}
+
+.quarter-slot:not(:empty) {
+  padding-bottom: 0.85rem;
+}
+
+.quarter-menu {
+  width: 12.5rem;
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.quarter-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.85rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.quarter-menu li:last-child .quarter-option {
+  border-bottom: 0;
+}
+
+.quarter-option:hover,
+.quarter-option:focus-visible {
+  color: var(--cobalt);
+}
+
+.option-tick {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  color: var(--ink);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 main.canvas {
   padding-top: clamp(3rem, 6vw, 4.75rem);
   padding-bottom: clamp(2.75rem, 5vw, 4rem);
@@ -220,8 +326,13 @@ h1 {
     gap: 0.15rem;
   }
 
-  .theme-toggle {
+  .theme-toggle,
+  .quarter-button {
     min-height: 2.5rem;
+  }
+
+  .quarter-menu {
+    margin-left: 0;
   }
 }
 
