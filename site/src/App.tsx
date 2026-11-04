@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { AboutSection } from "./components/AboutSection";
 import { MastheadMark } from "./components/MastheadMark";
 import { MethodSection } from "./components/MethodSection";
 import { QuarterPicker } from "./components/QuarterPicker";
@@ -75,6 +76,8 @@ export function App() {
         </section>
         <hr className="ledger" />
         <MethodSection />
+        <hr className="ledger" />
+        <AboutSection />
       </main>
       <footer className="colophon">
         <div className="canvas">
