@@ -16,6 +16,22 @@ The database keeps every loaded quarter. After the load it checks that `quarter_
 
 **Alternatives considered:** Trimming the database to exactly those quarters would drop restatements and the deliveries quarters before the window. Checking only `minimum_earlier_quarters` would leave the Q-5 input unread. Scraping investor-relations pages during ingest would repeat the fetch that already returns HTTP 403 from this network. M1-T5 kept that fetch out of the load path.
 
+## 2026-11-04 — Methods diagram is an example, not a recorded run
+
+**Decision:** `site/src/methodExample.ts` is the shape of the six section 5 stages. The page says "Example of the pipeline. Not a recorded run." The fixture has no durations, costs, or dollar amounts. Explain is the only stage whose actor is Model. The other five are Code. The word is in the diagram, and Model is also cobalt, so the split does not depend on color. At 480px and below the same stages render as a vertical SVG.
+
+The prose says visitors do not call the model, that a commentary figure is verified, flagged, or unsupported, that the only sources are public SEC filings and investor-relations releases, and that leased units sit inside total deliveries. Automotive ASP uses that total, so the volume bar treats a leased unit like a sold one. Leasing stays its own bar.
+
+**Why:** M5-T13 asks for the diagram and those limits before a published run exists. Durations and cost belong to M5-T6, which reads run metadata.
+
+**Alternatives considered:**
+
+- A screenshot of code or of a terminal. Rejected because the task asks for an inline SVG.
+- Arrow characters between the stages. Rejected because the site scan forbids `→`, and a ledger line is enough.
+- Sample durations or a dollar figure marked "example." Rejected because a number on this page would be easy to read as a result. The label says the diagram is not a recorded run, and it contains no amounts.
+
+**What this means for later tasks:** M5-T6 can show durations from published run metadata. Do not put those numbers in `methodExample.ts`.
+
 ## 2026-11-04 — First-reported quarter actuals, with restatements kept
 
 **Decision:** `agent/actuals.py` writes one `fact` row per metric, period, and accession, then rebuilds `quarter_actual` from those rows. A quarter's income-statement actual is the value on the 10-Q whose own period end is that quarter, using the earliest filing date. A later filing that repeats the period stays in `fact` and does not replace `quarter_actual`. Q4 is `derive_q4` of the 10-K annual amount minus those three first-reported quarters, even when the 10-K also tags a Q4 duration. Cash-flow lines are year-to-date on a 10-Q, so Q1–Q3 go through `cash_flow_quarters` and Q4 is the same derivation. `fact_as_of(cutoff_date)` is the latest stored value on or before a cutoff.
