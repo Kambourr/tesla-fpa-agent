@@ -22,6 +22,50 @@ Page text matching strips tags, keeps inline tags from splitting a number (`433,
 
 **What this means for later tasks:** M1-T9 calls `validate_deliveries` and does not pass `--fetch`. Saved-page checks stay in `scripts/check_deliveries`. Do not edit a deliveries total because a fetch was blocked.
 
+## 2026-11-04 — Forecast formulas and scenario flexes
+
+**Decision:** `config/forecast.json`, loaded by `agent/forecast_config.py`, is the forecast specification. The cutoff is the previous quarter's filing date. Inputs are the latest stored values available on that date. A numeric forecast needs four earlier quarters, which is the number the site copy will use. Every driver lists the relative quarters it reads, and the loader rejects an offset of zero or a later quarter.
+
+Deliveries are the same quarter last year times recent year-over-year growth: `D(Q-4) * (1 + g)`, with `g = D(Q-1) / D(Q-5) - 1`. If `D(Q-5)` is missing or zero, `g` is 0, so the forecast is the same quarter last year rather than a number taken from the target quarter. Automotive ASP is the average of automotive sales revenue divided by deliveries over the prior four quarters. Automotive sales revenue is forecast deliveries times forecast ASP. Regulatory credits, leasing, energy, services, and operating expenses are the prior-four-quarter average times the same kind of year-over-year growth. Gross margin is the prior-four-quarter average, by segment when that margin is in the cutoff history, otherwise the total margin, with no growth term. Capex is the prior-four-quarter average of positive purchases, with no growth term. Operating cash flow uses that same average so free cash flow can be CFO minus capex. R&D and SG&A, when present, use the operating-expense formula.
+
+Scenarios flex only deliveries, ASP, and gross margin. Base is unflexed. Bull is deliveries +10 percent, ASP +5 percent, and gross margin +100 basis points (1 percentage point). Bear is the same amounts with the sign reversed. Credits, leasing, energy, services, operating expenses, capex, and operating cash flow stay at the base forecast. These are case-study assumptions, not a view on the company.
+
+**Why:** Section 4 and section 9 leave the exact formulas to the builder as long as they stay inside the driver framework, are documented, and do not look ahead. Section 8 says the cutoff is the previous quarter's filing date, so the target quarter's delivery report is excluded. M2-T1 requires the percentages in config and a test that loads them. M2-T4 will read those percentages instead of hardcoding them.
+
+**Alternatives considered:**
+
+- A trailing growth rate that uses only four quarters, such as `D(Q-1) / D(Q-4)`. Rejected because the brief's example is year-over-year growth, which compares a quarter with the quarter a year earlier.
+- Refusing a forecast until five earlier quarters exist. Rejected because the site copy is specified as four. The missing year-ago growth rate becomes zero instead of borrowing the target quarter.
+- Flexing gross margin by 10 percent of itself. Rejected because a percent of an 18 percent margin is easy to misread. Basis points are an absolute margin move.
+- Flexing every revenue line. Rejected because section 4 names deliveries, ASP, and gross margin as the scenario drivers.
+- Projecting free cash flow as its own trend. Rejected because free cash flow is defined as CFO minus capex. CFO is the extra series that makes that identity work.
+- Leaving leasing out of the config. Rejected because the revenue bridge treats it as its own bar, and the forecast has to say where that bar's forecast comes from.
+
+**What this means for later tasks:** M2-T3 should execute this file and should treat fewer than four earlier quarters as an empty forecast. It must not read the target quarter's deliveries or a filing dated after the cutoff. M2-T4 should import the scenario integers from this config. Do not treat the flexes as guidance.
+
+## 2026-11-04 — SEC client, filing index, and quarter derivation
+
+**Decision:** `agent/sec.py` downloads two documents for CIK 0001318605. Companyfacts is `https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json`. The filing index is `https://data.sec.gov/submissions/CIK0001318605.json`. The client reads `SEC_USER_AGENT` at the moment it builds a request and sends that string as the `User-Agent` header. An empty or blank value raises `MissingUserAgentError` before any request. No email address is written in the client, the tests, or this entry.
+
+Responses are stored as raw bytes under `data/cache/`, which is git-ignored. The file name is the SHA-256 of the URL. A second `get` of the same URL reads that file and does not call the transport. A failed request is not cached. Network calls are serialized and spaced at least 100ms apart, which is 10 requests per second and not more. A cache hit does not count toward that limit.
+
+`agent/quarters.py` is the quarter math M1-T8 will call. `derive_q4` is `annual - q1 - q2 - q3` for figures that are already single quarters (income-statement lines). `decumulate_ytd` turns 10-Q cash-flow year-to-date figures into single quarters: Q1 unchanged, Q2 minus Q1, Q3 minus Q2. Q4 of a cash-flow line is the annual figure minus those three single quarters. Free cash flow is quarterly CFO minus quarterly capex. Capex here is the positive purchases amount, matching the brief's "CFO − capex". A negative single quarter is kept. These functions do not fetch.
+
+`data/manual/deliveries.csv` is unchanged. M1-T4 owns that file.
+
+**Why:** Section 2 requires the companyfacts API, the filing index, the User-Agent from the environment, a local cache, and at most 10 SEC requests per second. M1-T6 says tests use fixtures rather than the live site. The submissions JSON is the filing index that carries accession numbers, form types, and filing dates for the 10-Q and 10-K links. Section 4 says 10-K figures are annual, so Q4 is annual minus Q1–Q3, and 10-Q cash-flow lines are year-to-date and must be de-cumulated. Free cash flow is computed on the quarterly values, not on the year-to-date totals.
+
+**Alternatives considered:**
+
+- Parse companyfacts in this task. Rejected because M1-T8 owns per-filing storage. This task only fetches and derives.
+- Use the HTML EDGAR browse page as the filing index. Rejected because the submissions JSON is the same index, it is one cacheable document, and it does not need scraping.
+- Pace at fewer than 10 requests per second. Rejected because the acceptance check is "at or below 10", and 100ms spacing meets that without adding delay the limit does not require.
+- De-cumulate income-statement lines the same way as cash flow. Rejected because a 10-Q income statement is already one quarter. Running it through year-to-date math would double-count.
+- Treat capex as a negative cash outflow and add it to CFO. Rejected because the brief defines free cash flow as CFO minus capex, and the XBRL purchases concept is a positive amount. The caller passes that positive amount.
+- Edit `deliveries.csv` while adding this client. Rejected because M1-T4 already transcribed it.
+
+**What this means for later tasks:** M1-T8 should call `SecClient.companyfacts` and `SecClient.filing_index`, then `derive_q4` for income-statement Q4 and `decumulate_ytd` plus `derive_q4` for cash-flow Q4. Free cash flow comes from `quarterly_free_cash_flow` after those single quarters exist. Ingest must not log `SEC_USER_AGENT`. The live client is untested against data.sec.gov in CI on purpose.
+
 ## 2026-11-04 — Deliveries transcription window, totals, and source URLs
 
 **Decision:** `data/manual/deliveries.csv` holds 20 quarters, `2021-Q4` through `2026-Q3`, in that order. `2026-Q3` is the latest production-and-deliveries release available on 2026-11-04 (dated 2026-10-02). `2026-Q4` is not out yet.

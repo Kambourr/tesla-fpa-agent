@@ -1,0 +1,99 @@
+{
+  "cutoff": "previous_quarter_filing_date",
+  "minimum_earlier_quarters": 4,
+  "value_basis": "latest_stored_value_on_cutoff",
+  "drivers": {
+    "deliveries": {
+      "method": "same_quarter_last_year_times_recent_yoy",
+      "formula": "D(Q-4) * (1 + g). g = D(Q-1) / D(Q-5) - 1 when D(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -4, -5],
+      "notes": "Uses the same quarter last year and year-over-year growth from quarters already known at the cutoff. The target quarter's delivery report is not an input. g = 0 only when that year-ago comparison is not in history yet."
+    },
+    "automotive_asp": {
+      "method": "trailing_four_quarter_average",
+      "formula": "Average of automotive sales revenue divided by deliveries over Q-1, Q-2, Q-3, and Q-4. Drop a quarter with zero deliveries. If none remain, there is no ASP forecast.",
+      "input_offsets": [-1, -2, -3, -4],
+      "notes": "ASP is automotive sales revenue divided by total deliveries. Regulatory credits are not in the numerator."
+    },
+    "automotive_sales": {
+      "method": "deliveries_times_asp",
+      "formula": "Forecast deliveries for Q times forecast ASP for Q.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "No separate trend. Both factors are built only from quarters before Q. A scenario flexes each factor, so the two flexes compound."
+    },
+    "regulatory_credits": {
+      "method": "trailing_run_rate_with_yoy",
+      "formula": "Average of Q-1 through Q-4, times (1 + g). g = value(Q-1) / value(Q-5) - 1 when value(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "Recent run-rate with growth. Scenarios do not flex this line."
+    },
+    "leasing": {
+      "method": "trailing_run_rate_with_yoy",
+      "formula": "Average of Q-1 through Q-4, times (1 + g). g = value(Q-1) / value(Q-5) - 1 when value(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "Leasing is its own revenue line. Leased units still sit inside total deliveries, so the volume bar and this line can overlap. Scenarios do not flex this line."
+    },
+    "energy": {
+      "method": "trailing_run_rate_with_yoy",
+      "formula": "Average of Q-1 through Q-4, times (1 + g). g = value(Q-1) / value(Q-5) - 1 when value(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "Energy generation and storage revenue. Scenarios do not flex this line."
+    },
+    "services": {
+      "method": "trailing_run_rate_with_yoy",
+      "formula": "Average of Q-1 through Q-4, times (1 + g). g = value(Q-1) / value(Q-5) - 1 when value(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "Services and other revenue. Scenarios do not flex this line."
+    },
+    "gross_margin": {
+      "method": "trailing_four_quarter_average",
+      "formula": "Average margin over Q-1 through Q-4. Use the automotive, energy, and services margins when that segment is in the cutoff history. Otherwise use the total gross margin.",
+      "input_offsets": [-1, -2, -3, -4],
+      "notes": "A recent average, with no growth term. The scenario flex adds or subtracts percentage points from this average. It is not a percent of the margin."
+    },
+    "operating_expenses": {
+      "method": "trailing_run_rate_with_yoy",
+      "formula": "Average of Q-1 through Q-4, times (1 + g). g = value(Q-1) / value(Q-5) - 1 when value(Q-5) is present and not zero. Otherwise g = 0.",
+      "input_offsets": [-1, -2, -3, -4, -5],
+      "notes": "Total operating expenses. R&D and SG&A use the same formula when those series exist. Scenarios do not flex operating expenses."
+    },
+    "capex": {
+      "method": "trailing_four_quarter_average",
+      "formula": "Average of purchases of property and equipment over Q-1 through Q-4.",
+      "input_offsets": [-1, -2, -3, -4],
+      "notes": "Recent run-rate, with no growth term. The amount is positive purchases. Scenarios do not flex capex."
+    },
+    "operating_cash_flow": {
+      "method": "trailing_four_quarter_average",
+      "formula": "Average of net cash from operating activities over Q-1 through Q-4.",
+      "input_offsets": [-1, -2, -3, -4],
+      "notes": "Not a section 4 growth driver. It exists so free cash flow is CFO minus capex. Scenarios do not flex it."
+    }
+  },
+  "identities": {
+    "total_revenue": "Automotive sales + regulatory credits + leasing + energy + services.",
+    "gross_profit": "When segment margins are used, each segment's forecast revenue times that segment's forecast margin. Otherwise total revenue times the total forecast margin.",
+    "operating_income": "Forecast gross profit minus forecast operating expenses.",
+    "free_cash_flow": "Forecast operating cash flow minus forecast capex."
+  },
+  "scenarios": {
+    "deliveries": {
+      "bull": 10,
+      "base": 0,
+      "bear": -10,
+      "unit": "percent"
+    },
+    "automotive_asp": {
+      "bull": 5,
+      "base": 0,
+      "bear": -5,
+      "unit": "percent"
+    },
+    "gross_margin": {
+      "bull": 100,
+      "base": 0,
+      "bear": -100,
+      "unit": "basis_points"
+    }
+  }
+}

@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 4 of 53 (8%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 7 of 53 (13%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -102,7 +102,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Tests use fixtures, not the live SEC site. The client sends `User-Agent` from `SEC_USER_AGENT` and fails closed when the variable is empty. Responses are cached under `data/cache/` and a second request for the same URL does not hit the network. The client stays at or below 10 requests per second. The companyfacts URL is `https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json`. No email address is hardcoded.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T4, M1-T7, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** done (0856da8031fe686c3c58951c4fd61bd377aa473d)
 
 ### M1-T7 — Q4 derivation and year-to-date cash-flow de-cumulation
 
@@ -110,7 +110,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `uv run pytest` (or `pytest`) passes tests where Q4 equals the annual figure minus Q1–Q3, and where a year-to-date cash-flow series de-cumulates into single quarters (Q1 unchanged, Q2 minus Q1, Q3 minus Q2). The tests cover operating cash flow and capex. Free cash flow is computed as CFO minus capex on the quarterly values.
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T4, M1-T6, M2-T1, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** done (0856da8031fe686c3c58951c4fd61bd377aa473d)
 
 ### M1-T8 — Per-filing value storage
 
@@ -138,7 +138,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Config states how deliveries, automotive ASP, automotive sales revenue, regulatory credits, energy, services, gross margin, operating expenses, and capex are projected, and the bull/base/bear percentages applied to deliveries, ASP, and gross margin. A test loads the config. The choices are recorded in `docs/DECISIONS.md`. No look-ahead is described in the formulas (same-quarter-last-year and recent growth use only data before the cutoff).
 - **Depends on:** M1-T1
 - **Can run in parallel with:** M1-T2 through M1-T9, M3-T1, M5-T1
-- **Status:** todo
+- **Status:** done (90a90910c6ddcbef6355b3683d6f856d6bcfd36c)
 
 ### M2-T2 — Cutoff date and no-look-ahead tests
 
