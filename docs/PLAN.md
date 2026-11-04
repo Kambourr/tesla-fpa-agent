@@ -94,7 +94,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `scripts/check_deliveries` reports a mismatch when a saved page fixture does not contain that row's production or deliveries figure, and confirms a match when it does. Where a live page can be fetched, the script can be pointed at it. Pytest, with no network, fails a fixture that has a quarter gap, a missing source, or an implausible quarter-over-quarter change, and passes the committed CSV on those structural checks. A normal `ingest` run does not scrape the source pages.
 - **Depends on:** M1-T4
 - **Can run in parallel with:** M1-T2, M1-T3, M1-T6, M1-T7, M1-T8
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M1-T6 — SEC ingest, cache, User-Agent, and rate limit
 
