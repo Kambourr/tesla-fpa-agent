@@ -118,7 +118,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** A fixture with the same period in two filings produces two stored rows, each with its accession number, filing date, and filing URL. Actuals for quarter Q are the values as first reported in Q's own 10-Q, or the Q4 derivation from M1-T7 for a 10-K. A later comparative does not overwrite that first-reported row. The rows needed for "latest value as of a cutoff date" are queryable. The restatement itself is kept for the verification report in M3-T8.
 - **Depends on:** M1-T2, M1-T3, M1-T6, M1-T7
 - **Can run in parallel with:** M1-T5
-- **Status:** in progress (Cursor agent, 2026-11-04)
+- **Status:** done (665145b012b0126989e73221d3914e8da20fdb4f)
 
 ### M1-T9 — Ingest command
 
