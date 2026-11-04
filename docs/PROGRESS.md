@@ -2,15 +2,33 @@
 
 ## Current status
 
-- **Current milestone:** M1 data. `M1-T9` is done on `task/M1-T9-ingest` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
-- **Tasks done:** 13 of 53 (25%).
-- **What's next:** Merge the M1-T9 pull request. `M2-T2` waits on `M1-T9` and `M2-T1`. `M2-T1` is on `main`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M2 model. `M2-T2` is done on `task/M2-T2-cutoff-no-lookahead` and is not on `main` yet. That branch also contains `M1-T9`, which is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M2-T1`, `M3-T1`, and `M5-T1` are on `main`.
+- **Tasks done:** 14 of 53 (26%).
+- **What's next:** Merge the M1-T9 pull request, then this one. `M2-T3` waits on `M2-T2`. `M5-T2` is claimed on `task/M5-T2-shell-quarter-picker`. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. Structural deliveries check, no network: `uv run python scripts/check_deliveries`. Saved pages: `--pages-dir`. Live pages: `--fetch`. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_forecast_inputs(connection, quarter)` reads facts and deliveries as of the previous quarter's first 10-Q or 10-K filing date. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci` and `npm run build`.
+
+## 2026-11-04 13:48 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T2 (done)
+**What changed:**
+- Added `agent/forecast_inputs.py`. The cutoff for quarter Q is the earliest filing date of the 10-Q or 10-K whose period end is Q-1. An amendment does not move that date later.
+- Facts come from `fact_as_of(cutoff_date)`. A restatement filed on or before the cutoff is the forecast input. `quarter_actual` stays the first report.
+- Deliveries and production for Q, and any later quarter, are excluded. A release date on or before the cutoff is not enough to include Q's own row.
+- Added `tests/test_forecast_inputs.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** Forecast inputs can be loaded for one target quarter. The base P&L is not computed yet. Local `uv run pytest`: 93 passed. Ruff check and format check passed.
+**Next step:** Merge the M1-T9 pull request, then this one. `M2-T3` should build the base forecast from these inputs and the formulas in `config/forecast.json`.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not read `quarter_actual` as the forecast input when a later filing on or before the cutoff restates the period. Do not include the target quarter's deliveries. This branch includes the M1-T9 commits until that pull request is on `main`. The commit named below is the cutoff loader. Later commits on this branch only update the handoff.
+**Last commit:** 159b63e7e00388a0563c8203d1de442f7bb6823f on task/M2-T2-cutoff-no-lookahead
 
 ## 2026-11-04 13:39 (America/Los_Angeles) — Cursor agent
 
