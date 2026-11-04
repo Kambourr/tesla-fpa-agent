@@ -17,5 +17,13 @@ __pycache__/
 dist/
 build/
 
+# Site dependencies and local Vite output. site/dist is also covered by dist/ above.
+node_modules/
+.vite/
+*.tsbuildinfo
+
+# Local browser snapshots from agent verification
+.playwright-mcp/
+
 # OS and editor files
 .DS_Store

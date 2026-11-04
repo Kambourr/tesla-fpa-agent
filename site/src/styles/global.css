@@ -1,0 +1,237 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100%;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: var(--paper);
+}
+
+p,
+h1,
+h2 {
+  margin: 0;
+}
+
+a {
+  color: var(--cobalt);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+button {
+  font: inherit;
+  font-variant-numeric: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 2;
+  transform: translateY(-120%);
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--rule);
+}
+
+.skip:focus {
+  transform: translateY(0.75rem);
+}
+
+.canvas {
+  width: min(var(--canvas), calc(100% - 2 * clamp(1.25rem, 4vw, 2rem)));
+  margin-inline: auto;
+}
+
+.masthead {
+  border-bottom: 4px double var(--rule);
+}
+
+.masthead-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  min-height: 4.5rem;
+}
+
+.site-name {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.masthead-mark {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.theme-toggle {
+  min-height: 2.75rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.theme-toggle:hover {
+  color: var(--cobalt);
+  border-bottom-color: var(--cobalt);
+}
+
+main.canvas {
+  padding-top: clamp(3rem, 6vw, 4.75rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4rem);
+  outline: none;
+}
+
+main.canvas:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 4px;
+}
+
+h1 {
+  max-width: 18em;
+  font-size: clamp(1.875rem, 1.05rem + 2.5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: var(--prose);
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.ledger {
+  width: 100%;
+  height: 0;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: none;
+}
+
+.empty {
+  max-width: var(--prose);
+  margin-top: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.empty h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.empty p {
+  margin-top: 0.75rem;
+  max-width: var(--prose);
+  text-wrap: pretty;
+}
+
+/*
+  Source Serif 4 is only for the analyst memo and Q&A answers.
+  UI copy stays in IBM Plex Sans. Later tasks apply .narrative to that prose.
+*/
+.narrative {
+  max-width: var(--prose);
+  font-family: var(--font-narrative);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.colophon {
+  border-top: 1px solid var(--rule);
+  padding-block: 1.5rem 2.25rem;
+}
+
+.disclaimer {
+  max-width: var(--prose);
+  color: var(--ink-quiet);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+@media (max-width: 480px) {
+  .masthead-bar {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 0.85rem;
+    gap: 0.15rem;
+  }
+
+  .theme-toggle {
+    min-height: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
