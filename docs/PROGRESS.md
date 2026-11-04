@@ -19,7 +19,7 @@
 - Added `agent/narrative.py`. `NarrativeDraft` requires a memo and answers. A claim requires `metric`, `period`, `value`, `unit`, and `sentence_ref`. `load_prompts()` returns the version and a SHA-256 of the three prompt files. `cache_material` is the version plus that hash.
 - An empty or missing `OPENAI_MODEL` now resolves to `gpt-6-luna`. `.env.example` stays blank. The choice is in `docs/DECISIONS.md`.
 - Added `tests/test_narrative_prompts.py` and a blank-model settings test. No test calls the model.
-**Current state:** Prompts and the response schema only. No narration call and no cache yet. Local `uv run pytest`: 43 passed. GitHub Actions run 41913074156 on pull request #7, commit `4f8a5b5`, job `pytest`: success, 43 passed in 2.67s. Ruff check and format check passed in that job.
+**Current state:** Prompts and the response schema only. No narration call and no cache yet. After rebasing onto `main`, local `uv run pytest`: 51 passed, which includes the M2-T1 tests. The earlier GitHub Actions run 41913074156 on pull request #7, commit `4f8a5b5`, was before that rebase: job `pytest` succeeded, 43 passed in 2.67s. Ruff check and format check passed.
 **Next step:** Merge the M3-T1 pull request. `M3-T2` should call the model with `PromptBundle` and parse `NarrativeDraft`. `M3-T3` should hash `cache_material` with the input tables and the model id.
 **Blockers / questions for Jacob:**
 - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
