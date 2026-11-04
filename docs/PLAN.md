@@ -441,7 +441,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The about copy is "Built by Jacob Kambour, MS Finance & Analytics, Santa Clara University." GitHub, LinkedIn, and résumé URLs are read from `site/src/config.ts`. Placeholders are obvious and empty of guessed URLs. The page still renders when they are blank.
 - **Depends on:** M5-T2
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ### M5-T15 — Accessibility and Lighthouse
 
