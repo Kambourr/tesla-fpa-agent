@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Base forecast executes the config on cutoff history
+
+**Decision:** `base_forecast()` reads only the `ForecastInputs` from `load_forecast_inputs()`. A target quarter with fewer than `minimum_earlier_quarters` earlier quarters in that input is stored with a null value and `empty_history` true. The count is any earlier quarter that has a delivery row or a mapped financial fact, not a count of one metric.
+
+Deliveries are `D(Q-4) * (1 + g)` with `g = D(Q-1) / D(Q-5) - 1`, and `g` is 0 when `D(Q-5)` is missing or zero. ASP drops a prior quarter with missing sales or zero deliveries and averages what remains. Run-rate lines need all four prior quarters. Capex is stored as `purchases_of_property_and_equipment`. Cash-flow history is year-to-date de-cumulated; a year can contribute Q1 or Q2 without a later 10-Q. Income history uses a single-quarter duration when one is stored, and derives Q4 from the annual amount only when that duration is absent. Gross profit uses automotive, energy, and services margins when all three are in the four prior quarters. Otherwise it uses total gross profit divided by total revenue. The stored `gross_margin` is the margin that turns forecast revenue into that gross profit. R&D and SG&A are written only when their own run-rate can be built.
+
+**Alternatives considered:** Reading `quarter_actual` would ignore a restatement that was already public on the cutoff. Requiring five earlier quarters would contradict the four-quarter empty state. Averaging a run-rate over the quarters that happen to exist would hide a hole in the history. Treating every Q4 duration as derived would drop a single-quarter amount `fact_as_of` already selected.
+
 ## 2026-11-04 — Forecast cutoff is the previous quarter's first filing
 
 **Decision:** `load_forecast_inputs()` dates the forecast for quarter Q at the earliest `filing_date` of a 10-Q, 10-K, or amendment whose own period end is Q-1. Facts are `fact_as_of(cutoff_date)`, so a restatement filed on or before that date replaces the first-reported number. `quarter_actual` stays the first report. A 10-Q/A of Q-1 does not move the cutoff later, so an amendment filed after the original 10-Q is invisible to the forecast for Q. Deliveries and production are included only when the quarter is before Q and the release date is on or before the cutoff. Q's own delivery row is dropped even when its release date is earlier than the cutoff.
