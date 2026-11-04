@@ -1,0 +1,43 @@
+[project]
+name = "tesla-fpa-agent"
+version = "0.1.0"
+description = "Driver-based FP&A forecast and variance analysis for Tesla, built on public filings."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Jacob Kambour" }]
+dependencies = [
+    "duckdb>=2.0.0",
+    "openai>=3.45.0",
+    "pandas>=3.1.1",
+    "pydantic>=2.14.2",
+    "pydantic-settings>=2.16.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "agent"
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["agent", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agent"]

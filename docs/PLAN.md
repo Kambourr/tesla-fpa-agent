@@ -4,9 +4,9 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 1 of 53 (2%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 2 of 53 (4%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
-Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. There is no product code yet, so nothing in M1–M6 can be started on the M0 branch.
+Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
 ## Order and parallelism
 
@@ -62,7 +62,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** `pyproject.toml` and a lockfile are committed; `uv sync` (or the documented pip equivalent) installs Python 3.11+ and pytest; `.gitignore` ignores `.env` and `data/cache/` and does not ignore `data/manual/`; `.env.example` lists `OPENAI_API_KEY`, `OPENAI_MODEL`, `SEC_USER_AGENT`, and `PUBLISH_FORWARD_FORECAST=false` with no secret values; `.github/workflows/test.yml` runs the test suite on pull requests; that workflow is green on this task's PR.
 - **Depends on:** M0-T1
 - **Can run in parallel with:** none (everything else waits on this)
-- **Status:** todo
+- **Status:** done (6eec3c6878ebf6a3b2f87d4ddf728ab57bd9b5a4)
 
 ### M1-T2 — XBRL tag map
 
