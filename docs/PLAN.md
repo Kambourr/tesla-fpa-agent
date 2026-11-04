@@ -314,7 +314,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `.github/workflows/deploy.yml` builds the site on push to `main` and is the Pages deploy workflow. YAML is valid. The workflow does not print secrets. Committing the file does not, by itself, enable GitHub Pages or change repo visibility; if the GitHub UI or API would need a settings change, stop and leave the question in `docs/PROGRESS.md`.
 - **Depends on:** M5-T1
 - **Can run in parallel with:** M4-T3, M5-T2 and later site tasks
-- **Status:** todo
+- **Status:** in progress (Cursor agent, 2026-11-04)
 
 ## M5 — Dashboard
 
