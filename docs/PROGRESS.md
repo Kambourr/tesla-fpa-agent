@@ -28,7 +28,7 @@
 - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not hardcode the scenario percentages. Capex in `forecast` is `purchases_of_property_and_equipment`. `gross_margin` is the ratio that turns forecast revenue into forecast gross profit. This branch is based on `main` after the M2-T2 merge. The commit named below is the base forecast. Later commits on this branch only update the handoff.
-**Last commit:** 14482876ee1453798badf4a29bc8b81fc9ed8ca4 on task/M2-T3-base-forecast
+**Last commit:** c639f699414bda0669f7b3a20fbb3ebd24e024db on task/M2-T3-base-forecast
 
 ## 2026-11-04 13:48 (America/Los_Angeles) — Cursor agent
 

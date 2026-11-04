@@ -154,7 +154,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For a fixture quarter the forecast includes deliveries, automotive sales (deliveries times ASP), regulatory credits, leasing, energy, services, gross profit, operating expenses, operating income, capex, and free cash flow. The result uses only cutoff inputs. Empty history is explicit when a quarter has fewer than the documented minimum of earlier quarters (the site copy later says four).
 - **Depends on:** M2-T2
 - **Can run in parallel with:** none
-- **Status:** done (14482876ee1453798badf4a29bc8b81fc9ed8ca4)
+- **Status:** done (c639f699414bda0669f7b3a20fbb3ebd24e024db)
 
 ### M2-T4 — Bull, base, and bear scenarios
 
