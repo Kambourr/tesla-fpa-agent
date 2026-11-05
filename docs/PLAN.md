@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 28 of 54 (52%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 29 of 54 (54%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -134,7 +134,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Tests with a saved instance fixture, and no network, show that each segment metric in `config/xbrl_tags.json` is read from the context whose only explicit member is the configured one, for the filing's own quarter, and stored through `store_reported_facts` with the filing's accession, date, and URL. The segment lines for a filing tie to total revenue and total cost of revenue in that filing. The client uses the cached SEC client with `SEC_USER_AGENT` and the 10-requests-per-second limit. `python -m agent ingest` loads them. Without them, the base forecast has no automotive sales or total revenue, and the revenue bridge cannot run on live data.
 - **Depends on:** M1-T9
 - **Can run in parallel with:** M2-T10, M3-T5, M3-T6, and M5 tasks
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (105ccfb3215d3b030bbc94ec94c05b64181c4710)
 
 ## M2 — Model and variance
 

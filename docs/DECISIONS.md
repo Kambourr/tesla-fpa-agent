@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — Segment lines come from each filing's XBRL instance
+
+**Decision:** `agent/instances.py` fetches the extracted instance (`*_htm.xml`) for every 10-Q and 10-K from Jan 1 of (latest report year − 5), through `SecClient` with the cache, rate limit, and `SEC_USER_AGENT`. For each dimensional metric in `config/xbrl_tags.json`, the first tag (in config order) with a fact whose context has exactly one explicit member, the configured one, wins for each duration the filing reports. Facts on other axes (business segment, related party) and multi-dimension contexts are ignored. Duplicate facts keep the copy with the higher `decimals` precision: the 2021 10-K (0000950170-22-000796) reports 2021 regulatory credits as 1,465,000,000 at `decimals="-6"` and again as 1,460,000,000 at `-7`. Two copies at equal precision that disagree raise an error rather than pick one.
+
+**Alternatives considered:** Parsing the inline XBRL HTML. Rejected because EDGAR already publishes the extracted instance. Summing members to build a total. Rejected, as in the tag-map decision, because it hides a filing that dropped a line.
+
 ## 2026-11-05 — Fact sheet keys, and how claims are verified
 
 **Decision:** `agent/fact_sheet.py` lists every number the narration may cite, with a stable key, a period, a unit, and a source. Narration sends only this sheet to the model. A claim must name a fact by key and period. `agent/verifier.py` looks it up, converts the claim's unit (thousand, million, billion, percent, points, thousand vehicles) into the fact's unit, and compares with the section 4 tolerances. A key or period that is not on the sheet is unsupported. A unit that cannot convert, or a value out of tolerance, is flagged with the expected value. Opposite signs flag even inside tolerance, so the model must write variances with their sign. Gross margin is stored as a fraction in `forecast` and shown as a percent on the sheet. Its variance is in percentage points.
