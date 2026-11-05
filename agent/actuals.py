@@ -68,7 +68,7 @@ def facts_from_companyfacts(
     For one filing and period, the first tag with a fact wins. A tag that
     needs a member is skipped here, because companyfacts has no dimensions.
     """
-    filings = _filing_index(submissions)
+    filings = statement_filings(submissions)
     reported: list[ReportedFact] = []
     for metric, spec in tag_map.metrics.items():
         if spec.source != "xbrl":
@@ -182,7 +182,7 @@ class _StoredRow:
     filing_url: str
 
 
-def _filing_index(submissions: dict[str, Any]) -> dict[str, _Filing]:
+def statement_filings(submissions: dict[str, Any]) -> dict[str, _Filing]:
     recent = submissions["filings"]["recent"]
     indexed: dict[str, _Filing] = {}
     accessions = recent.get("accessionNumber", [])

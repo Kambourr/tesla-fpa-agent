@@ -21,8 +21,11 @@ from agent.settings import Settings
 COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json"
 FILING_INDEX_URL = "https://data.sec.gov/submissions/CIK0001318605.json"
 SUBMISSIONS_BASE_URL = "https://data.sec.gov/submissions/"
+ARCHIVE_BASE_URL = "https://www.sec.gov/Archives/edgar/data/1318605/"
 # Older filings overflow into pages the index names under filings.files.
 _PAGE_NAME = re.compile(r"CIK0001318605-submissions-\d{3}\.json")
+_ACCESSION = re.compile(r"\d{10}-\d{2}-\d{6}")
+_FILE_NAME = re.compile(r"[A-Za-z0-9._-]+")
 
 MAX_REQUESTS_PER_SECOND = 10
 _MIN_INTERVAL_NS = 1_000_000_000 // MAX_REQUESTS_PER_SECOND
@@ -107,6 +110,16 @@ class SecClient:
             raise ValueError(f"unexpected filing index page name: {name!r}")
         return self.get(SUBMISSIONS_BASE_URL + name)
 
+    def filing_folder_index(self, accession: str) -> bytes:
+        """Download the archive folder listing (``index.json``) for one filing."""
+        return self.get(_folder_url(accession) + "index.json")
+
+    def filing_document(self, accession: str, name: str) -> bytes:
+        """Download one file from a filing's archive folder, by its listed name."""
+        if _FILE_NAME.fullmatch(name) is None:
+            raise ValueError(f"unexpected filing file name: {name!r}")
+        return self.get(_folder_url(accession) + name)
+
     def get(self, url: str) -> bytes:
         """Return the body for ``url``. A cache hit does not call the network."""
         path = self._cache_path(url)
@@ -135,6 +148,13 @@ class SecClient:
                 self._sleep_ns(_MIN_INTERVAL_NS - elapsed)
                 now = self._now_ns()
         self._last_request_ns = now
+
+
+def _folder_url(accession: str) -> str:
+    """Archive folder URL for one filing. Rejects anything but a dashed accession."""
+    if _ACCESSION.fullmatch(accession) is None:
+        raise ValueError(f"unexpected accession number: {accession!r}")
+    return ARCHIVE_BASE_URL + accession.replace("-", "") + "/"
 
 
 def _sleep_seconds(nanoseconds: int) -> None:
