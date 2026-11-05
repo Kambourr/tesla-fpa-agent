@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 33 of 54 (61%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 34 of 54 (63%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -369,7 +369,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The headline is exactly "Tesla's quarter, forecast and explained by an agent, checked against the filings." Under it: the quarter, forecast vs actual revenue, and the variance in dollars and percent. The custom SVG waterfall is forecast revenue, volume, price/mix, credits, leasing, energy, services and other, actual revenue. On first load the bars draw in sequence in about 1.2 seconds, then the seal's ticks appear; `prefers-reduced-motion` shows the final state immediately. A visually hidden table lists the bridge values. At 375px the bridge scrolls horizontally or switches to a vertical bridge.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (38bff51b4055e5687e2718381531b36a53221102)
 
 ### M5-T5 — Verification seal
 
