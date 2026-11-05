@@ -314,7 +314,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `.github/workflows/refresh.yml` supports `workflow_dispatch`. Any schedule is present only if it is disabled by default. The workflow reads `OPENAI_API_KEY` and `SEC_USER_AGENT` from secrets and does not echo them. It commits updated data so `deploy.yml` can run afterward. The workflow file contains no secret values. Repo settings are not changed.
 - **Depends on:** M4-T2
 - **Can run in parallel with:** M4-T4, M5-T3 through M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M4-T4 — deploy.yml
 
