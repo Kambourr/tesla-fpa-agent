@@ -469,7 +469,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** `README.md` has the nine parts from section 7: the problem statement, a place for the screenshot or GIF and the live link, the six pipeline steps, how accuracy is controlled and the backtest, an architecture diagram, run-it-yourself setup including `.env` and one command and cost per run, limitations and assumptions (public data only, simple driver models, manual delivery data), the same disclaimer as the site, and the credit line "Designed and built by Jacob Kambour." If Pages is still not enabled, the live link is described as waiting on Jacob rather than invented.
 - **Depends on:** M4-T2, M5-T15
 - **Can run in parallel with:** M6-T3
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M6-T2 — Dashboard screenshot or GIF
 
