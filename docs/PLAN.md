@@ -278,7 +278,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A mocked test where the first response is wrong and the second is right ends verified. A test where the second response is still wrong stays flagged or unsupported and is still published. No test path silently replaces the model's number with the database number.
 - **Depends on:** M3-T2, M3-T5
 - **Can run in parallel with:** M3-T3, M3-T4
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M3-T8 — Verification report and narrate/verify commands
 
