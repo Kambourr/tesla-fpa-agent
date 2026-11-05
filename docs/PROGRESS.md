@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M6 launch. The pipeline, the dashboard, and the refresh workflow are done and on `main`; the live site at https://kambourr.github.io/tesla-fpa-agent/ shows real memos and answers from the 2026-11-05 refresh (337 of 337 figures verified). Remaining: `M6-T5` (final secret scan) and `M6-T6` (closeout).
-- **Tasks done:** 52 of 54 (96%).
-- **What's next:** M6-T5 (final secret scan of history and the built site), then M6-T6 (closeout). Everything else is done.
+- **Current milestone:** Complete. Every task in `docs/PLAN.md` is done. The live site at https://kambourr.github.io/tesla-fpa-agent/ shows the 2026-11-05 refresh. What remains is Jacob's (listed in the final entry).
+- **Tasks done:** 54 of 54 (100%).
+- **What's next:** Nothing for an agent. Jacob's list is in the final entry below.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -13,7 +13,47 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 06:12 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M6-T6 (done). **The project is complete.**
+**What changed:** Final handoff. Section 10 of the brief, item by item:
+- [x] `python -m agent run` works from a clean checkout with only the two secrets set and finishes in about seven minutes (GitHub Actions "Refresh data" run 42037719383: 422.6 s, estimated $0.0335).
+- [x] All tests pass in CI (pytest and the site tests on every pull request; `uv run pytest`: 334 passed).
+- [x] The site is live on GitHub Pages, works at 375px with no horizontal scroll, and shows the latest quarter (Q3 2026) by default. Lighthouse: performance 99 mobile / 100 desktop, accessibility 100.
+- [x] Every AI-written figure has a tick mark; flagged and unsupported figures stay visible (the 2026-11-05 run verified 337 of 337).
+- [x] No API key in the repo, the built site, or the logs (M6-T5 scan of all history and `site/dist`; Actions logs show secrets as ***).
+- [x] The README reads as a case study and includes the disclaimer.
+- [x] No Tesla logo, brand colors, or non-public information (M6-T4).
+- [x] Forward forecast is off (`PUBLISH_FORWARD_FORECAST=false`; no forward quarter in `dashboard.json`).
+- [x] `docs/PLAN.md` shows every task done; this is the final entry.
+**Current state:** `main` is green; Pages is live; a refresh is one click (Actions, "Refresh data", Run workflow; about $0.03 when every narrative is regenerated, near zero when nothing changed).
+**Next step:** None for an agent. **For Jacob:**
+1. Spot-check `data/manual/deliveries.csv` against Tesla's releases. From this environment every investor-relations page returned HTTP 403, so run `uv run python scripts/check_deliveries --fetch` from your own network.
+2. Fill in the GitHub, LinkedIn, and résumé URLs in `site/src/config.ts` (`profileLinks`; they show "Not filled in yet").
+3. Check your employer's policy before sharing; the site and README say "independent analysis" and "not investment advice".
+4. Decide whether to make the repository public (the site is already public through Pages).
+5. Delete the stray branch `tmp-m3-base` on GitHub (Branches page); this environment cannot delete remote branches. The other merged `task/*` branches can be deleted too.
+6. Optional: your commits carry your personal email as the author address; GitHub's no-reply email keeps it out of future commits if the repo goes public.
+7. When Tesla files its next 10-Q, add that quarter's delivery release to `deliveries.csv` and run "Refresh data".
+**Blockers / questions for Jacob:** Only the list above.
+**Notes for the next agent:** Read the brief and `docs/DECISIONS.md` first. Haiku subagents wrote most task code under Claude Code's review; every decision that deviates from the brief is logged in `docs/DECISIONS.md`.
+**Last commit:** ebe5fb8b3e51c943740fa75962f5809570cc97b2 on task/M6-T6-closeout
+
+## 2026-11-05 06:07 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M6-T5 (done)
+**What changed:** No code. The final secret scan, run on `main` at c7c4467 after every other task merged:
+- `git log -p --all` over 282 commits on every branch: no match for `sk-[A-Za-z0-9_-]{20,}`, `ghp_`, `github_pat_`, `x-access-token:`, or a private-key header (only the scanner's own regular expressions). No filled `OPENAI_API_KEY=` or `SEC_USER_AGENT=` assignment beyond test placeholders (`from-env-file`).
+- The SEC contact string (normalized) appears in no commit, in no file under `site/dist` or `site/public`, and not in `data/narrative_cache.json`.
+- `site/dist` after a fresh build: no key pattern, no `OPENAI_API_KEY` or `SEC_USER_AGENT` text. No `.env` is tracked.
+- GitHub Actions logs show both secrets as `***`.
+**Current state:** Clean. Nothing to rotate.
+**Next step:** M6-T6 closeout.
+**Blockers / questions for Jacob:** none from the scan.
+**Notes for the next agent:** `tests/test_scaffold.py` repeats the key-pattern scan on every test run.
+**Last commit:** c7c4467dc23a93fb97e658d6ce9d4f5e78776a60 on main (scanned)
 
 ## 2026-11-05 05:57 (America/Los_Angeles) — Claude Code
 
