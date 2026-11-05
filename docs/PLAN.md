@@ -393,7 +393,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The selected quarter's memo renders in Source Serif 4 inside the prose column. Every figure uses the M5-T3 tick. Flagged figures are visibly marked. Switching quarters loads that quarter's memo. The legend from M5-T3 is visible here.
 - **Depends on:** M5-T3
 - **Can run in parallel with:** M5-T5, M5-T11
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T8 — Forecast table and scenario toggle
 
