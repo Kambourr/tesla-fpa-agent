@@ -304,6 +304,142 @@ h1 {
   text-wrap: pretty;
 }
 
+.method {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.method h2 {
+  max-width: 18em;
+  font-size: clamp(1.5rem, 1.15rem + 1vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.example-note {
+  max-width: var(--prose);
+  margin-top: 0.85rem;
+  color: var(--ink-quiet);
+  font-size: 0.9375rem;
+}
+
+.method-figure {
+  margin: 1.5rem 0 0;
+}
+
+.method-scroll {
+  overflow-x: auto;
+}
+
+.method-diagram,
+.method-diagram-narrow {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.method-diagram {
+  width: 100%;
+  height: auto;
+  min-width: 44rem;
+}
+
+.method-diagram-narrow {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.diagram-rule {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.diagram-step {
+  fill: var(--ink-quiet);
+  font-size: 13px;
+}
+
+.diagram-name {
+  fill: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.diagram-actor {
+  fill: var(--ink);
+  font-size: 14px;
+}
+
+.diagram-actor.is-model {
+  fill: var(--cobalt);
+}
+
+.method-prose {
+  max-width: var(--prose);
+  margin-top: 2rem;
+}
+
+.method-prose h3 {
+  margin: 1.5rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.method-prose h3:first-child {
+  margin-top: 0;
+}
+
+.method-prose p {
+  margin-top: 0.5rem;
+  text-wrap: pretty;
+}
+
+.about {
+  max-width: var(--prose);
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.about h2 {
+  font-size: clamp(1.5rem, 1.15rem + 1vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.about p {
+  margin-top: 0.85rem;
+  text-wrap: pretty;
+}
+
+.about-links {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.about-links li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.about-label {
+  font-weight: 500;
+}
+
+.about-missing {
+  color: var(--ink-quiet);
+}
+
 .colophon {
   border-top: 1px solid var(--rule);
   padding-block: 1.5rem 2.25rem;
@@ -333,6 +469,18 @@ h1 {
 
   .quarter-menu {
     margin-left: 0;
+  }
+
+  .method-diagram {
+    display: none;
+  }
+
+  .method-diagram-narrow {
+    display: block;
+  }
+
+  .method-scroll {
+    overflow: visible;
   }
 }
 
