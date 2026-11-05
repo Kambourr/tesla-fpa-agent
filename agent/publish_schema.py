@@ -155,6 +155,16 @@ class ScenarioFlex(_Model):
     gross_margin_bp: ScenarioTriple
 
 
+class Sources(_Model):
+    """What the published numbers were built from, counted from the database."""
+
+    facts: int
+    filings: int
+    delivery_quarters: int
+    earliest_filing_date: str | None
+    latest_filing_date: str | None
+
+
 class Dashboard(_Model):
     schema_version: Literal[1]
     generated_at: str
@@ -165,6 +175,7 @@ class Dashboard(_Model):
     qa: QaSet | None
     backtest: Backtest
     scenario_flex: ScenarioFlex
+    sources: Sources
 
 
 def schema_text() -> str:

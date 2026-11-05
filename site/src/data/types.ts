@@ -145,6 +145,17 @@ export interface ScenarioFlex {
   gross_margin_bp: ScenarioTriple;
 }
 
+/** What the published numbers were built from, counted from the database. */
+export interface Sources {
+  facts: number;
+  filings: number;
+  delivery_quarters: number;
+  /** YYYY-MM-DD */
+  earliest_filing_date: string | null;
+  /** YYYY-MM-DD */
+  latest_filing_date: string | null;
+}
+
 export interface Dashboard {
   schema_version: 1;
   generated_at: string;
@@ -156,6 +167,7 @@ export interface Dashboard {
   qa: QaSet | null;
   backtest: Backtest;
   scenario_flex: ScenarioFlex;
+  sources: Sources;
 }
 
 /**

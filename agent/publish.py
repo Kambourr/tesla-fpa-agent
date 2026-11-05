@@ -42,6 +42,7 @@ from agent.publish_schema import (
     Scenario,
     ScenarioFlex,
     ScenarioTriple,
+    Sources,
     Stage,
     StageName,
     Unit,
@@ -203,6 +204,7 @@ def build_dashboard(
             automotive_asp_pct=_triple(flex["automotive_asp"]),
             gross_margin_bp=_triple(flex["gross_margin"]),
         ),
+        sources=_sources(connection),
     )
 
 
@@ -544,3 +546,21 @@ def _number(value: Decimal | None) -> float | None:
     if value is None:
         return None
     return float(value)
+
+
+def _sources(connection: duckdb.DuckDBPyConnection) -> Sources:
+    """Counts of what the pipeline loaded, for the page's "what went into it" line."""
+    facts, filings = connection.execute(
+        "SELECT count(*), count(DISTINCT accession) FROM fact"
+    ).fetchone() or (0, 0)
+    earliest, latest = connection.execute(
+        "SELECT min(filing_date), max(filing_date) FROM filing"
+    ).fetchone() or (None, None)
+    (deliveries,) = connection.execute("SELECT count(*) FROM deliveries").fetchone() or (0,)
+    return Sources(
+        facts=int(facts),
+        filings=int(filings),
+        delivery_quarters=int(deliveries),
+        earliest_filing_date=None if earliest is None else str(earliest),
+        latest_filing_date=None if latest is None else str(latest),
+    )

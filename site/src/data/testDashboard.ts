@@ -71,5 +71,12 @@ export function makeTestDashboard(): Dashboard {
       automotive_asp_pct: { bull: 5, base: 0, bear: -5 },
       gross_margin_bp: { bull: 100, base: 0, bear: -100 },
     },
+    sources: {
+      facts: 100,
+      filings: 10,
+      delivery_quarters: 8,
+      earliest_filing_date: "2024-01-01",
+      latest_filing_date: "2026-10-22",
+    },
   } as Dashboard;
 }
