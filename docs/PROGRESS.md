@@ -20,7 +20,7 @@
 **What changed:**
 - First live run from this environment. Fixed `agent/ingest.py`: the SEC client is built from `Settings()`, and the filing index overflow pages are loaded (`SecClient.filing_index_page` in `agent/sec.py`, `merge_submission_pages`). Added a test that runs the real live path with a fake transport.
 - Updated blockers (b), (e), and (f) in the status block. Decision logged in `docs/DECISIONS.md`.
-**Current state:** Live `python -m agent ingest` stored 1,850 facts, and deliveries run through 2026-Q3. `model` wrote 12 quarters (2023-Q4 to 2026-Q3) with the forward forecast off. `variance` wrote all 12 free cash flow bridges and reported the other 36 as not buildable, because revenue segment lines are missing (`M1-T10`), so forecast total revenue and gross profit are empty. `uv run pytest`: 137 passed.
+**Current state:** Live `python -m agent ingest` stored 1,850 facts, and deliveries run through 2026-Q3. `model` wrote 12 quarters (2023-Q4 to 2026-Q3) with the forward forecast off. `variance` wrote all 12 free cash flow bridges and reported the other 36 as not buildable, because revenue segment lines are missing (`M1-T10`), so forecast total revenue and gross profit are empty. `uv run pytest`: 136 passed.
 **Next step:** Claim `M1-T10`. Read the segment lines from each 10-Q and 10-K XBRL instance under `https://www.sec.gov/Archives/edgar/data/1318605/`, through `SecClient`.
 **Blockers / questions for Jacob:** (a), (c), (d), and (e) as in the status block.
 **Notes for the next agent:** `data/fpa.duckdb` and `data/cache/` are git-ignored. Do not commit them. SEC rejects requests without a real contact `User-Agent`.
