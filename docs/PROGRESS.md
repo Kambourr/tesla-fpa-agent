@@ -2,8 +2,8 @@
 
 ## Current status
 
-- **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T10`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
-- **Tasks done:** 28 of 54 (52%).
+- **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
+- **Tasks done:** 29 of 54 (54%).
 - **What's next:** Merge open task PRs as they land: `M1-T10` (segment lines), `M3-T5` (verifier on the fact sheet), `M4-T1` (publish JSON, pulled forward). Then `M3-T2` (narration) and the M5 dashboard sections.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,19 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 00:25 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M1-T10 (done)
+**What changed:**
+- Added `agent/instances.py` (coded by a Haiku subagent, reviewed by Claude Code): reads each 10-Q and 10-K XBRL instance (`*_htm.xml`, found through the filing folder's `index.json`) and stores the segment revenue and cost lines whose context has exactly one dimension, the configured member. `SecClient` gains `filing_folder_index` and `filing_document` (cached, rate-limited, validated names).
+- `python -m agent ingest` adds those facts for filings from Jan 1 of (latest report year − 5). Fixture mode reads `<fixtures>/instances/{accession}.xml` when present.
+- Added `tests/test_instances.py` (22 tests). Decision logged in `docs/DECISIONS.md`.
+**Current state:** Live run on 2026-11-05: ingest stored 2,495 facts; `model` wrote 12 quarters; `variance` wrote all 48 bridges with no failures. For 2026-Q3, automotive sales 20,094,000,000 + credits 113,000,000 + leasing 353,000,000 + energy 2,881,000,000 + services 4,605,000,000 = total revenue 28,046,000,000, and segment costs sum to cost of revenue 22,552,000,000. 2024-Q1 to 2026-Q3 carry all 10 segment lines. `uv run pytest`: 226 passed.
+**Next step:** Merge this PR and the M4-T1 PR, then publish the first real `site/public/data/dashboard.json`.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** 2021 to 2023 filings have fewer segment rows, matching the gaps in `config/xbrl_tags.json`. Do not commit `data/fpa.duckdb` or `data/cache/`.
+**Last commit:** 105ccfb3215d3b030bbc94ec94c05b64181c4710 on task/M1-T10-segment-instances
 
 ## 2026-11-05 00:22 (America/Los_Angeles) — Claude Code
 
