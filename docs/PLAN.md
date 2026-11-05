@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 54 of 54 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 55 of 55 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -510,3 +510,15 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Depends on:** M6-T5
 - **Can run in parallel with:** none
 - **Status:** done (ebe5fb8b3e51c943740fa75962f5809570cc97b2)
+
+## M7 — Redesign for a first-time reader
+
+Added 2026-11-05 at Jacob's request, after the plan was complete: a fresh redesign so a recruiter understands what went into the project with less time on the page. It deviates from the section 6 palette, fonts, and layout; the deviation is logged in `docs/DECISIONS.md`. Data, schema meaning, tick marks, and the verification rules are unchanged.
+
+### M7-T1 — Hero quote, build chain, and new visual system
+
+- **Goal:** Open the page on proof of what the agent does, and restyle every section to one new system.
+- **Acceptance:** The first screen shows a real sentence the model wrote, with the code's tick on each figure, the overall check count, and five numbered steps (pulled, forecast, explained, checked, shipped) stated with counts from `dashboard.json` (a new `sources` block publishes the fact, filing, and delivery-quarter counts; older files fall back to plain text, never an invented count). New palette and fonts pass WCAG AA in light and dark. No horizontal scroll at 375px, reduced motion respected, Lighthouse accessibility 100. All Python and site tests pass.
+- **Depends on:** M6-T6
+- **Can run in parallel with:** none
+- **Status:** done (880909404cbb8ca261239b024c2a80f994880fb1)

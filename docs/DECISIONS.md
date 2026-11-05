@@ -2,6 +2,20 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — M7 redesign deviates from the section 6 visual spec
+
+**Decision:** At Jacob's request the dashboard was redesigned for a first-time reader, replacing parts of the section 6 spec:
+
+- Palette, light: paper `#F2F4EF`, ink `#1D2321`, quiet ink `#4F5B55`, rule `#C7CDC4`, forecast slate `#3B5878`, tied green `#17784C`, flag amber `#9A5707`, surface `#FBFCFA`. Dark: paper `#141A18`, ink `#E3E8E4`, quiet ink `#A3AFA8`, rule `#33403A`, slate `#93ACCB`, green `#4CC08A`, amber `#E9A04A`, surface `#1C2421`. Every text pair clears WCAG AA (light amber was darkened from `#A85F0A`, which measured 4.4).
+- Fonts: Schibsted Grotesk (400, 500, 700) for the interface, Newsreader 400 for model-written text only (memo, answers, hero quote). Self-hosted latin subsets, pinned exact versions.
+- Figures are proportional, not tabular: Schibsted's tabular figures widen the comma and period ("621 , 339"). Tables right-align instead. Only the quarter picker keeps tabular figures.
+- Layout: the page opens on a real memo sentence with its ticks and a five-step "What went into it" chain with live counts; sections are separated by space, not ledger rules; the agent-run section moves below model accuracy.
+- `dashboard.json` gains a `sources` block so the chain's counts are data, not copy.
+
+**Why:** The original page asked a visitor to read several sections before seeing what the project does. The hero now shows the core idea (model writes, code checks every figure) in one sentence, and the chain states the scope in five lines.
+
+**Alternatives considered:** Restyling the existing layout only (rejected by Jacob in favour of a fresh redesign); stat tiles for the counts (rejected as a generic dashboard pattern; sentences carry the same numbers with context); keeping tabular figures in running text (rejected for the spacing problem above).
+
 ## 2026-11-05 — The dashboard bundles its data at build time
 
 **Decision:** `site/src/main.tsx` imports `site/public/data/dashboard.json` and passes it to `App`; `vite.config.ts` sets `json.stringify` so the data ships as one `JSON.parse` string. The file also stays published at `data/dashboard.json`.

@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** Complete. Every task in `docs/PLAN.md` is done. The live site at https://kambourr.github.io/tesla-fpa-agent/ shows the 2026-11-05 refresh. What remains is Jacob's (listed in the final entry).
-- **Tasks done:** 54 of 54 (100%).
-- **What's next:** Nothing for an agent. Jacob's list is in the final entry below.
+- **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 55 of 55 (100%).
+- **What's next:** Run "Refresh data" once so the published `dashboard.json` carries the new `sources` counts (the build chain shows plain-text fallbacks until then), then refresh the README screenshot.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,18 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T1 (done).
+**What changed:** Fresh redesign of the dashboard (Jacob's request: a recruiter should understand what went into the project faster), built with the `frontend-design` skill committed in `.claude/skills/frontend-design/`.
+- First screen: a small headline, then the first sentence of the latest memo at display size in Newsreader with the code's tick after each figure (they stamp on in reading order; static under reduced motion), a caption naming the filing and the overall check ("337 of 337 tie to the filings"), and "What went into it": five numbered steps with live counts and the stack, linking to the author.
+- `dashboard.json` gains `sources` (fact rows, filings, delivery quarters, first and last filing date) from `agent/publish.py`; schema, TypeScript types, and tests updated.
+- New palette and fonts (values in `docs/DECISIONS.md`), proportional figures throughout, sections separated by space instead of rules, the run summary moved below model accuracy, favicon recoloured.
+**Checks:** `uv run pytest` 335 passed; ruff clean; site tests 142 passed; `tsc` clean; build OK. Playwright: no console errors, `scrollWidth` 375 at 375px, dark mode and reduced motion checked by screenshot. Lighthouse 12.2.1 (local preview): accessibility 100, best practices 100, SEO 100 on mobile and desktop; desktop performance 100; mobile performance 80 to 89 with total blocking time 340 to 650 ms. The unchanged `main` build measured 80 and 91 in the same session, so the mobile spread is this container's CPU, not the redesign.
+**Current state:** `main` has the redesign once this task's PR merges (880909404cbb8ca261239b024c2a80f994880fb1); Pages redeploys on merge.
+**Next step:** Run "Refresh data" (force off) so `sources` is published; update `docs/images/dashboard.png`.
+**Blockers / questions for Jacob:** None new. The earlier list (deliveries spot-check, profile links, employer policy, repo visibility, stray branch) still stands.
 
 ## 2026-11-05 06:12 (America/Los_Angeles) — Claude Code
 
