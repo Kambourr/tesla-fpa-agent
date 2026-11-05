@@ -22,7 +22,7 @@ from datetime import UTC, datetime
 from typing import Any, Protocol
 
 import duckdb
-from openai import OpenAI
+from openai import BadRequestError, OpenAI
 
 from agent.fact_sheet import Fact, backtest_facts, quarter_facts
 from agent.narrative import Answer, NarrativeDraft, PromptBundle, Question, load_prompts
@@ -60,15 +60,22 @@ class OpenAIClient:
         self._client = OpenAI(api_key=key)
 
     def draft(self, *, system: str, user: str, model: str, temperature: float) -> DraftResult:
-        response = self._client.responses.parse(
-            model=model,
-            input=[
+        request = {
+            "model": model,
+            "input": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
-            text_format=NarrativeDraft,
-            temperature=temperature,
-        )
+            "text_format": NarrativeDraft,
+        }
+        try:
+            response = self._client.responses.parse(**request, temperature=temperature)
+        except BadRequestError as error:
+            # Some models fix their sampling and reject a temperature parameter.
+            # Retry once without it rather than fail the run; anything else re-raises.
+            if "temperature" not in str(error).lower():
+                raise
+            response = self._client.responses.parse(**request)
         parsed = response.output_parsed
         if parsed is None:
             raise NarrationError("the model returned no parsed narrative")

@@ -318,3 +318,33 @@ def test_temperature_passed_to_the_client_is_the_prompt_temperature(
     assert temperatures == {prompts.temperature}
     assert prompts.temperature <= 0.3
     assert all(call.system == prompts.memo_instructions for call in client.calls)
+
+
+def test_openai_client_retries_without_temperature_when_the_model_rejects_it() -> None:
+    from openai import BadRequestError
+
+    from agent.narrate import OpenAIClient
+    from agent.narrative import Memo, NarrativeDraft
+    from agent.settings import Settings
+
+    calls: list[dict] = []
+    draft = NarrativeDraft(memo=Memo(text="x", claims=[]), answers=[])
+
+    class FakeResponses:
+        def parse(self, **kwargs):
+            calls.append(kwargs)
+            if "temperature" in kwargs:
+                # Built without the SDK's transport types; only the class and message matter.
+                error = BadRequestError.__new__(BadRequestError)
+                Exception.__init__(
+                    error, "Unsupported parameter: 'temperature' is not supported with this model."
+                )
+                raise error
+            usage = type("Usage", (), {"input_tokens": 3, "output_tokens": 2})()
+            return type("Resp", (), {"output_parsed": draft, "usage": usage})()
+
+    client = OpenAIClient(Settings(openai_api_key="test-key-placeholder", _env_file=None))
+    client._client = type("Fake", (), {"responses": FakeResponses()})()
+    result = client.draft(system="s", user="u", model="m", temperature=0.2)
+    assert result.draft == draft
+    assert [("temperature" in call) for call in calls] == [True, False]
