@@ -1,0 +1,14 @@
+{
+  "gpt-6-luna": {
+    "input": 0.10,
+    "output": 0.50,
+    "checked": "2026-11-04",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+  },
+  "gpt-6-astra": {
+    "input": 10.0,
+    "output": 50.0,
+    "checked": "2026-11-04",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+  }
+}
