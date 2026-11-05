@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Live ingest loads the filing index overflow pages
+
+**Decision:** `python -m agent ingest` (no `--fixtures`) builds `SecClient` from `Settings()` and, after the submissions index, downloads every overflow page named under `filings.files` through `SecClient.filing_index_page`, which accepts only names of the form `CIK0001318605-submissions-NNN.json`. `merge_submission_pages` appends each page's columns to `filings.recent` before facts are tied to filings. In fixture mode, a page listed in `submissions.json` must sit next to it in the fixture directory.
+
+**Why:** The first live run on 2026-11-04 failed twice. First, ingest called `SecClient.from_settings()` without its `settings` argument, which the tests hid by stubbing that call. Second, SEC keeps only the latest 1,000 filings in `recent` (back to 2018-06-14 for Tesla), so a 2012 10-K in companyfacts had no filing row. With the page loaded, the run stored 1,850 facts.
+
+**Alternatives considered:** Skipping companyfacts values whose filing is not in `recent`. Rejected because it drops facts silently, and section 4 requires a filing link for every value.
+
 ## 2026-11-04 — Model and variance commands, and two load fixes they exposed
 
 **Decision:** `agent/model_stage.py` holds both stages. `python -m agent model` clears `forecast`, `backtest`, `bridge`, and `published_quarter`, then for each of the last 12 quarters with reported total revenue writes bull, base, and bear (`write_scenarios`) and the backtest row. Each quarter is recorded in the new table `published_quarter` (`sql/010_published_quarter.sql`) with kind `backtest` and `has_forecast`, which is false when the base forecast is empty for short history. When `PUBLISH_FORWARD_FORECAST` is true, the next quarter is forecast and recorded with kind `forward`. When it is false, no forward forecast is computed at all, so a forward number cannot reach the publish step by mistake. `python -m agent variance` clears `bridge` and writes the four bridges for every `backtest` quarter with a forecast. If a bridge cannot be built, the others are still written, each failure is printed with its quarter and bridge, and the command exits 1. Accuracy beats coverage: a missing bridge is reported, not hidden.

@@ -9,6 +9,7 @@ not hardcode an email address.
 from __future__ import annotations
 
 import hashlib
+import re
 import threading
 import time
 import urllib.request
@@ -19,6 +20,9 @@ from agent.settings import Settings
 
 COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json"
 FILING_INDEX_URL = "https://data.sec.gov/submissions/CIK0001318605.json"
+SUBMISSIONS_BASE_URL = "https://data.sec.gov/submissions/"
+# Older filings overflow into pages the index names under filings.files.
+_PAGE_NAME = re.compile(r"CIK0001318605-submissions-\d{3}\.json")
 
 MAX_REQUESTS_PER_SECOND = 10
 _MIN_INTERVAL_NS = 1_000_000_000 // MAX_REQUESTS_PER_SECOND
@@ -96,6 +100,12 @@ class SecClient:
     def filing_index(self) -> bytes:
         """Download Tesla's submissions filing index, using the cache when it exists."""
         return self.get(FILING_INDEX_URL)
+
+    def filing_index_page(self, name: str) -> bytes:
+        """Download one overflow page of the filing index, by the name it lists."""
+        if _PAGE_NAME.fullmatch(name) is None:
+            raise ValueError(f"unexpected filing index page name: {name!r}")
+        return self.get(SUBMISSIONS_BASE_URL + name)
 
     def get(self, url: str) -> bytes:
         """Return the body for ``url``. A cache hit does not call the network."""
