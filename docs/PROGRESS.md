@@ -10,7 +10,7 @@
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-  - (e) PR #20 (`deploy.yml`) is ready. Jacob asked how to enable Pages. The repo is private, so Pages needs GitHub Pro (or a public repo), and the site is public either way. Waiting on Jacob to set Pages Source to GitHub Actions and say when to merge #20.
+  - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
 
@@ -92,6 +92,25 @@
 **Blockers / questions for Jacob:** (a) to (d) as in the status block, plus (e): merge PR #20 now, or wait until Pages is enabled?
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Stacked task branches: merge with a merge commit, not a squash, so the PRs below the top one close as merged. Some of the older `task/*` branches look "ahead" of `main` only because they were squash-merged.
 **Last commit:** c73ac47e5b0e8830850cafc9216e45c1a1bca595 on main (before this entry)
+
+## 2026-11-04 14:01 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M4-T4 (done)
+**What changed:**
+- Added `.github/workflows/deploy.yml`. A push to `main` builds `site/` and uploads `site/dist` for GitHub Pages, then runs `actions/deploy-pages`.
+- The workflow does not read or print `OPENAI_API_KEY` or `SEC_USER_AGENT`.
+- Added `tests/test_deploy_workflow.py`, which parses the YAML and checks the trigger, the build commands, and the Pages actions. `pyyaml` is a dev dependency for that parse.
+- Did not enable GitHub Pages, did not change visibility, and did not change any other repo setting. The question is below.
+**Current state:** The workflow file is valid and the test passes. Local `uv run pytest`: 96 passed. Ruff check and format check passed. Pages is still off.
+**Next step:** Merge this pull request when Jacob wants the workflow on `main`. The deploy job cannot publish until he sets the Pages source.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+- (e) Question: may I leave Pages off? This workflow does not turn it on. To publish, set Settings, Pages, Source to GitHub Actions. Please do that yourself when you want the site live. Do not change the repo from private until you decide that separately.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Do not change repo visibility. Do not put a secret in `deploy.yml`. The commit named below is the workflow. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 50de24b9c39d0c4333ee9bdc16bec68e73865df6 on task/M4-T4-deploy-workflow
 
 ## 2026-11-04 14:02 (America/Los_Angeles) — Cursor agent
 
