@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 55 of 59 (93%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 56 of 59 (95%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -553,4 +553,4 @@ Added 2026-11-05 at Jacob's request, after the plan was complete: a fresh redesi
 - **Acceptance:** Measured before and after on the same machine in the same session; total blocking time lower, CLS still under 0.01, every section still reachable by its anchor link.
 - **Depends on:** M7-T1
 - **Can run in parallel with:** M7-T2, M7-T3, M7-T4
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (c48e3ba5be094a8e576a866c449f1ffa80afcc5c)
