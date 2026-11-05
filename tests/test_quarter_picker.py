@@ -38,5 +38,5 @@ def test_shell_keeps_the_header_disclaimer_and_history_message() -> None:
     assert DISCLAIMER in config
     assert "QuarterPicker" in app
     assert "needsHistoryMessage" in app
-    headline = "Tesla's quarter, forecast and explained by an agent, checked against the filings."
+    headline = "cannot publish a number code has not checked."
     assert headline in app

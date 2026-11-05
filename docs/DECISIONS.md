@@ -2,6 +2,18 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — M8: lead with the verifier and the pipeline; outputs in tabs
+
+**Decision:** The page opens on an interactive check ("Try to break it") and a six-stage pipeline whose stages open real artifacts; every published output moves into one tabbed panel. The M7 hero quote, five-step chain, and run section are removed. M8-T2 to M8-T4 shipped on one branch because they share one layout and one App rewrite.
+
+**Why:** Jacob's feedback on M7: too much scrolling before the product is clear, and nothing showed why it is hard. Letting a visitor break a figure demonstrates the core idea (model writes, code checks) in seconds, and the stage artifacts show the actual work (sourced XBRL facts, no-look-ahead forecast, bridges that sum exactly, structured claims, verification records) instead of describing it.
+
+**How the browser check stays honest:** it is a port, not a re-implementation by eye. `tests/test_verifier_parity.py` runs the Python verifier over 126 fixed cases (every unit family, tolerance edges, sign flips, unit swaps, thousands rounding) and commits the verdicts; the site test suite asserts the TypeScript verdict for each. The precision of a count in thousands comes from the text as written, matching Python's use of `str(float)`.
+
+**First-draft catches:** the pipeline did not keep what the verifier rejected before a re-ask, so the page could not truthfully show a catch. M8-T1 records it; until a full run records every narrative, the page says it is not recorded yet rather than implying zero.
+
+**Alternatives considered:** a recorded animation of the pipeline (rejected: shows nothing a visitor can test); keeping stacked sections with a sticky table of contents (rejected: still long); calling the model live from the page (rejected: the brief forbids visitor-triggered model calls and keys in the browser).
+
 ## 2026-11-05 — M7 redesign deviates from the section 6 visual spec
 
 **Decision:** At Jacob's request the dashboard was redesigned for a first-time reader, replacing parts of the section 6 spec:

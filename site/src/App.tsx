@@ -1,21 +1,14 @@
 import { startTransition, useEffect, useRef, useState } from "react";
-import { AboutSection } from "./components/AboutSection";
 import { MastheadMark } from "./components/MastheadMark";
-import { MethodSection } from "./components/MethodSection";
 import { QuarterPicker } from "./components/QuarterPicker";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { footerDisclaimer, siteName } from "./config";
 import { type Dashboard, loadDashboard } from "./data/types";
 import { latestQuarter, needsHistoryMessage, quarterRecords } from "./quarters";
-import { AccuracySection } from "./sections/AccuracySection";
-import { AgentRunSection } from "./sections/AgentRunSection";
-import { AskSection } from "./sections/AskSection";
-import { BuildChain } from "./sections/BuildChain";
-import { ForecastChart } from "./sections/ForecastChart";
-import { ForecastSection } from "./sections/ForecastSection";
-import { HeroQuote } from "./sections/HeroQuote";
-import { HeroSection } from "./sections/HeroSection";
-import { MemoSection } from "./sections/MemoSection";
+import { BreakIt } from "./showcase/BreakIt";
+import { OutputTabs } from "./showcase/OutputTabs";
+import { Pipeline } from "./showcase/Pipeline";
+import { AboutSection } from "./components/AboutSection";
 
 type LoadState =
   | { status: "loading" }
@@ -107,7 +100,16 @@ export function App({ initialDashboard }: AppProps = {}) {
         <div ref={menuRoot} className="canvas quarter-slot" />
       </header>
       <main id="content" className="canvas" tabIndex={-1}>
-        <h1>Tesla's quarter, forecast and explained by an agent, checked against the filings.</h1>
+        <div className="intro">
+          <h1 className="intro-title">
+            An AI analyst for Tesla's quarter that cannot publish a number code has not checked.
+          </h1>
+          <p className="intro-sub">
+            It pulls the SEC filings, forecasts the quarter, explains the miss, and writes the memo. A
+            verifier checks every figure before anything ships. Built by Jacob Kambour.{" "}
+            <a href="how-it-was-built.html">Read how it was built</a>
+          </p>
+        </div>
         {state.status === "loading" ? <p className="lede">Loading the published quarters.</p> : null}
         {state.status === "error" ? (
           <section className="empty" aria-labelledby="load-error-title">
@@ -135,34 +137,18 @@ export function App({ initialDashboard }: AppProps = {}) {
         ) : null}
         {dashboard && view && view.has_forecast ? (
           <>
-            <HeroQuote dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <BuildChain dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
+            <BreakIt dashboard={dashboard} quarter={view} />
+            <Pipeline dashboard={dashboard} quarter={view} />
           </>
         ) : null}
         {!restReady ? <div className="rest-placeholder" aria-hidden="true" /> : null}
         {restReady && dashboard && view && view.has_forecast ? (
-          <>
-            <hr className="ledger" />
-            <HeroSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <MemoSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <ForecastSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <ForecastChart dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <AskSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <AccuracySection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <AgentRunSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-          </>
-        ) : null}
-        {restReady ? (
-          <>
-            <hr className="ledger" />
-            <MethodSection />
-            <hr className="ledger" />
-            <AboutSection />
-          </>
+          <OutputTabs dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
         ) : null}
       </main>
       <footer className="colophon">
         <div className="canvas">
+          <AboutSection />
           <p className="disclaimer">{footerDisclaimer}</p>
         </div>
       </footer>

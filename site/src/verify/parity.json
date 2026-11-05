@@ -1,0 +1,1010 @@
+[
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 28.05,
+  "value_text": "28.05",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 28.1622,
+  "value_text": "28.1622",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 27.9378,
+  "value_text": "27.9378",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 28.2183,
+  "value_text": "28.2183",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 27.8817,
+  "value_text": "27.8817",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 29.4525,
+  "value_text": "29.4525",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": -28.05,
+  "value_text": "-28.05",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 280.5,
+  "value_text": "280.5",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 0.02805,
+  "value_text": "0.02805",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 28046000000.0,
+  "expected_unit": "USD",
+  "value": 28.05,
+  "value_text": "28.05",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.48,
+  "value_text": "-7.48",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.50992,
+  "value_text": "-7.50992",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.45008,
+  "value_text": "-7.45008",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.52488,
+  "value_text": "-7.52488",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.43512,
+  "value_text": "-7.43512",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.854,
+  "value_text": "-7.854",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": 7.48,
+  "value_text": "7.48",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -74.8,
+  "value_text": "-74.8",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -0.00748,
+  "value_text": "-0.00748",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": -7481465181.4722,
+  "expected_unit": "USD",
+  "value": -7.48,
+  "value_text": "-7.48",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 720.0,
+  "value_text": "720.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 722.88,
+  "value_text": "722.88",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 717.12,
+  "value_text": "717.12",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 724.32,
+  "value_text": "724.32",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 715.68,
+  "value_text": "715.68",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 756.0,
+  "value_text": "756.0",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": -720.0,
+  "value_text": "-720.0",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 7200.0,
+  "value_text": "7200.0",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 0.72,
+  "value_text": "0.72",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 720000000.0,
+  "expected_unit": "USD",
+  "value": 720.0,
+  "value_text": "720.0",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.5,
+  "value_text": "23.5",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.594,
+  "value_text": "23.594",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.406,
+  "value_text": "23.406",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.641,
+  "value_text": "23.641",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.359,
+  "value_text": "23.359",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 24.675,
+  "value_text": "24.675",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": -23.5,
+  "value_text": "-23.5",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 235.0,
+  "value_text": "235.0",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 0.0235,
+  "value_text": "0.0235",
+  "unit": "USD million",
+  "status": "flagged"
+ },
+ {
+  "expected": 23500000.0,
+  "expected_unit": "USD",
+  "value": 23.5,
+  "value_text": "23.5",
+  "unit": "USD billion",
+  "status": "flagged"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": -0.0,
+  "value_text": "-0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD million",
+  "status": "verified"
+ },
+ {
+  "expected": 0.0,
+  "expected_unit": "USD",
+  "value": 0.0,
+  "value_text": "0.0",
+  "unit": "USD billion",
+  "status": "verified"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.6,
+  "value_text": "19.6",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.6784,
+  "value_text": "19.6784",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.5216,
+  "value_text": "19.5216",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.7176,
+  "value_text": "19.7176",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.4824,
+  "value_text": "19.4824",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 20.58,
+  "value_text": "20.58",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": -19.6,
+  "value_text": "-19.6",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 196.0,
+  "value_text": "196.0",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 0.0196,
+  "value_text": "0.0196",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.6,
+  "value_text": "19.6",
+  "unit": "USD",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -21.1,
+  "value_text": "-21.1",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -21.1844,
+  "value_text": "-21.1844",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -21.0156,
+  "value_text": "-21.0156",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -21.2266,
+  "value_text": "-21.2266",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -20.9734,
+  "value_text": "-20.9734",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -22.155,
+  "value_text": "-22.155",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": 21.1,
+  "value_text": "21.1",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -211.0,
+  "value_text": "-211.0",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -0.0211,
+  "value_text": "-0.0211",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": -21.1,
+  "expected_unit": "percent",
+  "value": -21.1,
+  "value_text": "-21.1",
+  "unit": "USD",
+  "status": "flagged"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.9,
+  "value_text": "0.9",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.9036,
+  "value_text": "0.9036",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.8964,
+  "value_text": "0.8964",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.9054,
+  "value_text": "0.9054",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.8946,
+  "value_text": "0.8946",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.945,
+  "value_text": "0.945",
+  "unit": "percentage points",
+  "status": "verified"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": -0.9,
+  "value_text": "-0.9",
+  "unit": "percentage points",
+  "status": "flagged"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 9.0,
+  "value_text": "9.0",
+  "unit": "percentage points",
+  "status": "flagged"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.0009,
+  "value_text": "0.0009",
+  "unit": "percentage points",
+  "status": "flagged"
+ },
+ {
+  "expected": 0.9,
+  "expected_unit": "percent",
+  "value": 0.9,
+  "value_text": "0.9",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 134.8,
+  "value_text": "134.8",
+  "unit": "thousand units",
+  "status": "verified"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 135.3392,
+  "value_text": "135.3392",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 134.2608,
+  "value_text": "134.2608",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 135.6088,
+  "value_text": "135.6088",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 133.9912,
+  "value_text": "133.9912",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 141.54,
+  "value_text": "141.54",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": -134.8,
+  "value_text": "-134.8",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 1348.0,
+  "value_text": "1348.0",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 0.1348,
+  "value_text": "0.1348",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 134.8,
+  "value_text": "134.8",
+  "unit": "units",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 497.1,
+  "value_text": "497.1",
+  "unit": "thousand vehicles",
+  "status": "verified"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 499.0884,
+  "value_text": "499.0884",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 495.1116,
+  "value_text": "495.1116",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 500.0826,
+  "value_text": "500.0826",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 494.1174,
+  "value_text": "494.1174",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 521.955,
+  "value_text": "521.955",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": -497.1,
+  "value_text": "-497.1",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 4971.0,
+  "value_text": "4971.0",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 0.4971,
+  "value_text": "0.4971",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 497099.0,
+  "expected_unit": "units",
+  "value": 497.1,
+  "value_text": "497.1",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 462890.0,
+  "value_text": "462890.0",
+  "unit": "vehicles",
+  "status": "verified"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 464741.56,
+  "value_text": "464741.56",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 461038.44,
+  "value_text": "461038.44",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 465667.34,
+  "value_text": "465667.34",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 460112.66,
+  "value_text": "460112.66",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 486034.5,
+  "value_text": "486034.5",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": -462890.0,
+  "value_text": "-462890.0",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 4628900.0,
+  "value_text": "4628900.0",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 462.89,
+  "value_text": "462.89",
+  "unit": "vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 462890.0,
+  "expected_unit": "units",
+  "value": 462890.0,
+  "value_text": "462890.0",
+  "unit": "thousand vehicles",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41250.5,
+  "value_text": "41250.5",
+  "unit": "USD per unit",
+  "status": "verified"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41415.502,
+  "value_text": "41415.502",
+  "unit": "USD per unit",
+  "status": "verified"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41085.498,
+  "value_text": "41085.498",
+  "unit": "USD per unit",
+  "status": "verified"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41498.003,
+  "value_text": "41498.003",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41002.997,
+  "value_text": "41002.997",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 43313.025,
+  "value_text": "43313.025",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": -41250.5,
+  "value_text": "-41250.5",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 412505.0,
+  "value_text": "412505.0",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41.2505,
+  "value_text": "41.2505",
+  "unit": "USD per unit",
+  "status": "flagged"
+ },
+ {
+  "expected": 41250.5,
+  "expected_unit": "USD_per_unit",
+  "value": 41250.5,
+  "value_text": "41250.5",
+  "unit": "USD",
+  "status": "flagged"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.7,
+  "value_text": "19.7",
+  "unit": "percent",
+  "status": "verified"
+ },
+ {
+  "expected": 19.6,
+  "expected_unit": "percent",
+  "value": 19.71,
+  "value_text": "19.71",
+  "unit": "percent",
+  "status": "flagged"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 134.84,
+  "value_text": "134.84",
+  "unit": "thousand units",
+  "status": "verified"
+ },
+ {
+  "expected": 134835.0,
+  "expected_unit": "units",
+  "value": 135.0,
+  "value_text": "135.0",
+  "unit": "thousand units",
+  "status": "flagged"
+ },
+ {
+  "expected": 134850.0,
+  "expected_unit": "units",
+  "value": 134.9,
+  "value_text": "134.9",
+  "unit": "thousand units",
+  "status": "verified"
+ },
+ {
+  "expected": 134849.0,
+  "expected_unit": "units",
+  "value": 134.8,
+  "value_text": "134.8",
+  "unit": "thousand units",
+  "status": "verified"
+ }
+]

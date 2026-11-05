@@ -133,7 +133,9 @@ def test_shell_copy_has_no_hype_emoji_or_brand_red() -> None:
     app = (SITE / "src" / "App.tsx").read_text(encoding="utf-8")
     config = (SITE / "src" / "config.ts").read_text(encoding="utf-8")
     assert "Tesla FP&A Agent" in config
-    headline = "Tesla's quarter, forecast and explained by an agent, checked against the filings."
+    headline = (
+        "An AI analyst for Tesla's quarter that cannot publish a number code has not checked."
+    )
     assert headline in app
     disclaimer = (
         "Independent analysis built from Tesla's public SEC filings and investor-relations "

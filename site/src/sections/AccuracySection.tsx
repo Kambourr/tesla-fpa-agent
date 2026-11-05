@@ -48,7 +48,6 @@ export function AccuracySection({ dashboard, quarter }: SectionProps) {
 
   return (
     <>
-      <hr className="ledger" />
       <section className="accuracy" aria-labelledby="accuracy-heading">
         <h2 id="accuracy-heading">Model accuracy</h2>
         <p className="accuracy-intro">

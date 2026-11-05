@@ -10,7 +10,7 @@ export type NarrativeTextProps = {
   className?: string;
 };
 
-type Sentence = {
+export type Sentence = {
   /** 1-based, as sentence_ref counts them. */
   number: number;
   text: string;
@@ -18,7 +18,7 @@ type Sentence = {
   startsParagraph: boolean;
 };
 
-type Wrap = {
+export type Wrap = {
   start: number;
   end: number;
   claim: ClaimView;
@@ -119,7 +119,7 @@ function findToken(sentence: string, value: number, taken: Wrap[]): { start: num
  * sentence_ref, so a figure should not lose its tick over an off-by-one.
  * Returns the wraps per sentence and the claims that were not found anywhere.
  */
-function placeClaims(sentences: Sentence[], claims: ClaimView[]) {
+export function placeClaims(sentences: Sentence[], claims: ClaimView[]) {
   const wrapsBySentence = new Map<number, Wrap[]>();
   const place = (sentence: Sentence, claim: ClaimView): boolean => {
     const taken = wrapsBySentence.get(sentence.number) ?? [];

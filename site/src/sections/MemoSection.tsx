@@ -10,7 +10,6 @@ export function MemoSection({ quarter }: SectionProps) {
 
   return (
     <>
-      <hr className="ledger" />
       <section className="memo-section" aria-labelledby="analyst-memo-title">
         <h2 id="analyst-memo-title">Analyst memo</h2>
 

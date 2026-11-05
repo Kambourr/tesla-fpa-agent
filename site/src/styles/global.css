@@ -242,7 +242,7 @@ button {
 }
 
 main.canvas {
-  padding-top: clamp(3rem, 6vw, 4.75rem);
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
   padding-bottom: clamp(2.75rem, 5vw, 4rem);
   outline: none;
 }
@@ -252,7 +252,6 @@ main.canvas:focus-visible {
   outline-offset: 4px;
 }
 
-/* The required headline is the kicker above the hero quote, which carries the page. */
 h1 {
   max-width: 34em;
   font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);
@@ -544,17 +543,64 @@ table {
   min-height: 100vh;
 }
 
-/*
-  Long sections far down the page skip layout and paint until they near the
-  viewport. Only sections with no tick tooltips (paint containment would clip
-  them) and no self-measuring chart. "auto" remembers the real height once
-  rendered, so the scrollbar settles after the first pass.
-*/
-.forecast,
-.accuracy,
-.agent-run,
-.method,
-.about {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
+
+/* M8 first screen: one line on what it is, then the demo and the pipeline. */
+.intro {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+
+.intro-title {
+  max-width: 30em;
+  font-size: clamp(1.375rem, 1.05rem + 1.3vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.intro-sub {
+  max-width: 46rem;
+  margin-top: 0.6rem;
+  color: var(--ink-quiet);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.breakit {
+  margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+.pipeline {
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* About sits in the footer as two short lines. */
+.colophon .about {
+  max-width: none;
+  margin: 0 0 1rem;
+}
+
+.colophon .about h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.colophon .about p {
+  margin: 0.25rem 0 0;
+}
+
+.colophon .about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.colophon .about-links li {
+  display: flex;
+  gap: 0.5rem;
+  min-height: 0;
+  padding: 0;
+  border: 0;
 }

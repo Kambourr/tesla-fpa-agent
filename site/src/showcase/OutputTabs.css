@@ -1,0 +1,70 @@
+/*
+  The outputs panel: a row of text tabs over one panel. Tabs scroll sideways
+  on narrow screens rather than wrapping into a second row.
+*/
+.outputs {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.outputs-title {
+  font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  font-weight: 700;
+}
+
+.outputs-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--rule);
+  scrollbar-width: thin;
+}
+
+.outputs-tab {
+  flex: none;
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--ink-quiet);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.outputs-tab:hover {
+  color: var(--ink);
+}
+
+.outputs-tab[aria-selected="true"] {
+  border-bottom-color: var(--ink);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.outputs-tab:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: -2px;
+}
+
+.outputs-panel {
+  padding-top: 1.5rem;
+}
+
+.outputs-panel:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 4px;
+}
+
+/* Sections inside a tab start flush; the tab row already separates them. */
+.outputs-panel > section:first-child,
+.outputs-panel > :first-child {
+  margin-top: 0;
+}
+
+/* The bridge reads at this size; full width made it taller than a screen. */
+.outputs .hero-bridge-scroll {
+  max-width: 52rem;
+}
