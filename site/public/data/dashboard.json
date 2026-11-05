@@ -261,7 +261,7 @@
     ]
   },
   "forward_forecast_published": false,
-  "generated_at": "2026-11-05T13:39:45+00:00",
+  "generated_at": "2026-11-05T18:35:39+00:00",
   "latest_quarter": "2026-Q3",
   "qa": {
     "answers": [
@@ -8867,38 +8867,38 @@
   ],
   "run": {
     "data_as_of": "2026-10-22",
-    "duration_seconds": 422.5516,
-    "estimated_cost_usd": 0.033463,
-    "input_tokens": 136980,
+    "duration_seconds": 17.8261,
+    "estimated_cost_usd": 0.0,
+    "input_tokens": 0,
     "model": "gpt-6-luna",
-    "output_tokens": 39530,
+    "output_tokens": 0,
     "stages": [
       {
         "name": "ingest",
-        "seconds": 15.1453
+        "seconds": 15.6832
       },
       {
         "name": "load",
-        "seconds": 0.0095
+        "seconds": 0.0096
       },
       {
         "name": "forecast",
-        "seconds": 1.3124
+        "seconds": 1.3966
       },
       {
         "name": "explain",
-        "seconds": 405.6929
+        "seconds": 0.3015
       },
       {
         "name": "verify",
-        "seconds": 0.2821
+        "seconds": 0.3131
       },
       {
         "name": "publish",
-        "seconds": 0.0717
+        "seconds": 0.0819
       }
     ],
-    "started_at": "2026-11-05T13:39:45+00:00"
+    "started_at": "2026-11-05T18:35:39+00:00"
   },
   "scenario_flex": {
     "automotive_asp_pct": {
@@ -8917,5 +8917,12 @@
       "bull": 100.0
     }
   },
-  "schema_version": 1
+  "schema_version": 1,
+  "sources": {
+    "delivery_quarters": 20,
+    "earliest_filing_date": "2011-08-12",
+    "facts": 2495,
+    "filings": 63,
+    "latest_filing_date": "2026-10-22"
+  }
 }
