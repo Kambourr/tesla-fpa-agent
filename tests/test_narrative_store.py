@@ -30,6 +30,7 @@ FIELDS = {
     "input_tokens",
     "output_tokens",
     "issues",
+    "first_review",
 }
 
 
@@ -158,3 +159,35 @@ def test_the_cache_file_holds_no_secret(
     export_verified(connection, path)
     assert SECRET not in path.read_text(encoding="utf-8")
     assert LATEST in path.read_text(encoding="utf-8")
+
+
+def test_first_review_survives_the_cache_and_older_entries_import_as_not_recorded(
+    tmp_path: Path, prompts: PromptBundle
+) -> None:
+    source = _narrated(prompts, verified=True)
+    record = {
+        "checked": 3,
+        "verified": 2,
+        "flagged": 1,
+        "unsupported": 0,
+        "guard_hits": [],
+        "issues": [],
+        "catches": [{"metric": "m"}],
+    }
+    source.execute(
+        "UPDATE narrative SET first_review = ? WHERE quarter = ?",
+        [json.dumps(record), PUBLISHED[0]],
+    )
+    path = tmp_path / "cache.json"
+    export_verified(source, path)
+    entries = json.loads(path.read_text(encoding="utf-8"))
+    assert entries[0]["first_review"] == record
+    assert entries[1]["first_review"] is None
+    del entries[1]["first_review"]
+    path.write_text(json.dumps(entries), encoding="utf-8")
+
+    fresh = build_database()
+    import_cache(fresh, path)
+    rows = dict(fresh.execute("SELECT quarter, first_review FROM narrative").fetchall())
+    assert json.loads(str(rows[PUBLISHED[0]])) == record
+    assert rows[PUBLISHED[1]] is None

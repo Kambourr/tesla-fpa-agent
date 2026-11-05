@@ -9,6 +9,7 @@ const sample: Dashboard = {
   latest_quarter: "2026-Q3",
   forward_forecast_published: false,
   last_full_run: null,
+  first_drafts: { narratives: 0, recorded: 0, checked: 0, caught: 0, guard_hits: 0, rejected: 0, final_problems: 0, catches: [] },
   run: {
     started_at: null,
     duration_seconds: null,

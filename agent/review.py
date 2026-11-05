@@ -9,9 +9,11 @@ issues is marked verified.
 
 from __future__ import annotations
 
+import json
 from collections.abc import Sequence
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Any
 
 import duckdb
 
@@ -105,6 +107,49 @@ def review_draft(
     )
 
 
+def first_review_record(review: Review) -> dict[str, Any]:
+    """What the verifier found in a first draft, as JSON-ready data.
+
+    ``catches`` lists each flagged or unsupported claim with what the model wrote
+    and what the fact sheet holds. Numbers are kept as strings so the record is
+    exact; the publish step turns them into floats.
+    """
+    catches = [
+        {
+            "location": item.location,
+            "metric": item.result.claim.metric,
+            "period": item.result.claim.period,
+            "sentence_ref": item.result.claim.sentence_ref,
+            "written": str(item.result.claim.value),
+            "unit": item.result.claim.unit,
+            "expected": None if item.result.expected is None else str(item.result.expected),
+            "expected_unit": item.result.expected_unit,
+            "status": item.result.status.value,
+            "source": item.result.source,
+        }
+        for item in review.results
+        if item.result.status is not Status.VERIFIED
+    ]
+    return {
+        "checked": review.counts["total"],
+        "verified": review.counts["verified"],
+        "flagged": review.counts["flagged"],
+        "unsupported": review.counts["unsupported"],
+        "guard_hits": [f"{hit.text_kind}: {hit.phrase}" for hit in review.guard_hits],
+        "issues": list(review.issues),
+        "catches": catches,
+    }
+
+
+def _store_first_review(
+    connection: duckdb.DuckDBPyConnection, quarter: str, record: dict[str, Any]
+) -> None:
+    connection.execute(
+        "UPDATE narrative SET first_review = ? WHERE quarter = ?",
+        [json.dumps(record, sort_keys=True), quarter],
+    )
+
+
 def correction_message(review: Review) -> str:
     """Plain text listing each problem, for the model's second call."""
     lines: list[str] = []
@@ -168,6 +213,7 @@ def narrate_and_review(
 
     if review.clean:
         store_narration(connection, result, prompts, model)
+        _store_first_review(connection, quarter, first_review_record(review))
         mark_verified(connection, quarter, result.input_hash)
         return ReviewedNarration(
             narration=result,
@@ -199,6 +245,7 @@ def narrate_and_review(
         final.draft, verification_facts, quarter=quarter, latest=with_questions
     )
     store_narration(connection, final, prompts, model)
+    _store_first_review(connection, quarter, first_review_record(review))
     if final_review.clean:
         mark_verified(connection, quarter, final.input_hash)
     return ReviewedNarration(

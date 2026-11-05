@@ -15,7 +15,7 @@ import pytest
 
 from agent.deliveries import repo_root
 from agent.model_stage import run_model, run_variance
-from agent.publish import PublishError, build_dashboard, write_dashboard
+from agent.publish import PublishError, aggregate_first_drafts, build_dashboard, write_dashboard
 from agent.publish_schema import Dashboard, schema_text
 from pipeline_fixture import build_database
 
@@ -222,3 +222,62 @@ def test_sources_count_what_the_pipeline_loaded() -> None:
     assert sources.facts > 0 and sources.filings > 0
     assert sources.delivery_quarters == 19
     assert sources.earliest_filing_date <= sources.latest_filing_date
+
+
+def test_first_drafts_aggregate_only_recorded_narratives() -> None:
+    clean = {
+        "checked": 5,
+        "verified": 5,
+        "flagged": 0,
+        "unsupported": 0,
+        "guard_hits": [],
+        "issues": [],
+        "catches": [],
+    }
+    caught = {
+        "checked": 6,
+        "verified": 4,
+        "flagged": 1,
+        "unsupported": 1,
+        "guard_hits": ["memo: buy"],
+        "issues": [],
+        "catches": [
+            {
+                "location": "memo",
+                "metric": "actual.total_revenue",
+                "period": "2026-Q3",
+                "sentence_ref": "1",
+                "written": "29.0",
+                "unit": "USD billion",
+                "expected": "28046000000",
+                "expected_unit": "USD",
+                "status": "flagged",
+                "source": "10-Q x",
+            },
+            {
+                "location": "answer 2",
+                "metric": "made.up",
+                "period": "2026-Q3",
+                "sentence_ref": "1",
+                "written": "1",
+                "unit": "percent",
+                "expected": None,
+                "expected_unit": None,
+                "status": "unsupported",
+                "source": None,
+            },
+        ],
+    }
+    drafts = aggregate_first_drafts(
+        [("2026-Q1", None, 0, 0), ("2026-Q2", clean, 0, 0), ("2026-Q3", caught, 0, 1)]
+    )
+    assert (drafts.narratives, drafts.recorded, drafts.checked, drafts.caught) == (3, 2, 11, 2)
+    assert (drafts.guard_hits, drafts.rejected, drafts.final_problems) == (1, 1, 1)
+    assert [item.status for item in drafts.catches] == ["flagged", "unsupported"]
+    assert drafts.catches[0].written == 29.0 and drafts.catches[0].expected == 28046000000
+    assert drafts.catches[0].quarter == "2026-Q3"
+
+
+def test_fixture_dashboard_has_no_first_draft_records() -> None:
+    drafts = build_dashboard(_fixture()).first_drafts
+    assert drafts.recorded == 0 and drafts.catches == []

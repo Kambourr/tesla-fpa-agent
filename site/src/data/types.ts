@@ -156,6 +156,32 @@ export interface Sources {
   latest_filing_date: string | null;
 }
 
+/** One figure the verifier rejected in a model's first draft, before the re-ask. */
+export interface FirstDraftCatch {
+  quarter: string;
+  location: string;
+  metric: string;
+  period: string;
+  written: number;
+  unit: string;
+  expected: number | null;
+  expected_unit: string | null;
+  status: "flagged" | "unsupported";
+  source: string | null;
+}
+
+/** What code caught in first drafts, over the narratives that recorded it. */
+export interface FirstDrafts {
+  narratives: number;
+  recorded: number;
+  checked: number;
+  caught: number;
+  guard_hits: number;
+  rejected: number;
+  final_problems: number;
+  catches: FirstDraftCatch[];
+}
+
 export interface Dashboard {
   schema_version: 1;
   generated_at: string;
@@ -170,6 +196,7 @@ export interface Dashboard {
   backtest: Backtest;
   scenario_flex: ScenarioFlex;
   sources: Sources;
+  first_drafts: FirstDrafts;
 }
 
 /**

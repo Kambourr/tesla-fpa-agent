@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M7 complete (redesign plus follow-ups). Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 59 of 59 (100%).
-- **What's next:** Nothing for an agent. Jacob's list in the 2026-11-05 06:12 entry still stands.
+- **Current milestone:** M8 (show the machine working), at Jacob's request. Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 60 of 64 (94%).
+- **What's next:** M8-T2 to M8-T4 (site), then M8-T5 (forced refresh records real first-draft numbers).
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,14 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M8-T1 (done, 3d93d386067d3ae01e35aadb04022608ea5e5783).
+**What changed:** `agent/review.py` writes `first_review_record(review)` to the new `narrative.first_review` column (`sql/014_narrative_first_review.sql`) for every freshly drafted narrative, clean or not, before any re-ask result replaces it: checked/verified/flagged/unsupported counts, guard hits, validation issues, and each rejected claim (location, metric, period, written value and unit, expected value and unit, status, source). `agent/narrative_store.py` exports and imports it as `first_review`; older cache entries import as NULL ("not recorded"). `agent/publish.py` adds `first_drafts` (narratives, recorded, checked, caught, guard hits, rejected drafts, problems left after the re-ask, and the catches). The committed `dashboard.json` was backfilled with `recorded: 0` of 12, since today's narratives were drafted before recording existed; the forced refresh in M8-T5 fills it.
+**Checks:** `uv run pytest` 344 passed (new: caught and clean first drafts recorded, cache round trip with older entries, aggregate, fresh pipeline run records every draft); ruff clean; site tests 147 passed.
+**Next step:** M8-T2 to M8-T4.
+**Blockers / questions for Jacob:** None.
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 

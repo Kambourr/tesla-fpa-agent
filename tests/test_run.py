@@ -399,3 +399,14 @@ def test_make_run_prints_the_pipeline_command() -> None:
         check=True,
     )
     assert "python -m agent run" in result.stdout
+
+
+def test_a_fresh_run_records_every_first_draft(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _fake_ingest(monkeypatch)
+    _, output = _run(tmp_path, name="drafts", client=FakeClient())
+    drafts = _dashboard(output).first_drafts
+    assert drafts.narratives > 0
+    assert drafts.recorded == drafts.narratives
+    assert drafts.checked > 0

@@ -6,6 +6,7 @@ was not given a draft for) or ``FakeClient`` from test_narrate.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from decimal import Decimal
 
@@ -386,3 +387,48 @@ def test_review_draft_counts_and_clean_flag(connection: duckdb.DuckDBPyConnectio
     assert dirty.counts["flagged"] == 1
     assert dirty.results[0].result.status is Status.FLAGGED
     assert dirty.results[0].location == "memo"
+
+
+def _first_review(connection: duckdb.DuckDBPyConnection, quarter: str) -> dict | None:
+    row = connection.execute(
+        "SELECT first_review FROM narrative WHERE quarter = ?", [quarter]
+    ).fetchone()
+    assert row is not None
+    return None if row[0] is None else json.loads(str(row[0]))
+
+
+def test_caught_first_draft_is_recorded_with_written_and_expected_values(
+    connection: duckdb.DuckDBPyConnection, prompts: PromptBundle
+) -> None:
+    wrong = _wrong_deliveries(connection, QUARTER, 50_000)
+    client = ScriptedClient(
+        [_memo(connection, QUARTER, deliveries=wrong), _memo(connection, QUARTER)]
+    )
+    narrate_and_review(
+        connection, QUARTER, client, prompts=prompts, model=MODEL, with_questions=False
+    )
+
+    record = _first_review(connection, QUARTER)
+    assert record is not None
+    assert record["flagged"] == 1
+    assert record["unsupported"] == 0
+    assert record["checked"] == record["verified"] + 1
+    (catch,) = record["catches"]
+    assert catch["metric"] == "actual.deliveries"
+    assert catch["status"] == "flagged"
+    expected = _facts(connection, QUARTER)["actual.deliveries"].value
+    assert Decimal(catch["expected"]) == expected
+    assert Decimal(catch["written"]) != expected
+
+
+def test_clean_first_draft_is_recorded_with_no_catches(
+    connection: duckdb.DuckDBPyConnection, prompts: PromptBundle
+) -> None:
+    client = ScriptedClient([_memo(connection, QUARTER)])
+    narrate_and_review(
+        connection, QUARTER, client, prompts=prompts, model=MODEL, with_questions=False
+    )
+    record = _first_review(connection, QUARTER)
+    assert record is not None
+    assert record["catches"] == []
+    assert record["checked"] == record["verified"] > 0
