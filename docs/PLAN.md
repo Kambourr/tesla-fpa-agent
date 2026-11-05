@@ -298,7 +298,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** Publish writes quarters, forecasts, scenarios, bridges, memos, Q&A, claims, verification results, backtest accuracy, and run metadata (run time, duration, model, tokens, estimated cost, data as-of date). `pytest` fails if the output does not match the schema the frontend imports. Secrets do not appear in the JSON or in the command output. With `PUBLISH_FORWARD_FORECAST=false`, no unpublished forward quarter is included as a published forecast-versus-actual.
 - **Depends on:** M2-T10, M3-T8
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M4-T2 — Single run command
 
