@@ -6,8 +6,14 @@ from decimal import Decimal
 import duckdb
 
 from agent.actuals import ReportedFact, store_reported_facts
-from agent.forecast import BASE_METRICS, base_forecast, write_base_forecast
+from agent.forecast import (
+    BASE_METRICS,
+    SEGMENT_GROSS_PROFIT,
+    base_forecast,
+    write_base_forecast,
+)
 from agent.forecast_inputs import ForecastDelivery, ForecastFact, ForecastInputs
+from agent.scenarios import scenario_forecasts
 from agent.schema import apply_schema
 
 TARGET = "2024-Q3"
@@ -312,3 +318,13 @@ def test_segment_margins_are_used_when_total_gross_profit_is_absent() -> None:
     lines = {line.metric: line.value for line in base_forecast(inputs)}
     assert lines["gross_profit"] == Decimal("64.0000")
     assert lines["operating_income"] == Decimal("54.0000")
+    # Segment gross profit is stored for the gross profit bridge: 100 at 50%,
+    # 50 at 20%, and 40 at 10%. It sums to the blended gross profit.
+    assert lines["gross_profit_automotive"] == Decimal("50.0000")
+    assert lines["gross_profit_energy"] == Decimal("10.0000")
+    assert lines["gross_profit_services"] == Decimal("4.0000")
+    scenarios = scenario_forecasts(inputs)
+    for name in ("bull", "bear"):
+        flexed = {line.metric for line in scenarios[name]}
+        assert flexed.isdisjoint(SEGMENT_GROSS_PROFIT)
+    assert {line.metric for line in scenarios["base"]} >= set(SEGMENT_GROSS_PROFIT)

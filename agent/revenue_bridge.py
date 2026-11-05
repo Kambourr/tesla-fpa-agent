@@ -11,7 +11,14 @@ from decimal import Decimal
 
 import duckdb
 
-from agent.bridge import BridgeBar, BridgeError, bar, replace_bridge, signed_amount
+from agent.bridge import (
+    BridgeBar,
+    BridgeError,
+    optional_amount,
+    reconciled,
+    replace_bridge,
+    signed_amount,
+)
 
 REVENUE_BRIDGE = "revenue"
 _DELTA_METRICS = (
@@ -33,19 +40,35 @@ def revenue_bars(
     actual: dict[str, Decimal],
     forecast: dict[str, Decimal],
 ) -> tuple[BridgeBar, ...]:
-    """Volume, price/mix, and the four revenue deltas. They sum to the variance."""
+    """Volume, price/mix, and the four revenue deltas. They sum to the variance.
+
+    The variance is actual total revenue minus forecast total revenue, or the
+    sum of the revenue lines when a total is not given. Stored
+    forecast sales is rounded, so it can differ by cents from forecast
+    deliveries times forecast ASP. ``reconciled`` absorbs that gap.
+    """
     actual_deliveries = actual["deliveries"]
     if actual_deliveries == 0:
         raise BridgeError("actual deliveries are zero, so ASP is undefined")
     forecast_asp = forecast["automotive_asp"]
+    forecast_sales = forecast.get("automotive_sales")
+    if forecast_sales is None:
+        forecast_sales = forecast["deliveries"] * forecast_asp
     actual_asp = actual["automotive_sales"] / actual_deliveries
-    bars = [
-        bar("volume", (actual_deliveries - forecast["deliveries"]) * forecast_asp),
-        bar("price_mix", (actual_asp - forecast_asp) * actual_deliveries),
+    raw = [
+        ("volume", (actual_deliveries - forecast["deliveries"]) * forecast_asp),
+        ("price_mix", (actual_asp - forecast_asp) * actual_deliveries),
     ]
+    variance = actual["automotive_sales"] - forecast_sales
     for metric in _DELTA_METRICS:
-        bars.append(bar(metric, actual[metric] - forecast[metric]))
-    return tuple(bars)
+        delta = actual[metric] - forecast[metric]
+        raw.append((metric, delta))
+        variance += delta
+    if "total_revenue" in actual and "total_revenue" in forecast:
+        # Tie to the stored totals. A gap above the rounding limit means the
+        # revenue lines do not add up to total revenue on one side.
+        variance = actual["total_revenue"] - forecast["total_revenue"]
+    return reconciled(tuple(raw), variance)
 
 
 def _load(
@@ -58,6 +81,12 @@ def _load(
         metrics = ("deliveries", "automotive_sales", *_DELTA_METRICS)
     else:
         metrics = ("deliveries", "automotive_asp", *_DELTA_METRICS)
-    return {
+    loaded = {
         metric: signed_amount(connection, quarter, metric, scenario=scenario) for metric in metrics
     }
+    extras = ("automotive_sales", "total_revenue") if scenario else ("total_revenue",)
+    for metric in extras:
+        value = optional_amount(connection, quarter, metric, scenario=scenario)
+        if value is not None:
+            loaded[metric] = value
+    return loaded

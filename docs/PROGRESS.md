@@ -2,15 +2,45 @@
 
 ## Current status
 
-- **Current milestone:** M2 model and M5 dashboard. `M5-T14` is on `task/M5-T14-about` and is not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T6`, `M3-T1`, `M5-T1`, `M5-T2`, and `M5-T13` are on `main`.
-- **Tasks done:** 21 of 53 (40%).
-- **What's next:** Merge this pull request. `M2-T7` through `M2-T9` can start. Do not put a URL in `profileLinks` until Jacob supplies it.
+- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T7` is done on `task/M2-T7-gross-profit-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T6`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
+- **Tasks done:** 23 of 53 (43%).
+- **What's next:** `M2-T8` (operating income bridge), then `M2-T9`, `M3-T5`, `M3-T6`, and `M2-T10`. Build bridge bars with `reconciled()` in `agent/bridge.py`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` stores the six revenue bars. They sum to actual total revenue minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+  - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` and `write_gross_profit_bridge(connection, quarter)` store the revenue and gross profit bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 17:47 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T7 (done)
+**What changed:**
+- Added `agent/gross_profit_bridge.py`. With segment cost on both sides, it writes one bar per segment (revenue effect plus margin-rate effect). Without it, it writes three revenue bars at the forecast total margin plus a `gross_margin_rate` bar. Today every quarter takes the total path, because companyfacts has no segment cost.
+- `agent/forecast.py` stores `gross_profit_automotive`, `gross_profit_energy`, and `gross_profit_services` when it uses segment margins. `agent/scenarios.py` leaves them out of bull and bear.
+- Added `reconciled()` to `agent/bridge.py`: bars are quantized and the rounding gap goes to the largest bar, so they sum exactly to the stored variance. A gap above $1,000 raises. `agent/revenue_bridge.py` uses it now and ties to stored `total_revenue`. Before this, rounded forecast inputs left the revenue bars cents off the variance.
+- Added `tests/test_gross_profit_bridge.py`, a rounded-input test in `tests/test_revenue_bridge.py`, and segment-profit assertions in `tests/test_forecast.py`. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 116 passed. Ruff check and format check passed. The site was not touched.
+**Next step:** Merge the M2-T7 pull request, then claim `M2-T8`: bars for gross profit variance, R&D, SG&A, and other opex (higher cost is unfavorable), built with `reconciled()` against stored `operating_income`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block. (e) asks whether to merge PR #20 now or wait until Pages is enabled.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not use the stored four-place `gross_margin` in a bridge. Imply margins from dollar amounts. A `gross_margin_rate` bar means the total-margin path ran. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** 306a9a85eda536322f241d00b3a185393c7c797d on task/M2-T7-gross-profit-bridge
+
+## 2026-11-04 17:42 (America/Los_Angeles) — Claude Code
+
+**Task(s):** takeover; M2-T7 (in progress)
+**What changed:**
+- Claude Code took over from Grok and the Cursor agents, whose usage ran out. `docs/BRIEF.md` matches the original brief byte for byte, and every section 11 handoff file is present.
+- Found work that was finished but not on `main`: PRs #17, #18, #19, and #21 (`M2-T3` through `M2-T6`, stacked). Merged `main` into `task/M2-T6-revenue-bridge` (docs conflicts only), CI green, merged #21 with a merge commit, so #17 to #19 landed too.
+- PR #15 had merged `M5-T14` into `task/M5-T13-how-it-works` after that branch was already on `main`, so the about section never reached `main`. Opened and merged PR #22 to fix that.
+- `M4-T4` (PR #20) is done but not merged. Its author wrote that it should wait for Jacob, because the deploy job fails until Pages is turned on. Marked done in `docs/PLAN.md` and added question (e).
+- `task/M2-T7-gross-profit-bridge` and `task/M3-T5-verifier` held only claim commits from the Cursor agents, with no code. Claude Code takes over `M2-T7`. `M3-T5` is free to claim again.
+**Current state:** `main` at the merge of #22. `uv run pytest`: 107 passed. Ruff check and format check passed. In `site/`, `npm test` (1 passed) and `npm run build` succeeded.
+**Next step:** Build `M2-T7` on `task/M2-T7-gross-profit-bridge`: segment volume and margin-rate bars when segment cost is reported, the total-margin path otherwise, summing exactly to the gross profit variance.
+**Blockers / questions for Jacob:** (a) to (d) as in the status block, plus (e): merge PR #20 now, or wait until Pages is enabled?
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Stacked task branches: merge with a merge commit, not a squash, so the PRs below the top one close as merged. Some of the older `task/*` branches look "ahead" of `main` only because they were squash-merged.
+**Last commit:** c73ac47e5b0e8830850cafc9216e45c1a1bca595 on main (before this entry)
 
 ## 2026-11-04 14:02 (America/Los_Angeles) — Cursor agent
 
