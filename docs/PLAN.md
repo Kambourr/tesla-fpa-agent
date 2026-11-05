@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 52 of 54 (96%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 54 of 54 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -501,7 +501,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** `git log -p --all` and the built site directory show no API keys, no filled-in `OPENAI_API_KEY` or `SEC_USER_AGENT` values, and no `sk-` key material. The commands and the clean result are recorded in `docs/PROGRESS.md`. A hit stops the launch tasks until the secret is removed from history and Jacob has rotated it.
 - **Depends on:** M6-T1, M6-T2, M6-T3, M6-T4, and every M1–M5 task
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (c7c4467dc23a93fb97e658d6ce9d4f5e78776a60)
 
 ### M6-T6 — Launch closeout
 
@@ -509,4 +509,4 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** Every earlier task is `done` or explicitly `blocked` with a Jacob question. `docs/PROGRESS.md` has a final entry that states the project is complete and lists what is still his: spot-check `deliveries.csv`, fill in the links in `site/src/config.ts`, check employer policy, and decide whether to make the repo public and enable Pages. Section 10's checklist is addressed in that entry. Re-run the M6-T5 scan if this task changes anything besides the handoff docs. Do not make the repo public, enable Pages, or change repo settings.
 - **Depends on:** M6-T5
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (PENDINGHASH)
