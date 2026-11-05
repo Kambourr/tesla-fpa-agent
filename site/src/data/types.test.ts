@@ -26,6 +26,13 @@ const sample: Dashboard = {
     automotive_asp_pct: { bull: 5, base: 0, bear: -5 },
     gross_margin_bp: { bull: 100, base: 0, bear: -100 },
   },
+  sources: {
+    facts: 0,
+    filings: 0,
+    delivery_quarters: 0,
+    earliest_filing_date: null,
+    latest_filing_date: null,
+  },
 };
 
 describe("dashboard.schema.json", () => {

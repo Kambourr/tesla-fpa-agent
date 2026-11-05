@@ -17,7 +17,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -252,12 +252,13 @@ main.canvas:focus-visible {
   outline-offset: 4px;
 }
 
+/* The required headline is the kicker above the hero quote, which carries the page. */
 h1 {
-  max-width: 18em;
-  font-size: clamp(1.875rem, 1.05rem + 2.5vw, 2.75rem);
-  font-weight: 500;
+  max-width: 34em;
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);
+  font-weight: 700;
   letter-spacing: 0;
-  line-height: 1.12;
+  line-height: 1.35;
   text-wrap: balance;
 }
 
@@ -269,12 +270,46 @@ h1 {
   text-wrap: pretty;
 }
 
+/*
+  Figures are proportional everywhere except the quarter picker: in
+  Schibsted Grotesk, tabular figures also make the comma and period full
+  width ("621 , 339"). Tables right-align their figures instead.
+*/
+table {
+  font-variant-numeric: proportional-nums;
+}
+
+/* A section's own title, where the section has no styled heading of its own. */
+.section-title {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.masthead-author {
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.masthead-author:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .masthead-author {
+    display: none;
+  }
+}
+
+/* Sections are separated by space and type size, not by rules. */
 .ledger {
   width: 100%;
   height: 0;
-  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  margin: clamp(4rem, 8vw, 6rem) 0 0;
   border: 0;
-  border-top: 1px solid var(--rule);
   background: none;
 }
 
@@ -297,8 +332,9 @@ h1 {
 }
 
 /*
-  Source Serif 4 is only for the analyst memo and Q&A answers.
-  UI copy stays in IBM Plex Sans. Later tasks apply .narrative to that prose.
+  Newsreader marks text the model wrote: the hero quote, the memo, and the
+  answers. Everything else, including every number in a table, is Schibsted
+  Grotesk.
 */
 .narrative {
   max-width: var(--prose);
@@ -341,7 +377,7 @@ h1 {
   display: block;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
 
 .method-diagram {

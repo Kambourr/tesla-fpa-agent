@@ -118,8 +118,8 @@ export function HeroSection({ dashboard, quarter }: SectionProps) {
 
   return (
     <section className="hero-bridge" aria-labelledby={headingId} data-drawn={drawn ? "true" : undefined}>
-      <h2 id={headingId} className="visually-hidden">
-        Revenue bridge, forecast to actual
+      <h2 id={headingId} className="section-title">
+        Revenue, forecast to actual
       </h2>
       <p className="lede">{formatBridgeLede(model)}</p>
 

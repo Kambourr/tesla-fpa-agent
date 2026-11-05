@@ -71,7 +71,7 @@
 .ask-number {
   flex: none;
   min-width: 2.25ch;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
   color: var(--ink-quiet);
 }
 
@@ -95,7 +95,7 @@
   flex: none;
   width: 1.25ch;
   margin-left: 0.5rem;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
   color: var(--ink-quiet);
 }
 

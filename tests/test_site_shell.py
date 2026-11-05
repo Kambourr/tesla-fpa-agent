@@ -1,7 +1,8 @@
-"""Acceptance checks for the M5-T1 site shell.
+"""Acceptance checks for the site shell.
 
 The build command itself runs in CI. These tests lock the Pages base path,
-the section 6 palette, both typefaces, tabular figures, and the dark theme.
+the M7 redesign palette (which replaced the brief's section 6 palette; see
+docs/DECISIONS.md), both typefaces, tabular figures, and the dark theme.
 """
 
 import re
@@ -11,21 +12,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SITE = REPO_ROOT / "site"
 
-LIGHT_HEXES = (
-    "#F4F6F8",
-    "#18212B",
-    "#CBD3DC",
-    "#2448C8",
-    "#0E7A5A",
-    "#A85B00",
-    "#FFFFFF",
-)
-DARK_PAPER = "#121820"
-DARK_INK = "#E6EBF0"
-DARK_SURFACE = "#1B2430"
-DARK_COBALT = "#7D95E8"
-DARK_GREEN = "#15B787"
-DARK_AMBER = "#E67C00"
+LIGHT_PAPER = "#F2F4EF"
+LIGHT_INK = "#1D2321"
+LIGHT_SURFACE = "#FBFCFA"
+LIGHT_ACCENTS = ("#4F5B55", "#3B5878", "#17784C", "#9A5707")
+LIGHT_HEXES = (LIGHT_PAPER, LIGHT_INK, "#C7CDC4", *LIGHT_ACCENTS, LIGHT_SURFACE)
+DARK_PAPER = "#141A18"
+DARK_INK = "#E3E8E4"
+DARK_SURFACE = "#1C2421"
+DARK_COBALT = "#93ACCB"
+DARK_GREEN = "#4CC08A"
+DARK_AMBER = "#E9A04A"
 
 FORBIDDEN_HEXES = (
     "#E31937",
@@ -90,7 +87,7 @@ def test_package_json_builds_with_npm_and_the_lockfile_is_tracked() -> None:
     assert _git_check_ignore("site/dist/index.html") == 0
 
 
-def test_light_palette_matches_the_brief() -> None:
+def test_light_palette_matches_the_redesign() -> None:
     text = (SITE / "src" / "styles" / "tokens.css").read_text(encoding="utf-8")
     for hex_color in LIGHT_HEXES:
         assert hex_color in text
@@ -109,21 +106,21 @@ def test_dark_palette_keeps_the_same_hues_and_meets_aa() -> None:
         assert _contrast(accent, DARK_PAPER) >= 4.5
         assert _contrast(accent, DARK_SURFACE) >= 4.5
 
-    assert _contrast("#18212B", "#F4F6F8") >= 4.5
-    assert _contrast("#18212B", "#FFFFFF") >= 4.5
-    for accent in ("#2448C8", "#0E7A5A", "#A85B00"):
-        assert _contrast(accent, "#F4F6F8") >= 4.5
-        assert _contrast(accent, "#FFFFFF") >= 4.5
+    assert _contrast(LIGHT_INK, LIGHT_PAPER) >= 4.5
+    assert _contrast(LIGHT_INK, LIGHT_SURFACE) >= 4.5
+    for accent in LIGHT_ACCENTS:
+        assert _contrast(accent, LIGHT_PAPER) >= 4.5
+        assert _contrast(accent, LIGHT_SURFACE) >= 4.5
 
 
-def test_type_uses_plex_serif_and_tabular_figures() -> None:
+def test_type_uses_the_redesign_faces_and_tabular_figures() -> None:
     tokens = (SITE / "src" / "styles" / "tokens.css").read_text(encoding="utf-8")
     global_css = (SITE / "src" / "styles" / "global.css").read_text(encoding="utf-8")
     main = (SITE / "src" / "main.tsx").read_text(encoding="utf-8")
-    assert "IBM Plex Sans" in tokens
-    assert "Source Serif 4" in tokens
-    assert "@fontsource/ibm-plex-sans/" in main
-    assert "@fontsource/source-serif-4/" in main
+    assert "Schibsted Grotesk" in tokens
+    assert "Newsreader" in tokens
+    assert "@fontsource/schibsted-grotesk/" in main
+    assert "@fontsource/newsreader/" in main
     assert "font-variant-numeric: tabular-nums" in global_css
     assert "line-height: 1.55" in global_css
     assert "1120px" in tokens

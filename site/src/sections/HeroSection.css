@@ -1,7 +1,7 @@
 /* Hero revenue bridge. Colors come only from the tokens in styles/tokens.css. */
 
 .hero-bridge {
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
 
 .hero-bridge-scroll {
@@ -19,7 +19,7 @@
 
 .hero-bridge-svg text {
   font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
   font-size: 12px;
   fill: var(--ink);
 }

@@ -210,3 +210,15 @@ def _run_cli(cwd: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
         text=True,
         check=False,
     )
+
+
+def test_sources_count_what_the_pipeline_loaded() -> None:
+    connection = _fixture()
+    sources = build_dashboard(connection).sources
+    facts, filings = connection.execute(
+        "SELECT count(*), count(DISTINCT accession) FROM fact"
+    ).fetchone()
+    assert (sources.facts, sources.filings) == (facts, filings)
+    assert sources.facts > 0 and sources.filings > 0
+    assert sources.delivery_quarters == 19
+    assert sources.earliest_filing_date <= sources.latest_filing_date

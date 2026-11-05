@@ -1,35 +1,36 @@
 /*
-  Audited-workpaper palette from docs/BRIEF.md section 6.
-  Light values are the brief's hexes. Dark values lighten the same hues
-  enough for WCAG AA and are recorded in docs/DECISIONS.md.
-  White is only the light-mode raised surface. Dark mode lifts the paper
-  instead of turning the sheet white.
+  M7 redesign tokens (docs/DECISIONS.md, 2026-11-05 redesign entry).
+  Ledger paper, graphite ink, plan slate for the forecast, tick green for
+  verified and favorable, flag amber for flagged and unfavorable.
+  Every text color passes WCAG AA on both the paper and the raised surface,
+  in light and dark. The variable names predate the redesign: --cobalt is the
+  forecast ink (now plan slate), --green and --amber keep their meaning.
 */
 
 :root {
   color-scheme: light;
-  --paper: #F4F6F8;
-  --ink: #18212B;
-  --ink-quiet: #4A596A;
-  --rule: #CBD3DC;
-  --cobalt: #2448C8;
-  --green: #0E7A5A;
-  --amber: #A85B00;
-  --surface: #FFFFFF;
-  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
-  --font-narrative: "Source Serif 4", Palatino, "Palatino Linotype", Georgia, serif;
+  --paper: #F2F4EF;
+  --ink: #1D2321;
+  --ink-quiet: #4F5B55;
+  --rule: #C7CDC4;
+  --cobalt: #3B5878;
+  --green: #17784C;
+  --amber: #9A5707;
+  --surface: #FBFCFA;
+  --font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-narrative: "Newsreader", Georgia, "Times New Roman", serif;
   --canvas: 1120px;
   --prose: 680px;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #121820;
-  --ink: #E6EBF0;
-  --ink-quiet: #9AABBC;
-  --rule: #2A3848;
-  --cobalt: #7D95E8;
-  --green: #15B787;
-  --amber: #E67C00;
-  --surface: #1B2430;
+  --paper: #141A18;
+  --ink: #E3E8E4;
+  --ink-quiet: #A3AFA8;
+  --rule: #33403A;
+  --cobalt: #93ACCB;
+  --green: #4CC08A;
+  --amber: #E9A04A;
+  --surface: #1C2421;
 }

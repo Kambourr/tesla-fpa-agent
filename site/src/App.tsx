@@ -10,8 +10,10 @@ import { latestQuarter, needsHistoryMessage, quarterRecords } from "./quarters";
 import { AccuracySection } from "./sections/AccuracySection";
 import { AgentRunSection } from "./sections/AgentRunSection";
 import { AskSection } from "./sections/AskSection";
+import { BuildChain } from "./sections/BuildChain";
 import { ForecastChart } from "./sections/ForecastChart";
 import { ForecastSection } from "./sections/ForecastSection";
+import { HeroQuote } from "./sections/HeroQuote";
 import { HeroSection } from "./sections/HeroSection";
 import { MemoSection } from "./sections/MemoSection";
 
@@ -79,6 +81,9 @@ export function App({ initialDashboard }: AppProps = {}) {
                 menuRoot={menuRoot}
               />
             ) : null}
+            <a className="masthead-author" href="#about-title">
+              Jacob Kambour
+            </a>
             <ThemeToggle />
           </div>
         </div>
@@ -113,13 +118,16 @@ export function App({ initialDashboard }: AppProps = {}) {
         ) : null}
         {dashboard && view && view.has_forecast ? (
           <>
+            <HeroQuote dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
+            <BuildChain dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
+            <hr className="ledger" />
             <HeroSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
-            <AgentRunSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <MemoSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <ForecastSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <ForecastChart dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <AskSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <AccuracySection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
+            <AgentRunSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
           </>
         ) : null}
         <hr className="ledger" />

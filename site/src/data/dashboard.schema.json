@@ -781,6 +781,55 @@
       "title": "ScenarioTriple",
       "type": "object"
     },
+    "Sources": {
+      "additionalProperties": false,
+      "description": "What the published numbers were built from, counted from the database.",
+      "properties": {
+        "delivery_quarters": {
+          "title": "Delivery Quarters",
+          "type": "integer"
+        },
+        "earliest_filing_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Earliest Filing Date"
+        },
+        "facts": {
+          "title": "Facts",
+          "type": "integer"
+        },
+        "filings": {
+          "title": "Filings",
+          "type": "integer"
+        },
+        "latest_filing_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Latest Filing Date"
+        }
+      },
+      "required": [
+        "facts",
+        "filings",
+        "delivery_quarters",
+        "earliest_filing_date",
+        "latest_filing_date"
+      ],
+      "title": "Sources",
+      "type": "object"
+    },
     "Stage": {
       "additionalProperties": false,
       "properties": {
@@ -889,6 +938,9 @@
       "const": 1,
       "title": "Schema Version",
       "type": "integer"
+    },
+    "sources": {
+      "$ref": "#/$defs/Sources"
     }
   },
   "required": [
@@ -900,7 +952,8 @@
     "quarters",
     "qa",
     "backtest",
-    "scenario_flex"
+    "scenario_flex",
+    "sources"
   ],
   "title": "Dashboard",
   "type": "object"
