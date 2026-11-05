@@ -261,9 +261,17 @@ def test_live_path_builds_the_sec_client_from_settings(
         "submissions": (fixtures / "submissions.json").read_bytes(),
     }
     agents: list[str] = []
+    urls: list[str] = []
+    folder = json.dumps({"directory": {"item": [{"name": "tsla-test_htm.xml"}]}}).encode()
+    empty_instance = b'<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance"/>'
 
     def transport(url: str, user_agent: str) -> bytes:
         agents.append(user_agent)
+        urls.append(url)
+        if url.endswith("index.json"):
+            return folder
+        if url.endswith("_htm.xml"):
+            return empty_instance
         return bodies["companyfacts" if "companyfacts" in url else "submissions"]
 
     monkeypatch.setattr(urllib.request, "urlopen", lambda *_a, **_k: pytest.fail("network"))
@@ -272,7 +280,11 @@ def test_live_path_builds_the_sec_client_from_settings(
     monkeypatch.setenv("SEC_USER_AGENT", "fixture-contact-string")
     database = tmp_path / "live.duckdb"
     run_ingest(database=database, csv_path=default_csv_path())
-    assert agents == ["fixture-contact-string", "fixture-contact-string"]
+    # companyfacts, submissions, then one folder listing and one instance per 10-Q and 10-K.
+    filings = len(json.loads(bodies["submissions"])["filings"]["recent"]["accessionNumber"])
+    assert len(agents) == 2 + 2 * filings
+    assert set(agents) == {"fixture-contact-string"}
+    assert sum(url.endswith("_htm.xml") for url in urls) == filings
     connection = duckdb.connect(str(database))
     count = connection.execute("SELECT count(*) FROM quarter_actual").fetchone()
     assert count is not None and count[0] > 0

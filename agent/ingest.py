@@ -15,6 +15,7 @@ import duckdb
 from agent.actuals import assemble_quarter_actuals, facts_from_companyfacts, store_reported_facts
 from agent.deliveries import default_csv_path, load_deliveries, repo_root, validate_deliveries
 from agent.forecast_config import load_forecast_config
+from agent.instances import segment_facts, segment_facts_from_directory, segment_since
 from agent.schema import apply_schema
 from agent.sec import SecClient
 from agent.settings import Settings
@@ -72,8 +73,13 @@ def run_ingest(
     issues = validate_deliveries(source)
     if issues:
         raise IngestError("\n".join(issues))
-    companyfacts, submissions = _load_filings(fixtures)
-    facts = facts_from_companyfacts(companyfacts, submissions, load_xbrl_map())
+    companyfacts, submissions, client = _load_filings(fixtures)
+    tag_map = load_xbrl_map()
+    facts = facts_from_companyfacts(companyfacts, submissions, tag_map)
+    if client is not None:
+        facts += segment_facts(client, submissions, tag_map, since=segment_since(submissions))
+    elif fixtures is not None and (fixtures / "instances").is_dir():
+        facts += segment_facts_from_directory(fixtures / "instances", submissions, tag_map)
     database.parent.mkdir(parents=True, exist_ok=True)
     connection = duckdb.connect(str(database))
     try:
@@ -90,13 +96,14 @@ def run_ingest(
     )
 
 
-def _load_filings(fixtures: Path | None) -> tuple[dict, dict]:
+def _load_filings(fixtures: Path | None) -> tuple[dict, dict, SecClient | None]:
+    """Return companyfacts, the merged submissions, and the live client (None in fixture mode)."""
     if fixtures is None:
         client = SecClient.from_settings(Settings())
         companyfacts = json.loads(client.companyfacts())
         submissions = json.loads(client.filing_index())
         pages = [json.loads(client.filing_index_page(name)) for name in _page_names(submissions)]
-        return companyfacts, merge_submission_pages(submissions, pages)
+        return companyfacts, merge_submission_pages(submissions, pages), client
     companyfacts_path = fixtures / "companyfacts.json"
     submissions_path = fixtures / "submissions.json"
     if not companyfacts_path.is_file() or not submissions_path.is_file():
@@ -111,6 +118,7 @@ def _load_filings(fixtures: Path | None) -> tuple[dict, dict]:
     return (
         json.loads(companyfacts_path.read_text(encoding="utf-8")),
         merge_submission_pages(submissions, pages),
+        None,
     )
 
 
