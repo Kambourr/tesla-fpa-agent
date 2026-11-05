@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 31 of 54 (57%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 32 of 54 (59%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -433,7 +433,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The section shows absolute percent error by quarter for revenue, gross profit, and operating income, plus the average. A fixture quarter with a large error is displayed, not hidden. Wording stays plain.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (d9e79b3169073d65726f241045fd76ced18d3e40)
 
 ### M5-T13 — How it works and how it is controlled
 
