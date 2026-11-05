@@ -19,7 +19,7 @@
 **Task(s):** M5-T12 (done)
 **What changed:**
 - `site/src/sections/AccuracySection.tsx` (+ `AccuracyFormat.ts`, `AccuracySection.css`, tests), coded by a Haiku subagent and reviewed by Claude Code: absolute percent error by quarter for revenue, gross profit, and operating income, plus a bold average row, from `dashboard.backtest`. Each cell shows the full number and a quiet inline bar capped at 100% with a "+" marker beyond, so a large miss is never clipped. The selected quarter's row is marked. The table scrolls with a sticky first column.
-**Current state:** 1 failed, 250 passed in 105.48s (0:01:45); site tests and build pass.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
 **Next step:** Merge this PR; continue merging the other M5 sections.
 **Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
 **Notes for the next agent:** Error bars use quiet ink, not green or amber: an error is not favorable or unfavorable.
