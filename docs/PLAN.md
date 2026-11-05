@@ -493,7 +493,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** A recorded search finds no Tesla logo, wordmark, brand font, brand red, or product photo, and no non-public source. The built site contains no OpenAI client and no path that calls the API from the browser. Results are written in `docs/PROGRESS.md`.
 - **Depends on:** M5-T15, M6-T1
 - **Can run in parallel with:** M6-T2, M6-T3
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M6-T5 — Git history secret scan
 
