@@ -433,7 +433,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The section shows absolute percent error by quarter for revenue, gross profit, and operating income, plus the average. A fixture quarter with a large error is displayed, not hidden. Wording stays plain.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T13 — How it works and how it is controlled
 
