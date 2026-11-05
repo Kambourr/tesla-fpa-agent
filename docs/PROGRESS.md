@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T10`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
-- **Tasks done:** 27 of 54 (50%).
+- **Tasks done:** 28 of 54 (52%).
 - **What's next:** Merge open task PRs as they land: `M1-T10` (segment lines), `M3-T5` (verifier on the fact sheet), `M4-T1` (publish JSON, pulled forward). Then `M3-T2` (narration) and the M5 dashboard sections.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,19 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 00:22 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T5 (done)
+**What changed:**
+- Added `agent/fact_sheet.py` (written by Claude Code): the contract between narration and verification. Every citable number for a quarter has a key (`actual.<metric>`, `forecast.<scenario>.<metric>`, `variance.<metric>`, `variance_pct.<metric>`, `bridge.<bridge>.<driver>`, `backtest.<metric>.abs_pct_error`, `backtest.<metric>.average_abs_pct_error` for period `12Q`), a period, a unit (USD, percent, units, USD_per_unit), and a source with the filing URL where there is one.
+- Added `agent/verifier.py` (coded by a Haiku subagent, reviewed by Claude Code): `verify_claim`/`verify_claims` return verified, flagged (with the expected value), or unsupported. Units normalize ($1.5 billion matches 1,500,000,000). Tolerances: ±0.5% for USD and ASP, ±0.1 points for percent, exact for unit counts (a claim in thousands is compared at its own precision). Opposite signs are flagged. The verifier never edits a claim.
+- Added `tests/test_fact_sheet.py` and `tests/test_verifier.py`. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 204 passed. Ruff check and format check passed.
+**Next step:** Merge this PR, then `M3-T2`: narration sends `quarter_facts` (and `backtest_facts` for questions 7 and 8) as the only input and requires claims to cite fact keys and periods.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** A claim's `metric` is a fact-sheet key and its `period` the fact's period. Variances must be signed. Change the fact keys only together with the prompt and the verifier.
+**Last commit:** f2d8faf8fb531cd328b5d50cfe1a1f57f2d820f5 on task/M3-T5-verifier
 
 ## 2026-11-05 00:20 (America/Los_Angeles) — Claude Code
 
