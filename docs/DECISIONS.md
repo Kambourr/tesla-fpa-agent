@@ -2,6 +2,25 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Model and variance commands, and two load fixes they exposed
+
+**Decision:** `agent/model_stage.py` holds both stages. `python -m agent model` clears `forecast`, `backtest`, `bridge`, and `published_quarter`, then for each of the last 12 quarters with reported total revenue writes bull, base, and bear (`write_scenarios`) and the backtest row. Each quarter is recorded in the new table `published_quarter` (`sql/010_published_quarter.sql`) with kind `backtest` and `has_forecast`, which is false when the base forecast is empty for short history. When `PUBLISH_FORWARD_FORECAST` is true, the next quarter is forecast and recorded with kind `forward`. When it is false, no forward forecast is computed at all, so a forward number cannot reach the publish step by mistake. `python -m agent variance` clears `bridge` and writes the four bridges for every `backtest` quarter with a forecast. If a bridge cannot be built, the others are still written, each failure is printed with its quarter and bridge, and the command exits 1. Accuracy beats coverage: a missing bridge is reported, not hidden.
+
+Building this against a synthetic 19-quarter database (`tests/pipeline_fixture.py`, loaded through `store_reported_facts` and `assemble_quarter_actuals`) found two defects that unit tests with hand-inserted rows had hidden:
+
+- **Actual deliveries.** The revenue bridge read actual deliveries from `quarter_actual`. Ingest stores delivery counts only in the `deliveries` table, so the bridge could not run on an ingested database. It now reads `deliveries.deliveries_total`.
+- **Cash flow in an unfinished year.** `assemble_quarter_actuals` wrote cash-flow quarters only for years with a 10-K, so the latest year's Q1 to Q3 had no CFO or capex, and those are the quarters the dashboard leads with. Q1 to Q3 now de-cumulate from the 10-Qs on file. Q4 still needs the 10-K.
+
+**Alternatives considered:** Computing the forward forecast always and filtering it at publish time. Rejected because a stored forward number is one bug away from the site, and Jacob has not approved showing one. Skipping a quarter whose bridge fails and exiting 0. Rejected because the site would show a gap without saying why.
+
+## 2026-11-04 — Plan change: add M1-T10 for segment lines
+
+**Decision:** Add `M1-T10` to `docs/PLAN.md`: read the segment revenue and cost lines from each filing's XBRL instance. The plan had no task for this. Every revenue segment metric in `config/xbrl_tags.json` (automotive sales, regulatory credits, leasing, energy, services) and every segment cost is tagged with a dimension member. Companyfacts drops dimensions, so ingest stores none of them (see "First-reported quarter actuals"). On live data the base forecast therefore has no automotive sales, no total revenue, and no gross profit from the segment path, and the revenue bridge raises. Fixture tests did not show this, because they insert the lines directly.
+
+**Alternatives considered:** Dropping the segment bars from the revenue bridge. Rejected because section 4 requires them, and the volume and price/mix bars need automotive sales. The SEC frames API. Rejected because it has no dimensions either. Folding the work into `M2-T10`. Rejected because it is ingest work with its own fixture and network rules.
+
+**What this means for later tasks:** `M2-T10` can pass its acceptance on a fixture database. `M6-T3` (fresh-clone run) cannot pass until `M1-T10` is done.
+
 ## 2026-11-04 — Free cash flow bridge
 
 **Decision:** `agent/free_cash_flow_bridge.py` writes two bars: `net_cash_from_operating_activities` (actual minus forecast CFO) and `purchases_of_property_and_equipment` (minus the change in capex, so spending above forecast is negative and unfavorable). The variance is actual minus forecast free cash flow. Ingest does not store an actual `free_cash_flow`, so the bridge computes it as CFO minus capex from the first-reported, de-cumulated lines. A stored value is used if a later task adds one, and `reconciled()` rejects it if it does not tie.

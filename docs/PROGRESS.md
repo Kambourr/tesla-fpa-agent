@@ -2,18 +2,32 @@
 
 ## Current status
 
-- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T9` is done on `task/M2-T9-free-cash-flow-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T8`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
-- **Tasks done:** 25 of 53 (47%).
-- **What's next:** `M2-T10` (`model` and `variance` commands). `M3-T5` (verifier) and `M3-T6` (keyword guard) can run in parallel.
+- **Current milestone:** M2 is complete once the `M2-T10` pull request merges. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T9`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
+- **Tasks done:** 26 of 54 (48%).
+- **What's next:** `M1-T10` (segment lines from filing instances), `M3-T5` (verifier), and `M3-T6` (keyword guard) can run in parallel. `M3-T2` (narration) is unblocked by `M2-T10`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge`, `write_gross_profit_bridge`, `write_operating_income_bridge`, and `write_free_cash_flow_bridge` (each takes a connection and a quarter) store the bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
 
-## 2026-11-04 17:52 (America/Los_Angeles) — Claude Code
+## 2026-11-04 17:57 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T10 (done); M1-T10 added to the plan
+**What changed:**
+- Added `agent/model_stage.py`, `sql/010_published_quarter.sql`, and the `model` and `variance` subcommands in `agent/__main__.py`. `model` writes bull, base, and bear plus the backtest for the last 12 reported quarters and records them in `published_quarter`. The forward quarter is computed only when `PUBLISH_FORWARD_FORECAST=true`. `variance` writes the four bridges and exits 1, naming each one, when a bridge cannot be built.
+- Fixed `agent/revenue_bridge.py` to read actual deliveries from the `deliveries` table. Fixed `agent/actuals.py` so the latest, unfinished year gets cash-flow Q1 to Q3 without waiting for the 10-K. Both bugs were hidden by unit tests that inserted rows directly.
+- Added `tests/pipeline_fixture.py` (synthetic 19-quarter database through the real storage path) and `tests/test_model_stage.py`, plus a regression test in `tests/test_actuals.py`.
+- Added `M1-T10` to `docs/PLAN.md`. Companyfacts drops the dimension members every revenue segment line needs, so on live data the forecast has no automotive sales or total revenue. Logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 135 passed. Ruff check and format check passed. On the fixture, all 48 bridges (12 quarters × 4) sum exactly to their variance.
+**Next step:** Merge the M2-T10 pull request. Then claim `M1-T10`: fetch each 10-Q and 10-K XBRL instance through `SecClient` (cached, rate-limited), read the contexts whose only explicit member is the configured one, and store the segment lines with `store_reported_facts`. Use a saved instance fixture in tests, with no network.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Use `tests/pipeline_fixture.py` for stage tests rather than inserting `quarter_actual` rows by hand: that is how both bugs above hid. The commit named below is the stage commands. The two fixes are the two commits before it.
+**Last commit:** 6d470ce98a51078ae94ab45cc8fddfb1102f57ad on task/M2-T10-model-variance-commands
+
+## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
 
 **Task(s):** M2-T9 (done)
 **What changed:**

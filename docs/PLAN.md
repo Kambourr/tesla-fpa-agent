@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 25 of 53 (47%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 26 of 54 (48%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -128,6 +128,14 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Can run in parallel with:** none
 - **Status:** done (5da704bcb15846fd72b6e8775e317d70f28575ba)
 
+### M1-T10 — Segment lines from filing XBRL instances
+
+- **Goal:** Load the revenue and cost segment lines (automotive sales, regulatory credits, leasing, energy, services, and the segment costs) from each 10-Q and 10-K XBRL instance, because companyfacts drops the dimension members those lines need.
+- **Acceptance:** Tests with a saved instance fixture, and no network, show that each segment metric in `config/xbrl_tags.json` is read from the context whose only explicit member is the configured one, for the filing's own quarter, and stored through `store_reported_facts` with the filing's accession, date, and URL. The segment lines for a filing tie to total revenue and total cost of revenue in that filing. The client uses the cached SEC client with `SEC_USER_AGENT` and the 10-requests-per-second limit. `python -m agent ingest` loads them. Without them, the base forecast has no automotive sales or total revenue, and the revenue bridge cannot run on live data.
+- **Depends on:** M1-T9
+- **Can run in parallel with:** M2-T10, M3-T5, M3-T6, and M5 tasks
+- **Status:** todo
+
 ## M2 — Model and variance
 
 Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The model knows last quarter's full results and does not know this quarter's delivery report. Publish forecast-versus-actual for reported quarters only. `PUBLISH_FORWARD_FORECAST` stays `false`.
@@ -210,7 +218,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** `python -m agent model` and `python -m agent variance` run against the local database (or a fixture database in CI) and write the base forecast, three scenarios, backtest table, and four bridges. No forward quarter is marked for publication while `PUBLISH_FORWARD_FORECAST=false`.
 - **Depends on:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T8, M2-T9
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (6d470ce98a51078ae94ab45cc8fddfb1102f57ad)
 
 ## M3 — Narration and verification
 
