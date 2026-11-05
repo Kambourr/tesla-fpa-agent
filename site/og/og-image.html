@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tesla FP&amp;A Agent social preview</title>
+    <style>
+      /* Fonts are the same self-hosted latin files the site uses (see site/package.json). */
+      @font-face {
+        font-family: "Schibsted Grotesk";
+        font-style: normal;
+        font-weight: 400;
+        src: url("../node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-400-normal.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Schibsted Grotesk";
+        font-style: normal;
+        font-weight: 700;
+        src: url("../node_modules/@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-700-normal.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Newsreader";
+        font-style: normal;
+        font-weight: 400;
+        src: url("../node_modules/@fontsource/newsreader/files/newsreader-latin-400-normal.woff2") format("woff2");
+      }
+
+      :root {
+        --paper: #F2F4EF;
+        --ink: #1D2321;
+        --quiet-ink: #4F5B55;
+        --green: #17784C;
+        --rule: #C7CDC4;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--paper);
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      .card {
+        box-sizing: border-box;
+        width: 1200px;
+        height: 630px;
+        padding: 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 0;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 0.01em;
+        color: var(--ink);
+      }
+
+      .tick {
+        fill: none;
+        stroke: var(--green);
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        display: block;
+        flex: none;
+      }
+
+      .kicker .tick {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hero {
+        margin: 0;
+        max-width: 900px;
+        font-family: "Newsreader", Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+
+      .hero span {
+        display: block;
+      }
+
+      .hero .tick {
+        display: inline-block;
+        width: 0.5em;
+        height: 0.5em;
+        margin-left: 0.12em;
+        vertical-align: 0.32em;
+      }
+
+      .footer {
+        border-top: 1px solid var(--rule);
+        padding-top: 28px;
+        margin: 0;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 1.4;
+        color: var(--quiet-ink);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <p class="kicker">
+        <svg class="tick" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17.2c1.8 1.4 3.4 3.8 4.6 6.2C15.6 16.6 19.6 11.2 26 6.4" /></svg>
+        Tesla FP&amp;A Agent
+      </p>
+
+      <h1 class="hero">
+        <span>An AI model writes the variance memo.<svg class="tick" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17.2c1.8 1.4 3.4 3.8 4.6 6.2C15.6 16.6 19.6 11.2 26 6.4" /></svg></span>
+        <span>Code checks every figure against the SEC filings.<svg class="tick" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17.2c1.8 1.4 3.4 3.8 4.6 6.2C15.6 16.6 19.6 11.2 26 6.4" /></svg></span>
+      </h1>
+
+      <p class="footer">Forecast, variance bridges, and verified commentary from Tesla's public filings &middot; Independent analysis, not affiliated with Tesla</p>
+    </main>
+  </body>
+</html>
