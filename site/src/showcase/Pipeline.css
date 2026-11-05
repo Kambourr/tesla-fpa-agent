@@ -1,0 +1,223 @@
+/*
+  The pipeline: six stage buttons in a row (two rows of three on tablets, a
+  vertical list on phones), with the selected stage's artifact below.
+  The model stage is the only one in slate; everything else is code.
+*/
+.pipeline-steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pipeline-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-height: 5.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ink);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pipeline-step.is-model {
+  border-top-color: var(--cobalt);
+}
+
+.pipeline-step:hover {
+  background: var(--surface);
+}
+
+.pipeline-step[aria-selected="true"] {
+  border-color: var(--ink);
+  background: var(--surface);
+  box-shadow: inset 0 -3px 0 var(--green);
+}
+
+.pipeline-step:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.pipeline-step-top {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-quiet);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.pipeline-step.is-model .pipeline-step-actor {
+  color: var(--cobalt);
+  font-weight: 700;
+}
+
+.pipeline-step-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.pipeline-step-stat {
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.pipeline-panel {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  columns: 2 22rem;
+  column-gap: 2rem;
+}
+
+.pipeline-panel:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.pipeline-panel > * {
+  break-inside: avoid;
+}
+
+.pipeline-panel p {
+  margin: 0 0 0.75rem;
+  max-width: 40rem;
+}
+
+.pipeline-code {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.9rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.pipeline-table {
+  margin: 0 0 0.75rem;
+  border-collapse: collapse;
+}
+
+.pipeline-table th,
+.pipeline-table td {
+  padding: 0.25rem 1.25rem 0.25rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.pipeline-table th {
+  font-weight: 400;
+}
+
+.pipeline-table td {
+  font-weight: 500;
+  text-align: right;
+}
+
+.pipeline-table td.pipeline-quiet {
+  font-weight: 400;
+}
+
+.pipeline-total th,
+.pipeline-total td {
+  font-weight: 700;
+}
+
+.pipeline-down {
+  color: var(--amber);
+}
+
+.pipeline-up {
+  color: var(--green);
+}
+
+.pipeline-quiet {
+  color: var(--ink-quiet);
+}
+
+.pipeline-check,
+.pipeline-first {
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--green);
+  font-weight: 500;
+}
+
+.pipeline-catches {
+  margin: 0 0 0.75rem;
+  padding-left: 1.2rem;
+  font-size: 0.875rem;
+}
+
+.pipeline-bars {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pipeline-bars li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) 4rem;
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 1.6rem;
+}
+
+.pipeline-bar-name {
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.pipeline-bar-track {
+  height: 0.6rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.pipeline-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+.pipeline-bar-fill.is-model {
+  background: var(--cobalt);
+}
+
+.pipeline-bar-value {
+  font-size: 0.875rem;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .pipeline-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .pipeline-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pipeline-step {
+    min-height: 4.75rem;
+  }
+
+  .pipeline-panel {
+    padding: 0.9rem;
+  }
+}

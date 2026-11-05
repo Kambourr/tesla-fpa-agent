@@ -42,3 +42,17 @@ describe("loading dashboard.json", () => {
     await waitFor(() => expect(screen.getByText("The published data did not load")).toBeTruthy());
   });
 });
+
+describe("page order", () => {
+  test("states what it is, then the checker demo, the pipeline, and the outputs in tabs", async () => {
+    const { default: published } = await import("../public/data/dashboard.json");
+    render(<App initialDashboard={published as never} />);
+    const headings = await screen.findAllByRole("heading", { level: 2 });
+    const names = headings.map((item) => item.textContent ?? "");
+    const index = (pattern: RegExp) => names.findIndex((name) => pattern.test(name));
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toMatch(/cannot publish a number/);
+    expect(index(/^Change a number the model wrote/)).toBe(0);
+    expect(index(/^Six stages/)).toBe(1);
+    await waitFor(() => expect(screen.getByRole("tablist", { name: "Outputs" })).toBeTruthy());
+  });
+});

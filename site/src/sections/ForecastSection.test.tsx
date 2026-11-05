@@ -88,10 +88,9 @@ function expectNoClass(element: Element, name: string) {
 }
 
 describe("ForecastSection", () => {
-  it("renders the heading, the ledger rule and one row per published line", () => {
-    const { container } = renderFor(QUARTER);
+  it("renders the heading and one row per published line", () => {
+    renderFor(QUARTER);
     expect(screen.getByRole("heading", { level: 2, name: "Forecast and scenarios" })).toBeTruthy();
-    expect(container.querySelector("hr.ledger")).not.toBeNull();
     for (const line of LINES) {
       expect(screen.getByRole("rowheader", { name: line.label })).toBeTruthy();
     }

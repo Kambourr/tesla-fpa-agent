@@ -68,7 +68,6 @@ export function AskSection({ dashboard, quarter, onSelectQuarter }: SectionProps
 
   return (
     <>
-      <hr className="ledger" />
       <section className="ask" aria-labelledby="ask-heading">
         <h2 id="ask-heading">Ask the analyst</h2>
         <p className="ask-intro">

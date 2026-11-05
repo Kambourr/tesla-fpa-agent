@@ -1,0 +1,274 @@
+/*
+  "Try to break it": the memo excerpt in the narrative serif with each figure
+  an input, and an inspector card that states what the code compared.
+*/
+.breakit-kicker,
+.pipeline-kicker {
+  margin: 0;
+  color: var(--green);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.breakit-title,
+.pipeline-title {
+  margin-top: 0.35rem;
+  font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.breakit-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+  gap: 1.25rem;
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.breakit-memo {
+  margin: 0;
+  font-family: var(--font-narrative);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  line-height: 1.6;
+}
+
+.breakit-figure {
+  white-space: nowrap;
+}
+
+.breakit-figure .tick-icon {
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-left: 0.08em;
+  vertical-align: 0.32em;
+}
+
+.breakit-input {
+  min-width: 2ch;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px dashed var(--ink-quiet);
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: proportional-nums;
+  text-align: center;
+}
+
+/* Size to the typed text where the browser can; the inline width is the fallback. */
+@supports (field-sizing: content) {
+  .breakit-input {
+    width: auto !important;
+    min-width: 1.2ch;
+    field-sizing: content;
+  }
+}
+
+.breakit-input:hover {
+  background: color-mix(in srgb, var(--cobalt) 8%, transparent);
+}
+
+.breakit-input:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.breakit-figure.is-selected .breakit-input {
+  border-bottom-color: var(--cobalt);
+  border-bottom-style: solid;
+}
+
+.breakit-figure-flagged .breakit-input {
+  border-bottom-color: var(--amber);
+  border-bottom-style: solid;
+  color: var(--amber);
+}
+
+.breakit-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.breakit-totals {
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-quiet);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.breakit-totals strong {
+  color: var(--ink);
+}
+
+.breakit-inspector {
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--rule);
+  font-size: 0.9375rem;
+}
+
+.breakit-metric {
+  margin: 0;
+  font-weight: 700;
+}
+
+.breakit-metric span {
+  color: var(--ink-quiet);
+  font-weight: 400;
+}
+
+.breakit-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0;
+}
+
+.breakit-facts dt {
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+}
+
+.breakit-facts dd {
+  margin: 0.1rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.breakit-unit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+}
+
+.breakit-unit select {
+  min-height: 2rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.breakit-rule {
+  margin: 0.75rem 0 0;
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.breakit-result {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.breakit-result .tick-icon {
+  display: inline-block;
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.1rem;
+}
+
+.breakit-result-verified {
+  background: color-mix(in srgb, var(--green) 10%, transparent);
+}
+
+.breakit-result-flagged {
+  background: color-mix(in srgb, var(--amber) 13%, transparent);
+}
+
+.breakit-source {
+  margin: 0.6rem 0 0;
+  font-size: 0.8125rem;
+}
+
+.breakit-hint {
+  margin: 0.6rem 0 0;
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+}
+
+.breakit-reset {
+  min-height: 2.25rem;
+  margin-top: 0.6rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.breakit-reset:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.breakit-note {
+  margin: 0.6rem 0 0;
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+}
+
+.breakit-empty {
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .breakit-body {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1rem;
+  }
+
+  .breakit-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.breakit-totals {
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-quiet);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.breakit-totals strong {
+  color: var(--ink);
+}
+
+.breakit-inspector {
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--rule);
+    border-left: 0;
+  }
+}

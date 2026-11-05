@@ -78,7 +78,6 @@ export function ForecastSection({ dashboard, quarter }: SectionProps) {
 
   return (
     <>
-      <hr className="ledger" />
       <section className="forecast" aria-labelledby="forecast-heading">
         <h2 id="forecast-heading">Forecast and scenarios</h2>
 
