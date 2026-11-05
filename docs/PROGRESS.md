@@ -18,13 +18,13 @@
 
 **Task(s):** M5 groundwork (no plan task)
 **What changed:**
-- \`site/src/App.tsx\` loads \`data/dashboard.json\` through \`loadDashboard\`, shows a loading line and an error section that says what is missing, and drives the quarter picker from the published quarters (\`quarterRecords\` in \`site/src/quarters.ts\`). The label-only quarter fixture is gone.
-- Each dashboard section has its own component in \`site/src/sections/\` (\`HeroSection\`, \`AgentRunSection\`, \`MemoSection\`, \`ForecastSection\`, \`ForecastChart\`, \`AskSection\`, \`AccuracySection\`) taking \`SectionProps\` (dashboard, selected quarter, \`onSelectQuarter\`). They render nothing until their M5 task fills them, so section tasks can run in parallel without editing \`App.tsx\`.
-- \`site/src/data/testDashboard.ts\` is invented sample data for component tests only. \`tests/test_quarter_picker.py\` fails if production code imports it.
-**Current state:** \`npm test\`: 4 passed; \`npm run build\` succeeded; \`uv run pytest\`: 237 passed.
+- `site/src/App.tsx` loads `data/dashboard.json` through `loadDashboard`, shows a loading line and an error section that says what is missing, and drives the quarter picker from the published quarters (`quarterRecords` in `site/src/quarters.ts`). The label-only quarter fixture is gone.
+- Each dashboard section has its own component in `site/src/sections/` (`HeroSection`, `AgentRunSection`, `MemoSection`, `ForecastSection`, `ForecastChart`, `AskSection`, `AccuracySection`) taking `SectionProps` (dashboard, selected quarter, `onSelectQuarter`). They render nothing until their M5 task fills them, so section tasks can run in parallel without editing `App.tsx`.
+- `site/src/data/testDashboard.ts` is invented sample data for component tests only. `tests/test_quarter_picker.py` fails if production code imports it.
+**Current state:** `npm test`: 4 passed; `npm run build` succeeded; `uv run pytest`: 237 passed.
 **Next step:** Merge this PR, then run the M5 section tasks in parallel.
 **Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
-**Notes for the next agent:** A section task edits only its own file in \`site/src/sections/\` (plus new helpers and its CSS block). Never show numbers from \`testDashboard.ts\` on the page.
+**Notes for the next agent:** A section task edits only its own file in `site/src/sections/` (plus new helpers and its CSS block). Never show numbers from `testDashboard.ts` on the page.
 **Last commit:** a82f8ebe0d3b535eb6baa7921b2877531761bbcd on task/M5-data-wiring
 
 ## 2026-11-05 00:29 (America/Los_Angeles) — Claude Code
