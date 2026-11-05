@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 47 of 54 (87%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 48 of 54 (89%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -457,7 +457,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** Keyboard focus is visible on interactive elements, including ticks, the quarter picker, and the scenario control. Text and chart elements meet WCAG AA in light and dark mode. Lighthouse accessibility is at least 95 and performance is at least 90 on the production build. The 375px layout still reaches every section, with tables scrolling horizontally and the first column pinned. Record the Lighthouse scores in `docs/PROGRESS.md`.
 - **Depends on:** M5-T4, M5-T5, M5-T6, M5-T7, M5-T8, M5-T9, M5-T10, M5-T11, M5-T12, M5-T13, M5-T14
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (45b2f83c5a0dbb63e082d178d283f1de2fd8f2d6)
 
 ## M6 — README, polish, and launch
 

@@ -25,7 +25,7 @@ QUESTION_MARKERS = (
 def test_prompts_have_a_version_the_cache_can_hash() -> None:
     bundle = load_prompts()
     again = load_prompts()
-    assert bundle.version == "2026-11-05.1"
+    assert bundle.version == "2026-11-05.2"
     assert bundle.content_sha256 == again.content_sha256
     assert bundle.cache_material == f"{bundle.version}\n{bundle.content_sha256}"
     assert bundle.temperature == 0.2

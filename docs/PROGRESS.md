@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M5 dashboard sections and M3 narration/verification are on `main`; `M4-T2` (the single `run` command) is in progress, then the first live refresh in GitHub Actions and M6 launch tasks. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews, checks visually, and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 47 of 54 (87%).
+- **Tasks done:** 48 of 54 (89%).
 - **What's next:** Jacob runs the "Refresh data" workflow once (Actions tab, Refresh data, Run workflow) for the first real narration with the `OPENAI_API_KEY` secret; it commits `dashboard.json` and `data/narrative_cache.json` and the site redeploys. Meanwhile `M5-T15`, then `M6-T1` to `M6-T6`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -14,6 +14,21 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 05:17 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T15 (done; Claude Code)
+**What changed:**
+- `site/src/main.tsx` imports the committed `site/public/data/dashboard.json` at build time (Vite emits it as `JSON.parse`), so the page renders complete on first paint. Loading it after first render inserted every section above the methods section: cumulative layout shift 0.45 to 0.49, which held Lighthouse performance at 78 to 80. `App` still accepts a fetched file (tests cover that path).
+- Lighthouse 12.6.0 on the production build (local preview, all sections): mobile performance 99, accessibility 100, best practices 100, SEO 100 (CLS 0.002, LCP 1.7 s); desktop performance 100, accessibility 100, best practices 100, SEO 100 (CLS 0, LCP 0.4 s).
+- Keyboard: a Playwright pass tabbed through all 19 focusable elements (quarter picker, theme toggle, scenario buttons, chart quarter buttons, links) in light and dark; every one shows the focus ring. Tick focus is covered by their component tests (no memo is published yet).
+- Width: at 375px the document is exactly 375px wide (no horizontal page scroll); the bridge and the tables scroll inside their own boxes with the first column pinned.
+- Dark mode contrast: every token pair was measured at M5-T1 and passes WCAG AA (table in `docs/DECISIONS.md`).
+**Current state:** `uv run pytest`: 332 passed; site tests and build pass.
+**Next step:** Merge this PR; README and launch tasks.
+**Blockers / questions for Jacob:** (a), (c), (d), and (g) as in the status block.
+**Notes for the next agent:** The site rebuilds whenever `dashboard.json` changes (deploy runs on push and after "Refresh data"), so the bundled data is always the committed file.
+**Last commit:** 45b2f83c5a0dbb63e082d178d283f1de2fd8f2d6 on task/M5-T15-accessibility
 
 ## 2026-11-05 05:09 (America/Los_Angeles) — Claude Code
 

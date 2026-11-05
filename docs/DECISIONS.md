@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — The dashboard bundles its data at build time
+
+**Decision:** `site/src/main.tsx` imports `site/public/data/dashboard.json` and passes it to `App`; `vite.config.ts` sets `json.stringify` so the data ships as one `JSON.parse` string. The file also stays published at `data/dashboard.json`.
+
+**Why:** Fetching after first render caused a layout shift of about 0.49 (every section appeared above the methods section), which held Lighthouse performance near 80 against the brief's floor of 90. With the data bundled, performance is 99 mobile and 100 desktop. The deploy workflow rebuilds on every push and after every data refresh, so the bundle never drifts from the committed file.
+
+**Alternatives considered:** Reserving space with placeholders of fixed height. Rejected because section heights change with the data and the screen width, so the shift would return in a smaller form. Server rendering. Rejected because the site is static by design.
+
 ## 2026-11-05 — Verified narratives persist in a committed cache file
 
 **Decision:** `data/narrative_cache.json` holds every narrative whose final review was clean: quarter, kind, input hash, prompt version, model, the draft, tokens, and issues. `python -m agent run` imports it before narration and exports it after verification; the refresh workflow commits it with `dashboard.json`. A quarter reuses its text only when the input hash (fact sheet, prompt version and content, model) matches.
