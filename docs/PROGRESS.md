@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 31 of 54 (57%).
+- **Tasks done:** 32 of 54 (59%).
 - **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,17 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 00:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T12 (done)
+**What changed:**
+- `site/src/sections/AccuracySection.tsx` (+ `AccuracyFormat.ts`, `AccuracySection.css`, tests), coded by a Haiku subagent and reviewed by Claude Code: absolute percent error by quarter for revenue, gross profit, and operating income, plus a bold average row, from `dashboard.backtest`. Each cell shows the full number and a quiet inline bar capped at 100% with a "+" marker beyond, so a large miss is never clipped. The selected quarter's row is marked. The table scrolls with a sticky first column.
+**Current state:** 1 failed, 250 passed in 105.48s (0:01:45); site tests and build pass.
+**Next step:** Merge this PR; continue merging the other M5 sections.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Error bars use quiet ink, not green or amber: an error is not favorable or unfavorable.
+**Last commit:** d9e79b3169073d65726f241045fd76ced18d3e40 on task/M5-T12-model-accuracy
 
 ## 2026-11-05 00:38 (America/Los_Angeles) — Claude Code
 
