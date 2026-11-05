@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import { AboutSection } from "./components/AboutSection";
 import { MastheadMark } from "./components/MastheadMark";
 import { MethodSection } from "./components/MethodSection";
@@ -33,6 +33,23 @@ export function App({ initialDashboard }: AppProps = {}) {
   );
   const [quarterId, setQuarterId] = useState("");
   const menuRoot = useRef<HTMLDivElement>(null);
+  // The first screen (hero quote and build chain) renders at once; everything
+  // below it renders in a transition right after, which React splits into short
+  // tasks, so a slow phone is not blocked rendering sections it cannot see yet.
+  const [restReady, setRestReady] = useState(false);
+
+  useEffect(() => {
+    startTransition(() => setRestReady(true));
+  }, []);
+
+  // A link straight to a section (#about-title) arrives before that section
+  // exists; scroll to it once it does.
+  useEffect(() => {
+    if (!restReady || !window.location.hash) {
+      return;
+    }
+    document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView();
+  }, [restReady]);
 
   useEffect(() => {
     if (initialDashboard) {
@@ -120,6 +137,11 @@ export function App({ initialDashboard }: AppProps = {}) {
           <>
             <HeroQuote dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <BuildChain dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
+          </>
+        ) : null}
+        {!restReady ? <div className="rest-placeholder" aria-hidden="true" /> : null}
+        {restReady && dashboard && view && view.has_forecast ? (
+          <>
             <hr className="ledger" />
             <HeroSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
             <MemoSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
@@ -130,10 +152,14 @@ export function App({ initialDashboard }: AppProps = {}) {
             <AgentRunSection dashboard={dashboard} quarter={view} onSelectQuarter={setQuarterId} />
           </>
         ) : null}
-        <hr className="ledger" />
-        <MethodSection />
-        <hr className="ledger" />
-        <AboutSection />
+        {restReady ? (
+          <>
+            <hr className="ledger" />
+            <MethodSection />
+            <hr className="ledger" />
+            <AboutSection />
+          </>
+        ) : null}
       </main>
       <footer className="colophon">
         <div className="canvas">

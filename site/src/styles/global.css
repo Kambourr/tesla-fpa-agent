@@ -535,3 +535,26 @@ table {
     scroll-behavior: auto !important;
   }
 }
+
+/*
+  Holds the space below the first screen for the moment before the rest of the
+  page renders, so the footer never appears in view and then jumps down.
+*/
+.rest-placeholder {
+  min-height: 100vh;
+}
+
+/*
+  Long sections far down the page skip layout and paint until they near the
+  viewport. Only sections with no tick tooltips (paint containment would clip
+  them) and no self-measuring chart. "auto" remembers the real height once
+  rendered, so the scrollbar settles after the first pass.
+*/
+.forecast,
+.accuracy,
+.agent-run,
+.method,
+.about {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

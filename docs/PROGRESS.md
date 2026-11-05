@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 57 of 59 (97%).
-- **What's next:** M7-T2 to M7-T5 (full-run figure, social preview, write-up page, mobile performance), claimed by Claude Code.
+- **Current milestone:** M7 complete (redesign plus follow-ups). Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 59 of 59 (100%).
+- **What's next:** Nothing for an agent. Jacob's list in the 2026-11-05 06:12 entry still stands.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,22 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T5 (done, c48e3ba5be094a8e576a866c449f1ffa80afcc5c).
+**What changed:** `site/src/App.tsx` renders the first screen (hero quote, build chain) immediately and everything below it in a React transition right after mount, which React splits into short tasks; a `.rest-placeholder` (100vh) holds the space meanwhile so the footer never shows and jumps. A deep link such as `#about-title` scrolls once its section exists. `.forecast`, `.accuracy`, `.agent-run`, `.method`, and `.about` use `content-visibility: auto` (sections with tick tooltips or the self-measuring chart are excluded, since paint containment would clip or mis-measure them).
+**Checks:** Lighthouse 12.2.1 mobile, local preview, three runs each in the same session: before, performance 83/90/90 with TBT 460/260/260 ms; after, 96/95/95 with TBT 100/150/150 ms. CLS 0.007 and LCP about 2.2 s in both. Playwright at 375px: deep link and in-page link to About land on it, no horizontal scroll, no console errors. Site tests 142 passed.
+**Next step:** None for an agent.
+**Blockers / questions for Jacob:** None new.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T3 (done, b7ad2a3c042564f5fc85bb22f5ec48efa48d7dd5).
+**What changed:** Shared links now show a preview. `site/index.html` has Open Graph and Twitter card tags pointing at the absolute URL `https://kambourr.github.io/tesla-fpa-agent/og-image.png`. The 1200×630 image (`site/public/og-image.png`) says only what stays true across quarters: "An AI model writes the variance memo. Code checks every figure against the SEC filings.", with the site's ticks, fonts, and palette, and the independence line. Its source is `site/og/og-image.html`; re-render with `node site/og/render.cjs` from the repo root after `npm ci` in `site/`. First draft by a subagent; layout and alt text revised.
+**Checks:** `tests/test_site_shell.py` 9 passed (new test checks the tags and the PNG's size from its header); site tests and build pass.
+**Next step:** M7-T4, M7-T5.
+**Blockers / questions for Jacob:** None. Some platforms cache previews; LinkedIn's Post Inspector refreshes it.
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
