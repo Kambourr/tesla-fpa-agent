@@ -79,10 +79,10 @@ export function formatCost(usd: number | null): string | null {
 }
 
 /**
- * True until a full pipeline run has been recorded. A full run always sets a
- * start time and a model. A publish-only run records just its own duration,
- * which must not read as the whole pipeline's run time.
+ * True until a full pipeline run has been recorded. Only a full run records the
+ * model it narrated with. A publish-only run records its own start time and
+ * duration, which must not read as the whole pipeline's run.
  */
 export function isRunUnrecorded(run: RunMetadata): boolean {
-  return run.started_at === null && run.model === null;
+  return run.model === null;
 }
