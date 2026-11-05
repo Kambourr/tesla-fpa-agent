@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 59 of 59 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 59 of 64 (92%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -554,3 +554,47 @@ Added 2026-11-05 at Jacob's request, after the plan was complete: a fresh redesi
 - **Depends on:** M7-T1
 - **Can run in parallel with:** M7-T2, M7-T3, M7-T4
 - **Status:** done (c48e3ba5be094a8e576a866c449f1ffa80afcc5c)
+
+## M8 — Show the machine working
+
+Added 2026-11-05 at Jacob's request: the M7 page still took too long to show what the product is or why it is hard. M8 puts the verifier and the pipeline on the first screen and moves the outputs into tabs. The site tasks (M8-T2 to M8-T4) share one layout and land on one branch; see `docs/DECISIONS.md`.
+
+### M8-T1 — Record first-draft catches
+
+- **Goal:** Keep what the verifier found in each model draft before the re-ask, so the page can say truthfully what code caught.
+- **Acceptance:** Every freshly drafted narrative stores its first review (counts, guard hits, validation issues, and each flagged or unsupported claim with the written and expected values). The record survives the narrative cache. `dashboard.json` publishes a `first_drafts` block aggregating it, with null counts for narratives drafted before recording began. Tests cover a clean first draft, a caught-and-corrected draft, and the cache round trip.
+- **Depends on:** M7-T5
+- **Can run in parallel with:** M8-T2
+- **Status:** in progress (Claude Code, 2026-11-05)
+
+### M8-T2 — Try to break it
+
+- **Goal:** Let a visitor edit a figure in the model's memo and watch code check it in the browser.
+- **Acceptance:** A TypeScript port of the verifier's unit normalisation and tolerances, with parity tests on the same cases as `tests/test_verifier.py`. Editing a figure re-checks it against the published expected value and shows ties, flags with expected value and source, or the sign rule. No API call. Keyboard and screen-reader usable.
+- **Depends on:** M7-T5
+- **Can run in parallel with:** M8-T1
+- **Status:** in progress (Claude Code, 2026-11-05)
+
+### M8-T3 — Pipeline you can open
+
+- **Goal:** Show the pipeline's complexity with its real artifacts, not a description.
+- **Acceptance:** Each stage shows its real count; selecting a stage shows a real artifact from `dashboard.json` (a sourced fact, forecast drivers, a bridge that sums, a model claim as structured output, its verification record, the published file's size and shape). Works at 375px and by keyboard.
+- **Depends on:** M8-T1
+- **Can run in parallel with:** M8-T2
+- **Status:** in progress (Claude Code, 2026-11-05)
+
+### M8-T4 — Two screens, outputs in tabs
+
+- **Goal:** The whole page reads in about two screens.
+- **Acceptance:** First screen: one line on what it is, the verifier demo, the pipeline. Then one tabbed panel (Bridge, Memo, Forecast, Accuracy, Q&A, Method) using the ARIA tabs pattern. The M7 hero quote, build chain, and long run section are removed. Page height at 1280px wide at most about 2.5 viewport heights for the default tab. Lighthouse accessibility 100; no horizontal scroll at 375px.
+- **Depends on:** M8-T2, M8-T3
+- **Can run in parallel with:** none
+- **Status:** in progress (Claude Code, 2026-11-05)
+
+### M8-T5 — Ship and record
+
+- **Goal:** Publish with real first-draft numbers.
+- **Acceptance:** Merged with docs; one forced "Refresh data" run (about $0.03) so every narrative carries a first-draft record; README screenshot and live site checked.
+- **Depends on:** M8-T1, M8-T4
+- **Can run in parallel with:** none
+- **Status:** in progress (Claude Code, 2026-11-05)
