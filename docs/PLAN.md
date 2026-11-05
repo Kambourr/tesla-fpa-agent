@@ -409,7 +409,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** One fixture of drivers and bull/base/bear outputs is produced by the Python model. A TypeScript test recomputes those forecast columns and matches the Python output exactly on the agreed rounding. Both `pytest` and the site test command pass on that fixture. The fixture is committed.
 - **Depends on:** M2-T4, M5-T8
 - **Can run in parallel with:** M5-T10, M5-T11, M5-T12
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T10 — Twelve-quarter forecast chart
 
