@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 49 of 54 (91%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 52 of 54 (96%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -469,7 +469,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** `README.md` has the nine parts from section 7: the problem statement, a place for the screenshot or GIF and the live link, the six pipeline steps, how accuracy is controlled and the backtest, an architecture diagram, run-it-yourself setup including `.env` and one command and cost per run, limitations and assumptions (public data only, simple driver models, manual delivery data), the same disclaimer as the site, and the credit line "Designed and built by Jacob Kambour." If Pages is still not enabled, the live link is described as waiting on Jacob rather than invented.
 - **Depends on:** M4-T2, M5-T15
 - **Can run in parallel with:** M6-T3
-- **Status:** todo
+- **Status:** done (f0b8e4c3cd82343177af55c9e838e828cdc5e50d)
 
 ### M6-T2 — Dashboard screenshot or GIF
 
@@ -477,7 +477,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** The README image shows the real page (hero bridge and ticks), not the wireframe placeholders. The file is committed and renders on GitHub. No API key is visible in the capture.
 - **Depends on:** M5-T15, M6-T1
 - **Can run in parallel with:** M6-T3, M6-T4
-- **Status:** todo
+- **Status:** done (f0b8e4c3cd82343177af55c9e838e828cdc5e50d)
 
 ### M6-T3 — Fresh-clone run
 
@@ -485,7 +485,7 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** On a clean checkout, with `.env` set and caches empty, `python -m agent run` finishes in a few minutes and writes `site/public/data/`. `PUBLISH_FORWARD_FORECAST` is false and no forward quarter is published. Token and cost logging stay within the roughly-one-dollar target, and the cost is recorded in `docs/PROGRESS.md`. If the env vars are not available to the agent, mark this task `blocked (needs .env on the machine running the pipeline)` instead of inventing values.
 - **Depends on:** M4-T2
 - **Can run in parallel with:** M6-T1, M6-T2, M6-T4
-- **Status:** todo
+- **Status:** done (d14cfbc4cb429dd935c20f79ceca208501b16d39)
 
 ### M6-T4 — Anti-goal sweep
 

@@ -2,11 +2,11 @@
 
 ## Current status
 
-- **Current milestone:** M5 dashboard sections and M3 narration/verification are on `main`; `M4-T2` (the single `run` command) is in progress, then the first live refresh in GitHub Actions and M6 launch tasks. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews, checks visually, and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 49 of 54 (91%).
-- **What's next:** Jacob runs the "Refresh data" workflow once (Actions tab, Refresh data, Run workflow) for the first real narration with the `OPENAI_API_KEY` secret; it commits `dashboard.json` and `data/narrative_cache.json` and the site redeploys. Meanwhile `M5-T15`, then `M6-T1` to `M6-T6`.
+- **Current milestone:** M6 launch. The pipeline, the dashboard, and the refresh workflow are done and on `main`; the live site at https://kambourr.github.io/tesla-fpa-agent/ shows real memos and answers from the 2026-11-05 refresh (337 of 337 figures verified). Remaining: `M6-T5` (final secret scan) and `M6-T6` (closeout).
+- **Tasks done:** 52 of 54 (96%).
+- **What's next:** M6-T5 (final secret scan of history and the built site), then M6-T6 (closeout). Everything else is done.
 - **Open blockers:**
-  - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+  - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
@@ -14,6 +14,20 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 05:57 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M6-T1, M6-T2, M6-T3 (done)
+**What changed:**
+- `README.md` is the case study (written by Claude Code): the problem, the live link and a screenshot, the six pipeline steps, how accuracy is controlled (fact sheet, verifier, tick marks, the latest live run's 337 of 337 verified figures, backtest error 17.1% revenue / 20.6% gross profit / 101.0% operating income), a Mermaid architecture diagram, run-it-yourself with `.env`, one command, about seven minutes and about $0.03 per run, limitations, the disclaimer, and "Designed and built by Jacob Kambour." The screenshot and README ship in one branch, so M6-T2 is recorded with M6-T1.
+- `docs/images/dashboard.png` (324 KB, 256 colors): the real page for Q3 2026 with the hero bridge, the 69-of-69 seal, the run summary, and the memo with a tick on every figure. No key or secret is visible.
+- M6-T3, the clean-checkout run, ran in GitHub Actions ("Refresh data", run 42037719383): fresh checkout, empty database and SEC cache, only the `OPENAI_API_KEY` and `SEC_USER_AGENT` secrets. It finished in 422.6 s (ingest 2,495 facts; narration 12 calls, 136,980 input and 39,530 output tokens on gpt-6-luna, estimated $0.0335), with `PUBLISH_FORWARD_FORECAST=false` and no forward quarter published, and committed `dashboard.json` and `data/narrative_cache.json` (d14cfbc).
+- Live-run fixes merged along the way: the SEC contact secret held a line break (`Invalid header value`), now collapsed to one line; the prompt now asks for readable figures ($28.05 billion, 21.1%) after the first run copied raw values; ticks now survive the model's sentence-number drift (PR #59).
+**Current state:** `uv run pytest`: 334 passed; site tests and build pass. Pages is serving the refreshed data.
+**Next step:** M6-T5 secret scan, then M6-T6 closeout.
+**Blockers / questions for Jacob:** (a), (c), (d), and (g) as in the status block.
+**Notes for the next agent:** A refresh is manual: Actions, "Refresh data", Run workflow. Use `force` only to regenerate every narrative (about $0.03).
+**Last commit:** f0b8e4c3cd82343177af55c9e838e828cdc5e50d on task/M6-T1-readme
 
 ## 2026-11-05 05:39 (America/Los_Angeles) — Claude Code
 
