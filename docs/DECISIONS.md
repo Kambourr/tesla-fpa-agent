@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — Publish JSON pulled ahead of narration; one file for the site
+
+**Decision:** `M4-T1` ran before `M3-T8`, its listed dependency. The schema defines `memo` and `qa` now and leaves them null until narration and verification fill them, so the M5 dashboard sections can be built against real data in parallel with M3. The site reads a single file, `site/public/data/dashboard.json` (schema version 1), rather than one file per table: the whole payload is about 150 KB, and one fetch keeps the quarter picker instant. `variance_pct` is variance over the absolute forecast, null when the forecast is zero or missing; for gross margin it is a relative change, and the points change is `variance` on the percent line. Cost lines (R&D, SG&A, operating expenses, capex) are favorable when below forecast. Gross margin is a percent in `lines` and a fraction in `drivers` and `scenarios`, matching the stored forecast the browser recomputes from.
+
+**Alternatives considered:** Waiting for M3-T8 as planned. Rejected because eight dashboard tasks would idle behind narration. Separate files per table, as the brief's list reads. Rejected for the fetch count; the brief's content list is all present in the one file.
+
 ## 2026-11-05 — Segment lines come from each filing's XBRL instance
 
 **Decision:** `agent/instances.py` fetches the extracted instance (`*_htm.xml`) for every 10-Q and 10-K from Jan 1 of (latest report year − 5), through `SecClient` with the cache, rate limit, and `SEC_USER_AGENT`. For each dimensional metric in `config/xbrl_tags.json`, the first tag (in config order) with a fact whose context has exactly one explicit member, the configured one, wins for each duration the filing reports. Facts on other axes (business segment, related party) and multi-dimension contexts are ignored. Duplicate facts keep the copy with the higher `decimals` precision: the 2021 10-K (0000950170-22-000796) reports 2021 regulatory credits as 1,465,000,000 at `decimals="-6"` and again as 1,460,000,000 at `-7`. Two copies at equal precision that disagree raise an error rather than pick one.
