@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 55 of 59 (93%).
+- **Tasks done:** 56 of 59 (95%).
 - **What's next:** M7-T2 to M7-T5 (full-run figure, social preview, write-up page, mobile performance), claimed by Claude Code.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
@@ -14,6 +14,14 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T2 (done, 78480aa05215b493163a0da88549d8499f2f5b66).
+**What changed:** `dashboard.json` gains `last_full_run`: the run metadata of the most recent run in which the model wrote every narrative (no cache hits). `agent/run.py` sets it from the current run when that holds, and otherwise carries it forward from the file being replaced (an unreadable or older file gives null, never a guess). The build chain's "Shipped" step now reads "A full run takes 7 min 3 s and $0.03 of model use; one click refreshes the page." "How the agent ran" shows the full run and notes the later cached refresh. The committed file was backfilled with the run record from d14cfbc (Actions run 42037719383: 422.6 s, $0.0335), the last run that regenerated everything.
+**Checks:** `uv run pytest` 337 passed (two new: carry-forward, older file); site tests 144 passed; ruff and tsc clean.
+**Next step:** M7-T3 to M7-T5.
+**Blockers / questions for Jacob:** None.
 
 ## 2026-11-05 10:45 (America/Los_Angeles) — Claude Code
 
