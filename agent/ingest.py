@@ -17,6 +17,7 @@ from agent.deliveries import default_csv_path, load_deliveries, repo_root, valid
 from agent.forecast_config import load_forecast_config
 from agent.schema import apply_schema
 from agent.sec import SecClient
+from agent.settings import Settings
 from agent.xbrl_map import load_xbrl_map
 
 PUBLISHED_QUARTERS = 12
@@ -91,16 +92,47 @@ def run_ingest(
 
 def _load_filings(fixtures: Path | None) -> tuple[dict, dict]:
     if fixtures is None:
-        client = SecClient.from_settings()
-        return json.loads(client.companyfacts()), json.loads(client.filing_index())
+        client = SecClient.from_settings(Settings())
+        companyfacts = json.loads(client.companyfacts())
+        submissions = json.loads(client.filing_index())
+        pages = [json.loads(client.filing_index_page(name)) for name in _page_names(submissions)]
+        return companyfacts, merge_submission_pages(submissions, pages)
     companyfacts_path = fixtures / "companyfacts.json"
     submissions_path = fixtures / "submissions.json"
     if not companyfacts_path.is_file() or not submissions_path.is_file():
         raise IngestError(f"{fixtures} needs companyfacts.json and submissions.json")
+    submissions = json.loads(submissions_path.read_text(encoding="utf-8"))
+    pages = []
+    for name in _page_names(submissions):
+        page_path = fixtures / name
+        if not page_path.is_file():
+            raise IngestError(f"{fixtures} needs {name}, which submissions.json lists")
+        pages.append(json.loads(page_path.read_text(encoding="utf-8")))
     return (
         json.loads(companyfacts_path.read_text(encoding="utf-8")),
-        json.loads(submissions_path.read_text(encoding="utf-8")),
+        merge_submission_pages(submissions, pages),
     )
+
+
+def _page_names(submissions: dict) -> list[str]:
+    return [item["name"] for item in submissions.get("filings", {}).get("files", [])]
+
+
+def merge_submission_pages(submissions: dict, pages: list[dict]) -> dict:
+    """Append each overflow page's columns to ``filings.recent``.
+
+    SEC keeps only the latest 1,000 filings in ``recent``. Older 10-Qs and
+    10-Ks are on the pages listed under ``filings.files``, in the same
+    column layout. Without them, older companyfacts values have no filing.
+    """
+    recent = submissions["filings"]["recent"]
+    merged = {key: list(values) for key, values in recent.items()}
+    for page in pages:
+        for key in merged:
+            merged[key].extend(page.get(key, [None] * len(page["accessionNumber"])))
+    result = dict(submissions)
+    result["filings"] = dict(submissions["filings"], recent=merged)
+    return result
 
 
 def _replace_deliveries(connection: duckdb.DuckDBPyConnection, csv_path: Path) -> None:
