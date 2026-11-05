@@ -76,6 +76,11 @@ describe("heroModel", () => {
     expect(steps[3].detail).toBe("5 figures checked by code against the filings; 1 did not tie.");
     expect(steps[4].detail).toBe("One command runs the whole pipeline and publishes this page.");
 
+    const full = { ...dashboard.run, duration_seconds: 422.55, estimated_cost_usd: 0.0335, model: "m" };
+    expect(buildSteps({ ...dashboard, last_full_run: full })[4].detail).toBe(
+      "A full run takes 7 min 3 s and $0.03 of model use; one click refreshes the page.",
+    );
+
     const older = { ...dashboard } as Partial<Dashboard>;
     delete older.sources;
     expect(buildSteps(older as Dashboard)[0].detail).toBe(
