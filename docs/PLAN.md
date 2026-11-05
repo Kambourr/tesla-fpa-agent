@@ -306,7 +306,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `python -m agent run` executes ingest, model, variance, narrate, verify, and publish in order. `python -m agent ingest`, `model`, `variance`, `narrate`, `verify`, and `publish` each still run alone. A fixture-mode test completes without a live API call. A `make run` target may call the same command; if it does, it is documented.
 - **Depends on:** M1-T9, M2-T10, M3-T8, M4-T1
 - **Can run in parallel with:** M5 sections that only need the schema, once M4-T1 has merged
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M4-T3 — refresh.yml
 
