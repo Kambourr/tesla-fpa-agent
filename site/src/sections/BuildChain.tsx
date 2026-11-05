@@ -24,7 +24,8 @@ export function BuildChain({ dashboard }: SectionProps) {
       </ol>
       <p className="build-stack">
         Built with Python, SQL in DuckDB, the OpenAI API with structured outputs, React with D3,
-        and GitHub Actions, by <a href="#about-title">Jacob Kambour</a>.
+        and GitHub Actions, by <a href="#about-title">Jacob Kambour</a>.{" "}
+        <a href="how-it-was-built.html">Read how it was built</a>.
       </p>
     </section>
   );

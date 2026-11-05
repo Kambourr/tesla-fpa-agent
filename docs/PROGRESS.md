@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M7 complete (redesign plus follow-ups). Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 56 of 59 (95%).
+- **Tasks done:** 59 of 59 (100%).
 - **What's next:** Nothing for an agent. Jacob's list in the 2026-11-05 06:12 entry still stands.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
@@ -22,6 +22,30 @@
 **Checks:** Lighthouse 12.2.1 mobile, local preview, three runs each in the same session: before, performance 83/90/90 with TBT 460/260/260 ms; after, 96/95/95 with TBT 100/150/150 ms. CLS 0.007 and LCP about 2.2 s in both. Playwright at 375px: deep link and in-page link to About land on it, no horizontal scroll, no console errors. Site tests 142 passed.
 **Next step:** None for an agent.
 **Blockers / questions for Jacob:** None new.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T3 (done, b7ad2a3c042564f5fc85bb22f5ec48efa48d7dd5).
+**What changed:** Shared links now show a preview. `site/index.html` has Open Graph and Twitter card tags pointing at the absolute URL `https://kambourr.github.io/tesla-fpa-agent/og-image.png`. The 1200×630 image (`site/public/og-image.png`) says only what stays true across quarters: "An AI model writes the variance memo. Code checks every figure against the SEC filings.", with the site's ticks, fonts, and palette, and the independence line. Its source is `site/og/og-image.html`; re-render with `node site/og/render.cjs` from the repo root after `npm ci` in `site/`. First draft by a subagent; layout and alt text revised.
+**Checks:** `tests/test_site_shell.py` 9 passed (new test checks the tags and the PNG's size from its header); site tests and build pass.
+**Next step:** M7-T4, M7-T5.
+**Blockers / questions for Jacob:** None. Some platforms cache previews; LinkedIn's Post Inspector refreshes it.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T4 (done, 5619667692fb2ac3a26d723403d4a4371c7a6fe7).
+**What changed:** New page https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html, a second Vite entry (`site/how-it-was-built.html`, `site/src/writeup/`) using the dashboard's tokens, fonts, masthead, and theme toggle. Sections: the split between code and model, what the checker catches (wrong number, no source, wrong sign, advice language; tolerances from `agent/verifier.py`), decisions that mattered, forecast accuracy, limits, stack. Every count is read from the bundled `dashboard.json` (sources, check totals, backtest averages, last full run) with plain-text fallbacks. Linked from the dashboard's build chain ("Read how it was built") and the README.
+**Checks:** site tests 147 passed (three new for the page), tsc clean, build emits both pages; Playwright: no console errors, no horizontal scroll at 375px, links work both ways; Lighthouse accessibility, best practices, and SEO 100.
+**Next step:** M7-T5.
+**Blockers / questions for Jacob:** None. The page credits "MS Finance & Analytics, Santa Clara University", matching the About section.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T2 (done, 78480aa05215b493163a0da88549d8499f2f5b66).
+**What changed:** `dashboard.json` gains `last_full_run`: the run metadata of the most recent run in which the model wrote every narrative (no cache hits). `agent/run.py` sets it from the current run when that holds, and otherwise carries it forward from the file being replaced (an unreadable or older file gives null, never a guess). The build chain's "Shipped" step now reads "A full run takes 7 min 3 s and $0.03 of model use; one click refreshes the page." "How the agent ran" shows the full run and notes the later cached refresh. The committed file was backfilled with the run record from d14cfbc (Actions run 42037719383: 422.6 s, $0.0335), the last run that regenerated everything.
+**Checks:** `uv run pytest` 337 passed (two new: carry-forward, older file); site tests 144 passed; ruff and tsc clean.
+**Next step:** M7-T3 to M7-T5.
+**Blockers / questions for Jacob:** None.
 
 ## 2026-11-05 10:45 (America/Los_Angeles) — Claude Code
 

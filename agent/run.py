@@ -16,6 +16,7 @@ committed ``data/narrative_cache.json``.
 
 from __future__ import annotations
 
+import json
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, replace
@@ -108,8 +109,26 @@ def run_pipeline(
         estimated_cost_usd=usage.estimated_cost_usd,
         data_as_of=_data_as_of(dashboard),
     )
-    write_dashboard(dashboard.model_copy(update={"run": run}), output)
+    full = bool(reviewed) and all(not item.narration.cached for item in reviewed)
+    last_full = run if full else _previous_full_run(output)
+    write_dashboard(dashboard.model_copy(update={"run": run, "last_full_run": last_full}), output)
     return run
+
+
+def _previous_full_run(output: Path) -> RunMetadata | None:
+    """The last full run recorded in the file this run replaces, if any.
+
+    A full run is one where the model wrote every narrative (no cache hits).
+    A refresh that reuses stored narratives carries the earlier record
+    forward, so the page can still say what a full run takes. An unreadable
+    or older file yields None rather than a guess.
+    """
+    try:
+        previous = json.loads(output.read_text(encoding="utf-8"))
+        record = previous.get("last_full_run")
+        return None if record is None else RunMetadata.model_validate(record)
+    except (OSError, ValueError, AttributeError):
+        return None
 
 
 def _cache_path(fixtures: Path | None, cache_path: Path | None) -> Path | None:

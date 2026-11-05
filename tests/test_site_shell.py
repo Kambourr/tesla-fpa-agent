@@ -6,6 +6,7 @@ docs/DECISIONS.md), both typefaces, tabular figures, and the dark theme.
 """
 
 import re
+import struct
 import subprocess
 from pathlib import Path
 
@@ -167,6 +168,26 @@ def test_site_workflow_builds_without_secrets() -> None:
     assert "SEC_USER_AGENT" not in text
     for pattern in SECRET_PATTERNS:
         assert pattern.search(text) is None
+
+
+def test_social_preview_points_at_a_1200_by_630_png() -> None:
+    text = (SITE / "index.html").read_text(encoding="utf-8")
+    base = "https://kambourr.github.io/tesla-fpa-agent/"
+    og_image = re.search(r'<meta\s+property="og:image"\s+content="([^"]+)"', text)
+    twitter_image = re.search(r'<meta\s+name="twitter:image"\s+content="([^"]+)"', text)
+    assert og_image is not None
+    assert twitter_image is not None
+    assert og_image.group(1) == twitter_image.group(1)
+    assert og_image.group(1).startswith(base)
+    assert og_image.group(1).endswith("og-image.png")
+    assert re.search(r'<meta\s+name="twitter:card"\s+content="summary_large_image"', text)
+    assert re.search(r'<meta\s+property="og:image:width"\s+content="1200"', text)
+    assert re.search(r'<meta\s+property="og:image:height"\s+content="630"', text)
+
+    png = (SITE / "public" / "og-image.png").read_bytes()
+    assert png[:8] == b"\x89PNG\r\n\x1a\n"
+    width, height = struct.unpack(">II", png[16:24])
+    assert (width, height) == (1200, 630)
 
 
 def test_site_tree_has_no_secret_material() -> None:
