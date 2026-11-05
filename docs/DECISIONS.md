@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — Keyword guard rules
+
+**Decision:** `agent/keyword_guard.py` flags recommendation and valuation language with regular expressions, case-insensitive, whole words. "buy" and "sell" flag only next to a stock word (stock, share, equity, TSLA, rating, position, recommendation), so "vehicles sold", "sales", and "buyback" pass. "fair value" flags only in price forms, because the filings use it as an accounting term. "$X per share" flags unless a reporting word (EPS, earnings, income, diluted, basic, dividend, repurchase, buyback) comes earlier in the sentence with no target or valuation word in between.
+
+**Alternatives considered:** Flagging bare "buy" and "sell" and bare "fair value", as the brief's word list reads. Rejected because normal variance prose ("vehicles sold", "fair value of regulatory credits") would flag constantly. A second model call as the guard. Rejected because section 4 asks for a simple keyword check in code.
+
 ## 2026-11-04 — The Pages workflow is committed and Pages stays off
 
 **Decision:** `.github/workflows/deploy.yml` builds `site/` on a push to `main`, uploads `site/dist` as a Pages artifact, and deploys that artifact with `actions/deploy-pages`. It requests `contents: read`, `pages: write`, and `id-token: write`. It does not read or print `OPENAI_API_KEY` or `SEC_USER_AGENT`. Committing the file does not enable GitHub Pages and does not change who can see the repo.
