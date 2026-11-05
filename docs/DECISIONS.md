@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Operating income bridge bars
+
+**Decision:** `agent/operating_income_bridge.py` writes the `operating_income` bridge. The bars are `gross_profit` (actual minus forecast gross profit), then `research_and_development`, `selling_general_and_administrative`, and `restructuring_and_other`, each equal to minus the change in that cost, so a cost above forecast is a negative, unfavorable bar. `restructuring_and_other` is the change in total operating expenses minus the changes in R&D and SG&A. It holds restructuring and any other opex line Tesla reports, which saves a separate XBRL tag for a line that appears only in some quarters. When either side lacks R&D or SG&A, one `operating_expenses` bar replaces those three. The bars are built with `reconciled()` against stored actual minus forecast `operating_income`. Actual gross profit falls back to total revenue minus cost of revenue when `gross_profit` is not stored.
+
+The forecast projects R&D, SG&A, and total opex separately, each with its own run rate, so forecast `restructuring_and_other` is whatever total opex holds beyond the two lines. It is a forecast of that remainder, not a plug.
+
+**Alternatives considered:** A restructuring bar shown only when a restructuring tag exists. Rejected because the tag is missing in most quarters, and the remainder would then go unexplained. Leaving the sign unflipped and calling the bar "unfavorable" in the label only. Rejected because the brief says a higher cost is unfavorable, and a negative bar keeps the waterfall arithmetic and the label consistent.
+
 ## 2026-11-04 — Gross profit bridge, and every bridge ties to the stored variance
 
 **Decision:** `agent/gross_profit_bridge.py` writes the `gross_profit` bridge. When the base forecast has segment gross profit and the actuals have all three segment cost lines (`cost_of_revenue_automotive`, `cost_of_revenue_energy`, `cost_of_revenue_services`), there is one bar per segment (`automotive`, `energy`, `services_and_other`). Each bar is the revenue effect (change in segment revenue times forecast segment margin) plus the margin-rate effect (change in segment margin times actual segment revenue). Automotive revenue is sales plus regulatory credits plus leasing, matching the forecast's automotive margin. Otherwise the bridge takes the total-margin path: the same three revenue bars at the forecast total margin, plus a `gross_margin_rate` bar equal to the change in total margin times actual total revenue. A `gross_margin_rate` row in `bridge` therefore means the total path was used.
