@@ -39,7 +39,7 @@
 7. When Tesla files its next 10-Q, add that quarter's delivery release to `deliveries.csv` and run "Refresh data".
 **Blockers / questions for Jacob:** Only the list above.
 **Notes for the next agent:** Read the brief and `docs/DECISIONS.md` first. Haiku subagents wrote most task code under Claude Code's review; every decision that deviates from the brief is logged in `docs/DECISIONS.md`.
-**Last commit:** PENDINGHASH on task/M6-T6-closeout
+**Last commit:** ebe5fb8b3e51c943740fa75962f5809570cc97b2 on task/M6-T6-closeout
 
 ## 2026-11-05 06:07 (America/Los_Angeles) — Claude Code
 

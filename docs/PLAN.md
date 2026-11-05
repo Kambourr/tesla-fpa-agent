@@ -509,4 +509,4 @@ Section 10 is the definition of done. Do not make the repo public or enable Page
 - **Acceptance:** Every earlier task is `done` or explicitly `blocked` with a Jacob question. `docs/PROGRESS.md` has a final entry that states the project is complete and lists what is still his: spot-check `deliveries.csv`, fill in the links in `site/src/config.ts`, check employer policy, and decide whether to make the repo public and enable Pages. Section 10's checklist is addressed in that entry. Re-run the M6-T5 scan if this task changes anything besides the handoff docs. Do not make the repo public, enable Pages, or change repo settings.
 - **Depends on:** M6-T5
 - **Can run in parallel with:** none
-- **Status:** done (PENDINGHASH)
+- **Status:** done (ebe5fb8b3e51c943740fa75962f5809570cc97b2)
