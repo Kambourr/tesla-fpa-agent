@@ -202,7 +202,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** The two bars are operating cash flow and capex. Higher capex is unfavorable. A test asserts an exact sum to free cash flow variance (free cash flow is CFO minus capex) and checks the unfavorable label when capex rose.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T8
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-04)
 
 ### M2-T10 — Model and variance commands
 
