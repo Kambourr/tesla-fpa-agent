@@ -13,7 +13,7 @@
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge`, `write_gross_profit_bridge`, `write_operating_income_bridge`, and `write_free_cash_flow_bridge` (each takes a connection and a quarter) store the bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
 
-## 2026-11-04 17:52 (America/Los_Angeles) — Claude Code
+## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
 
 **Task(s):** M2-T9 (done)
 **What changed:**

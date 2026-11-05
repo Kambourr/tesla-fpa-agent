@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Plan change: add M1-T10 for segment lines
+
+**Decision:** Add `M1-T10` to `docs/PLAN.md`: read the segment revenue and cost lines from each filing's XBRL instance. The plan had no task for this. Every revenue segment metric in `config/xbrl_tags.json` (automotive sales, regulatory credits, leasing, energy, services) and every segment cost is tagged with a dimension member. Companyfacts drops dimensions, so ingest stores none of them (see "First-reported quarter actuals"). On live data the base forecast therefore has no automotive sales, no total revenue, and no gross profit from the segment path, and the revenue bridge raises. Fixture tests did not show this, because they insert the lines directly.
+
+**Alternatives considered:** Dropping the segment bars from the revenue bridge. Rejected because section 4 requires them, and the volume and price/mix bars need automotive sales. The SEC frames API. Rejected because it has no dimensions either. Folding the work into `M2-T10`. Rejected because it is ingest work with its own fixture and network rules.
+
+**What this means for later tasks:** `M2-T10` can pass its acceptance on a fixture database. `M6-T3` (fresh-clone run) cannot pass until `M1-T10` is done.
+
 ## 2026-11-04 — Free cash flow bridge
 
 **Decision:** `agent/free_cash_flow_bridge.py` writes two bars: `net_cash_from_operating_activities` (actual minus forecast CFO) and `purchases_of_property_and_equipment` (minus the change in capex, so spending above forecast is negative and unfavorable). The variance is actual minus forecast free cash flow. Ingest does not store an actual `free_cash_flow`, so the bridge computes it as CFO minus capex from the first-reported, de-cumulated lines. A stored value is used if a later task adds one, and `reconciled()` rejects it if it does not tie.
