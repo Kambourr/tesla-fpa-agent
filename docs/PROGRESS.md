@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M8 (show the machine working), at Jacob's request. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 63 of 64 (98%).
-- **What's next:** M8-T5: merge, run "Refresh data" with force on (about $0.03) so every narrative records its first draft, then refresh the README screenshot.
+- **Current milestone:** M8 complete (verifier and pipeline first, outputs in tabs). Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 64 of 64 (100%).
+- **What's next:** Nothing for an agent. Jacob's list in the 2026-11-05 06:12 entry still stands.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,14 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M8-T5 (done, 25f878a1e381c4e5971538ed857c22e807e8bca8).
+**What changed:** Merged PR #69 (M8-T1), #70 (site), #71 (draft issues). Forced "Refresh data" run 42119856239 (423.9 s, $0.0336, 13 calls for 12 narratives) recorded every first draft: all figures tied on the first try; one draft (2026-Q1) was sent back with no wrong figure. The page would have said "rejected 0 of 348 figures", so #71 added `first_issues` and `final_issues` to `first_drafts` and words the line by case. A normal refresh then re-drafted 2026-Q1 (85.2 s, $0.0053): its first draft had 149 words, under the 150 minimum, and the retry passed, so all 12 narratives are verified and cached. The page now reads "First drafts: all 351 figures tied on the first try. Code sent 1 draft back for 149 words, outside the 150 to 250 limit; fixed on the second try." README text and `docs/images/dashboard.png` updated (the screenshot shows a figure edited to $29B and flagged).
+**Checks:** CI green on every PR; pytest 346, site tests 268; Lighthouse from M8-T4 unchanged in layout.
+**Next step:** None for an agent.
+**Blockers / questions for Jacob:** None new. Note the two counts on the page differ honestly: 351 figures were checked in first drafts, 361 are in the published text (a re-drafted memo can carry a different number of figures).
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
