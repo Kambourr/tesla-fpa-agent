@@ -4,7 +4,7 @@
 
 - **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
 - **Tasks done:** 55 of 55 (100%).
-- **What's next:** Run "Refresh data" once so the published `dashboard.json` carries the new `sources` counts (the build chain shows plain-text fallbacks until then), then refresh the README screenshot.
+- **What's next:** Nothing for an agent. M7 is complete and live; Jacob's list in the 2026-11-05 06:12 entry still stands.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,15 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 10:45 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T1 follow-through (no new plan task).
+**What changed:** Merged PR #62 (the `frontend-design` skill) and PR #63 (the redesign). Ran "Refresh data" (force off; run 42085698330, cache hits, about 18 s): `dashboard.json` now carries `sources` (2,495 facts from 63 filings, 20 delivery quarters, filings 2011-08-12 to 2026-10-22), and Pages redeployed (run 42085792325). The live build chain shows those counts. Replaced `docs/images/dashboard.png` with the new first screen and updated its alt text.
+**Note:** Step 5 reports the most recent run, so after a cached refresh it reads "18 seconds ... <$0.01"; after a run that regenerates every narrative it reads about seven minutes and $0.03.
+**Current state:** `main` green; live site shows the redesign with real counts.
+**Next step:** None for an agent.
+**Blockers / questions for Jacob:** None new.
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
