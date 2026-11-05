@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 30 of 54 (56%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 31 of 54 (57%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -238,7 +238,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with a mocked OpenAI client returns structured JSON: a memo of about 150–250 words and answers of about 60–120 words. Claims accompany every number the text mentions. Twelve memos are produced and only the latest quarter gets the ten answers. The client is given the computed tables for that quarter, not raw filings. Questions 7 and 8 receive the backtest table.
 - **Depends on:** M2-T10, M3-T1
 - **Can run in parallel with:** M3-T5, M3-T6 if those have not already landed
-- **Status:** todo
+- **Status:** done (c956d48173c847beb2a0e8aae2878b16ebc7926e)
 
 ### M3-T3 — Narrative cache and force flag
 
