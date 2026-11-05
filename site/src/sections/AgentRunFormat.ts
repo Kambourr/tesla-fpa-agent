@@ -78,12 +78,11 @@ export function formatCost(usd: number | null): string | null {
   return `$${usd.toFixed(2)}`;
 }
 
-/** True when the run recorded none of the four headline values. */
+/**
+ * True until a full pipeline run has been recorded. A full run always sets a
+ * start time and a model. A publish-only run records just its own duration,
+ * which must not read as the whole pipeline's run time.
+ */
 export function isRunUnrecorded(run: RunMetadata): boolean {
-  return (
-    run.started_at === null &&
-    run.duration_seconds === null &&
-    run.estimated_cost_usd === null &&
-    run.model === null
-  );
+  return run.started_at === null && run.model === null;
 }
