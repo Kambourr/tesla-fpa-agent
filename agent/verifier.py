@@ -37,7 +37,7 @@ import math
 from collections.abc import Iterable
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
-from enum import Enum
+from enum import StrEnum
 
 from agent.fact_sheet import PERCENT, UNITS, USD, USD_PER_UNIT, Fact, lookup
 from agent.narrative import Claim
@@ -90,7 +90,7 @@ _TABLES: dict[str, dict[str, int]] = {
 }
 
 
-class Status(str, Enum):  # noqa: UP042 - the brief pins the (str, Enum) base
+class Status(StrEnum):
     VERIFIED = "verified"
     FLAGGED = "flagged"
     UNSUPPORTED = "unsupported"
