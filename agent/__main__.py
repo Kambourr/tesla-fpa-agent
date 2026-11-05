@@ -4,8 +4,9 @@
 default path uses the SEC cache. `model` writes forecasts, scenarios, and the
 backtest. `variance` writes the four bridges. `narrate` drafts and checks the
 memos and Q&A with OpenAI. `verify` writes the verification report per quarter.
-`publish` writes the dashboard JSON the site reads. No command prints
-`SEC_USER_AGENT` or `OPENAI_API_KEY`.
+`publish` writes the dashboard JSON the site reads. `run` executes every stage
+in order and prints each stage's time. No command prints `SEC_USER_AGENT` or
+`OPENAI_API_KEY`.
 """
 
 from __future__ import annotations
@@ -25,6 +26,7 @@ from agent.narrate import NarrationError, OpenAIClient
 from agent.publish import STAGE_NAMES, PublishError, build_dashboard, write_dashboard
 from agent.publish_schema import RunMetadata, Stage
 from agent.review import ReviewedNarration, review_all
+from agent.run import run_pipeline
 from agent.schema import apply_schema
 from agent.sec import MissingUserAgentError
 from agent.settings import Settings
@@ -61,11 +63,37 @@ def main(argv: list[str] | None = None) -> int:
     publish = subcommands.add_parser("publish", help="write site/public/data/dashboard.json")
     publish.add_argument("--database", type=Path, default=default_database_path())
     publish.add_argument("--output", type=Path, default=DASHBOARD_PATH)
+    pipeline = subcommands.add_parser(
+        "run", help="run every stage in order and write the dashboard JSON"
+    )
+    pipeline.add_argument(
+        "--database",
+        type=Path,
+        default=None,
+        help="DuckDB file (default data/fpa.duckdb); required with --fixtures",
+    )
+    pipeline.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="dashboard JSON (default site/public/data/dashboard.json); required with --fixtures",
+    )
+    pipeline.add_argument(
+        "--fixtures",
+        type=Path,
+        default=None,
+        help="ingest JSON fixtures from this directory instead of the SEC cache",
+    )
+    pipeline.add_argument(
+        "--force", action="store_true", help="regenerate every narrative, even a cached one"
+    )
     args = parser.parse_args(argv)
     try:
         if args.command == "ingest":
             run_ingest(database=args.database, csv_path=args.csv, fixtures=args.fixtures)
             return 0
+        if args.command == "run":
+            return _run(args.database, args.output, args.fixtures, force=args.force)
         if args.command == "publish":
             return _publish(args.database, args.output)
         if args.command == "narrate":
@@ -83,6 +111,26 @@ def main(argv: list[str] | None = None) -> int:
     ) as exc:
         print(str(exc), file=sys.stderr)
         return 1
+
+
+def _run(database: Path | None, output: Path | None, fixtures: Path | None, *, force: bool) -> int:
+    if fixtures is not None and (database is None or output is None):
+        raise StageError(
+            "a fixture run needs --database and --output, so fixture numbers never replace "
+            "data/fpa.duckdb or the committed dashboard"
+        )
+    database = default_database_path() if database is None else database
+    output = DASHBOARD_PATH if output is None else output
+    run = run_pipeline(database=database, output=output, fixtures=fixtures, force=force)
+    for stage in run.stages:
+        print(f"stage {stage.name}: {_seconds(stage.seconds)} s")
+    print(f"run total: {_seconds(run.duration_seconds)} s, model {run.model}")
+    print(f"run wrote {output}, data as of {run.data_as_of or 'unknown'}")
+    return 0
+
+
+def _seconds(value: float | None) -> str:
+    return "not timed" if value is None else f"{value:.4f}"
 
 
 def _publish(database: Path, output: Path) -> int:

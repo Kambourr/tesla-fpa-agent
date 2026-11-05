@@ -11,26 +11,32 @@ variances and the percent variances, and the favorable flags.
 from __future__ import annotations
 
 import json
+from collections import Counter
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import duckdb
 
 from agent.backtest import BACKTEST_METRICS, average_absolute_percent_error
 from agent.forecast_config import ScenarioFlex as ConfigFlex
 from agent.forecast_config import load_forecast_config
+from agent.narrative import NarrativeDraft, load_prompts
 from agent.publish_schema import (
     Backtest,
     BacktestRow,
     BridgeBar,
     BridgeName,
+    ClaimView,
     Dashboard,
     Drivers,
     Filing,
+    Memo,
     PnlLine,
+    QaAnswer,
+    QaSet,
     QuarterView,
     RunMetadata,
     Scenario,
@@ -39,6 +45,7 @@ from agent.publish_schema import (
     Stage,
     StageName,
     Unit,
+    VerificationCounts,
 )
 
 SCHEMA_VERSION = 1
@@ -189,7 +196,7 @@ def build_dashboard(
         forward_forecast_published=any(item.kind == "forward" for item in quarters),
         run=run if run is not None else _empty_run(),
         quarters=[_quarter_view(connection, item) for item in quarters],
-        qa=None,
+        qa=_qa(connection, backtests[-1].quarter),
         backtest=_backtest(connection),
         scenario_flex=ScenarioFlex(
             deliveries_pct=_triple(flex["deliveries"]),
@@ -239,7 +246,92 @@ def _quarter_view(connection: duckdb.DuckDBPyConnection, item: _Quarter) -> Quar
         drivers=_drivers(base) if item.has_forecast else None,
         scenarios=_scenarios(connection, item.quarter),
         bridges={name: _bridge(connection, item.quarter, name) for name in BRIDGE_NAMES},
-        memo=None,
+        memo=_memo(connection, item.quarter),
+    )
+
+
+def _memo(connection: duckdb.DuckDBPyConnection, quarter: str) -> Memo | None:
+    """The stored memo and its memo claims. Null when the quarter has no narration."""
+    draft = _narrative_draft(connection, quarter)
+    if draft is None:
+        return None
+    claims = [view for location, view in _located_claims(connection, quarter) if location == "memo"]
+    return Memo(text=draft.memo.text, claims=claims, verification=_counts(claims))
+
+
+def _qa(connection: duckdb.DuckDBPyConnection, quarter: str) -> QaSet | None:
+    """The stored answers for the latest quarter, each with its claims. Null if none."""
+    draft = _narrative_draft(connection, quarter)
+    if draft is None or not draft.answers:
+        return None
+    located = _located_claims(connection, quarter)
+    questions = {question.number: question.text for question in load_prompts().questions}
+    answers: list[QaAnswer] = []
+    claims_all: list[ClaimView] = []
+    for answer in sorted(draft.answers, key=lambda item: item.question_number):
+        label = f"answer {answer.question_number}"
+        claims = [view for location, view in located if location == label]
+        claims_all.extend(claims)
+        answers.append(
+            QaAnswer(
+                number=answer.question_number,
+                question=questions[answer.question_number],
+                text=answer.text,
+                claims=claims,
+            )
+        )
+    return QaSet(quarter=quarter, answers=answers, verification=_counts(claims_all))
+
+
+def _narrative_draft(connection: duckdb.DuckDBPyConnection, quarter: str) -> NarrativeDraft | None:
+    row = connection.execute(
+        "SELECT payload FROM narrative WHERE quarter = ?", [quarter]
+    ).fetchone()
+    if row is None:
+        return None
+    return NarrativeDraft.model_validate_json(str(row[0]))
+
+
+def _located_claims(
+    connection: duckdb.DuckDBPyConnection,
+    quarter: str,
+) -> list[tuple[str, ClaimView]]:
+    """Each stored claim with its location ("memo" or "answer N"). Refuses to guess a status."""
+    row = connection.execute(
+        "SELECT claims FROM verification WHERE quarter = ?", [quarter]
+    ).fetchone()
+    if row is None:
+        raise PublishError(
+            f"{quarter} has a stored narrative but no verification. "
+            "Run `python -m agent verify` before `publish`; unverified figures are not published."
+        )
+    return [(item["location"], _claim_view(item)) for item in json.loads(str(row[0]))]
+
+
+def _claim_view(item: dict[str, Any]) -> ClaimView:
+    expected = item.get("expected")
+    return ClaimView(
+        metric=item["metric"],
+        period=item["period"],
+        value=float(item["value"]),
+        unit=item["unit"],
+        sentence_ref=str(item["sentence_ref"]),
+        status=item["status"],
+        expected=None if expected is None else float(expected),
+        expected_unit=item.get("expected_unit"),
+        source=item.get("source"),
+        source_url=item.get("source_url"),
+    )
+
+
+def _counts(claims: list[ClaimView]) -> VerificationCounts:
+    """Counts over the claims shown beside one block of text, so the ticks and the seal agree."""
+    tally = Counter(claim.status for claim in claims)
+    return VerificationCounts(
+        verified=tally["verified"],
+        flagged=tally["flagged"],
+        unsupported=tally["unsupported"],
+        total=len(claims),
     )
 
 
