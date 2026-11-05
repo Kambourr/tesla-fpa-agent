@@ -246,7 +246,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test runs narration twice against the same tables and shows the second run does not call the API. Changing the table hash, the prompt version, or the model misses the cache. `--force` regenerates even on a hit. Cached text is the already-verified text.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T4
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M3-T4 — Token and cost logging
 
