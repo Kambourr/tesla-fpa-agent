@@ -457,7 +457,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** Keyboard focus is visible on interactive elements, including ticks, the quarter picker, and the scenario control. Text and chart elements meet WCAG AA in light and dark mode. Lighthouse accessibility is at least 95 and performance is at least 90 on the production build. The 375px layout still reaches every section, with tables scrolling horizontally and the first column pinned. Record the Lighthouse scores in `docs/PROGRESS.md`.
 - **Depends on:** M5-T4, M5-T5, M5-T6, M5-T7, M5-T8, M5-T9, M5-T10, M5-T11, M5-T12, M5-T13, M5-T14
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ## M6 — README, polish, and launch
 
