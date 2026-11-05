@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 55 of 59 (93%).
+- **Tasks done:** 56 of 59 (95%).
 - **What's next:** M7-T2 to M7-T5 (full-run figure, social preview, write-up page, mobile performance), claimed by Claude Code.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
@@ -14,6 +14,14 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T3 (done, b7ad2a3c042564f5fc85bb22f5ec48efa48d7dd5).
+**What changed:** Shared links now show a preview. `site/index.html` has Open Graph and Twitter card tags pointing at the absolute URL `https://kambourr.github.io/tesla-fpa-agent/og-image.png`. The 1200×630 image (`site/public/og-image.png`) says only what stays true across quarters: "An AI model writes the variance memo. Code checks every figure against the SEC filings.", with the site's ticks, fonts, and palette, and the independence line. Its source is `site/og/og-image.html`; re-render with `node site/og/render.cjs` from the repo root after `npm ci` in `site/`. First draft by a subagent; layout and alt text revised.
+**Checks:** `tests/test_site_shell.py` 9 passed (new test checks the tags and the PNG's size from its header); site tests and build pass.
+**Next step:** M7-T4, M7-T5.
+**Blockers / questions for Jacob:** None. Some platforms cache previews; LinkedIn's Post Inspector refreshes it.
 
 ## 2026-11-05 10:45 (America/Los_Angeles) — Claude Code
 
