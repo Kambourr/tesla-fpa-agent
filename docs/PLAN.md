@@ -134,7 +134,7 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Acceptance:** Tests with a saved instance fixture, and no network, show that each segment metric in `config/xbrl_tags.json` is read from the context whose only explicit member is the configured one, for the filing's own quarter, and stored through `store_reported_facts` with the filing's accession, date, and URL. The segment lines for a filing tie to total revenue and total cost of revenue in that filing. The client uses the cached SEC client with `SEC_USER_AGENT` and the 10-requests-per-second limit. `python -m agent ingest` loads them. Without them, the base forecast has no automotive sales or total revenue, and the revenue bridge cannot run on live data.
 - **Depends on:** M1-T9
 - **Can run in parallel with:** M2-T10, M3-T5, M3-T6, and M5 tasks
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ## M2 — Model and variance
 
