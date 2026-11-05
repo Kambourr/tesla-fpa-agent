@@ -276,6 +276,8 @@ def test_first_drafts_aggregate_only_recorded_narratives() -> None:
     assert [item.status for item in drafts.catches] == ["flagged", "unsupported"]
     assert drafts.catches[0].written == 29.0 and drafts.catches[0].expected == 28046000000
     assert drafts.catches[0].quarter == "2026-Q3"
+    assert [(item.quarter, item.text) for item in drafts.first_issues] == [("2026-Q3", "memo: buy")]
+    assert drafts.final_issues == []
 
 
 def test_fixture_dashboard_has_no_first_draft_records() -> None:
