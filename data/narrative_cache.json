@@ -1,0 +1,2504 @@
+[
+  {
+    "input_hash": "dc8fccc1592bcc5b1d1a5c614d711695679a581b65876cd4032ae8f04443b12f",
+    "input_tokens": 9894,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2462,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "variance.total_revenue",
+            "period": "2023-Q4",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -4017315320.0051
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2023-Q4",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": -13.7653
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2023-Q4",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -2587703953.6046
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2023-Q4",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": -28304.1026
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2023-Q4",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -1306225702.8892
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2023-Q4",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -1281478250.7153
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2023-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 63167874.3961
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2023-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -450300699.3007
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2023-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -623104073.4109
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2023-Q4",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -1283272244.0566
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2023-Q4",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": -1.9658
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2023-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -572604781.5821
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2023-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -365169508.8677
+          },
+          {
+            "metric": "variance.selling_general_and_administrative",
+            "period": "2023-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -203781477.6275
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2023-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -710667462.4746
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2023-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 1329000000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2023-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 1135500000.0
+          },
+          {
+            "metric": "bridge.free_cash_flow.purchases_of_property_and_equipment",
+            "period": "2023-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -193500000.0
+          }
+        ],
+        "text": "Revenue was materially below forecast: the total-revenue variance was -4017315320.0051 USD (-13.7653 percent). Automotive sales were also below forecast, with a variance of -2587703953.6046 USD; deliveries were short by -28304.1026 units. The revenue bridge identifies price/mix at -1306225702.8892 USD and volume at -1281478250.7153 USD as negative contributors. Automotive leasing was above forecast by 63167874.3961 USD, while regulatory credits were below forecast by -450300699.3007 USD and energy generation and storage by -623104073.4109 USD. Gross profit was below forecast by -1283272244.0566 USD, and gross margin changed by -1.9658 percentage points versus forecast. Operating expenses were below forecast by -572604781.5821 USD, including lower research and development of -365169508.8677 USD and selling, general and administrative expense of -203781477.6275 USD. Despite that expense variance, operating income was below forecast by -710667462.4746 USD. Cash generation was stronger than forecast: operating cash flow variance was 1329000000.0000 USD and free cash flow variance was 1135500000.0000 USD. Higher property and equipment purchases contributed -193500000.0000 USD in the free-cash-flow bridge, partially offsetting the operating cash flow benefit."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2023-Q4"
+  },
+  {
+    "input_hash": "829f3b400467c897b42cd407f251d39deb8f20c5f0fee7d9ad2c9de516dd1e44",
+    "input_tokens": 10101,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 1473,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "variance.total_revenue",
+            "period": "2024-Q1",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -5818746018.5562
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2024-Q1",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -21.4558
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2024-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -5497964104.5476
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2024-Q1",
+            "sentence_ref": "3",
+            "unit": "units",
+            "value": -118734.0898
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2024-Q1",
+            "sentence_ref": "3",
+            "unit": "USD per unit",
+            "value": -881.1292
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2024-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -5157134514.5807
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2024-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -340829589.967
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2024-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 33595993.3222
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2024-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 27080299.7859
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2024-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -21169847.3282
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2024-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -1214874896.4125
+          },
+          {
+            "metric": "bridge.gross_profit.automotive",
+            "period": "2024-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -1228268313.0487
+          },
+          {
+            "metric": "bridge.gross_profit.energy",
+            "period": "2024-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 89631978.9663
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2024-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -965673670.3997
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2024-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -249201226.0128
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2024-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -3072000000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2024-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -3620500000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2024-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 548500000.0
+          }
+        ],
+        "text": "Tesla’s quarter fell short of the base forecast across revenue, gross profit, operating income, and cash generation. Total revenue was below forecast by 5818746018.5562 USD, or 21.4558 percent. Automotive sales were below forecast by 5497964104.5476 USD, while deliveries were 118734.0898 units below forecast; automotive ASP was 881.1292 USD per unit below forecast. The revenue bridge attributes 5157134514.5807 USD of shortfall to volume and 340829589.9670 USD to price and mix; leasing and regulatory credits were above forecast by 33595993.3222 USD and 27080299.7859 USD, respectively, while energy generation and storage was below forecast by 21169847.3282 USD. Gross profit was below forecast by 1214874896.4125 USD, with the automotive gross-profit bridge down 1228268313.0487 USD, partly offset by energy’s 89631978.9663 USD contribution. Operating income was below forecast by 965673670.3997 USD despite operating expenses being 249201226.0128 USD below forecast; lower research and development and selling, general and administrative costs provided offsets. Operating cash flow was below forecast by 3072000000.0000 USD, and free cash flow was below forecast by 3620500000.0000 USD. Purchases of property and equipment were 548500000.0000 USD above forecast, adding to the cash shortfall."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2024-Q1"
+  },
+  {
+    "input_hash": "76343c13b1621965dae91b6cedc9c46a62aa33469dfd8123565e9a65ce6746b6",
+    "input_tokens": 10092,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2679,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2024-Q2",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 25500000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2024-Q2",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 2038825238.4224
+          },
+          {
+            "metric": "actual.energy_generation_and_storage",
+            "period": "2024-Q2",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 3014000000.0
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2024-Q2",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 1372316710.2681
+          },
+          {
+            "metric": "actual.automotive_regulatory_credits",
+            "period": "2024-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 890000000.0
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2024-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 527110364.6833
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2024-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 29262411.3475
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2024-Q2",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 754002949.218
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2024-Q2",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -521088751.5556
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2024-Q2",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -122778443.1138
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2024-Q2",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 232914195.2372
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2024-Q2",
+            "sentence_ref": "5",
+            "unit": "USD per unit",
+            "value": -1173.7396
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2024-Q2",
+            "sentence_ref": "5",
+            "unit": "units",
+            "value": 17570.8663
+          },
+          {
+            "metric": "actual.gross_profit",
+            "period": "2024-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 4578000000.0
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2024-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 484041711.189
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2024-Q2",
+            "sentence_ref": "6",
+            "unit": "percentage points",
+            "value": 0.5029
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2024-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -255705332.9724
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2024-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -549119001.297
+          },
+          {
+            "metric": "variance.selling_general_and_administrative",
+            "period": "2024-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -350474907.0632
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2024-Q2",
+            "sentence_ref": "8",
+            "unit": "USD",
+            "value": 739747044.1614
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2024-Q2",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": 865750000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2024-Q2",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": -129750000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2024-Q2",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": 995500000.0
+          }
+        ],
+        "text": "Revenue was USD 25500000000.0000, USD 2038825238.4224 above forecast, with the overall result stronger than the base case. Energy generation and storage revenue was USD 3014000000.0000, and its variance was USD 1372316710.2681 above forecast, making it a major favorable component. Automotive regulatory credits were USD 890000000.0000, USD 527110364.6833 above forecast; leasing revenue was also USD 29262411.3475 above forecast. The revenue bridge recorded a positive volume contribution of USD 754002949.2180, partly offset by a negative price-and-mix contribution of USD -521088751.5556 and services-and-other revenue USD 122778443.1138 below forecast. Automotive sales were USD 232914195.2372 above forecast, although automotive ASP was USD -1173.7396 below forecast; deliveries were 17570.8663 units above forecast. Gross profit was USD 4578000000.0000, or USD 484041711.1890 above forecast, while gross margin exceeded forecast by 0.5029 percentage points. Operating expenses were USD 255705332.9724 below forecast, including research and development USD 549119001.2970 below and selling, general and administrative expenses USD 350474907.0632 below forecast. Operating income was USD 739747044.1614 above forecast. Operating cash flow exceeded forecast by USD 865750000.0000, while property and equipment purchases were USD 129750000.0000 below forecast; free cash flow was USD 995500000.0000 above forecast."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2024-Q2"
+  },
+  {
+    "input_hash": "2b6305e56cfc95912b1a1134474ec601f5fb3d260d2609773e2564a031d233d6",
+    "input_tokens": 10102,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2551,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2024-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 25182000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2024-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -1219206913.6048
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2024-Q3",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": -4.618
+          },
+          {
+            "metric": "actual.automotive_sales",
+            "period": "2024-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 18831000000.0
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2024-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 1264208940.4543
+          },
+          {
+            "metric": "actual.deliveries",
+            "period": "2024-Q3",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 462890.0
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2024-Q3",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 48535.8287
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2024-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 2057705261.9583
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2024-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -793496321.504
+          },
+          {
+            "metric": "bridge.revenue.automotive_regulatory_credits",
+            "period": "2024-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -1090707446.8085
+          },
+          {
+            "metric": "bridge.revenue.energy_generation_and_storage",
+            "period": "2024-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -1441933068.2571
+          },
+          {
+            "metric": "actual.gross_profit",
+            "period": "2024-Q3",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 4997000000.0
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2024-Q3",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 270839981.44
+          },
+          {
+            "metric": "actual.gross_margin",
+            "period": "2024-Q3",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": 19.8435
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2024-Q3",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": 1.9435
+          },
+          {
+            "metric": "actual.operating_income",
+            "period": "2024-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 2717000000.0
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2024-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 1573346776.1917
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2024-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -1302506794.7516
+          },
+          {
+            "metric": "bridge.operating_income.research_and_development",
+            "period": "2024-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 236588547.1898
+          },
+          {
+            "metric": "bridge.operating_income.selling_general_and_administrative",
+            "period": "2024-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 203581863.9798
+          },
+          {
+            "metric": "bridge.operating_income.restructuring_and_other",
+            "period": "2024-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 862336383.5821
+          },
+          {
+            "metric": "actual.free_cash_flow",
+            "period": "2024-Q3",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 2742000000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2024-Q3",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 2311250000.0
+          },
+          {
+            "metric": "bridge.free_cash_flow.net_cash_from_operating_activities",
+            "period": "2024-Q3",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 3372000000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2024-Q3",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 1060750000.0
+          }
+        ],
+        "text": "Revenue was 25182000000.0000 USD, below forecast, with a variance of -1219206913.6048 USD (-4.6180 percent). Automotive sales were 18831000000.0000 USD, with a positive variance of 1264208940.4543 USD; deliveries were 462890 units, above forecast by 48535.8287 units. The revenue bridge shows volume adding 2057705261.9583 USD, while price and mix were -793496321.5040 USD; regulatory credits were -1090707446.8085 USD and energy generation and storage were -1441933068.2571 USD versus forecast. Gross profit was 4997000000.0000 USD, a positive variance of 270839981.4400 USD, and gross margin was 19.8435 percent, or 1.9435 percentage points above forecast. Operating income was 2717000000.0000 USD, with a positive variance of 1573346776.1917 USD; operating expenses were below forecast, with a variance of -1302506794.7516 USD. The operating-income bridge cites research and development at 236588547.1898 USD, selling, general and administrative at 203581863.9798 USD, and restructuring and other at 862336383.5821 USD. Free cash flow was 2742000000.0000 USD, with a positive variance of 2311250000.0000 USD; operating cash flow contributed a 3372000000.0000 USD variance, partly offset by property and equipment purchases that were 1060750000.0000 USD above forecast. Overall, stronger volume and lower operating expenses supported profit and cash flow, while energy and credit revenue weighed on the revenue comparison."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2024-Q3"
+  },
+  {
+    "input_hash": "e881cff3178461920d341f2c824472c8f5de33b932c6f30d2d8f94da0bffae9f",
+    "input_tokens": 10094,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 3887,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2024-Q4",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 25707000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2024-Q4",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -3547146845.3281
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2024-Q4",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": -12.1253
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2024-Q4",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -2934353442.4368
+          },
+          {
+            "metric": "variance_pct.automotive_sales",
+            "period": "2024-Q4",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -13.5892
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2024-Q4",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": -19931.2199
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2024-Q4",
+            "sentence_ref": "2",
+            "unit": "USD per unit",
+            "value": -4236.4813
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2024-Q4",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -10.1138
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2024-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -2099473020.3828
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2024-Q4",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 18329243.3538
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2024-Q4",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -143043321.2996
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2024-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -163516998.0757
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2024-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -324562326.8698
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2024-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -1148094084.2896
+          },
+          {
+            "metric": "variance_pct.gross_profit",
+            "period": "2024-Q4",
+            "sentence_ref": "6",
+            "unit": "percent",
+            "value": -21.552
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2024-Q4",
+            "sentence_ref": "6",
+            "unit": "percentage points",
+            "value": -1.9537
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2024-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 198883181.4416
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2024-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 300986649.4401
+          },
+          {
+            "metric": "variance.selling_general_and_administrative",
+            "period": "2024-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 102153631.2849
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2024-Q4",
+            "sentence_ref": "8",
+            "unit": "USD",
+            "value": -1346977265.7312
+          },
+          {
+            "metric": "variance_pct.operating_income",
+            "period": "2024-Q4",
+            "sentence_ref": "8",
+            "unit": "percent",
+            "value": -45.9723
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2024-Q4",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": 1194250000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2024-Q4",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": 67500000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2024-Q4",
+            "sentence_ref": "10",
+            "unit": "USD",
+            "value": 1126750000.0
+          }
+        ],
+        "text": "Total revenue was 25707000000.0000 USD, with a variance of -3547146845.3281 USD (-12.1253 percent) below forecast. Automotive sales variance was -2934353442.4368 USD (-13.5892 percent) below forecast; deliveries variance was -19931.2199 units below forecast, and automotive ASP variance was -4236.4813 USD per unit (-10.1138 percent) below forecast. Price-mix variance was -2099473020.3828 USD below forecast. Automotive leasing was 18329243.3538 USD above forecast, while regulatory credits variance was -143043321.2996 USD below forecast. Energy generation and storage variance was -163516998.0757 USD below forecast; services and other variance was -324562326.8698 USD below forecast. Gross profit variance was -1148094084.2896 USD (-21.5520 percent) below forecast, and gross margin was -1.9537 percentage points below forecast. Operating expenses were 198883181.4416 USD above forecast, including research and development variance of 300986649.4401 USD and selling, general and administrative variance of 102153631.2849 USD, both above forecast. Operating income variance was -1346977265.7312 USD (-45.9723 percent) below forecast. Operating cash flow variance was 1194250000.0000 USD above forecast; purchases of property and equipment were 67500000.0000 USD above forecast. Free cash flow variance was 1126750000.0000 USD above forecast. The quarter combined pressure in automotive revenue and profitability with stronger cash flow than forecast."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2024-Q4"
+  },
+  {
+    "input_hash": "89a51a965cb01d6db3c781c9ee074be6d4e9c21fe1135e597128d02f9cc0e520",
+    "input_tokens": 10100,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 1495,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "variance.total_revenue",
+            "period": "2025-Q1",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -7092634173.285
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2025-Q1",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -26.8379
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2025-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -3160282723.572
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2025-Q1",
+            "sentence_ref": "3",
+            "unit": "units",
+            "value": -58961.2337
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2025-Q1",
+            "sentence_ref": "4",
+            "unit": "USD per unit",
+            "value": -2266.6769
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2025-Q1",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": -5.5752
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2025-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -508923787.5289
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2025-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 38665500.0
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2025-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -2637393254.5202
+          },
+          {
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2025-Q1",
+            "sentence_ref": "6",
+            "unit": "percent",
+            "value": -49.1373
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2025-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -824699907.6639
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2025-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -1694773366.5815
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2025-Q1",
+            "sentence_ref": "7",
+            "unit": "percentage points",
+            "value": -2.0328
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2025-Q1",
+            "sentence_ref": "8",
+            "unit": "USD",
+            "value": -82026116.2595
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2025-Q1",
+            "sentence_ref": "8",
+            "unit": "USD",
+            "value": -1612747250.322
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2025-Q1",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": -1574750000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2025-Q1",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": -232000000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2025-Q1",
+            "sentence_ref": "10",
+            "unit": "USD",
+            "value": -1342750000.0
+          }
+        ],
+        "text": "Tesla’s reported quarter was marked by broad revenue and profit shortfalls against the base forecast. Total revenue was USD -7092634173.2850 below forecast, or -26.8379%. Automotive sales were USD -3160282723.5720 below forecast, while deliveries were -58961.2337 units below forecast. The automotive revenue gap also reflected price and mix: automotive ASP was USD per unit -2266.6769 below forecast, a -5.5752% variance. Regulatory credits were USD -508923787.5289 below forecast; leasing was USD 38665500.0000 above forecast. Energy generation and storage revenue was USD -2637393254.5202 below forecast, a -49.1373% variance, and services and other revenue was USD -824699907.6639 below forecast. Gross profit was USD -1694773366.5815 below forecast, and gross margin was lower by 2.0328 percentage points. Operating expenses were USD -82026116.2595 below forecast, but this did not offset weaker gross profit; operating income was USD -1612747250.3220 below forecast. Cash generation was also weaker than planned: net cash from operating activities was USD -1574750000.0000 below forecast, while free cash flow was USD -232000000.0000 below forecast. Purchases of property and equipment were USD -1342750000.0000 below forecast, partially cushioning the free-cash-flow variance. Overall, the quarter’s principal pressure points were revenue delivery, gross profit, and operating cash generation, rather than higher total operating expenses."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2025-Q1"
+  },
+  {
+    "input_hash": "d1de9a40e7042ea1923a666c43ee88261eb2b0f092c4f0afd343de31357581e8",
+    "input_tokens": 10092,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2061,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "variance.total_revenue",
+            "period": "2025-Q2",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -2020144311.1253
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2025-Q2",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -8.2401
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2025-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 478851391.7687
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2025-Q2",
+            "sentence_ref": "3",
+            "unit": "USD per unit",
+            "value": 1483.7243
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2025-Q2",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": 3.7453
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2025-Q2",
+            "sentence_ref": "3",
+            "unit": "units",
+            "value": -2299.1112
+          },
+          {
+            "metric": "variance_pct.deliveries",
+            "period": "2025-Q2",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": -0.595
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2025-Q2",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -542346153.8462
+          },
+          {
+            "metric": "variance_pct.automotive_regulatory_credits",
+            "period": "2025-Q2",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": -55.2655
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2025-Q2",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -1878298165.1376
+          },
+          {
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2025-Q2",
+            "sentence_ref": "5",
+            "unit": "percent",
+            "value": -40.2438
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2025-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -560364577.5873
+          },
+          {
+            "metric": "variance_pct.gross_profit",
+            "period": "2025-Q2",
+            "sentence_ref": "6",
+            "unit": "percent",
+            "value": -12.6255
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2025-Q2",
+            "sentence_ref": "6",
+            "unit": "percentage points",
+            "value": -0.8614
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2025-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 63845346.5347
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2025-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 120628583.8401
+          },
+          {
+            "metric": "variance.selling_general_and_administrative",
+            "period": "2025-Q2",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 221753820.9607
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2025-Q2",
+            "sentence_ref": "8",
+            "unit": "USD",
+            "value": -624209924.1219
+          },
+          {
+            "metric": "variance_pct.operating_income",
+            "period": "2025-Q2",
+            "sentence_ref": "8",
+            "unit": "percent",
+            "value": -40.3442
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2025-Q2",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": -1669250000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2025-Q2",
+            "sentence_ref": "9",
+            "unit": "USD",
+            "value": -119500000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2025-Q2",
+            "sentence_ref": "10",
+            "unit": "USD",
+            "value": -1549750000.0
+          },
+          {
+            "metric": "variance_pct.free_cash_flow",
+            "period": "2025-Q2",
+            "sentence_ref": "10",
+            "unit": "percent",
+            "value": -91.3902
+          }
+        ],
+        "text": "Tesla's reported quarter showed a broad gap between revenue and profit expectations, with weakness concentrated outside automotive sales. Total revenue was below forecast, with a variance of -2020144311.1253 USD, or -8.2401 percent. Automotive sales were above forecast by 478851391.7687 USD, while automotive ASP was above forecast by 1483.7243 USD per unit, or 3.7453 percent; deliveries were below forecast by 2299.1112 units, or -0.5950 percent. The automotive sales result did not offset a regulatory-credit shortfall of -542346153.8462 USD, which was -55.2655 percent of forecast. Energy generation and storage was below forecast by -1878298165.1376 USD, or -40.2438 percent, the largest cited revenue-category shortfall. Gross profit was below forecast by -560364577.5873 USD, or -12.6255 percent, and gross margin was lower by -0.8614 percentage points. Operating expenses were above forecast by 63845346.5347 USD, including research and development above forecast by 120628583.8401 USD and selling, general and administrative expense above forecast by 221753820.9607 USD. Operating income was below forecast by -624209924.1219 USD, or -40.3442 percent. Net cash from operating activities was below forecast by -1669250000.0000 USD; property and equipment purchases were lower than forecast by 119500000.0000 USD. Free cash flow was below forecast by -1549750000.0000 USD, or -91.3902 percent. Overall, stronger automotive sales and pricing were outweighed by weaker energy revenue, credits, margins, and cash generation."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2025-Q2"
+  },
+  {
+    "input_hash": "7663bda806bbbdeae9b84189458c0cf5c68a89f09c6bc3ba4f45779ab75f7658",
+    "input_tokens": 10095,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2009,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2025-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 28095000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2025-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 5727140392.8269
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2025-Q3",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": 25.6043
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2025-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 3811181094.1876
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2025-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 745792327.4152
+          },
+          {
+            "metric": "bridge.revenue.energy_generation_and_storage",
+            "period": "2025-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 880470802.9197
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2025-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 4556973421.6028
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2025-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 113029494.382
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2025-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 7534388.6463
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2025-Q3",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 1243669023.8524
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2025-Q3",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": 0.959
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2025-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 799771695.2573
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2025-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -335166899.4413
+          },
+          {
+            "metric": "variance.selling_general_and_administrative",
+            "period": "2025-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 193860610.8066
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2025-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 443897328.595
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2025-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 2592750000.0
+          },
+          {
+            "metric": "bridge.free_cash_flow.net_cash_from_operating_activities",
+            "period": "2025-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 2296750000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2025-Q3",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -296000000.0
+          }
+        ],
+        "text": "Total revenue was 28095000000.0000 USD, or 5727140392.8269 USD (25.6043 percent) above forecast. The revenue bridge attributes 3811181094.1876 USD to volume and 745792327.4152 USD to price and mix, alongside 880470802.9197 USD from energy generation and storage. Automotive sales were 4556973421.6028 USD above forecast; regulatory credits contributed a further 113029494.3820 USD above forecast, while leasing was 7534388.6463 USD above forecast. Gross profit exceeded forecast by 1243669023.8524 USD, and gross margin was higher by 0.9590 percentage points. Operating expenses were 799771695.2573 USD above forecast, despite research and development being 335166899.4413 USD below forecast; selling, general and administrative expense was 193860610.8066 USD above forecast. Operating income nevertheless came in 443897328.5950 USD above forecast. Free cash flow exceeded forecast by 2592750000.0000 USD, with operating cash flow contributing 2296750000.0000 USD to the variance. Purchases of property and equipment were below forecast, with a variance of -296000000.0000 USD. Overall, the quarter’s revenue and cash-flow results substantially exceeded the base forecast, while higher operating expenses were a notable offset."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2025-Q3"
+  },
+  {
+    "input_hash": "94418da90203897d096b3863f6fea6be61ac5bea90878fa7c7dfa18c02ed15b2",
+    "input_tokens": 10090,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2936,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "variance.total_revenue",
+            "period": "2025-Q4",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -4907257213.032
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2025-Q4",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": -16.4627
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -4284387687.8867
+          },
+          {
+            "metric": "variance_pct.automotive_sales",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -20.3685
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": -113967.1529
+          },
+          {
+            "metric": "variance_pct.deliveries",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -21.4146
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "USD per unit",
+            "value": 526.1222
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2025-Q4",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": 1.3311
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2025-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -4504426189.9272
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2025-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 220038502.0405
+          },
+          {
+            "metric": "bridge.revenue.automotive_regulatory_credits",
+            "period": "2025-Q4",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 239689106.9012
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2025-Q4",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -473072074.9158
+          },
+          {
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2025-Q4",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": -10.976
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2025-Q4",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -367738799.2832
+          },
+          {
+            "metric": "variance_pct.services_and_other",
+            "period": "2025-Q4",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": -9.8359
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2025-Q4",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -111746590.6342
+          },
+          {
+            "metric": "variance_pct.gross_profit",
+            "period": "2025-Q4",
+            "sentence_ref": "5",
+            "unit": "percent",
+            "value": -2.1822
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2025-Q4",
+            "sentence_ref": "5",
+            "unit": "percentage points",
+            "value": 2.9357
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2025-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 701745733.9272
+          },
+          {
+            "metric": "variance_pct.operating_income",
+            "period": "2025-Q4",
+            "sentence_ref": "6",
+            "unit": "percent",
+            "value": 99.2211
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2025-Q4",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -813492324.5614
+          },
+          {
+            "metric": "variance_pct.operating_expenses",
+            "period": "2025-Q4",
+            "sentence_ref": "6",
+            "unit": "percent",
+            "value": -18.4319
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2025-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -289250000.0
+          },
+          {
+            "metric": "variance_pct.free_cash_flow",
+            "period": "2025-Q4",
+            "sentence_ref": "7",
+            "unit": "percent",
+            "value": -16.9226
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2025-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -124000000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2025-Q4",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 165250000.0
+          }
+        ],
+        "text": "The quarter’s variance pattern was mixed: total revenue was below forecast, with a variance of -4907257213.0320 USD, equal to -16.4627 percent of the base forecast. Automotive sales were below forecast by -4284387687.8867 USD (-20.3685 percent), while deliveries were below forecast by -113967.1529 units (-21.4146 percent); automotive ASP was above forecast by 526.1222 USD per unit (1.3311 percent). The revenue bridge shows volume as the largest listed pressure at -4504426189.9272 USD; price/mix contributed 220038502.0405 USD and regulatory credits contributed 239689106.9012 USD, partly offsetting that drag. Energy generation and storage was below forecast by -473072074.9158 USD (-10.9760 percent), and services and other was below forecast by -367738799.2832 USD (-9.8359 percent). Gross profit was below forecast by -111746590.6342 USD (-2.1822 percent), yet gross margin exceeded forecast by 2.9357 percentage points. Operating income was above forecast by 701745733.9272 USD (99.2211 percent), alongside operating expenses below forecast with a variance of -813492324.5614 USD (-18.4319 percent). Free cash flow was below forecast by -289250000.0000 USD (-16.9226 percent); operating cash flow also had a -124000000.0000 USD variance, while property and equipment purchases showed a positive 165250000.0000 USD variance, consistent with spending above forecast."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2025-Q4"
+  },
+  {
+    "input_hash": "fd432468ab8dd38db0d9854f7cbd47ecca4bbbb926a69d892d8300d6e173210d",
+    "input_tokens": 10097,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 2572,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 22387000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 2502385094.6328
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": 12.5845
+          },
+          {
+            "metric": "actual.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 358023.0
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 73887.3893
+          },
+          {
+            "metric": "variance_pct.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": 26.0043
+          },
+          {
+            "metric": "actual.automotive_sales",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 15473000000.0
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 4072483288.9957
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD per unit",
+            "value": 3094.3884
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": 7.7122
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 2964621062.8199
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 1107862226.1758
+          },
+          {
+            "metric": "actual.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 2408000000.0
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -1594150196.0144
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -2955257.2707
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -10247832.3699
+          },
+          {
+            "metric": "actual.gross_profit",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 4720000000.0
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 1104530808.8561
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "percentage points",
+            "value": 2.9037
+          },
+          {
+            "metric": "bridge.gross_profit.automotive",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 1263990246.1435
+          },
+          {
+            "metric": "bridge.gross_profit.energy",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -239883780.8801
+          },
+          {
+            "metric": "actual.operating_income",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 941000000.0
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 1741979190.9824
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -637448382.1263
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -293579349.5298
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 250250000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 361250000.0
+          },
+          {
+            "metric": "actual.free_cash_flow",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": 1444000000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD",
+            "value": -111000000.0
+          }
+        ],
+        "text": "The quarter’s variance profile was mixed: automotive results and operating profitability were stronger than the base forecast, while energy revenue and free cash flow were weaker. Total revenue was 22387000000.0000 USD, 2502385094.6328 USD above forecast (12.5845 percent); deliveries were 358023 units, 73887.3893 units above forecast (26.0043 percent). Automotive sales were 15473000000.0000 USD, 4072483288.9957 USD above forecast; the automotive ASP variance was 3094.3884 USD per unit (7.7122 percent), with bridge contributions from volume of 2964621062.8199 USD and price/mix of 1107862226.1758 USD. Energy generation and storage was 2408000000.0000 USD, with a variance of -1594150196.0144 USD, below forecast; automotive leasing and regulatory credits had variances of -2955257.2707 USD and -10247832.3699 USD, respectively. Gross profit was 4720000000.0000 USD, 1104530808.8561 USD above forecast, and gross margin was 2.9037 percentage points above forecast; the gross-profit bridge included an automotive contribution of 1263990246.1435 USD and an energy contribution of -239883780.8801 USD. Operating income was 941000000.0000 USD, 1741979190.9824 USD above forecast; operating expenses were 637448382.1263 USD below forecast, including research and development 293579349.5298 USD below forecast. Operating cash flow was 250250000.0000 USD above forecast, while purchases of property and equipment were 361250000.0000 USD above forecast; free cash flow was 1444000000.0000 USD, with a variance of -111000000.0000 USD, below forecast."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2026-Q1"
+  },
+  {
+    "input_hash": "ff415e62bd40fc419cf590a05d17e9724ea11ac73ff8021b94515fa6ced5f922",
+    "input_tokens": 10090,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 1514,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2026-Q2",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 28236000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2026-Q2",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 3133949322.1518
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2026-Q2",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 71654.7444
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2026-Q2",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 3123631721.2232
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2026-Q2",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": 162097046.4848
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2026-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 393835897.4359
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2026-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -258894332.8279
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2026-Q2",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -137882352.9412
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2026-Q2",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": 130088370.8608
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2026-Q2",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": -1.584
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2026-Q2",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -368691721.1329
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2026-Q2",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 498780091.9937
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2026-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 565000000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2026-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": 3407000000.0
+          },
+          {
+            "metric": "actual.free_cash_flow",
+            "period": "2026-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -1092000000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2026-Q2",
+            "sentence_ref": "6",
+            "unit": "USD",
+            "value": -2842000000.0
+          }
+        ],
+        "text": "Revenue was 28236000000.0000 USD, above forecast by 3133949322.1518 USD; the revenue variance was led by volume, while services and other revenue and regulatory credits were below forecast. Deliveries were above forecast by 71654.7444 units, and automotive sales were above forecast by 3123631721.2232 USD; price mix contributed 162097046.4848 USD to the revenue bridge. Energy generation and storage was above forecast by 393835897.4359 USD, while services and other revenue was below forecast by -258894332.8279 USD and regulatory credits were below forecast by -137882352.9412 USD. Gross profit was above forecast by 130088370.8608 USD, but gross margin was below forecast by 1.5840 percentage points; the bridge shows energy gross profit below forecast, partly offset by services and automotive. Operating expenses were below forecast by -368691721.1329 USD, and operating income was above forecast by 498780091.9937 USD. Operating cash flow was above forecast by 565000000.0000 USD, but purchases of property and equipment were above forecast by 3407000000.0000 USD; free cash flow was -1092000000.0000 USD, below forecast by -2842000000.0000 USD. The quarter therefore combined revenue and operating-income performance above the base forecast with a cash-flow shortfall, driven in the bridge by elevated capital purchases."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2026-Q2"
+  },
+  {
+    "input_hash": "496037e4214765f56a3bbb27b5f0a04ef55c9bac7c49b8f8668cedf106ad086c",
+    "input_tokens": 12751,
+    "issues": [],
+    "kind": "memo+qa",
+    "model": "gpt-6-luna",
+    "output_tokens": 6927,
+    "payload": {
+      "answers": [
+        {
+          "claims": [
+            {
+              "metric": "variance.total_revenue",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": -7481465181.4722
+            },
+            {
+              "metric": "variance_pct.total_revenue",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": -21.0583
+            },
+            {
+              "metric": "bridge.revenue.volume",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -5590861815.9812
+            },
+            {
+              "metric": "bridge.revenue.price_mix",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -83913368.4908
+            },
+            {
+              "metric": "variance.automotive_sales",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -5674775184.472
+            },
+            {
+              "metric": "variance.energy_generation_and_storage",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -720296253.1373
+            },
+            {
+              "metric": "variance.services_and_other",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -1099442875.9028
+            },
+            {
+              "metric": "variance.automotive_leasing",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": 23517241.3793
+            },
+            {
+              "metric": "variance.automotive_regulatory_credits",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": -10468109.3394
+            }
+          ],
+          "question_number": 1,
+          "text": "Revenue was below forecast by 7481465181.4722 USD (-21.0583 percent). The revenue bridge identifies volume, at -5590861815.9812 USD, as the largest adverse item, with price mix contributing -83913368.4908 USD. Automotive sales were below forecast by 5674775184.4720 USD, while energy generation and storage and services and other were also below forecast. Leasing was above forecast, but regulatory credits were below forecast. The pattern indicates that the revenue shortfall was concentrated in automotive volume, alongside shortfalls in energy and services."
+        },
+        {
+          "claims": [
+            {
+              "metric": "actual.gross_margin",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": 19.5892
+            },
+            {
+              "metric": "variance.gross_margin",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percentage points",
+              "value": 0.9192
+            },
+            {
+              "metric": "variance.gross_profit",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -1140359094.2242
+            },
+            {
+              "metric": "variance_pct.gross_profit",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": -17.1887
+            },
+            {
+              "metric": "bridge.gross_profit.automotive",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -1138571652.6845
+            },
+            {
+              "metric": "bridge.gross_profit.energy",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -126027430.4074
+            },
+            {
+              "metric": "bridge.gross_profit.services_and_other",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 124239988.8677
+            }
+          ],
+          "question_number": 2,
+          "text": "Gross margin was 19.5892 percent, or 0.9192 percentage points above forecast. However, gross profit was below forecast by 1140359094.2242 USD (-17.1887 percent). The gross-profit bridge assigns -1138571652.6845 USD to automotive and -126027430.4074 USD to energy, partly offset by a positive 124239988.8677 USD contribution from services and other. Thus, the improvement in margin relative to forecast coexisted with a gross-profit shortfall; the bridge indicates the automotive and energy components were the principal adverse items."
+        },
+        {
+          "claims": [
+            {
+              "metric": "actual.automotive_regulatory_credits",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": 113000000.0
+            },
+            {
+              "metric": "variance.automotive_regulatory_credits",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": -10468109.3394
+            },
+            {
+              "metric": "variance_pct.automotive_regulatory_credits",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": -8.4784
+            },
+            {
+              "metric": "bridge.revenue.automotive_regulatory_credits",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -10468109.3394
+            },
+            {
+              "metric": "bridge.revenue.volume",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -5590861815.9812
+            }
+          ],
+          "question_number": 3,
+          "text": "Automotive regulatory credits were 113000000.0000 USD, below the base forecast by 10468109.3394 USD (-8.4784 percent). The revenue bridge records the same shortfall as a negative contribution to revenue variance. Credits therefore provided revenue, but the amount was less than forecast and did not offset the larger adverse items in the revenue bridge, particularly volume. This matters when assessing reported revenue because the credits line is distinct from automotive sales and can move independently of the main sales and delivery variances."
+        },
+        {
+          "claims": [
+            {
+              "metric": "actual.energy_generation_and_storage",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": 2881000000.0
+            },
+            {
+              "metric": "variance.energy_generation_and_storage",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": -720296253.1373
+            },
+            {
+              "metric": "variance_pct.energy_generation_and_storage",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": -20.001
+            },
+            {
+              "metric": "bridge.revenue.energy_generation_and_storage",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -720296253.1373
+            },
+            {
+              "metric": "bridge.gross_profit.energy",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -126027430.4074
+            },
+            {
+              "metric": "bridge.gross_profit.services_and_other",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": 124239988.8677
+            },
+            {
+              "metric": "variance.services_and_other",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": -1099442875.9028
+            }
+          ],
+          "question_number": 4,
+          "text": "Energy generation and storage revenue was 2881000000.0000 USD, below forecast by 720296253.1373 USD (-20.0010 percent). The revenue bridge records that shortfall as an adverse contributor. The gross-profit bridge also assigns -126027430.4074 USD to energy, so the segment was a drag on both revenue and gross profit relative to forecast. This contrasts with services and other, whose gross-profit bridge contribution was positive, even though its revenue was below forecast. These bridge entries describe contribution to forecast variance, not a standalone margin calculation."
+        },
+        {
+          "claims": [
+            {
+              "metric": "variance.operating_expenses",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": -807772081.2183
+            },
+            {
+              "metric": "variance_pct.operating_expenses",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": -14.4664
+            },
+            {
+              "metric": "variance.research_and_development",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -122547828.8232
+            },
+            {
+              "metric": "variance.selling_general_and_administrative",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": -535773060.0293
+            },
+            {
+              "metric": "bridge.operating_income.research_and_development",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 122547828.8232
+            },
+            {
+              "metric": "bridge.operating_income.selling_general_and_administrative",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 535773060.0293
+            },
+            {
+              "metric": "bridge.operating_income.restructuring_and_other",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 149451192.3658
+            },
+            {
+              "metric": "variance.gross_profit",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": -1140359094.2242
+            },
+            {
+              "metric": "variance.operating_income",
+              "period": "2026-Q3",
+              "sentence_ref": "4",
+              "unit": "USD",
+              "value": -332587013.0059
+            }
+          ],
+          "question_number": 5,
+          "text": "Operating expenses were below forecast, with a variance of -807772081.2183 USD (-14.4664 percent). Both research and development and selling, general and administrative expenses were below forecast: their variances were -122547828.8232 USD and -535773060.0293 USD, respectively. The operating-income bridge shows those lower expenses as favorable offsets, alongside a positive 149451192.3658 USD contribution from restructuring and other. The expense savings helped cushion the adverse gross-profit variance, but operating income still finished below forecast."
+        },
+        {
+          "claims": [
+            {
+              "metric": "actual.free_cash_flow",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": 1531000000.0
+            },
+            {
+              "metric": "variance.free_cash_flow",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD",
+              "value": 90500000.0
+            },
+            {
+              "metric": "variance_pct.free_cash_flow",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": 6.2825
+            },
+            {
+              "metric": "bridge.free_cash_flow.net_cash_from_operating_activities",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": 1591750000.0
+            },
+            {
+              "metric": "variance.purchases_of_property_and_equipment",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 1501250000.0
+            },
+            {
+              "metric": "bridge.free_cash_flow.purchases_of_property_and_equipment",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": -1501250000.0
+            }
+          ],
+          "question_number": 6,
+          "text": "Free cash flow was 1531000000.0000 USD, 90500000.0000 USD above forecast (6.2825 percent). The bridge shows net cash from operating activities contributing 1591750000.0000 USD relative to forecast. Purchases of property and equipment had a variance of 1501250000.0000 USD, shown as a negative -1501250000.0000 USD item in the free-cash-flow bridge. In other words, stronger operating cash flow more than offset the effect of higher capital spending, producing a modest positive free-cash-flow variance."
+        },
+        {
+          "claims": [
+            {
+              "metric": "backtest.operating_income.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": 100.976
+            },
+            {
+              "metric": "backtest.gross_profit.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": 20.5989
+            },
+            {
+              "metric": "backtest.total_revenue.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": 17.0519
+            }
+          ],
+          "question_number": 7,
+          "text": "Across the published-quarter backtest, operating income was the hardest of the three measures to forecast: its average absolute percentage error was 100.9760 percent. Gross profit’s average absolute percentage error was 20.5989 percent, while total revenue’s was 17.0519 percent. This comparison is based on the average error figures supplied for the full backtest horizon, rather than on the latest quarter alone. It suggests the model’s operating-income estimates have been substantially less consistent than its revenue estimates, with gross profit between those two measures."
+        },
+        {
+          "claims": [
+            {
+              "metric": "backtest.total_revenue.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "1",
+              "unit": "percent",
+              "value": 17.0519
+            },
+            {
+              "metric": "backtest.gross_profit.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": 20.5989
+            },
+            {
+              "metric": "backtest.operating_income.average_abs_pct_error",
+              "period": "12Q",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": 100.976
+            }
+          ],
+          "question_number": 8,
+          "text": "The backtest averages show the model has been more accurate on total revenue than on gross profit or operating income. Average absolute percentage error was 17.0519 percent for total revenue and 20.5989 percent for gross profit, compared with 100.9760 percent for operating income. These figures cover the published-quarter backtest horizon and measure the size, not the direction, of forecast errors. Taken together, they indicate that revenue estimates were comparatively closer to actuals, while operating-income forecasts were notably less reliable."
+        },
+        {
+          "claims": [
+            {
+              "metric": "forecast.bear.deliveries",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "units",
+              "value": 559205.5103
+            },
+            {
+              "metric": "forecast.bear.automotive_asp",
+              "period": "2026-Q3",
+              "sentence_ref": "1",
+              "unit": "USD per unit",
+              "value": 39399.2948
+            },
+            {
+              "metric": "forecast.bear.automotive_sales",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": 22032302757.2842
+            },
+            {
+              "metric": "forecast.bear.total_revenue",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "USD",
+              "value": 31790992754.2844
+            },
+            {
+              "metric": "forecast.bear.gross_margin",
+              "period": "2026-Q3",
+              "sentence_ref": "2",
+              "unit": "percent",
+              "value": 17.67
+            },
+            {
+              "metric": "forecast.bear.operating_income",
+              "period": "2026-Q3",
+              "sentence_ref": "3",
+              "unit": "USD",
+              "value": 33696338.4637
+            }
+          ],
+          "question_number": 9,
+          "text": "The bear scenario assumes deliveries of 559205.5103 units and automotive ASP of 39399.2948 USD per unit. It places automotive sales at 22032302757.2842 USD and total revenue at 31790992754.2844 USD, with gross margin of 17.6700 percent. Under those assumptions, forecast operating income is 33696338.4637 USD. The scenario therefore describes a low operating-income outcome relative to its revenue scale; these are scenario inputs and output, not reported results or a prediction."
+        },
+        {
+          "claims": [],
+          "question_number": 10,
+          "text": "For the next quarter, monitor automotive deliveries and ASP together, since the revenue bridge separates volume from price mix. Track automotive sales and regulatory credits as distinct revenue lines, along with energy generation and storage and services and other. Gross margin and gross profit should be viewed alongside operating expenses, particularly research and development and selling, general and administrative costs. For cash generation, watch operating cash flow, purchases of property and equipment, and free cash flow. These are monitoring metrics, not forecasts."
+        }
+      ],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2026-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": 28046000000.0
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2026-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -7481465181.4722
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2026-Q3",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": -21.0583
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2026-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -5590861815.9812
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2026-Q3",
+            "sentence_ref": "1",
+            "unit": "USD",
+            "value": -83913368.4908
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "USD",
+            "value": -5674775184.472
+          },
+          {
+            "metric": "variance_pct.automotive_sales",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -22.0219
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": -134807.4559
+          },
+          {
+            "metric": "variance_pct.deliveries",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -21.6963
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "USD per unit",
+            "value": -172.4725
+          },
+          {
+            "metric": "variance_pct.automotive_asp",
+            "period": "2026-Q3",
+            "sentence_ref": "2",
+            "unit": "percent",
+            "value": -0.4159
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -720296253.1373
+          },
+          {
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": -20.001
+          },
+          {
+            "metric": "variance.services_and_other",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -1099442875.9028
+          },
+          {
+            "metric": "variance_pct.services_and_other",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": -19.2734
+          },
+          {
+            "metric": "variance.automotive_leasing",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": 23517241.3793
+          },
+          {
+            "metric": "variance.automotive_regulatory_credits",
+            "period": "2026-Q3",
+            "sentence_ref": "3",
+            "unit": "USD",
+            "value": -10468109.3394
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2026-Q3",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -1140359094.2242
+          },
+          {
+            "metric": "variance_pct.gross_profit",
+            "period": "2026-Q3",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": -17.1887
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2026-Q3",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": 0.9192
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2026-Q3",
+            "sentence_ref": "4",
+            "unit": "USD",
+            "value": -332587013.0059
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2026-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": -807772081.2183
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2026-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 1591750000.0
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2026-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 1501250000.0
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2026-Q3",
+            "sentence_ref": "5",
+            "unit": "USD",
+            "value": 90500000.0
+          }
+        ],
+        "text": "Revenue was 28046000000.0000 USD, below the base forecast by 7481465181.4722 USD (-21.0583 percent), with the revenue bridge attributing -5590861815.9812 USD to volume and -83913368.4908 USD to price mix. Automotive sales were below forecast by 5674775184.4720 USD (-22.0219 percent), while deliveries were lower by 134807.4559 units (-21.6963 percent); automotive ASP was below forecast by 172.4725 USD per unit (-0.4159 percent). Energy generation and storage was below forecast by 720296253.1373 USD (-20.0010 percent), and services and other was below by 1099442875.9028 USD (-19.2734 percent); leasing was above forecast by 23517241.3793 USD, while regulatory credits were below forecast by 10468109.3394 USD. Gross profit was below forecast by 1140359094.2242 USD (-17.1887 percent), despite gross margin being 0.9192 percentage points above forecast; operating income was below forecast by 332587013.0059 USD (-31.6573 percent). Operating expenses had a variance of -807772081.2183 USD. Operating cash flow exceeded forecast by 1591750000.0000 USD, while purchases of property and equipment had a variance of 1501250000.0000 USD; free cash flow was 90500000.0000 USD above forecast."
+      }
+    },
+    "prompt_version": "2026-11-05.1",
+    "quarter": "2026-Q3"
+  }
+]
