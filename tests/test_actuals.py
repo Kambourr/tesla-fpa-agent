@@ -290,6 +290,45 @@ def test_cash_flow_quarters_are_decumulated_and_q4_is_derived() -> None:
     ]
 
 
+def test_a_year_without_its_10k_still_gets_cash_flow_quarters() -> None:
+    connection = _database()
+    metric = "purchases_of_property_and_equipment"
+    concept = "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"
+    filings = (
+        ("2026-03-31", "0000000001-26-000001", "2026-04-23", 30),
+        ("2026-06-30", "0000000001-26-000002", "2026-07-23", 70),
+        ("2026-09-30", "0000000001-26-000003", "2026-10-23", 120),
+    )
+    store_reported_facts(
+        connection,
+        [
+            _fact(
+                metric=metric,
+                start="2026-01-01",
+                end=end,
+                accession=accession,
+                form="10-Q",
+                filing_end=end,
+                filed=filed,
+                url=f"https://example.com/{accession}",
+                value=value,
+                concept=concept,
+            )
+            for end, accession, filed, value in filings
+        ],
+    )
+    assemble_quarter_actuals(connection)
+    rows = connection.execute(
+        "SELECT quarter, value, basis FROM quarter_actual WHERE metric = ? ORDER BY quarter",
+        [metric],
+    ).fetchall()
+    assert rows == [
+        ("2026-Q1", Decimal("30.0000"), "first_reported"),
+        ("2026-Q2", Decimal("40.0000"), "decumulated"),
+        ("2026-Q3", Decimal("50.0000"), "decumulated"),
+    ]
+
+
 def test_companyfacts_keeps_both_filings_and_skips_member_tags() -> None:
     companyfacts = {
         "facts": {
