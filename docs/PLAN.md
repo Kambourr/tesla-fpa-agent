@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 35 of 54 (65%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 36 of 54 (67%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -417,7 +417,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** A custom SVG line chart (D3 scales, not a default chart-library theme) plots forecast and actual revenue for the published quarters. A text alternative exposes the same values. The selected quarter is identifiable without color alone.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T12, M5-T13, M5-T14
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (de6116643d8e952b0d62cd07a243ee02bacf2acd)
 
 ### M5-T11 — Ask the analyst
 
