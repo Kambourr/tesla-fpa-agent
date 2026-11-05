@@ -33,6 +33,8 @@ from agent.publish_schema import (
     Dashboard,
     Drivers,
     Filing,
+    FirstDraftCatch,
+    FirstDrafts,
     Memo,
     PnlLine,
     QaAnswer,
@@ -206,6 +208,7 @@ def build_dashboard(
             gross_margin_bp=_triple(flex["gross_margin"]),
         ),
         sources=_sources(connection),
+        first_drafts=_first_drafts(connection),
     )
 
 
@@ -564,4 +567,67 @@ def _sources(connection: duckdb.DuckDBPyConnection) -> Sources:
         delivery_quarters=int(deliveries),
         earliest_filing_date=None if earliest is None else str(earliest),
         latest_filing_date=None if latest is None else str(latest),
+    )
+
+
+def _first_drafts(connection: duckdb.DuckDBPyConnection) -> FirstDrafts:
+    """Aggregate the stored first-draft reviews of the published narratives."""
+    rows = connection.execute(
+        """
+        SELECT n.quarter, n.first_review, v.flagged, v.unsupported
+        FROM narrative AS n
+        JOIN published_quarter AS p ON p.quarter = n.quarter
+        LEFT JOIN verification AS v ON v.quarter = n.quarter
+        ORDER BY n.quarter
+        """
+    ).fetchall()
+    return aggregate_first_drafts(
+        [
+            (quarter, None if raw is None else json.loads(str(raw)), flagged, unsupported)
+            for quarter, raw, flagged, unsupported in rows
+        ]
+    )
+
+
+def aggregate_first_drafts(
+    rows: list[tuple[str, dict[str, Any] | None, int | None, int | None]],
+) -> FirstDrafts:
+    """Sum first-draft records. Each row: quarter, record (None if not recorded),
+    and the final draft's flagged and unsupported counts."""
+    checked = caught = guard_hits = rejected = final_problems = recorded = 0
+    catches: list[FirstDraftCatch] = []
+    for quarter, record, flagged, unsupported in rows:
+        if record is None:
+            continue
+        recorded += 1
+        checked += int(record["checked"])
+        caught += int(record["flagged"]) + int(record["unsupported"])
+        guard_hits += len(record["guard_hits"])
+        if record["catches"] or record["guard_hits"] or record["issues"]:
+            rejected += 1
+            final_problems += int(flagged or 0) + int(unsupported or 0)
+        catches.extend(
+            FirstDraftCatch(
+                quarter=quarter,
+                location=item["location"],
+                metric=item["metric"],
+                period=item["period"],
+                written=float(item["written"]),
+                unit=item["unit"],
+                expected=None if item["expected"] is None else float(item["expected"]),
+                expected_unit=item["expected_unit"],
+                status=item["status"],
+                source=item["source"],
+            )
+            for item in record["catches"]
+        )
+    return FirstDrafts(
+        narratives=len(rows),
+        recorded=recorded,
+        checked=checked,
+        caught=caught,
+        guard_hits=guard_hits,
+        rejected=rejected,
+        final_problems=final_problems,
+        catches=catches,
     )

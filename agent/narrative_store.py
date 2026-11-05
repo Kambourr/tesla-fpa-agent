@@ -6,7 +6,8 @@ writes every verified ``narrative`` row to ``data/narrative_cache.json``.
 ``import_cache`` restores those rows into a fresh database, still verified, so
 ``narrate`` reuses them on the same input hash and makes no model call.
 
-The file holds model text, claims, token counts and validation issues. It never
+The file holds model text, claims, token counts, validation issues and, from
+M8-T1, what the verifier found in the first draft (``first_review``). It never
 holds ``OPENAI_API_KEY`` or ``SEC_USER_AGENT``.
 """
 
@@ -50,7 +51,7 @@ def export_verified(connection: duckdb.DuckDBPyConnection, path: Path) -> int:
     rows = connection.execute(
         """
         SELECT quarter, kind, input_hash, prompt_version, model, payload,
-               input_tokens, output_tokens, issues
+               input_tokens, output_tokens, issues, first_review
         FROM narrative
         WHERE verified
         ORDER BY quarter
@@ -67,6 +68,7 @@ def export_verified(connection: duckdb.DuckDBPyConnection, path: Path) -> int:
             "input_tokens": int(input_tokens),
             "output_tokens": int(output_tokens),
             "issues": json.loads(str(issues)),
+            "first_review": None if first_review is None else json.loads(str(first_review)),
         }
         for (
             quarter,
@@ -78,6 +80,7 @@ def export_verified(connection: duckdb.DuckDBPyConnection, path: Path) -> int:
             input_tokens,
             output_tokens,
             issues,
+            first_review,
         ) in rows
     ]
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -101,8 +104,8 @@ def import_cache(connection: duckdb.DuckDBPyConnection, path: Path) -> int:
             """
             INSERT OR REPLACE INTO narrative (
                 quarter, kind, input_hash, prompt_version, model, payload,
-                input_tokens, output_tokens, issues, created_at, verified
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, TRUE)
+                input_tokens, output_tokens, issues, created_at, verified, first_review
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, TRUE, ?)
             """,
             [
                 entry["quarter"],
@@ -115,6 +118,10 @@ def import_cache(connection: duckdb.DuckDBPyConnection, path: Path) -> int:
                 entry["output_tokens"],
                 json.dumps(entry["issues"]),
                 now,
+                # Older cache files have no first_review; NULL means "not recorded".
+                None
+                if entry.get("first_review") is None
+                else json.dumps(entry["first_review"], sort_keys=True),
             ],
         )
     return len(entries)

@@ -343,6 +343,144 @@
       "title": "Filing",
       "type": "object"
     },
+    "FirstDraftCatch": {
+      "additionalProperties": false,
+      "description": "One figure the verifier rejected in a model's first draft, before the re-ask.",
+      "properties": {
+        "expected": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected"
+        },
+        "expected_unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Unit"
+        },
+        "location": {
+          "title": "Location",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "quarter": {
+          "title": "Quarter",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source"
+        },
+        "status": {
+          "enum": [
+            "flagged",
+            "unsupported"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "written": {
+          "title": "Written",
+          "type": "number"
+        }
+      },
+      "required": [
+        "quarter",
+        "location",
+        "metric",
+        "period",
+        "written",
+        "unit",
+        "expected",
+        "expected_unit",
+        "status",
+        "source"
+      ],
+      "title": "FirstDraftCatch",
+      "type": "object"
+    },
+    "FirstDrafts": {
+      "additionalProperties": false,
+      "description": "What code caught in the model's first drafts, over the narratives that recorded it.\n\n``recorded`` of ``narratives`` carry a record; the rest were drafted before\nrecording began. ``rejected`` drafts had at least one problem and were sent\nback once. ``final_problems`` counts what is still flagged or unsupported\nafter the re-ask, across those same narratives.",
+      "properties": {
+        "catches": {
+          "items": {
+            "$ref": "#/$defs/FirstDraftCatch"
+          },
+          "title": "Catches",
+          "type": "array"
+        },
+        "caught": {
+          "title": "Caught",
+          "type": "integer"
+        },
+        "checked": {
+          "title": "Checked",
+          "type": "integer"
+        },
+        "final_problems": {
+          "title": "Final Problems",
+          "type": "integer"
+        },
+        "guard_hits": {
+          "title": "Guard Hits",
+          "type": "integer"
+        },
+        "narratives": {
+          "title": "Narratives",
+          "type": "integer"
+        },
+        "recorded": {
+          "title": "Recorded",
+          "type": "integer"
+        },
+        "rejected": {
+          "title": "Rejected",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "narratives",
+        "recorded",
+        "checked",
+        "caught",
+        "guard_hits",
+        "rejected",
+        "final_problems",
+        "catches"
+      ],
+      "title": "FirstDrafts",
+      "type": "object"
+    },
     "Memo": {
       "additionalProperties": false,
       "properties": {
@@ -899,6 +1037,9 @@
     "backtest": {
       "$ref": "#/$defs/Backtest"
     },
+    "first_drafts": {
+      "$ref": "#/$defs/FirstDrafts"
+    },
     "forward_forecast_published": {
       "title": "Forward Forecast Published",
       "type": "boolean"
@@ -964,7 +1105,8 @@
     "qa",
     "backtest",
     "scenario_flex",
-    "sources"
+    "sources",
+    "first_drafts"
   ],
   "title": "Dashboard",
   "type": "object"

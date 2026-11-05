@@ -165,6 +165,40 @@ class Sources(_Model):
     latest_filing_date: str | None
 
 
+class FirstDraftCatch(_Model):
+    """One figure the verifier rejected in a model's first draft, before the re-ask."""
+
+    quarter: str
+    location: str
+    metric: str
+    period: str
+    written: float
+    unit: str
+    expected: float | None
+    expected_unit: str | None
+    status: Literal["flagged", "unsupported"]
+    source: str | None
+
+
+class FirstDrafts(_Model):
+    """What code caught in the model's first drafts, over the narratives that recorded it.
+
+    ``recorded`` of ``narratives`` carry a record; the rest were drafted before
+    recording began. ``rejected`` drafts had at least one problem and were sent
+    back once. ``final_problems`` counts what is still flagged or unsupported
+    after the re-ask, across those same narratives.
+    """
+
+    narratives: int
+    recorded: int
+    checked: int
+    caught: int
+    guard_hits: int
+    rejected: int
+    final_problems: int
+    catches: list[FirstDraftCatch]
+
+
 class Dashboard(_Model):
     schema_version: Literal[1]
     generated_at: str
@@ -177,6 +211,7 @@ class Dashboard(_Model):
     backtest: Backtest
     scenario_flex: ScenarioFlex
     sources: Sources
+    first_drafts: FirstDrafts
 
 
 def schema_text() -> str:

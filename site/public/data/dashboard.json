@@ -260,6 +260,16 @@
       }
     ]
   },
+  "first_drafts": {
+    "catches": [],
+    "caught": 0,
+    "checked": 0,
+    "final_problems": 0,
+    "guard_hits": 0,
+    "narratives": 12,
+    "recorded": 0,
+    "rejected": 0
+  },
   "forward_forecast_published": false,
   "generated_at": "2026-11-05T18:35:39+00:00",
   "last_full_run": {
