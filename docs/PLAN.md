@@ -369,7 +369,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The headline is exactly "Tesla's quarter, forecast and explained by an agent, checked against the filings." Under it: the quarter, forecast vs actual revenue, and the variance in dollars and percent. The custom SVG waterfall is forecast revenue, volume, price/mix, credits, leasing, energy, services and other, actual revenue. On first load the bars draw in sequence in about 1.2 seconds, then the seal's ticks appear; `prefers-reduced-motion` shows the final state immediately. A visually hidden table lists the bridge values. At 375px the bridge scrolls horizontally or switches to a vertical bridge.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T5 — Verification seal
 
