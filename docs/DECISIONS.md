@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — Fact sheet keys, and how claims are verified
+
+**Decision:** `agent/fact_sheet.py` lists every number the narration may cite, with a stable key, a period, a unit, and a source. Narration sends only this sheet to the model. A claim must name a fact by key and period. `agent/verifier.py` looks it up, converts the claim's unit (thousand, million, billion, percent, points, thousand vehicles) into the fact's unit, and compares with the section 4 tolerances. A key or period that is not on the sheet is unsupported. A unit that cannot convert, or a value out of tolerance, is flagged with the expected value. Opposite signs flag even inside tolerance, so the model must write variances with their sign. Gross margin is stored as a fraction in `forecast` and shown as a percent on the sheet. Its variance is in percentage points.
+
+**Alternatives considered:** Letting the model name metrics freely and mapping them with synonyms. Rejected because the verifier would have to guess, and a guess can turn an invented number into a "verified" one. Matching claims by value alone. Rejected because the same value can belong to different lines.
+
 ## 2026-11-05 — Keyword guard rules
 
 **Decision:** `agent/keyword_guard.py` flags recommendation and valuation language with regular expressions, case-insensitive, whole words. "buy" and "sell" flag only next to a stock word (stock, share, equity, TSLA, rating, position, recommendation), so "vehicles sold", "sales", and "buyback" pass. "fair value" flags only in price forms, because the filings use it as an accounting term. "$X per share" flags unless a reporting word (EPS, earnings, income, diluted, basic, dividend, repurchase, buyback) comes earlier in the sentence with no target or valuation word in between.
