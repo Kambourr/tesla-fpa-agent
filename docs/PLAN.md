@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 60 of 64 (94%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 63 of 64 (98%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -573,7 +573,7 @@ Added 2026-11-05 at Jacob's request: the M7 page still took too long to show wha
 - **Acceptance:** A TypeScript port of the verifier's unit normalisation and tolerances, with parity tests on the same cases as `tests/test_verifier.py`. Editing a figure re-checks it against the published expected value and shows ties, flags with expected value and source, or the sign rule. No API call. Keyboard and screen-reader usable.
 - **Depends on:** M7-T5
 - **Can run in parallel with:** M8-T1
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (48fa3af01a3b982c3e246fc57378fad2a9de0e2d)
 
 ### M8-T3 — Pipeline you can open
 
@@ -581,7 +581,7 @@ Added 2026-11-05 at Jacob's request: the M7 page still took too long to show wha
 - **Acceptance:** Each stage shows its real count; selecting a stage shows a real artifact from `dashboard.json` (a sourced fact, forecast drivers, a bridge that sums, a model claim as structured output, its verification record, the published file's size and shape). Works at 375px and by keyboard.
 - **Depends on:** M8-T1
 - **Can run in parallel with:** M8-T2
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (48fa3af01a3b982c3e246fc57378fad2a9de0e2d)
 
 ### M8-T4 — Two screens, outputs in tabs
 
@@ -589,7 +589,7 @@ Added 2026-11-05 at Jacob's request: the M7 page still took too long to show wha
 - **Acceptance:** First screen: one line on what it is, the verifier demo, the pipeline. Then one tabbed panel (Bridge, Memo, Forecast, Accuracy, Q&A, Method) using the ARIA tabs pattern. The M7 hero quote, build chain, and long run section are removed. Page height at 1280px wide at most about 2.5 viewport heights for the default tab. Lighthouse accessibility 100; no horizontal scroll at 375px.
 - **Depends on:** M8-T2, M8-T3
 - **Can run in parallel with:** none
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (48fa3af01a3b982c3e246fc57378fad2a9de0e2d)
 
 ### M8-T5 — Ship and record
 

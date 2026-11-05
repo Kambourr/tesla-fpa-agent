@@ -3,8 +3,8 @@
 ## Current status
 
 - **Current milestone:** M8 (show the machine working), at Jacob's request. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 60 of 64 (94%).
-- **What's next:** M8-T2 to M8-T4 (site), then M8-T5 (forced refresh records real first-draft numbers).
+- **Tasks done:** 63 of 64 (98%).
+- **What's next:** M8-T5: merge, run "Refresh data" with force on (about $0.03) so every narrative records its first draft, then refresh the README screenshot.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,17 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M8-T2, M8-T3, M8-T4 (done, 48fa3af01a3b982c3e246fc57378fad2a9de0e2d; one branch, see DECISIONS).
+**What changed:** Jacob found the M7 page too long and not clearly impressive. The first screen now says what the product is in one line, then:
+- **Try to break it** (`site/src/showcase/BreakIt.tsx`): the latest memo's opening sentences with every figure an input. Each edit (and a unit switch) is checked in the browser by `site/src/verify/verifier.ts`, a port of `agent/verifier.py` with exact BigInt decimals, the same unit tables, tolerances, sign rule, and thousands-precision rounding. `tests/test_verifier_parity.py` writes 126 cases with the Python verdicts to `site/src/verify/parity.json`; the site suite runs every case (all agree), and pytest fails if the file goes stale. The inspector shows written vs. filing value, the rule, the result with how far off, and the source filing.
+- **The pipeline** (`Pipeline.tsx`): six stages as an ARIA tablist with real counts; each opens a real artifact from `dashboard.json`: the sourced revenue fact, forecast drivers vs. actuals, the revenue bridge with "Drivers sum to −$7.48B; actual minus forecast is −$7.48B. Difference: $0.", the model's structured claim, its verification record plus the first-draft line, and per-stage timings of the last full run.
+- **Outputs in tabs** (`OutputTabs.tsx`): bridge, memo, forecast and scenarios, accuracy, Q&A, method; only the open tab renders; links into a tab (e.g. "See how the figures are checked") open it. Removed: hero quote, build chain, the run section (its content is the Publish stage). About is two lines in the footer.
+**Checks:** site tests 267 passed (new: parity cases, demo edits/unit/reset/empty, pipeline click and arrow keys, first-draft wording in every case, tabs and hash, page order); pytest parity and shell tests pass; tsc clean. Playwright: no console errors, no horizontal scroll at 375px, edits flag and restore, seal link opens Method. Page height at 1280×900: 2,349px (was about 7,800px). Lighthouse 12.2.1: accessibility, best practices, SEO 100 on mobile and desktop; performance 100 desktop, 90 mobile; CLS 0.005.
+**Next step:** M8-T5.
+**Blockers / questions for Jacob:** None.
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
