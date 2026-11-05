@@ -4,7 +4,7 @@ Quarterly variance analysis is slow, manual work. An analyst rebuilds the foreca
 
 **Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/
 
-![The dashboard for Q3 2026: the revenue bridge from forecast to actual, the verification seal (69 of 69 figures tie to the filings), the run summary, and the analyst memo with a tick on every figure](docs/images/dashboard.png)
+![The dashboard for Q3 2026: a sentence the model wrote with a tick on every figure, 337 of 337 figures tied to the filings, the five steps that went into it, and the revenue bridge from forecast to actual](docs/images/dashboard.png)
 
 ## What it does
 
