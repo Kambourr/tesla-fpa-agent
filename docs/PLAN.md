@@ -361,7 +361,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** Verified ticks, flagged ticks, and unsupported ticks match section 6 (green tick, amber flag, amber-outline question mark) and have accessible names. Hover or focus shows the source line, filing, and result; a flagged tick shows the expected value; activating a tied tick opens the source filing. A legend sits with the memo. A component test covers all three states.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T4 — Hero revenue bridge
 
