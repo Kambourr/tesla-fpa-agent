@@ -4,7 +4,7 @@ Quarterly variance analysis is slow, manual work. An analyst rebuilds the foreca
 
 **Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/
 
-SCREENSHOT
+![The dashboard for Q3 2026: the revenue bridge from forecast to actual, the verification seal (69 of 69 figures tie to the filings), the run summary, and the analyst memo with a tick on every figure](docs/images/dashboard.png)
 
 ## What it does
 
@@ -12,10 +12,12 @@ SCREENSHOT
 2. **Load.** Stores one value per metric, period, and filing in DuckDB, so a later restatement never overwrites what was first reported. The SQL lives in `sql/`.
 3. **Forecast.** Builds a driver-based forecast for each of the last 12 quarters as of the day the previous quarter was filed, so the model never sees the quarter it is forecasting: deliveries, ASP, segment revenue, margins, opex, and capex, plus bull and bear scenarios.
 4. **Explain.** Breaks each quarter's variance into four bridges that sum exactly to the total (revenue, gross profit, operating income, free cash flow), then has an OpenAI model draft a variance memo for every quarter and answers to ten fixed questions for the latest one, using only a sheet of computed figures.
-5. **Verify.** Code checks every figure the model wrote against that sheet: within 0.5% for dollars, 0.1 points for percentages, exact for unit counts. Anything off is flagged with the expected value, the model gets one chance to correct it, and whatever is still wrong is published as flagged, never quietly fixed. A keyword guard blocks buy/sell language and price targets.
+5. **Verify.** Code checks every figure the model wrote against that sheet: within 0.5% for dollars, 0.1 points for percentages, and exact for vehicle counts (at the precision written). Anything off is flagged with the expected value, the model gets one chance to correct it, and whatever is still wrong is published as flagged, never quietly fixed. A keyword guard blocks buy/sell language and price targets.
 6. **Publish.** Writes one JSON file that the static dashboard reads. Visitors never call the model.
 
 ## How accuracy is controlled
+
+On the latest live run (November 5, 2026), the verifier checked all 337 figures the model wrote across the 12 memos and the 10 answers: 337 tied to the filings or the computed tables, 0 were flagged, and 0 could not be traced.
 
 The model never sees raw filings. It receives a fact sheet: every citable number for the quarter, each with a key, a period, a unit, and its source filing. Each figure it writes must cite one of those keys, and the verifier looks it up and compares. On the dashboard every AI-written figure carries an auditor's tick mark: a green tick when it ties to the filing (click it to open the filing), an amber flag when it does not, and a question mark when it cannot be traced.
 
@@ -58,7 +60,7 @@ cp .env.example .env   # fill in OPENAI_API_KEY and SEC_USER_AGENT (a contact st
 uv run python -m agent run
 ```
 
-Each stage also runs alone: `ingest`, `model`, `variance`, `narrate`, `verify`, `publish`. A full run takes RUN_TIME and costs about RUN_COST in model usage; unchanged quarters reuse their verified narratives, so a refresh only pays for new quarters. Tests: `uv run pytest` and, in `site/`, `npm test`.
+Each stage also runs alone: `ingest`, `model`, `variance`, `narrate`, `verify`, `publish`. A full run from a clean checkout takes about seven minutes, almost all of it narration, and costs about $0.03 in model usage for 12 memos and 10 answers (measured in GitHub Actions on November 5, 2026). Unchanged quarters reuse their verified narratives from `data/narrative_cache.json`, so a later refresh only pays for new or changed quarters. Tests: `uv run pytest` and, in `site/`, `npm test`.
 
 In GitHub, the **Refresh data** workflow runs the same pipeline from repository secrets and commits the new data, and the site redeploys.
 
