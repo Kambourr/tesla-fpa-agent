@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { MastheadMark } from "./components/MastheadMark";
+import { MethodSection } from "./components/MethodSection";
 import { QuarterPicker } from "./components/QuarterPicker";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { footerDisclaimer, siteName } from "./config";
@@ -72,6 +73,8 @@ export function App() {
             </>
           )}
         </section>
+        <hr className="ledger" />
+        <MethodSection />
       </main>
       <footer className="colophon">
         <div className="canvas">

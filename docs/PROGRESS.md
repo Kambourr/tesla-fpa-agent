@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M2 model. `M2-T6` is done on `task/M2-T6-revenue-bridge` and is not on `main` yet. That branch also contains `M2-T3`, `M2-T4`, and `M2-T5`, which are not on `main` yet. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`.
-- **Tasks done:** 19 of 53 (36%).
-- **What's next:** Merge pull requests #17, #18, and #19, then this one. `M2-T7` through `M2-T9` can follow. `M5-T13` and `M5-T14` are on their own branches. Do not claim `M1-T6` or `M1-T7`.
+- **Current milestone:** M2 model. `M2-T6` is done on `task/M2-T6-revenue-bridge` and is not on `main` yet. That branch also contains `M2-T3`, `M2-T4`, and `M2-T5`. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, `M5-T2`, and `M5-T13` are on `main`.
+- **Tasks done:** 20 of 53 (38%).
+- **What's next:** Merge this pull request, which also carries #17, #18, and #19. `M2-T7` through `M2-T9` can follow. `M5-T14` is on its own branch. Do not claim `M1-T6` or `M1-T7`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
@@ -98,6 +98,24 @@
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not read `quarter_actual` as the forecast input when a later filing on or before the cutoff restates the period. Do not include the target quarter's deliveries. This branch includes the M1-T9 commits until that pull request is on `main`. The commit named below is the cutoff loader. Later commits on this branch only update the handoff.
 **Last commit:** 159b63e7e00388a0563c8203d1de442f7bb6823f on task/M2-T2-cutoff-no-lookahead
+
+## 2026-11-04 13:45 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M5-T13 (done)
+**What changed:**
+- Added an inline SVG of the six pipeline stages. Below 481px the same stages are a vertical SVG. Explain is marked Model. The other stages are marked Code.
+- The fixture in `site/src/methodExample.ts` is labeled "Example of the pipeline. Not a recorded run." It has no durations and no dollar amounts.
+- The section says the code checks figures and the model writes, that this page does not call the model, how verified, flagged, and unsupported figures differ, that the sources are public SEC filings and investor-relations releases only, and that leased units sit inside total deliveries.
+- Added `tests/test_method_section.py`. Recorded the choice in `docs/DECISIONS.md`.
+**Current state:** The methods section is on the page under the empty quarter state. Rebased onto `main` after `M1-T9` and `M2-T2` merged. Ruff check and format check passed. `npm run build` in `site/` succeeded. A local preview at `http://127.0.0.1:4173/tesla-fpa-agent/` was checked in light at 1280px and in dark at 375px. The wide diagram shows on the desktop width. The narrow diagram shows at 375px. No horizontal overflow. No console warnings. Pages is not enabled.
+**Next step:** Merge this pull request. `M5-T14` can add the about credit on its own branch. `M5-T6` should take durations from published run metadata, not from `methodExample.ts`.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Do not put a recorded duration or a dollar amount in `methodExample.ts`. `.narrative` is only for the memo and the Q&A. The commit named below is the section. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 23b6ee0368dd2a5732f32121f3d27cfc48dba1f7 on task/M5-T13-how-it-works
 
 ## 2026-11-04 13:39 (America/Los_Angeles) — Cursor agent
 
