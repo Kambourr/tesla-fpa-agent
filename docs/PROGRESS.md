@@ -14,6 +14,19 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
 
+## 2026-11-05 00:34 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5 groundwork (no plan task)
+**What changed:**
+- `site/src/App.tsx` loads `data/dashboard.json` through `loadDashboard`, shows a loading line and an error section that says what is missing, and drives the quarter picker from the published quarters (`quarterRecords` in `site/src/quarters.ts`). The label-only quarter fixture is gone.
+- Each dashboard section has its own component in `site/src/sections/` (`HeroSection`, `AgentRunSection`, `MemoSection`, `ForecastSection`, `ForecastChart`, `AskSection`, `AccuracySection`) taking `SectionProps` (dashboard, selected quarter, `onSelectQuarter`). They render nothing until their M5 task fills them, so section tasks can run in parallel without editing `App.tsx`.
+- `site/src/data/testDashboard.ts` is invented sample data for component tests only. `tests/test_quarter_picker.py` fails if production code imports it.
+**Current state:** `npm test`: 4 passed; `npm run build` succeeded; `uv run pytest`: 237 passed.
+**Next step:** Merge this PR, then run the M5 section tasks in parallel.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** A section task edits only its own file in `site/src/sections/` (plus new helpers and its CSS block). Never show numbers from `testDashboard.ts` on the page.
+**Last commit:** a82f8ebe0d3b535eb6baa7921b2877531761bbcd on task/M5-data-wiring
+
 ## 2026-11-05 00:29 (America/Los_Angeles) — Claude Code
 
 **Task(s):** M4-T1 (done; pulled forward ahead of M3-T8)
