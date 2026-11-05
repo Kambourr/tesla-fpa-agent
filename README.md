@@ -4,7 +4,9 @@ Quarterly variance analysis is slow, manual work. An analyst rebuilds the foreca
 
 **Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/ · **Plain-language write-up:** https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html
 
-![The dashboard for Q3 2026: a sentence the model wrote with a tick on every figure, 337 of 337 figures tied to the filings, the five steps that went into it, and the revenue bridge from forecast to actual](docs/images/dashboard.png)
+![The dashboard's first screen: the model's Q3 2026 memo with editable figures, one changed from $28.05 billion to $29 billion and flagged by the in-browser verifier (off by 3.4% from the 10-Q), and the six pipeline stages with the Verify stage open](docs/images/dashboard.png)
+
+On the page you can change any figure the model wrote and watch the verifier's rules, ported to the browser and tested case for case against the Python version, flag it. Each pipeline stage opens the real artifact it produced.
 
 ## What it does
 
@@ -17,7 +19,7 @@ Quarterly variance analysis is slow, manual work. An analyst rebuilds the foreca
 
 ## How accuracy is controlled
 
-On the latest live run (November 5, 2026), the verifier checked all 337 figures the model wrote across the 12 memos and the 10 answers: 337 tied to the filings or the computed tables, 0 were flagged, and 0 could not be traced.
+On the latest full run (November 5, 2026), every one of the 351 figures in the model's first drafts tied to the filings or the computed tables. Code sent one draft back for breaking a format rule (149 words, under the 150-word minimum), and the retry passed. The published commentary carries 361 figures across the 12 memos and the 10 answers: 361 tied, 0 flagged, 0 could not be traced. The pipeline records what it rejects in each first draft, so a miss would be shown, not hidden.
 
 The model never sees raw filings. It receives a fact sheet: every citable number for the quarter, each with a key, a period, a unit, and its source filing. Each figure it writes must cite one of those keys, and the verifier looks it up and compares. On the dashboard every AI-written figure carries an auditor's tick mark: a green tick when it ties to the filing (click it to open the filing), an amber flag when it does not, and a question mark when it cannot be traced.
 
