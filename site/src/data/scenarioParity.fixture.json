@@ -1,0 +1,155 @@
+{
+  "generated_by": "scripts/make_scenario_fixture.py",
+  "note": "synthetic numbers for a parity test, not Tesla data",
+  "flex": {
+    "deliveries_pct": {
+      "bull": 10,
+      "base": 0,
+      "bear": -10
+    },
+    "automotive_asp_pct": {
+      "bull": 5,
+      "base": 0,
+      "bear": -5
+    },
+    "gross_margin_bp": {
+      "bull": 100,
+      "base": 0,
+      "bear": -100
+    }
+  },
+  "cases": [
+    {
+      "quarter": "2025-Q4",
+      "drivers": {
+        "deliveries": "454327.5789",
+        "automotive_asp": "43125.0000",
+        "gross_margin": "0.1875",
+        "automotive_regulatory_credits": "516542553.1915",
+        "automotive_leasing": "434347826.0870",
+        "energy_generation_and_storage": "4222580645.1613",
+        "services_and_other": "3173148148.1481",
+        "operating_expenses": "2616276371.3080"
+      },
+      "expected": {
+        "bull": {
+          "deliveries": "499760.3368",
+          "automotive_asp": "45281.2500",
+          "automotive_sales": "22629772750.2722",
+          "total_revenue": "30976391922.8601",
+          "gross_margin": "0.1975",
+          "gross_profit": "6117837404.7649",
+          "operating_income": "3501561033.4569"
+        },
+        "bear": {
+          "deliveries": "408894.8210",
+          "automotive_asp": "40968.7500",
+          "automotive_sales": "16751909698.2534",
+          "total_revenue": "25098528870.8413",
+          "gross_margin": "0.1775",
+          "gross_profit": "4454988874.5743",
+          "operating_income": "1838712503.2663"
+        }
+      }
+    },
+    {
+      "quarter": "2026-Q1",
+      "drivers": {
+        "deliveries": "407226.8041",
+        "automotive_asp": "42975.0000",
+        "gross_margin": "0.1925",
+        "automotive_regulatory_credits": "523527253.6688",
+        "automotive_leasing": "430350877.1930",
+        "energy_generation_and_storage": "4378527607.3620",
+        "services_and_other": "3242689530.6859",
+        "operating_expenses": "2837755504.7777"
+      },
+      "expected": {
+        "bull": {
+          "deliveries": "447949.4845",
+          "automotive_asp": "45123.7500",
+          "automotive_sales": "20213160551.6581",
+          "total_revenue": "28788255820.5678",
+          "gross_margin": "0.2025",
+          "gross_profit": "5829621803.6650",
+          "operating_income": "2991866298.8873"
+        },
+        "bear": {
+          "deliveries": "366504.1237",
+          "automotive_asp": "40826.2500",
+          "automotive_sales": "14962988979.7989",
+          "total_revenue": "23538084248.7086",
+          "gross_margin": "0.1825",
+          "gross_profit": "4295700375.3893",
+          "operating_income": "1457944870.6116"
+        }
+      }
+    },
+    {
+      "quarter": "2026-Q2",
+      "drivers": {
+        "deliveries": "436646.4646",
+        "automotive_asp": "42825.0000",
+        "gross_margin": "0.1900",
+        "automotive_regulatory_credits": "530512396.6942",
+        "automotive_leasing": "426353982.3009",
+        "energy_generation_and_storage": "4534853801.1696",
+        "services_and_other": "3312253521.1268",
+        "operating_expenses": "2727220949.2635"
+      },
+      "expected": {
+        "bull": {
+          "deliveries": "480311.1111",
+          "automotive_asp": "44966.2500",
+          "automotive_sales": "21597789497.7017",
+          "total_revenue": "30401763198.9932",
+          "gross_margin": "0.2000",
+          "gross_profit": "6080352639.7986",
+          "operating_income": "3353131690.5351"
+        },
+        "bear": {
+          "deliveries": "392981.8181",
+          "automotive_asp": "40683.7500",
+          "automotive_sales": "15987974043.7532",
+          "total_revenue": "24791947745.0447",
+          "gross_margin": "0.1800",
+          "gross_profit": "4462550594.1081",
+          "operating_income": "1735329644.8446"
+        }
+      }
+    },
+    {
+      "quarter": "2026-Q3",
+      "drivers": {
+        "deliveries": "457972.6733",
+        "automotive_asp": "42675.0000",
+        "gross_margin": "0.1875",
+        "automotive_regulatory_credits": "537497963.3401",
+        "automotive_leasing": "422357142.8571",
+        "energy_generation_and_storage": "4691508379.8883",
+        "services_and_other": "3381838487.9725",
+        "operating_expenses": "2764105804.1112"
+      },
+      "expected": {
+        "bull": {
+          "deliveries": "503769.9406",
+          "automotive_asp": "44808.7500",
+          "automotive_sales": "22573301327.2045",
+          "total_revenue": "31606503301.2625",
+          "gross_margin": "0.1975",
+          "gross_profit": "6242284401.9993",
+          "operating_income": "3478178597.8881"
+        },
+        "bear": {
+          "deliveries": "412175.4060",
+          "automotive_asp": "40541.2500",
+          "automotive_sales": "16710106177.2813",
+          "total_revenue": "25743308151.3393",
+          "gross_margin": "0.1775",
+          "gross_profit": "4569437196.8627",
+          "operating_income": "1805331392.7515"
+        }
+      }
+    }
+  ]
+}
