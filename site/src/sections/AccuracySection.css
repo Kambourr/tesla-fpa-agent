@@ -1,0 +1,103 @@
+/* Model accuracy. Colors come only from tokens.css. */
+
+.accuracy {
+  margin-top: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.accuracy-intro {
+  max-width: var(--prose);
+  margin-top: 0.75rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.acc-empty {
+  max-width: var(--prose);
+  margin-top: 1.5rem;
+  color: var(--ink-quiet);
+}
+
+.acc-scroll {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.acc-table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.acc-table th,
+.acc-table td {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.acc-table thead th {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-quiet);
+}
+
+.acc-table tbody th {
+  font-weight: 400;
+}
+
+/* The first column stays in view while the table scrolls on narrow screens. */
+.acc-first {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+}
+
+/* Left rule marks the selected quarter. */
+.acc-selected .acc-first {
+  border-left: 3px solid var(--ink);
+  padding-left: calc(0.9rem - 3px);
+}
+
+.acc-average th,
+.acc-average td {
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+.acc-meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.acc-bar {
+  display: inline-block;
+  width: 5.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+
+.acc-fill {
+  display: block;
+  height: 100%;
+  background: var(--ink-quiet);
+}
+
+.acc-over {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.acc-value {
+  min-width: 4.25rem;
+  text-align: right;
+}
