@@ -64,6 +64,14 @@ _OPTIONAL_RUN_RATE = (
     "research_and_development",
     "selling_general_and_administrative",
 )
+# Written only when the forecast uses segment margins. Base scenario only: the
+# scenario flex moves the blended margin, not these. The gross profit bridge
+# divides each by its segment revenue to get the forecast segment margin.
+SEGMENT_GROSS_PROFIT = (
+    "gross_profit_automotive",
+    "gross_profit_energy",
+    "gross_profit_services",
+)
 
 
 class ForecastError(Exception):
@@ -163,7 +171,7 @@ def _compute(
         amounts.get("services_and_other"),
     )
     amounts["total_revenue"] = total
-    margin = _margin(series, target, amounts)
+    margin, segment_profit = _margin(series, target, amounts)
     amounts["gross_margin"] = margin
     amounts["gross_profit"] = None if total is None or margin is None else total * margin
     opex = amounts.get("operating_expenses")
@@ -181,6 +189,8 @@ def _compute(
             lines.append(
                 ForecastLine(metric=metric, value=_money(amounts[metric]), empty_history=False)
             )
+    for metric, value in segment_profit.items():
+        lines.append(ForecastLine(metric=metric, value=_money(value), empty_history=False))
     return tuple(lines)
 
 
@@ -188,11 +198,13 @@ def _margin(
     series: dict[str, dict[str, Decimal]],
     target: str,
     amounts: dict[str, Decimal | None],
-) -> Decimal | None:
+) -> tuple[Decimal | None, dict[str, Decimal]]:
     """Segment margins when all three are in history. Otherwise the total margin.
 
     The stored gross margin is the margin that turns forecast revenue into
     forecast gross profit, so a later basis-point flex can add to this one number.
+    The second value holds each segment's forecast gross profit when the
+    segment path was used, and is empty on the total-margin path.
     """
     auto = _segment_margin(
         (
@@ -223,14 +235,17 @@ def _margin(
         services_revenue = amounts.get("services_and_other")
         parts = (sales, credits, leasing, energy_revenue, services_revenue)
         if any(part is None for part in parts):
-            return _total_margin(series, target)
+            return _total_margin(series, target), {}
         assert sales is not None and credits is not None and leasing is not None
         assert energy_revenue is not None and services_revenue is not None
-        gross = (sales + credits + leasing) * auto
-        gross += energy_revenue * energy
-        gross += services_revenue * services
-        return gross / total_revenue
-    return _total_margin(series, target)
+        segment_profit = {
+            "gross_profit_automotive": (sales + credits + leasing) * auto,
+            "gross_profit_energy": energy_revenue * energy,
+            "gross_profit_services": services_revenue * services,
+        }
+        gross = sum(segment_profit.values(), Decimal(0))
+        return gross / total_revenue, segment_profit
+    return _total_margin(series, target), {}
 
 
 def _segment_margin(

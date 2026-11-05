@@ -12,7 +12,7 @@ from decimal import Decimal
 
 import duckdb
 
-from agent.forecast import BASE_METRICS, ForecastLine, base_forecast
+from agent.forecast import BASE_METRICS, SEGMENT_GROSS_PROFIT, ForecastLine, base_forecast
 from agent.forecast_config import ForecastConfig, ScenarioFlex, load_forecast_config
 from agent.forecast_inputs import ForecastInputs, load_forecast_inputs
 
@@ -98,7 +98,8 @@ def _flex(
             flexed[metric] = values[metric]
     ordered = [metric for metric in BASE_METRICS if metric in flexed or metric in values]
     for metric in values:
-        if metric not in ordered:
+        # Segment gross profit is base only. The flex moves the blended margin.
+        if metric not in ordered and metric not in SEGMENT_GROSS_PROFIT:
             ordered.append(metric)
     return tuple(
         ForecastLine(

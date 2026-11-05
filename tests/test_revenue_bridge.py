@@ -95,3 +95,31 @@ def test_write_revenue_bridge_stores_the_same_bars() -> None:
     ).fetchall()
     assert sum((row[1] for row in rows), Decimal(0)) == Decimal(445)
     assert len(rows) == 6
+
+
+def test_rounded_forecast_inputs_still_sum_to_the_total_variance() -> None:
+    forecast_deliveries = Decimal("100.3333")
+    forecast_asp = Decimal("9.8765")
+    forecast = {
+        "deliveries": forecast_deliveries,
+        "automotive_asp": forecast_asp,
+        # Stored sales was rounded from unrounded factors, so it is not d * asp.
+        "automotive_sales": Decimal("990.9812"),
+        "automotive_regulatory_credits": Decimal("20.1111"),
+        "automotive_leasing": Decimal("30.2222"),
+        "energy_generation_and_storage": Decimal("40.3333"),
+        "services_and_other": Decimal("50.4444"),
+        "total_revenue": Decimal("1132.0923"),
+    }
+    actual = {
+        "deliveries": Decimal(123),
+        "automotive_sales": Decimal(1235),
+        "automotive_regulatory_credits": Decimal(25),
+        "automotive_leasing": Decimal(31),
+        "energy_generation_and_storage": Decimal(47),
+        "services_and_other": Decimal(49),
+        "total_revenue": Decimal(1387),
+    }
+    bars = revenue_bars(actual, forecast)
+    total = sum((item.value for item in bars), Decimal(0))
+    assert total == actual["total_revenue"] - forecast["total_revenue"]

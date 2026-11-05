@@ -29,6 +29,48 @@ def bar(driver: str, value: Decimal) -> BridgeBar:
     return BridgeBar(driver=driver, value=amount, favorable=amount > 0)
 
 
+# Largest rounding gap a bridge may absorb. Quantizing each bar to four places,
+# and forecast lines that were each quantized before they were multiplied,
+# leave gaps of cents. A gap above this means the inputs do not tie, for
+# example segment costs that do not add up to total cost.
+MAX_ROUNDING_GAP = Decimal("1000")
+
+
+def reconciled(
+    raw: tuple[tuple[str, Decimal], ...],
+    variance: Decimal,
+) -> tuple[BridgeBar, ...]:
+    """Quantize the bars and make them sum exactly to ``variance``.
+
+    The rounding gap goes to the bar with the largest absolute amount, the
+    first such bar on a tie, where it is the smallest share of the bar.
+    """
+    if not raw:
+        raise BridgeError("a bridge needs at least one bar")
+    target = variance.quantize(_PLACES)
+    amounts = [value.quantize(_PLACES) for _, value in raw]
+    gap = target - sum(amounts, Decimal(0))
+    if abs(gap) > MAX_ROUNDING_GAP:
+        raise BridgeError(f"bars miss the variance by {gap}, so the inputs do not tie")
+    largest = max(range(len(amounts)), key=lambda index: abs(amounts[index]))
+    amounts[largest] += gap
+    return tuple(bar(driver, amount) for (driver, _), amount in zip(raw, amounts, strict=True))
+
+
+def optional_amount(
+    connection: duckdb.DuckDBPyConnection,
+    quarter: str,
+    metric: str,
+    *,
+    scenario: str | None,
+) -> Decimal | None:
+    """Like ``signed_amount``, but a missing line is ``None``."""
+    try:
+        return signed_amount(connection, quarter, metric, scenario=scenario)
+    except BridgeError:
+        return None
+
+
 def replace_bridge(
     connection: duckdb.DuckDBPyConnection,
     quarter: str,
