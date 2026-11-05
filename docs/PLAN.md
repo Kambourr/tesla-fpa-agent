@@ -401,7 +401,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The table columns are line, Forecast, Actual, Variance $, and Variance %. Favorable and unfavorable cells include a plus or minus and the word, not color alone. The bull/base/bear control recomputes forecast columns in the browser from the published drivers. The table scrolls horizontally at narrow widths with the first column pinned. User-triggered scenario changes may animate briefly.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T9 — TypeScript and Python scenario parity
 
