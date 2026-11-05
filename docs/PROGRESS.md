@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 39 of 54 (72%).
-- **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
+- **Current milestone:** M5 dashboard sections and M3 narration/verification are on `main`; `M4-T2` (the single `run` command) is in progress, then the first live refresh in GitHub Actions and M6 launch tasks. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews, checks visually, and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
+- **Tasks done:** 47 of 54 (87%).
+- **What's next:** Jacob runs the "Refresh data" workflow once (Actions tab, Refresh data, Run workflow) for the first real narration with the `OPENAI_API_KEY` secret; it commits `dashboard.json` and `data/narrative_cache.json` and the site redeploys. Meanwhile `M5-T15`, then `M6-T1` to `M6-T6`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -12,7 +12,117 @@
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
+  - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 05:09 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M4-T2 (done)
+**What changed:**
+- Added `agent/run.py` and `python -m agent run` (Haiku subagent, reviewed by Claude Code): ingest, load, forecast (model + variance), explain (narration with one re-ask), verify, publish, each timed into the published run metadata with the model, tokens (re-asks included), estimated cost, and data-as-of date. A bridge that cannot be built stops the run instead of publishing a gap. A `Makefile` adds `make run` and `make test`.
+- `agent/publish.py` fills each quarter's `memo` and the latest quarter's `qa` from the narrative and verification tables, with each claim's status, expected value, and source. A narrative without a verification row stops publishing with "run python -m agent verify", so unchecked figures are never shown as checked.
+- Added `agent/narrative_store.py`: verified narratives are exported to `data/narrative_cache.json` after verify and imported before explain, so a fresh database (every GitHub Actions run) reuses already-verified text. Decision logged in `docs/DECISIONS.md`.
+- Added `tests/test_run.py` (13) and `tests/test_narrative_store.py` (10).
+**Current state:** `uv run pytest`: 332 passed; site tests and build pass. Fixture-mode run: six stages timed, 12 memos plus 10 answers, dashboard validates; a second run with the same cache file makes zero model calls. No live OpenAI call has run yet.
+**Next step:** Jacob runs "Refresh data" once in the Actions tab.
+**Blockers / questions for Jacob:** (a), (c), (d), and (g) as in the status block.
+**Notes for the next agent:** A fixture run must pass `--database` and `--output` so fixture numbers never overwrite `data/fpa.duckdb` or the committed `dashboard.json`. When a new latest quarter arrives, the previous latest is drafted again as a memo only (one extra call).
+**Last commit:** 8da111ffe5dcae4e350fddbcb9648c0ea6730dcf on task/M4-T2-run-command
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** site fixes from a visual check (no plan task)
+**What changed:**
+- `site/src/sections/AgentRunFormat.ts`: the run details wait for a recorded model. The publish step records its own start time and duration, so the live page read "Total run time: under 1 second".
+- `site/src/styles/global.css`: `.visually-hidden` is pinned to `top: 0; left: 0`. Hidden favorable/unfavorable words inside the scrolling forecast table sat outside the scroll box and widened the page to 611px at a 375px viewport; with the fix it is 375px.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass. Checked in a local preview with Playwright at 1280px and 375px: no horizontal page scroll, no console errors.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block. Also: a stray branch `tmp-m3-base` was pushed by mistake while preparing branches; this environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub.
+**Notes for the next agent:** Wrap screen-reader-only tables in an element with `overflow: hidden` (as `.hero-table-clip` does); tables do not shrink to the 1px `.visually-hidden` box.
+**Last commit:** 153d2c139d6e08edcbe2a3fab9dc9c6e8e4e7c64 on fix/run-details-need-model
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T11 (done)
+**What changed:**
+- `site/src/sections/AskSection.tsx` (+ format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: the ten pre-answered questions as an expandable list (buttons with `aria-expanded`), each answer through `NarrativeText` with its ticks and a "Source:" link from the first sourced claim. Questions 7 and 8 carry "Uses all 12 quarters". When an earlier quarter is selected, a note says the answers cover the latest quarter only, with a button that switches to it. Before narration runs it says the answers appear after the next full pipeline run.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Answers come from `dashboard.qa`, which `M4-T2` fills. Visitors never call the model.
+**Last commit:** df6407001ce19246f0867bb49dac2a010c9b8335 on task/M5-T11-ask
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T7 (done)
+**What changed:**
+- `site/src/sections/MemoSection.tsx` (+ CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: the memo on a plain paper sheet (surface, 1px rule, no shadow) with a To/Re/Prepared-by header, the body through `NarrativeText` so every figure carries its tick, the tickmark legend beside it on wide screens, and a count line ("18 of 19 figures tie to the filings. 1 flagged."). Before narration runs it says the memo appears after the next full pipeline run.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** The memo text comes from `quarter.memo`, which `M4-T2` fills from the narrative and verification tables.
+**Last commit:** 5c5119f0ac1d3afe08eb1cde1d99dbcda7f24043 on task/M5-T7-memo
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T5 (done)
+**What changed:**
+- `site/src/sections/VerificationSeal.tsx` (+ format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code, rendered under the hero bridge: "{verified} of {total} figures in the commentary tie to the filings", summing the memo and, for the Q&A quarter, the answers; flagged and unsupported counts are appended and never hidden, with an amber flag. Up to five tick glyphs appear after the bridge finishes drawing (at once under reduced motion). "See how the figures are checked" links to the methods section (`#method-title`). Before any commentary exists it says so.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** The seal sits in the hero's bridge branch, so it does not show when a quarter has no bridge.
+**Last commit:** f2f5f8ad0f5ae1bfd335773b70fa41b536ee1acf on task/M5-T5-seal
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T9 (done)
+**What changed:**
+- `scripts/make_scenario_fixture.py` builds `site/src/data/scenarioParity.fixture.json` from the synthetic database through the real publish path: four quarters of four-decimal drivers and the bull/bear outputs computed by `agent/scenarios.py` `_flex`. `tests/test_scenario_parity.py` fails if the committed fixture drifts from Python; `site/src/sections/scenarioParity.test.ts` recomputes every case with `recomputeScenario`. Coded by a Haiku subagent, reviewed by Claude Code.
+- Result: 56 of 56 values match exactly at four decimals (4 quarters × bull/bear × 7 metrics). Both tests were checked to fail when one expected digit is changed.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Parity is defined on bull and bear; the published base uses unrounded inputs, so the browser shows it as published. `toFixed(4)` is exact for these magnitudes (a guard test keeps values below 1e11).
+**Last commit:** a3b0c40eb33b45fbc89c3f4b8416ff671a35ae63 on task/M5-T9-scenario-parity
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M4-T3 (done)
+**What changed:**
+- `.github/workflows/refresh.yml` ("Refresh data"), coded by a Haiku subagent and reviewed by Claude Code: manual `workflow_dispatch` with a `force` input; the quarterly schedule is a comment only. It checks that `OPENAI_API_KEY` and `SEC_USER_AGENT` secrets are set without printing them, runs `uv run python -m agent run`, and commits only `site/public/data/dashboard.json` and `data/narrative_cache.json` when they changed.
+- `deploy.yml` also runs after a successful "Refresh data" run (a push made with `GITHUB_TOKEN` does not trigger other workflows) and builds `main`.
+- Claude Code removed an `actions/cache` step whose pin could not be verified from this environment.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** The workflow needs `python -m agent run` (`M4-T2`). It pushes to `main` with `GITHUB_TOKEN`; branch protection on `main` would block that.
+**Last commit:** 80c6cb4d373185a46f16b83180dd089b428879a8 on task/M4-T3-refresh-workflow
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T8 (done)
+**What changed:**
+- `agent/verify_stage.py` and `sql/013_verification.sql` (Haiku subagent, reviewed by Claude Code): `verify_quarter`/`verify_all` re-run `review_draft` on each stored narrative and write a per-quarter `verification` row (counts, guard hits, issues, every claim with its status, expected value, and source, and later restatements). `restatements` lists income-statement quarters where a later filing reports a different value; `quarter_actual` keeps the first-reported value. `format_report` prints e.g. "2024-Q1: 2 of 3 figures verified, 1 flagged, 0 unsupported; keyword guard clean; no later restatements."
+- `python -m agent narrate [--force]` (needs `OPENAI_API_KEY`, never prints it) and `python -m agent verify`.
+- `tests/test_verify_stage.py` (9 tests).
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** `reasked` in the report is always false: the narrative table does not store it yet. Run `verify` after `narrate`. Q4 and cash-flow lines are not checked for restatements (Q4 is derived; cash flow is de-cumulated).
+**Last commit:** 4eb7cb1534c6d99e1ac01b7a9945069413bd2330 on task/M3-T8-verify-report
+
+## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T7 (done)
+**What changed:**
+- Added `agent/review.py` (coded by a Haiku subagent, reviewed by Claude Code): `review_draft` verifies every memo and answer claim against the fact sheet (plus the backtest sheet for the latest quarter), runs the keyword guard, and collects draft issues. `narrate_and_review` drafts a quarter; if the review is not clean it asks the model once more with a plain correction list (each flagged value with the sheet's value, each unsupported key, each guard phrase, each issue). The second draft is kept as written, flags and all; no code path replaces a model's number. A row is marked verified only when its final review is clean. `review_all` runs every published quarter.
+- Added `tests/test_review.py` (11 tests): wrong-then-right ends verified; wrong twice stays flagged and unverified with exactly two calls; clean first draft makes one call; an unsupported key and "price target" trigger the re-ask; a cached verified narrative makes no call; final claim values equal what the fake model returned.
+**Current state:** `uv run pytest`: 309 passed; site tests and build pass.
+**Next step:** Merge this PR, then `M3-T8` (verification report and the `narrate`/`verify` commands, in progress).
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** The re-ask reuses the first draft's input hash, so the cache key stays the input, not the correction.
+**Last commit:** 9f5998f970967173a8ba4ecdca152be6a1e26dfc on task/M3-T7-reask
 
 ## 2026-11-05 01:30 (America/Los_Angeles) — Claude Code
 
