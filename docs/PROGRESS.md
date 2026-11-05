@@ -13,7 +13,7 @@
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` and `write_gross_profit_bridge(connection, quarter)` store the revenue and gross profit bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
 
-## 2026-11-04 17:58 (America/Los_Angeles) — Claude Code
+## 2026-11-04 17:47 (America/Los_Angeles) — Claude Code
 
 **Task(s):** M2-T7 (done)
 **What changed:**
@@ -27,7 +27,7 @@
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not use the stored four-place `gross_margin` in a bridge. Imply margins from dollar amounts. A `gross_margin_rate` bar means the total-margin path ran. The commit named below is the bridge. Later commits on this branch only update the handoff.
 **Last commit:** 306a9a85eda536322f241d00b3a185393c7c797d on task/M2-T7-gross-profit-bridge
 
-## 2026-11-04 17:45 (America/Los_Angeles) — Claude Code
+## 2026-11-04 17:42 (America/Los_Angeles) — Claude Code
 
 **Task(s):** takeover; M2-T7 (in progress)
 **What changed:**
