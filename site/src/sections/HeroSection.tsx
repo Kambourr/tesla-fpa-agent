@@ -2,6 +2,7 @@ import { useEffect, useId, useState, type CSSProperties } from "react";
 import { scaleBand, scaleLinear } from "d3-scale";
 import "./HeroSection.css";
 import type { SectionProps } from "./types";
+import { VerificationSeal } from "./VerificationSeal";
 import {
   buildRevenueBridge,
   formatAxisUsd,
@@ -72,7 +73,7 @@ function summaryLabel(model: RevenueBridgeModel): string {
   return `Revenue bridge for ${model.label}. Forecast ${formatUsd(model.forecast)}, actual ${formatUsd(model.actual)}. ${drivers}.`;
 }
 
-export function HeroSection({ quarter }: SectionProps) {
+export function HeroSection({ dashboard, quarter }: SectionProps) {
   const headingId = useId();
   const model = buildRevenueBridge(quarter);
   const hasChart = model !== null;
@@ -233,7 +234,7 @@ export function HeroSection({ quarter }: SectionProps) {
         </table>
       </div>
 
-      <div className="seal-slot" />
+      <VerificationSeal quarter={quarter} qa={dashboard.qa} drawn={drawn} />
     </section>
   );
 }
