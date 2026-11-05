@@ -286,7 +286,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** `python -m agent narrate` and `python -m agent verify` run on fixtures. Each quarter gets a report with verified, flagged, and unsupported counts, plus a note when a later filing restated a period that actuals still hold at the first-reported value (see M1-T8). The keyword-guard result is in the report.
 - **Depends on:** M3-T3, M3-T4, M3-T6, M3-T7
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ## M4 — Publish and automation
 
