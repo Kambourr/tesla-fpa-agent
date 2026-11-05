@@ -224,8 +224,13 @@ button {
   color: var(--ink);
 }
 
+/* Pinned to the containing block's corner. At its static position, an
+   absolutely positioned span inside a scrolling table escapes the scroll box
+   and widens the page on phones. */
 .visually-hidden {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   padding: 0;
