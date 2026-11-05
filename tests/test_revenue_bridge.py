@@ -56,7 +56,6 @@ def test_write_revenue_bridge_stores_the_same_bars() -> None:
         "total_revenue": Decimal(1140),
     }
     actual = {
-        "deliveries": Decimal(120),
         "automotive_sales": Decimal(1440),
         "automotive_regulatory_credits": Decimal(25),
         "automotive_leasing": Decimal(30),
@@ -64,6 +63,11 @@ def test_write_revenue_bridge_stores_the_same_bars() -> None:
         "services_and_other": Decimal(40),
         "total_revenue": Decimal(1585),
     }
+    # Ingest keeps delivery counts in the deliveries table, not quarter_actual.
+    connection.execute(
+        "INSERT INTO deliveries VALUES (?, 125, 120, ?, 'https://example.com/release')",
+        [QUARTER, date(2024, 10, 2)],
+    )
     for metric, value in forecast.items():
         connection.execute(
             "INSERT INTO forecast VALUES (?, ?, 'base', ?, ?, false)",

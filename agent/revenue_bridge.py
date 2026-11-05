@@ -78,15 +78,28 @@ def _load(
 ) -> dict[str, Decimal]:
     # Actual ASP is sales divided by deliveries. Forecast ASP is the stored line.
     if scenario is None:
-        metrics = ("deliveries", "automotive_sales", *_DELTA_METRICS)
+        metrics = ("automotive_sales", *_DELTA_METRICS)
     else:
         metrics = ("deliveries", "automotive_asp", *_DELTA_METRICS)
     loaded = {
         metric: signed_amount(connection, quarter, metric, scenario=scenario) for metric in metrics
     }
+    if scenario is None:
+        # Ingest keeps delivery counts in the deliveries table, not quarter_actual.
+        loaded["deliveries"] = _actual_deliveries(connection, quarter)
     extras = ("automotive_sales", "total_revenue") if scenario else ("total_revenue",)
     for metric in extras:
         value = optional_amount(connection, quarter, metric, scenario=scenario)
         if value is not None:
             loaded[metric] = value
     return loaded
+
+
+def _actual_deliveries(connection: duckdb.DuckDBPyConnection, quarter: str) -> Decimal:
+    found = connection.execute(
+        "SELECT deliveries_total FROM deliveries WHERE quarter = ?",
+        [quarter],
+    ).fetchone()
+    if found is None or found[0] is None:
+        raise BridgeError(f"deliveries has no total for {quarter}")
+    return Decimal(found[0])
