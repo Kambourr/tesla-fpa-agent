@@ -3,8 +3,8 @@
 ## Current status
 
 - **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T10`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
-- **Tasks done:** 26 of 54 (48%).
-- **What's next:** `M1-T10` (segment lines from filing instances), `M3-T5` (verifier), and `M3-T6` (keyword guard) can run in parallel. `M3-T2` (narration) is unblocked by `M2-T10`.
+- **Tasks done:** 27 of 54 (50%).
+- **What's next:** Merge open task PRs as they land: `M1-T10` (segment lines), `M3-T5` (verifier on the fact sheet), `M4-T1` (publish JSON, pulled forward). Then `M3-T2` (narration) and the M5 dashboard sections.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -13,6 +13,18 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 00:20 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T6 (done)
+**What changed:**
+- Added `agent/keyword_guard.py`: `check_text` and `check_narrative` return `GuardHit`s for buy/sell recommendations, ratings (overweight, outperform), "price target", "fair value" in price forms, upside/downside to a price, valuation words, "investors should", "we recommend", and "$X per share" outside reported EPS, dividends, or buybacks. Plain variance language passes ("sales", "sold", "buyback", "earnings per share").
+- Added `tests/test_keyword_guard.py` (37 tests). Coded by a Haiku subagent and reviewed by Claude Code, which tightened the per-share exemption so a price target later in a sentence that mentions EPS still flags.
+**Current state:** `uv run pytest`: 174 passed. Ruff check and format check passed.
+**Next step:** Merge this PR. `M3-T8` will put the guard result in the verification report.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Scenario answers should say "downside case" or name a metric after a percent ("downside of 8% to operating income"); a bare "downside of 8%" flags. "investors should" flags by design.
+**Last commit:** 26feabd02059226cd348de9e7b7fee5bc83d302d on task/M3-T6-keyword-guard
 
 ## 2026-11-04 21:37 (America/Los_Angeles) — Claude Code
 

@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 26 of 54 (48%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 27 of 54 (50%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -270,7 +270,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test flags text that contains buy/sell instructions or a price target, and passes a memo that only discusses variances and metrics. The guard is a keyword check, not another model call.
 - **Depends on:** M3-T1
 - **Can run in parallel with:** M3-T2, M3-T5
-- **Status:** todo
+- **Status:** done (26feabd02059226cd348de9e7b7fee5bc83d302d)
 
 ### M3-T7 — Re-ask once
 
