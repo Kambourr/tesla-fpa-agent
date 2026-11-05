@@ -385,7 +385,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The sequence is ingest, load, forecast, explain, verify, publish, each with its duration from run metadata. The page also shows last run date, total run time, AI cost, and model. Values come from the published metadata. Nothing in this section animates on its own.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T7 — Analyst memo
 
