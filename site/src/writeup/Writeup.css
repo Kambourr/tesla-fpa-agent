@@ -1,0 +1,125 @@
+/*
+  The write-up: one reading column. Interface face for headings and lists,
+  Newsreader only for the headline sentence (it echoes the dashboard's hero).
+*/
+.writeup {
+  max-width: 44rem;
+  padding-bottom: clamp(3rem, 8vw, 5rem);
+}
+
+.writeup-home {
+  color: inherit;
+  text-decoration: none;
+}
+
+.writeup-home:hover span {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.writeup-kicker {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  color: var(--ink-quiet);
+  font-weight: 700;
+}
+
+.writeup-title {
+  max-width: none;
+  margin-top: 0.5rem;
+  font-family: var(--font-narrative);
+  font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.writeup-lede {
+  margin-top: 1.25rem;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.writeup-section {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.writeup-section h2 {
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.writeup-section p,
+.writeup-section li,
+.writeup-section dd {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.writeup-section p {
+  margin: 0.875rem 0 0;
+}
+
+.writeup-steps,
+.writeup-list {
+  margin: 1rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.writeup-steps li + li,
+.writeup-list li + li {
+  margin-top: 0.625rem;
+}
+
+.writeup-steps li::marker {
+  color: var(--ink-quiet);
+  font-weight: 700;
+}
+
+.writeup-result {
+  padding-left: 1rem;
+  border-left: 3px solid var(--green);
+  font-weight: 500;
+}
+
+.writeup-decisions {
+  margin: 1rem 0 0;
+}
+
+.writeup-decisions dt {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.writeup-decisions dd {
+  margin: 0.25rem 0 0;
+}
+
+.writeup-table {
+  margin-top: 1rem;
+  border-collapse: collapse;
+}
+
+.writeup-table th,
+.writeup-table td {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.0625rem;
+}
+
+.writeup-table th {
+  padding-right: 3rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+.writeup-table td {
+  font-weight: 500;
+  text-align: right;
+}
+
+.writeup-cta {
+  font-weight: 700;
+}
