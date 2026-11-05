@@ -1,0 +1,907 @@
+{
+  "$defs": {
+    "Backtest": {
+      "additionalProperties": false,
+      "properties": {
+        "averages": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Averages",
+          "type": "object"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/BacktestRow"
+          },
+          "title": "Rows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rows",
+        "averages"
+      ],
+      "title": "Backtest",
+      "type": "object"
+    },
+    "BacktestRow": {
+      "additionalProperties": false,
+      "properties": {
+        "abs_pct_error": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Abs Pct Error"
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actual"
+        },
+        "forecast": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Forecast"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "quarter": {
+          "title": "Quarter",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quarter",
+        "metric",
+        "actual",
+        "forecast",
+        "abs_pct_error"
+      ],
+      "title": "BacktestRow",
+      "type": "object"
+    },
+    "BridgeBar": {
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "title": "Driver",
+          "type": "string"
+        },
+        "favorable": {
+          "title": "Favorable",
+          "type": "boolean"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "driver",
+        "label",
+        "value",
+        "favorable"
+      ],
+      "title": "BridgeBar",
+      "type": "object"
+    },
+    "ClaimView": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected"
+        },
+        "expected_unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Unit"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        },
+        "sentence_ref": {
+          "title": "Sentence Ref",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Url"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "flagged",
+            "unsupported"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "metric",
+        "period",
+        "value",
+        "unit",
+        "sentence_ref",
+        "status",
+        "expected",
+        "expected_unit",
+        "source",
+        "source_url"
+      ],
+      "title": "ClaimView",
+      "type": "object"
+    },
+    "Drivers": {
+      "additionalProperties": false,
+      "description": "Base forecast values the browser needs to recompute the scenarios.",
+      "properties": {
+        "automotive_asp": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Automotive Asp"
+        },
+        "automotive_leasing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Automotive Leasing"
+        },
+        "automotive_regulatory_credits": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Automotive Regulatory Credits"
+        },
+        "deliveries": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Deliveries"
+        },
+        "energy_generation_and_storage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Energy Generation And Storage"
+        },
+        "gross_margin": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Gross Margin"
+        },
+        "operating_expenses": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Operating Expenses"
+        },
+        "services_and_other": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Services And Other"
+        }
+      },
+      "required": [
+        "deliveries",
+        "automotive_asp",
+        "gross_margin",
+        "automotive_regulatory_credits",
+        "automotive_leasing",
+        "energy_generation_and_storage",
+        "services_and_other",
+        "operating_expenses"
+      ],
+      "title": "Drivers",
+      "type": "object"
+    },
+    "Filing": {
+      "additionalProperties": false,
+      "properties": {
+        "accession": {
+          "title": "Accession",
+          "type": "string"
+        },
+        "filing_date": {
+          "title": "Filing Date",
+          "type": "string"
+        },
+        "form": {
+          "title": "Form",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "form",
+        "accession",
+        "filing_date",
+        "url"
+      ],
+      "title": "Filing",
+      "type": "object"
+    },
+    "Memo": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/ClaimView"
+          },
+          "title": "Claims",
+          "type": "array"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/VerificationCounts"
+        }
+      },
+      "required": [
+        "text",
+        "claims",
+        "verification"
+      ],
+      "title": "Memo",
+      "type": "object"
+    },
+    "PnlLine": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actual"
+        },
+        "favorable": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Favorable"
+        },
+        "forecast": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Forecast"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "USD",
+            "units",
+            "USD_per_unit",
+            "percent"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "variance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Variance"
+        },
+        "variance_pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Variance Pct"
+        }
+      },
+      "required": [
+        "metric",
+        "label",
+        "unit",
+        "forecast",
+        "actual",
+        "variance",
+        "variance_pct",
+        "favorable"
+      ],
+      "title": "PnlLine",
+      "type": "object"
+    },
+    "QaAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/ClaimView"
+          },
+          "title": "Claims",
+          "type": "array"
+        },
+        "number": {
+          "title": "Number",
+          "type": "integer"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "number",
+        "question",
+        "text",
+        "claims"
+      ],
+      "title": "QaAnswer",
+      "type": "object"
+    },
+    "QaSet": {
+      "additionalProperties": false,
+      "properties": {
+        "answers": {
+          "items": {
+            "$ref": "#/$defs/QaAnswer"
+          },
+          "title": "Answers",
+          "type": "array"
+        },
+        "quarter": {
+          "title": "Quarter",
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/VerificationCounts"
+        }
+      },
+      "required": [
+        "quarter",
+        "answers",
+        "verification"
+      ],
+      "title": "QaSet",
+      "type": "object"
+    },
+    "QuarterView": {
+      "additionalProperties": false,
+      "properties": {
+        "bridges": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/$defs/BridgeBar"
+            },
+            "type": "array"
+          },
+          "propertyNames": {
+            "enum": [
+              "revenue",
+              "gross_profit",
+              "operating_income",
+              "free_cash_flow"
+            ]
+          },
+          "title": "Bridges",
+          "type": "object"
+        },
+        "drivers": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Drivers"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filing": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Filing"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "has_forecast": {
+          "title": "Has Forecast",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "backtest",
+            "forward"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/PnlLine"
+          },
+          "title": "Lines",
+          "type": "array"
+        },
+        "memo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Memo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quarter": {
+          "title": "Quarter",
+          "type": "string"
+        },
+        "scenarios": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "propertyNames": {
+            "enum": [
+              "bull",
+              "base",
+              "bear"
+            ]
+          },
+          "title": "Scenarios",
+          "type": "object"
+        }
+      },
+      "required": [
+        "quarter",
+        "label",
+        "kind",
+        "has_forecast",
+        "filing",
+        "lines",
+        "drivers",
+        "scenarios",
+        "bridges",
+        "memo"
+      ],
+      "title": "QuarterView",
+      "type": "object"
+    },
+    "RunMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "data_as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Data As Of"
+        },
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Seconds"
+        },
+        "estimated_cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Estimated Cost Usd"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Input Tokens"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Output Tokens"
+        },
+        "stages": {
+          "items": {
+            "$ref": "#/$defs/Stage"
+          },
+          "title": "Stages",
+          "type": "array"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        }
+      },
+      "required": [
+        "started_at",
+        "duration_seconds",
+        "stages",
+        "model",
+        "input_tokens",
+        "output_tokens",
+        "estimated_cost_usd",
+        "data_as_of"
+      ],
+      "title": "RunMetadata",
+      "type": "object"
+    },
+    "ScenarioFlex": {
+      "additionalProperties": false,
+      "properties": {
+        "automotive_asp_pct": {
+          "$ref": "#/$defs/ScenarioTriple"
+        },
+        "deliveries_pct": {
+          "$ref": "#/$defs/ScenarioTriple"
+        },
+        "gross_margin_bp": {
+          "$ref": "#/$defs/ScenarioTriple"
+        }
+      },
+      "required": [
+        "deliveries_pct",
+        "automotive_asp_pct",
+        "gross_margin_bp"
+      ],
+      "title": "ScenarioFlex",
+      "type": "object"
+    },
+    "ScenarioTriple": {
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "title": "Base",
+          "type": "number"
+        },
+        "bear": {
+          "title": "Bear",
+          "type": "number"
+        },
+        "bull": {
+          "title": "Bull",
+          "type": "number"
+        }
+      },
+      "required": [
+        "bull",
+        "base",
+        "bear"
+      ],
+      "title": "ScenarioTriple",
+      "type": "object"
+    },
+    "Stage": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "ingest",
+            "load",
+            "forecast",
+            "explain",
+            "verify",
+            "publish"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Seconds"
+        }
+      },
+      "required": [
+        "name",
+        "seconds"
+      ],
+      "title": "Stage",
+      "type": "object"
+    },
+    "VerificationCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "flagged": {
+          "title": "Flagged",
+          "type": "integer"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "unsupported": {
+          "title": "Unsupported",
+          "type": "integer"
+        },
+        "verified": {
+          "title": "Verified",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "verified",
+        "flagged",
+        "unsupported",
+        "total"
+      ],
+      "title": "VerificationCounts",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "backtest": {
+      "$ref": "#/$defs/Backtest"
+    },
+    "forward_forecast_published": {
+      "title": "Forward Forecast Published",
+      "type": "boolean"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "latest_quarter": {
+      "title": "Latest Quarter",
+      "type": "string"
+    },
+    "qa": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/QaSet"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "quarters": {
+      "items": {
+        "$ref": "#/$defs/QuarterView"
+      },
+      "title": "Quarters",
+      "type": "array"
+    },
+    "run": {
+      "$ref": "#/$defs/RunMetadata"
+    },
+    "scenario_flex": {
+      "$ref": "#/$defs/ScenarioFlex"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "latest_quarter",
+    "forward_forecast_published",
+    "run",
+    "quarters",
+    "qa",
+    "backtest",
+    "scenario_flex"
+  ],
+  "title": "Dashboard",
+  "type": "object"
+}

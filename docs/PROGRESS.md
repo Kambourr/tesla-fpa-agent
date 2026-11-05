@@ -3,8 +3,8 @@
 ## Current status
 
 - **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 29 of 54 (54%).
-- **What's next:** Merge open task PRs as they land: `M1-T10` (segment lines), `M3-T5` (verifier on the fact sheet), `M4-T1` (publish JSON, pulled forward). Then `M3-T2` (narration) and the M5 dashboard sections.
+- **Tasks done:** 30 of 54 (56%).
+- **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -13,6 +13,20 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 00:29 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M4-T1 (done; pulled forward ahead of M3-T8)
+**What changed:**
+- Added `agent/publish_schema.py` (pydantic models, `extra="forbid"`) and `agent/publish.py` (`build_dashboard`, `write_dashboard`), and `python -m agent publish`. Coded by a Haiku subagent, reviewed by Claude Code.
+- The site reads one file, `site/public/data/dashboard.json`: quarters (P&L lines with forecast, actual, variance, favorable flag; drivers; bull/base/bear; four bridges; memo), Q&A, backtest, scenario flexes, run metadata. `site/src/data/dashboard.schema.json` is generated from the models and a pytest fails on drift. `site/src/data/types.ts` mirrors it with `loadDashboard()`.
+- Committed the first real `dashboard.json` from a live run: 12 quarters, 2023-Q4 to 2026-Q3. Memo and Q&A are null until narration lands. Run metadata (model, tokens, cost, stage times) is null until `M4-T2`.
+- Plan change and output choices logged in `docs/DECISIONS.md`.
+**Current state:** For 2026-Q3 the base forecast was 621,339 deliveries and $35.53B revenue against 486,532 and $28.05B actual (−21.1%). The revenue bars sum exactly to the variance. Backtest average absolute error: revenue 17.1%, gross profit 20.6%, operating income 101.0%. `uv run pytest`: 237 passed; `npm test` 2 passed; `npm run build` succeeded.
+**Next step:** Merge this PR, then start the M5 sections against `dashboard.json`.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** `site/public/data/dashboard.json` holds real numbers only: regenerate it with `python -m agent publish` after a live run, never from the test fixture. Change `agent/publish_schema.py`, then regenerate `dashboard.schema.json` and update `types.ts` together.
+**Last commit:** eca07f3ca1e57e1865ccb871d309bc806612eb2f on task/M4-T1-publish-json
 
 ## 2026-11-05 00:25 (America/Los_Angeles) — Claude Code
 
