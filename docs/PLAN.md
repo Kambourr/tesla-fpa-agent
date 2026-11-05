@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 32 of 54 (59%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 33 of 54 (61%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -385,7 +385,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The sequence is ingest, load, forecast, explain, verify, publish, each with its duration from run metadata. The page also shows last run date, total run time, AI cost, and model. Values come from the published metadata. Nothing in this section animates on its own.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (42a9a1261437ef1917f4661be14b6cd7e34ddcd6)
 
 ### M5-T7 — Analyst memo
 
