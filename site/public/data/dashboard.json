@@ -263,17 +263,22 @@
   "first_drafts": {
     "catches": [],
     "caught": 0,
-    "checked": 348,
+    "checked": 351,
     "final_issues": [],
     "final_problems": 0,
-    "first_issues": [],
+    "first_issues": [
+      {
+        "quarter": "2026-Q1",
+        "text": "memo has 149 words, outside 150 to 250"
+      }
+    ],
     "guard_hits": 0,
     "narratives": 12,
     "recorded": 12,
     "rejected": 1
   },
   "forward_forecast_published": false,
-  "generated_at": "2026-11-05T22:15:08+00:00",
+  "generated_at": "2026-11-05T23:46:01+00:00",
   "last_full_run": {
     "data_as_of": "2026-10-22",
     "duration_seconds": 423.8563,
@@ -7511,16 +7516,16 @@
             "value": 2.5
           },
           {
-            "expected": 19884614905.3672,
-            "expected_unit": "USD",
-            "metric": "forecast.base.total_revenue",
+            "expected": 12.5845,
+            "expected_unit": "percent",
+            "metric": "variance_pct.total_revenue",
             "period": "2026-Q1",
             "sentence_ref": "1",
-            "source": "base forecast, inputs as of 2026-01-29",
+            "source": "variance as a percent of the base forecast",
             "source_url": null,
             "status": "verified",
-            "unit": "USD billion",
-            "value": 19.88
+            "unit": "percent",
+            "value": 12.6
           },
           {
             "expected": 15473000000.0,
@@ -7547,23 +7552,11 @@
             "value": 4.07
           },
           {
-            "expected": -1594150196.0144,
-            "expected_unit": "USD",
-            "metric": "variance.energy_generation_and_storage",
-            "period": "2026-Q1",
-            "sentence_ref": "2",
-            "source": "actual minus base forecast",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD billion",
-            "value": -1.59
-          },
-          {
             "expected": 2964621062.8199,
             "expected_unit": "USD",
             "metric": "bridge.revenue.volume",
             "period": "2026-Q1",
-            "sentence_ref": "3",
+            "sentence_ref": "2",
             "source": "revenue bridge",
             "source_url": null,
             "status": "verified",
@@ -7575,7 +7568,7 @@
             "expected_unit": "USD",
             "metric": "bridge.revenue.price_mix",
             "period": "2026-Q1",
-            "sentence_ref": "3",
+            "sentence_ref": "2",
             "source": "revenue bridge",
             "source_url": null,
             "status": "verified",
@@ -7583,16 +7576,88 @@
             "value": 1.11
           },
           {
-            "expected": -1594150196.0144,
+            "expected": 358023.0,
+            "expected_unit": "units",
+            "metric": "actual.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "source": "production and deliveries release",
+            "source_url": "https://ir.tesla.com/press-release/tesla-first-quarter-2026-production-deliveries-and-deployments",
+            "status": "verified",
+            "unit": "units",
+            "value": 358023.0
+          },
+          {
+            "expected": 73887.3893,
+            "expected_unit": "units",
+            "metric": "variance.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "source": "actual minus base forecast",
+            "source_url": null,
+            "status": "verified",
+            "unit": "thousand units",
+            "value": 73.9
+          },
+          {
+            "expected": 43217.8938,
+            "expected_unit": "USD_per_unit",
+            "metric": "actual.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "source": "automotive sales revenue divided by deliveries",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD per unit",
+            "value": 43200.0
+          },
+          {
+            "expected": 3094.3884,
+            "expected_unit": "USD_per_unit",
+            "metric": "variance.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "source": "actual minus base forecast",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD per unit",
+            "value": 3094.0
+          },
+          {
+            "expected": 2408000000.0,
             "expected_unit": "USD",
-            "metric": "bridge.revenue.energy_generation_and_storage",
+            "metric": "actual.energy_generation_and_storage",
             "period": "2026-Q1",
             "sentence_ref": "3",
-            "source": "revenue bridge",
+            "source": "10-Q 0001628280-26-026673",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm",
+            "status": "verified",
+            "unit": "USD billion",
+            "value": 2.41
+          },
+          {
+            "expected": -1594150196.0144,
+            "expected_unit": "USD",
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "source": "actual minus base forecast",
             "source_url": null,
             "status": "verified",
             "unit": "USD billion",
             "value": -1.59
+          },
+          {
+            "expected": -39.8323,
+            "expected_unit": "percent",
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "source": "variance as a percent of the base forecast",
+            "source_url": null,
+            "status": "verified",
+            "unit": "percent",
+            "value": -39.8
           },
           {
             "expected": 4720000000.0,
@@ -7619,47 +7684,11 @@
             "value": 1.1
           },
           {
-            "expected": 1263990246.1435,
-            "expected_unit": "USD",
-            "metric": "bridge.gross_profit.automotive",
-            "period": "2026-Q1",
-            "sentence_ref": "4",
-            "source": "gross_profit bridge",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD billion",
-            "value": 1.26
-          },
-          {
-            "expected": -239883780.8801,
-            "expected_unit": "USD",
-            "metric": "bridge.gross_profit.energy",
-            "period": "2026-Q1",
-            "sentence_ref": "4",
-            "source": "gross_profit bridge",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD million",
-            "value": -239.9
-          },
-          {
-            "expected": 80424343.5927,
-            "expected_unit": "USD",
-            "metric": "bridge.gross_profit.services_and_other",
-            "period": "2026-Q1",
-            "sentence_ref": "4",
-            "source": "gross_profit bridge",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD million",
-            "value": 80.4
-          },
-          {
             "expected": 21.0837,
             "expected_unit": "percent",
             "metric": "actual.gross_margin",
             "period": "2026-Q1",
-            "sentence_ref": "5",
+            "sentence_ref": "4",
             "source": "gross profit divided by total revenue",
             "source_url": null,
             "status": "verified",
@@ -7671,12 +7700,84 @@
             "expected_unit": "percent",
             "metric": "variance.gross_margin",
             "period": "2026-Q1",
-            "sentence_ref": "5",
+            "sentence_ref": "4",
             "source": "actual minus base forecast",
             "source_url": null,
             "status": "verified",
             "unit": "percentage points",
             "value": 2.9
+          },
+          {
+            "expected": 1263990246.1435,
+            "expected_unit": "USD",
+            "metric": "bridge.gross_profit.automotive",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "source": "gross_profit bridge",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD billion",
+            "value": 1.26
+          },
+          {
+            "expected": -239883780.8801,
+            "expected_unit": "USD",
+            "metric": "bridge.gross_profit.energy",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "source": "gross_profit bridge",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD million",
+            "value": -240.0
+          },
+          {
+            "expected": 80424343.5927,
+            "expected_unit": "USD",
+            "metric": "bridge.gross_profit.services_and_other",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "source": "gross_profit bridge",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD million",
+            "value": 80.4
+          },
+          {
+            "expected": 3779000000.0,
+            "expected_unit": "USD",
+            "metric": "actual.operating_expenses",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "source": "10-Q 0001628280-26-026673",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm",
+            "status": "verified",
+            "unit": "USD billion",
+            "value": 3.78
+          },
+          {
+            "expected": -637448382.1263,
+            "expected_unit": "USD",
+            "metric": "variance.operating_expenses",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "source": "actual minus base forecast",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD million",
+            "value": -637.0
+          },
+          {
+            "expected": -293579349.5298,
+            "expected_unit": "USD",
+            "metric": "variance.research_and_development",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "source": "actual minus base forecast",
+            "source_url": null,
+            "status": "verified",
+            "unit": "USD million",
+            "value": -294.0
           },
           {
             "expected": 941000000.0,
@@ -7703,47 +7804,59 @@
             "value": 1.74
           },
           {
-            "expected": -637448382.1263,
+            "expected": 3937000000.0,
             "expected_unit": "USD",
-            "metric": "variance.operating_expenses",
+            "metric": "actual.net_cash_from_operating_activities",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "source": "10-Q 0001628280-26-026673",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm",
+            "status": "verified",
+            "unit": "USD billion",
+            "value": 3.94
+          },
+          {
+            "expected": 250250000.0,
+            "expected_unit": "USD",
+            "metric": "variance.net_cash_from_operating_activities",
             "period": "2026-Q1",
             "sentence_ref": "7",
             "source": "actual minus base forecast",
             "source_url": null,
             "status": "verified",
             "unit": "USD million",
-            "value": -637.0
+            "value": 250.0
           },
           {
-            "expected": 293579349.5298,
+            "expected": 2493000000.0,
             "expected_unit": "USD",
-            "metric": "bridge.operating_income.research_and_development",
+            "metric": "actual.purchases_of_property_and_equipment",
             "period": "2026-Q1",
             "sentence_ref": "7",
-            "source": "operating_income bridge",
+            "source": "10-Q 0001628280-26-026673",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm",
+            "status": "verified",
+            "unit": "USD billion",
+            "value": 2.49
+          },
+          {
+            "expected": 361250000.0,
+            "expected_unit": "USD",
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "source": "actual minus base forecast",
             "source_url": null,
             "status": "verified",
             "unit": "USD million",
-            "value": 294.0
-          },
-          {
-            "expected": 338470327.3414,
-            "expected_unit": "USD",
-            "metric": "bridge.operating_income.restructuring_and_other",
-            "period": "2026-Q1",
-            "sentence_ref": "7",
-            "source": "operating_income bridge",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD million",
-            "value": 338.0
+            "value": 361.0
           },
           {
             "expected": 1444000000.0,
             "expected_unit": "USD",
             "metric": "actual.free_cash_flow",
             "period": "2026-Q1",
-            "sentence_ref": "8",
+            "sentence_ref": "7",
             "source": "operating cash flow minus purchases of property and equipment",
             "source_url": null,
             "status": "verified",
@@ -7755,7 +7868,7 @@
             "expected_unit": "USD",
             "metric": "variance.free_cash_flow",
             "period": "2026-Q1",
-            "sentence_ref": "8",
+            "sentence_ref": "7",
             "source": "actual minus base forecast",
             "source_url": null,
             "status": "verified",
@@ -7763,36 +7876,24 @@
             "value": -111.0
           },
           {
-            "expected": 250250000.0,
-            "expected_unit": "USD",
-            "metric": "variance.net_cash_from_operating_activities",
+            "expected": -7.1383,
+            "expected_unit": "percent",
+            "metric": "variance_pct.free_cash_flow",
             "period": "2026-Q1",
-            "sentence_ref": "9",
-            "source": "actual minus base forecast",
+            "sentence_ref": "7",
+            "source": "variance as a percent of the base forecast",
             "source_url": null,
             "status": "verified",
-            "unit": "USD million",
-            "value": 250.0
-          },
-          {
-            "expected": 361250000.0,
-            "expected_unit": "USD",
-            "metric": "variance.purchases_of_property_and_equipment",
-            "period": "2026-Q1",
-            "sentence_ref": "10",
-            "source": "actual minus base forecast",
-            "source_url": null,
-            "status": "verified",
-            "unit": "USD million",
-            "value": 361.0
+            "unit": "percent",
+            "value": -7.1
           }
         ],
-        "text": "Revenue came in at $22.39 billion, $2.50 billion above the base forecast of $19.88 billion. Automotive sales were $15.47 billion, $4.07 billion above forecast, while energy generation and storage revenue was $1.59 billion below forecast. The revenue bridge attributes $2.96 billion to volume and $1.11 billion to price and mix, partly offset by the energy shortfall. Gross profit was $4.72 billion, $1.10 billion above forecast, with automotive contributing $1.26 billion above its forecast and energy gross profit $240 million below forecast; services and other added $80.4 million. Gross margin was 21.1%, 2.9 percentage points above forecast. Operating income reached $941 million, a $1.74 billion favorable variance from the base forecast. Operating expenses were $637 million below forecast; lower research and development spending contributed $294 million of that benefit, while restructuring and other items contributed another $338 million. Free cash flow was $1.44 billion, $111 million below forecast. Operating cash flow was $250 million above forecast, but purchases of property and equipment were $361 million above forecast, more than offsetting that cash benefit.",
+        "text": "Revenue was $22.39 billion, $2.50 billion above forecast (12.6%). Automotive sales were $15.47 billion, $4.07 billion above forecast, reflecting volume $2.96 billion above forecast and price/mix $1.11 billion above forecast; deliveries were 358,023 vehicles, 73.9 thousand above forecast, while automotive ASP was $43,200 per vehicle, $3,094 per vehicle above forecast. These gains were partly offset by energy generation and storage revenue of $2.41 billion, $1.59 billion below forecast (39.8%). Gross profit reached $4.72 billion, $1.10 billion above forecast, and gross margin of 21.1% exceeded forecast by 2.9 percentage points. Automotive gross profit added $1.26 billion versus forecast, while energy gross profit was $240 million below forecast; services and other added $80.4 million. Operating expenses were $3.78 billion, $637 million below forecast, including R&D $294 million below forecast, supporting operating income of $941 million, $1.74 billion above forecast. Operating cash flow was $3.94 billion, $250 million above forecast, but property and equipment purchases were $2.49 billion, $361 million above forecast; free cash flow was $1.44 billion, $111 million below forecast (7.1%).",
         "verification": {
           "flagged": 0,
-          "total": 25,
+          "total": 33,
           "unsupported": 0,
-          "verified": 25
+          "verified": 33
         }
       },
       "quarter": "2026-Q1",
@@ -9106,38 +9207,38 @@
   ],
   "run": {
     "data_as_of": "2026-10-22",
-    "duration_seconds": 423.8563,
-    "estimated_cost_usd": 0.033599,
-    "input_tokens": 136974,
+    "duration_seconds": 85.2276,
+    "estimated_cost_usd": 0.005325,
+    "input_tokens": 20723,
     "model": "gpt-6-luna",
-    "output_tokens": 39804,
+    "output_tokens": 6506,
     "stages": [
       {
         "name": "ingest",
-        "seconds": 17.8996
+        "seconds": 18.8345
       },
       {
         "name": "load",
-        "seconds": 0.0126
+        "seconds": 0.0123
       },
       {
         "name": "forecast",
-        "seconds": 1.6229
+        "seconds": 1.4897
       },
       {
         "name": "explain",
-        "seconds": 403.7782
+        "seconds": 64.404
       },
       {
         "name": "verify",
-        "seconds": 0.4037
+        "seconds": 0.3644
       },
       {
         "name": "publish",
-        "seconds": 0.1086
+        "seconds": 0.0946
       }
     ],
-    "started_at": "2026-11-05T22:15:08+00:00"
+    "started_at": "2026-11-05T23:46:01+00:00"
   },
   "scenario_flex": {
     "automotive_asp_pct": {

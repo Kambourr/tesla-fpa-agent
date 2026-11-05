@@ -1932,6 +1932,266 @@
   {
     "first_review": {
       "catches": [],
+      "checked": 23,
+      "flagged": 0,
+      "guard_hits": [],
+      "issues": [
+        "memo has 149 words, outside 150 to 250"
+      ],
+      "unsupported": 0,
+      "verified": 23
+    },
+    "input_hash": "971cbe768d93fc46e9fef6dec75f2ae64d87b6158d803701443920a854082739",
+    "input_tokens": 20723,
+    "issues": [],
+    "kind": "memo",
+    "model": "gpt-6-luna",
+    "output_tokens": 6506,
+    "payload": {
+      "answers": [],
+      "memo": {
+        "claims": [
+          {
+            "metric": "actual.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "1",
+            "unit": "USD billion",
+            "value": 22.39
+          },
+          {
+            "metric": "variance.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "1",
+            "unit": "USD billion",
+            "value": 2.5
+          },
+          {
+            "metric": "variance_pct.total_revenue",
+            "period": "2026-Q1",
+            "sentence_ref": "1",
+            "unit": "percent",
+            "value": 12.6
+          },
+          {
+            "metric": "actual.automotive_sales",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD billion",
+            "value": 15.47
+          },
+          {
+            "metric": "variance.automotive_sales",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD billion",
+            "value": 4.07
+          },
+          {
+            "metric": "bridge.revenue.volume",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD billion",
+            "value": 2.96
+          },
+          {
+            "metric": "bridge.revenue.price_mix",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD billion",
+            "value": 1.11
+          },
+          {
+            "metric": "actual.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "units",
+            "value": 358023.0
+          },
+          {
+            "metric": "variance.deliveries",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "thousand units",
+            "value": 73.9
+          },
+          {
+            "metric": "actual.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD per unit",
+            "value": 43200.0
+          },
+          {
+            "metric": "variance.automotive_asp",
+            "period": "2026-Q1",
+            "sentence_ref": "2",
+            "unit": "USD per unit",
+            "value": 3094.0
+          },
+          {
+            "metric": "actual.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD billion",
+            "value": 2.41
+          },
+          {
+            "metric": "variance.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "USD billion",
+            "value": -1.59
+          },
+          {
+            "metric": "variance_pct.energy_generation_and_storage",
+            "period": "2026-Q1",
+            "sentence_ref": "3",
+            "unit": "percent",
+            "value": -39.8
+          },
+          {
+            "metric": "actual.gross_profit",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD billion",
+            "value": 4.72
+          },
+          {
+            "metric": "variance.gross_profit",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "USD billion",
+            "value": 1.1
+          },
+          {
+            "metric": "actual.gross_margin",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "percent",
+            "value": 21.1
+          },
+          {
+            "metric": "variance.gross_margin",
+            "period": "2026-Q1",
+            "sentence_ref": "4",
+            "unit": "percentage points",
+            "value": 2.9
+          },
+          {
+            "metric": "bridge.gross_profit.automotive",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD billion",
+            "value": 1.26
+          },
+          {
+            "metric": "bridge.gross_profit.energy",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD million",
+            "value": -240.0
+          },
+          {
+            "metric": "bridge.gross_profit.services_and_other",
+            "period": "2026-Q1",
+            "sentence_ref": "5",
+            "unit": "USD million",
+            "value": 80.4
+          },
+          {
+            "metric": "actual.operating_expenses",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD billion",
+            "value": 3.78
+          },
+          {
+            "metric": "variance.operating_expenses",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD million",
+            "value": -637.0
+          },
+          {
+            "metric": "variance.research_and_development",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD million",
+            "value": -294.0
+          },
+          {
+            "metric": "actual.operating_income",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD million",
+            "value": 941.0
+          },
+          {
+            "metric": "variance.operating_income",
+            "period": "2026-Q1",
+            "sentence_ref": "6",
+            "unit": "USD billion",
+            "value": 1.74
+          },
+          {
+            "metric": "actual.net_cash_from_operating_activities",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD billion",
+            "value": 3.94
+          },
+          {
+            "metric": "variance.net_cash_from_operating_activities",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD million",
+            "value": 250.0
+          },
+          {
+            "metric": "actual.purchases_of_property_and_equipment",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD billion",
+            "value": 2.49
+          },
+          {
+            "metric": "variance.purchases_of_property_and_equipment",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD million",
+            "value": 361.0
+          },
+          {
+            "metric": "actual.free_cash_flow",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD billion",
+            "value": 1.44
+          },
+          {
+            "metric": "variance.free_cash_flow",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "USD million",
+            "value": -111.0
+          },
+          {
+            "metric": "variance_pct.free_cash_flow",
+            "period": "2026-Q1",
+            "sentence_ref": "7",
+            "unit": "percent",
+            "value": -7.1
+          }
+        ],
+        "text": "Revenue was $22.39 billion, $2.50 billion above forecast (12.6%). Automotive sales were $15.47 billion, $4.07 billion above forecast, reflecting volume $2.96 billion above forecast and price/mix $1.11 billion above forecast; deliveries were 358,023 vehicles, 73.9 thousand above forecast, while automotive ASP was $43,200 per vehicle, $3,094 per vehicle above forecast. These gains were partly offset by energy generation and storage revenue of $2.41 billion, $1.59 billion below forecast (39.8%). Gross profit reached $4.72 billion, $1.10 billion above forecast, and gross margin of 21.1% exceeded forecast by 2.9 percentage points. Automotive gross profit added $1.26 billion versus forecast, while energy gross profit was $240 million below forecast; services and other added $80.4 million. Operating expenses were $3.78 billion, $637 million below forecast, including R&D $294 million below forecast, supporting operating income of $941 million, $1.74 billion above forecast. Operating cash flow was $3.94 billion, $250 million above forecast, but property and equipment purchases were $2.49 billion, $361 million above forecast; free cash flow was $1.44 billion, $111 million below forecast (7.1%)."
+      }
+    },
+    "prompt_version": "2026-11-05.2",
+    "quarter": "2026-Q1"
+  },
+  {
+    "first_review": {
+      "catches": [],
       "checked": 25,
       "flagged": 0,
       "guard_hits": [],
