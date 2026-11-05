@@ -1,0 +1,107 @@
+/*
+  "What went into it": five steps read left to right on wide screens, top to
+  bottom on phones. The step number and a rule above each step carry the
+  sequence; no boxes, no stat tiles.
+*/
+.build {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.build h2 {
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.build-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.build-step {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink);
+}
+
+.build-step:nth-child(4) {
+  border-top-color: var(--green);
+}
+
+.build-number {
+  display: block;
+  color: var(--ink-quiet);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.build-step h3 {
+  margin: 0.25rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.build-step p {
+  margin: 0.375rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.build-stack {
+  max-width: var(--prose);
+  margin-top: 1.5rem;
+  color: var(--ink-quiet);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .build-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .build-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* The counts arrive just after the hero's ticks have stamped on. */
+@media (prefers-reduced-motion: no-preference) {
+  .build-step {
+    animation: build-in 320ms ease-out both;
+    animation-delay: calc(1300ms + var(--step-delay, 0ms));
+  }
+
+  .build-step:nth-child(2) {
+    --step-delay: 90ms;
+  }
+
+  .build-step:nth-child(3) {
+    --step-delay: 180ms;
+  }
+
+  .build-step:nth-child(4) {
+    --step-delay: 270ms;
+  }
+
+  .build-step:nth-child(5) {
+    --step-delay: 360ms;
+  }
+}
+
+@keyframes build-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

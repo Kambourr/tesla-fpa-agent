@@ -47,7 +47,7 @@
 .agent-run-kind {
   color: var(--ink-quiet);
   font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
 
 .agent-run-name {
@@ -59,7 +59,7 @@
 .agent-run-seconds {
   display: block;
   margin-top: 0.25rem;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
 
 .agent-run-kind {
@@ -85,5 +85,5 @@
 
 .agent-run-stats dd {
   margin: 0;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
 }
