@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 16 of 53 (30%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 20 of 53 (38%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -154,7 +154,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For a fixture quarter the forecast includes deliveries, automotive sales (deliveries times ASP), regulatory credits, leasing, energy, services, gross profit, operating expenses, operating income, capex, and free cash flow. The result uses only cutoff inputs. Empty history is explicit when a quarter has fewer than the documented minimum of earlier quarters (the site copy later says four).
 - **Depends on:** M2-T2
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (c639f699414bda0669f7b3a20fbb3ebd24e024db)
 
 ### M2-T4 — Bull, base, and bear scenarios
 
@@ -162,7 +162,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Each target quarter gets bull, base, and bear forecasts. A test checks the scenario ordering implied by the config (the bull delivery assumption is above base, bear below, on the configured drivers) and checks that base matches M2-T3. Percentages are read from config, not hardcoded in the scenario function.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T5, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (cb1ef8002daa2194f8a79b0a3d6cb8430098b1f7)
 
 ### M2-T5 — Backtest accuracy
 
@@ -170,7 +170,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test on a fixture computes absolute percent error for those three lines and the average across quarters. The published table includes quarters where the error is large. No error is dropped or clipped to look better.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (71192a1da7659c1ab05acc6839cafa7f223f4b4e)
 
 ### M2-T6 — Revenue bridge
 
@@ -178,7 +178,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test asserts exact equality of volume (change in deliveries times forecast ASP) + price/mix (change in ASP times actual deliveries) + regulatory credits + leasing + energy + services and other with total revenue variance. ASP is automotive sales revenue divided by total deliveries. Each bar is labeled favorable or unfavorable. The leasing limitation (leased units sit inside deliveries) is recorded for the methods copy in M5-T13.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (69b9f4eb7a4be1033000e9076f25c1b58d205257)
 
 ### M2-T7 — Gross profit bridge
 

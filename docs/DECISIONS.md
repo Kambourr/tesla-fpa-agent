@@ -2,6 +2,32 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Revenue bridge uses total deliveries, including leased units
+
+**Decision:** The volume bar is the change in total deliveries times the forecast ASP. The price/mix bar is the change in ASP times actual total deliveries. ASP is automotive sales divided by total deliveries. Regulatory credits, leasing, energy, and services are actual minus forecast. A positive bar is favorable. Zero is not favorable. Leased units sit inside the delivery total, so the volume bar is not a pure retail-unit effect. `M5-T13` should say that in the methods copy.
+
+**Alternatives considered:** Removing leased units from the volume bar would need a leased-unit count the delivery file does not have. Treating a zero leasing bar as favorable would mark an unchanged line as good news.
+
+## 2026-11-04 — Backtest keeps every miss, including a large one
+
+**Decision:** Absolute percent error is `100 * abs(forecast - actual) / abs(actual)`, stored as a percent. A result of 300 means the miss was three times the actual. The value is not clipped. An actual of zero, or a null forecast, stores the quarter with a null error. The average is the mean of the non-null errors for that metric. It is computed from the table and is not inserted as a quarter named `average`.
+
+**Alternatives considered:** Dropping a zero actual would hide the quarter. Capping the error at 100 percent would make a bad forecast look bounded. Storing the average under `quarter = 'average'` would make a later loop treat it as a period.
+
+## 2026-11-04 — Scenarios flex three drivers and compound sales
+
+**Decision:** `scenario_forecasts()` starts from `base_forecast()` and writes bull, base, and bear. The flex amounts and units are read from `config/forecast.json` at call time. Deliveries and ASP move by a percent of themselves. Gross margin moves by basis points, which is an absolute ratio change (`100` basis points is `0.01`). Automotive sales is the flexed delivery count times the flexed ASP. Total revenue, gross profit, and operating income are rebuilt from those flexed pieces. Credits, leasing, energy, services, operating expenses, CFO, capex, and free cash flow stay at the base amount. An empty base forecast stays empty in all three scenarios.
+
+**Alternatives considered:** Flexing sales by a separate percent would ignore the compounding the config notes already describe. Hardcoding 10, 5, and 100 in the scenario function would miss a later config edit. Flexing free cash flow would invent a cash effect the formulas do not have.
+
+## 2026-11-04 — Base forecast executes the config on cutoff history
+
+**Decision:** `base_forecast()` reads only the `ForecastInputs` from `load_forecast_inputs()`. A target quarter with fewer than `minimum_earlier_quarters` earlier quarters in that input is stored with a null value and `empty_history` true. The count is any earlier quarter that has a delivery row or a mapped financial fact, not a count of one metric.
+
+Deliveries are `D(Q-4) * (1 + g)` with `g = D(Q-1) / D(Q-5) - 1`, and `g` is 0 when `D(Q-5)` is missing or zero. ASP drops a prior quarter with missing sales or zero deliveries and averages what remains. Run-rate lines need all four prior quarters. Capex is stored as `purchases_of_property_and_equipment`. Cash-flow history is year-to-date de-cumulated; a year can contribute Q1 or Q2 without a later 10-Q. Income history uses a single-quarter duration when one is stored, and derives Q4 from the annual amount only when that duration is absent. Gross profit uses automotive, energy, and services margins when all three are in the four prior quarters. Otherwise it uses total gross profit divided by total revenue. The stored `gross_margin` is the margin that turns forecast revenue into that gross profit. R&D and SG&A are written only when their own run-rate can be built.
+
+**Alternatives considered:** Reading `quarter_actual` would ignore a restatement that was already public on the cutoff. Requiring five earlier quarters would contradict the four-quarter empty state. Averaging a run-rate over the quarters that happen to exist would hide a hole in the history. Treating every Q4 duration as derived would drop a single-quarter amount `fact_as_of` already selected.
+
 ## 2026-11-04 — Forecast cutoff is the previous quarter's first filing
 
 **Decision:** `load_forecast_inputs()` dates the forecast for quarter Q at the earliest `filing_date` of a 10-Q, 10-K, or amendment whose own period end is Q-1. Facts are `fact_as_of(cutoff_date)`, so a restatement filed on or before that date replaces the first-reported number. `quarter_actual` stays the first report. A 10-Q/A of Q-1 does not move the cutoff later, so an amendment filed after the original 10-Q is invisible to the forecast for Q. Deliveries and production are included only when the quarter is before Q and the release date is on or before the cutoff. Q's own delivery row is dropped even when its release date is earlier than the cutoff.
