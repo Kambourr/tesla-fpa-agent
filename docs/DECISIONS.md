@@ -2,6 +2,27 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Gross profit bridge, and every bridge ties to the stored variance
+
+**Decision:** `agent/gross_profit_bridge.py` writes the `gross_profit` bridge. When the base forecast has segment gross profit and the actuals have all three segment cost lines (`cost_of_revenue_automotive`, `cost_of_revenue_energy`, `cost_of_revenue_services`), there is one bar per segment (`automotive`, `energy`, `services_and_other`). Each bar is the revenue effect (change in segment revenue times forecast segment margin) plus the margin-rate effect (change in segment margin times actual segment revenue). Automotive revenue is sales plus regulatory credits plus leasing, matching the forecast's automotive margin. Otherwise the bridge takes the total-margin path: the same three revenue bars at the forecast total margin, plus a `gross_margin_rate` bar equal to the change in total margin times actual total revenue. A `gross_margin_rate` row in `bridge` therefore means the total path was used.
+
+Today every quarter takes the total path. Companyfacts has no segment cost, so neither the forecast inputs nor the actuals hold it (see the 2026-11-04 per-filing storage entry). The segment path runs as soon as a later task loads the segment lines from filing instances.
+
+The base forecast now also stores `gross_profit_automotive`, `gross_profit_energy`, and `gross_profit_services` when it uses segment margins. Those rows are base only. The bull and bear flex moves the blended `gross_margin`, so copying segment profit into those scenarios would be wrong.
+
+Margins inside the bridge are implied: gross profit divided by revenue, at full precision. The stored `gross_margin` has four decimal places, and 0.00005 of $25B is about $1.25M, so a rounded margin cannot be used for a bar that has to sum exactly.
+
+`agent/bridge.py` gains `reconciled()`. It quantizes each bar to four places and adds the remaining gap to the largest bar, so the bars sum exactly to the variance. The variance is actual minus forecast of the stored total (`gross_profit`, or `total_revenue` for the revenue bridge). A gap above $1,000 raises `BridgeError`, because the inputs then fail to tie, for example segment costs that do not add up to total cost. The revenue bridge now uses `reconciled()` too. Before, its bars summed exactly only on clean test numbers: stored forecast sales is rounded, so it is not exactly forecast deliveries times forecast ASP, and actual ASP is a repeating decimal. A test with rounded inputs missed by $0.0244 under the old code.
+
+**Alternatives considered:**
+
+- Store the segment margins in `forecast`. Rejected because `DECIMAL(24, 4)` rounds a margin to four places, which moves a bar by millions. Segment gross profit in dollars keeps its precision.
+- Allocate the total margin-rate effect across segments by revenue share. Rejected because that invents a segment split the filings do not report. One `gross_margin_rate` bar says what is known.
+- Put the rounding gap in a separate "rounding" bar. Rejected because it adds a bar the brief does not list, for a few cents.
+- Widen the money columns. Rejected because the gap comes from rounding forecast lines before they are multiplied, which wider columns only shrink.
+
+**What this means for later tasks:** M2-T8 and M2-T9 should build their bars with `reconciled()` against the stored totals. The site should label `gross_margin_rate` as "Gross margin rate (total)" and note that segment cost was not reported. A task that loads segment cost lines from filing instances turns on the segment path without changing this module.
+
 ## 2026-11-04 — Revenue bridge uses total deliveries, including leased units
 
 **Decision:** The volume bar is the change in total deliveries times the forecast ASP. The price/mix bar is the change in ASP times actual total deliveries. ASP is automotive sales divided by total deliveries. Regulatory credits, leasing, energy, and services are actual minus forecast. A positive bar is favorable. Zero is not favorable. Leased units sit inside the delivery total, so the volume bar is not a pure retail-unit effect. `M5-T13` should say that in the methods copy.

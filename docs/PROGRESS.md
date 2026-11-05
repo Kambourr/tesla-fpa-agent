@@ -2,16 +2,30 @@
 
 ## Current status
 
-- **Current milestone:** M2 model and variance. Claude Code is the builder now. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T6`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and is held off `main` until Jacob decides on Pages.
-- **Tasks done:** 22 of 53 (42%).
-- **What's next:** `M2-T7` (gross profit bridge), claimed by Claude Code. Then `M2-T8`, `M2-T9`, `M3-T5`, `M3-T6`, `M2-T10`.
+- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T7` is done on `task/M2-T7-gross-profit-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T6`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
+- **Tasks done:** 23 of 53 (43%).
+- **What's next:** `M2-T8` (operating income bridge), then `M2-T9`, `M3-T5`, `M3-T6`, and `M2-T10`. Build bridge bars with `reconciled()` in `agent/bridge.py`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` stores the six revenue bars. They sum to actual total revenue minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` and `write_gross_profit_bridge(connection, quarter)` store the revenue and gross profit bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 17:58 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T7 (done)
+**What changed:**
+- Added `agent/gross_profit_bridge.py`. With segment cost on both sides, it writes one bar per segment (revenue effect plus margin-rate effect). Without it, it writes three revenue bars at the forecast total margin plus a `gross_margin_rate` bar. Today every quarter takes the total path, because companyfacts has no segment cost.
+- `agent/forecast.py` stores `gross_profit_automotive`, `gross_profit_energy`, and `gross_profit_services` when it uses segment margins. `agent/scenarios.py` leaves them out of bull and bear.
+- Added `reconciled()` to `agent/bridge.py`: bars are quantized and the rounding gap goes to the largest bar, so they sum exactly to the stored variance. A gap above $1,000 raises. `agent/revenue_bridge.py` uses it now and ties to stored `total_revenue`. Before this, rounded forecast inputs left the revenue bars cents off the variance.
+- Added `tests/test_gross_profit_bridge.py`, a rounded-input test in `tests/test_revenue_bridge.py`, and segment-profit assertions in `tests/test_forecast.py`. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 116 passed. Ruff check and format check passed. The site was not touched.
+**Next step:** Merge the M2-T7 pull request, then claim `M2-T8`: bars for gross profit variance, R&D, SG&A, and other opex (higher cost is unfavorable), built with `reconciled()` against stored `operating_income`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block. (e) asks whether to merge PR #20 now or wait until Pages is enabled.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not use the stored four-place `gross_margin` in a bridge. Imply margins from dollar amounts. A `gross_margin_rate` bar means the total-margin path ran. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** 306a9a85eda536322f241d00b3a185393c7c797d on task/M2-T7-gross-profit-bridge
 
 ## 2026-11-04 17:45 (America/Los_Angeles) — Claude Code
 
