@@ -254,7 +254,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with mock token counts writes the model name, input tokens, output tokens, and estimated dollar cost. The logger never prints `OPENAI_API_KEY` or `SEC_USER_AGENT`. The estimate is available for the publish metadata in M4-T1.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T3
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M3-T5 — Verifier
 
