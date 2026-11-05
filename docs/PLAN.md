@@ -425,7 +425,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The latest quarter expands each of the ten questions to its answer, each with tick-marked numbers and a source link. When an earlier quarter is selected, the section says the Q&A covers the latest quarter only and offers a control that switches to it. Answers are the published JSON, not a live request.
 - **Depends on:** M5-T3
 - **Can run in parallel with:** M5-T7, M5-T9
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T12 — Model accuracy
 
