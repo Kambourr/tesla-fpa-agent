@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 37 of 54 (69%).
+- **Tasks done:** 38 of 54 (70%).
 - **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,18 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 01:21 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T3 (done)
+**What changed:**
+- `agent/narrate.py` (Haiku subagent, reviewed by Claude Code): before calling the model, `narrate_quarter` reuses a stored narrative only when the quarter, kind, and input hash match and the row is verified; then it returns `cached=True` with zero tokens and no API call. `force=True` always calls the model. `mark_verified` sets the flag for one hash. `sql/012_narrative_verified.sql` adds the `verified` column.
+- `tests/test_narrative_cache.py` (13 tests): second run makes zero calls; a model, prompt-version, or fact-sheet change misses only the affected quarters; unverified rows are not reused.
+**Current state:** `uv run pytest`: 264 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** `store_narration` writes `verified = result.cached`, so a fresh draft starts unverified until `M3-T7`/`M3-T8` calls `mark_verified`.
+**Last commit:** ff3c8d53739dde265051eea58b0e5b35a3bc035b on task/M3-T3-narrative-cache
 
 ## 2026-11-05 01:17 (America/Los_Angeles) — Claude Code
 

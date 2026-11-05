@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 37 of 54 (69%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 38 of 54 (70%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -246,7 +246,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test runs narration twice against the same tables and shows the second run does not call the API. Changing the table hash, the prompt version, or the model misses the cache. `--force` regenerates even on a hit. Cached text is the already-verified text.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T4
-- **Status:** todo
+- **Status:** done (ff3c8d53739dde265051eea58b0e5b35a3bc035b)
 
 ### M3-T4 — Token and cost logging
 
