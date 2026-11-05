@@ -2,16 +2,28 @@
 
 ## Current status
 
-- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T7` is done on `task/M2-T7-gross-profit-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T6`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
-- **Tasks done:** 23 of 53 (43%).
-- **What's next:** `M2-T8` (operating income bridge), then `M2-T9`, `M3-T5`, `M3-T6`, and `M2-T10`. Build bridge bars with `reconciled()` in `agent/bridge.py`.
+- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T8` is done on `task/M2-T8-operating-income-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T7`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
+- **Tasks done:** 24 of 53 (45%).
+- **What's next:** `M2-T9` (free cash flow bridge), then `M3-T5`, `M3-T6`, and `M2-T10`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge(connection, quarter)` and `write_gross_profit_bridge(connection, quarter)` store the revenue and gross profit bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge`, `write_gross_profit_bridge`, and `write_operating_income_bridge` (each takes a connection and a quarter) store the bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T8 (done)
+**What changed:**
+- Added `agent/operating_income_bridge.py`. The bars are gross profit variance, then R&D, SG&A, and `restructuring_and_other` (opex change minus the R&D and SG&A changes), with the sign flipped so a higher cost is unfavorable. One `operating_expenses` bar replaces the three when either side lacks R&D or SG&A.
+- Added `tests/test_operating_income_bridge.py`: a fixture where R&D and SG&A rose, one where they fell, the single-bar fallback, a non-tying actual, and the database write. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 122 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T8 pull request, then claim `M2-T9`: operating cash flow and capex bars (higher capex is unfavorable) built with `reconciled()` against stored `free_cash_flow`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** 5960dc9803d14f8efc1d65710510e3533b22f25d on task/M2-T8-operating-income-bridge
 
 ## 2026-11-04 17:47 (America/Los_Angeles) — Claude Code
 

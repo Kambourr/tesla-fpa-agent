@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 23 of 53 (43%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 24 of 53 (45%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -194,7 +194,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Bars are gross profit variance, R&D, SG&A, and restructuring or other opex when present. A higher cost is unfavorable (sign flip). A test asserts the bars sum exactly to operating income variance, including a fixture where R&D or SG&A increased. Each bar is labeled favorable or unfavorable.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T9
-- **Status:** todo
+- **Status:** done (5960dc9803d14f8efc1d65710510e3533b22f25d)
 
 ### M2-T9 — Free cash flow bridge
 
