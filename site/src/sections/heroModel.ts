@@ -81,9 +81,9 @@ export function buildSteps(dashboard: Dashboard): BuildStep[] {
   const answers = dashboard.qa?.answers.length ?? 0;
   const totals = commentaryTotals(dashboard);
   const sources = dashboard.sources;
-  const runTime = formatRunTime(dashboard.run.duration_seconds);
-  const cost = formatCost(dashboard.run.estimated_cost_usd);
-  const ranFully = dashboard.run.model !== null;
+  const full = dashboard.last_full_run ?? null;
+  const runTime = full ? formatRunTime(full.duration_seconds) : null;
+  const cost = full ? formatCost(full.estimated_cost_usd) : null;
 
   const pulled =
     sources && sources.facts > 0
@@ -98,8 +98,8 @@ export function buildSteps(dashboard: Dashboard): BuildStep[] {
       ? `${plural(totals.total, "figure", "figures")} checked by code against the filings; ${count(totals.flagged + totals.unsupported)} did not tie.`
       : "Every figure the model writes is checked by code against the filings.";
   const shipped =
-    ranFully && runTime && cost
-      ? `${runTime} end to end and ${cost} of model use, refreshed in one click.`
+    runTime && cost
+      ? `A full run takes ${runTime} and ${cost} of model use; one click refreshes the page.`
       : "One command runs the whole pipeline and publishes this page.";
 
   return [

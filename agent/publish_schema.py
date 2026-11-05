@@ -171,6 +171,7 @@ class Dashboard(_Model):
     latest_quarter: str
     forward_forecast_published: bool
     run: RunMetadata
+    last_full_run: RunMetadata | None
     quarters: list[QuarterView]
     qa: QaSet | None
     backtest: Backtest

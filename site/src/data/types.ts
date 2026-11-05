@@ -162,6 +162,8 @@ export interface Dashboard {
   latest_quarter: string;
   forward_forecast_published: boolean;
   run: RunMetadata;
+  /** The most recent run in which the model wrote every narrative (no cache hits). */
+  last_full_run: RunMetadata | null;
   /** Oldest first. */
   quarters: QuarterView[];
   qa: QaSet | null;

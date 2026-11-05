@@ -196,6 +196,7 @@ def build_dashboard(
         latest_quarter=backtests[-1].quarter,
         forward_forecast_published=any(item.kind == "forward" for item in quarters),
         run=run if run is not None else _empty_run(),
+        last_full_run=None,
         quarters=[_quarter_view(connection, item) for item in quarters],
         qa=_qa(connection, backtests[-1].quarter),
         backtest=_backtest(connection),

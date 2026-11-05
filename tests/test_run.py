@@ -211,6 +211,54 @@ def test_second_run_with_the_same_cache_makes_no_calls_and_publishes_the_same_me
     assert second.qa == first.qa
 
 
+def test_a_cached_refresh_carries_the_last_full_run_forward(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _fake_ingest(monkeypatch)
+    cache = tmp_path / "narrative_cache.json"
+    output = tmp_path / "dashboard.json"
+
+    def run(client: FakeClient) -> RunMetadata:
+        return run_pipeline(
+            database=tmp_path / f"{len(client.calls)}-{id(client)}.duckdb",
+            output=output,
+            fixtures=tmp_path,
+            client=client,
+            now=NOW,
+            cache_path=cache,
+        )
+
+    full = run(FakeClient())
+    assert _dashboard(output).last_full_run == full
+
+    refresh = run(FakeClient())
+    published = _dashboard(output)
+    assert published.run == refresh
+    assert refresh.output_tokens == 0
+    assert published.last_full_run == full
+
+
+def test_a_cached_refresh_over_an_older_file_records_no_full_run(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _fake_ingest(monkeypatch)
+    cache = tmp_path / "narrative_cache.json"
+    _, output = _run(tmp_path, name="first", client=FakeClient(), cache=cache)
+    older = json.loads(output.read_text(encoding="utf-8"))
+    del older["last_full_run"]
+    output.write_text(json.dumps(older), encoding="utf-8")
+
+    run_pipeline(
+        database=tmp_path / "second.duckdb",
+        output=output,
+        fixtures=tmp_path,
+        client=FakeClient(),
+        now=NOW,
+        cache_path=cache,
+    )
+    assert _dashboard(output).last_full_run is None
+
+
 def test_changed_fact_sheet_regenerates_only_that_quarter(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
