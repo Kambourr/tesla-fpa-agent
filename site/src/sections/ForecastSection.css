@@ -70,7 +70,9 @@
   font-weight: 600;
 }
 
-.forecast-table__num {
+/* Two classes so it outranks ".forecast-table td": figures line up on the right
+   edge, like a financial statement. */
+.forecast-table .forecast-table__num {
   text-align: end;
 }
 
