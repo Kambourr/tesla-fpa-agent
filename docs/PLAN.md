@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 27 of 54 (50%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 28 of 54 (52%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -262,7 +262,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** Tests show a deliberately wrong number is flagged with the expected value, unit strings normalize (so 1,500,000,000 and $1.5 billion can match), percentages use a tolerance of ±0.1 percentage points, currency uses ±0.5%, and unit counts must match exactly. An unknown metric is `unsupported`. Results are only `verified`, `flagged`, or `unsupported`. The verifier does not rewrite the sentence.
 - **Depends on:** M1-T9, M3-T1
 - **Can run in parallel with:** M2-T2 through M2-T10, M3-T2, M3-T6
-- **Status:** todo
+- **Status:** done (f2d8faf8fb531cd328b5d50cfe1a1f57f2d820f5)
 
 ### M3-T6 — Keyword guard
 
