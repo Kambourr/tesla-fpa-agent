@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 34 of 54 (63%).
+- **Tasks done:** 35 of 54 (65%).
 - **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,18 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 01:09 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T8 (done)
+**What changed:**
+- `site/src/sections/ForecastSection.tsx` (+ `scenarioMath.ts`, format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: Bear/Base/Bull toggle (aria-pressed buttons) and the P&L table (line, forecast, actual, variance $, variance %) with signed variances, favorable green or unfavorable amber plus a hidden word, a sticky first column, and a flex sentence built from `scenario_flex`.
+- `recomputeScenario` ports `agent/scenarios.py` `_flex` with exact decimal arithmetic and half-even rounding to four places; tests match the Python output on four invented driver sets.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Bull and bear recompute to the published values within 0.0001 for all 12 real quarters. Base does not recompute exactly from the four-decimal drivers (up to about $1.15M on gross profit), because the Python base uses unrounded inputs, so the page shows the published base. `M5-T9` parity covers bull and bear.
+**Last commit:** 4a5c49a8edf73fbb94f0e7585b7158bea9eb7582 on task/M5-T8-forecast-table
 
 ## 2026-11-05 00:59 (America/Los_Angeles) — Claude Code
 
