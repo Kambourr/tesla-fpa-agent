@@ -1,0 +1,4678 @@
+{
+  "backtest": {
+    "averages": {
+      "gross_profit": 20.5989,
+      "operating_income": 100.976,
+      "total_revenue": 17.0519
+    },
+    "rows": [
+      {
+        "abs_pct_error": 15.9626,
+        "actual": 25167000000.0,
+        "forecast": 29184315320.0051,
+        "metric": "total_revenue",
+        "quarter": "2023-Q4"
+      },
+      {
+        "abs_pct_error": 28.9156,
+        "actual": 4438000000.0,
+        "forecast": 5721272244.0566,
+        "metric": "gross_profit",
+        "quarter": "2023-Q4"
+      },
+      {
+        "abs_pct_error": 34.4316,
+        "actual": 2064000000.0,
+        "forecast": 2774667462.4746,
+        "metric": "operating_income",
+        "quarter": "2023-Q4"
+      },
+      {
+        "abs_pct_error": 27.3168,
+        "actual": 21301000000.0,
+        "forecast": 27119746018.5562,
+        "metric": "total_revenue",
+        "quarter": "2024-Q1"
+      },
+      {
+        "abs_pct_error": 32.87,
+        "actual": 3696000000.0,
+        "forecast": 4910874896.4125,
+        "metric": "gross_profit",
+        "quarter": "2024-Q1"
+      },
+      {
+        "abs_pct_error": 82.4657,
+        "actual": 1171000000.0,
+        "forecast": 2136673670.3997,
+        "metric": "operating_income",
+        "quarter": "2024-Q1"
+      },
+      {
+        "abs_pct_error": 7.9954,
+        "actual": 25500000000.0,
+        "forecast": 23461174761.5776,
+        "metric": "total_revenue",
+        "quarter": "2024-Q2"
+      },
+      {
+        "abs_pct_error": 10.5732,
+        "actual": 4578000000.0,
+        "forecast": 4093958288.811,
+        "metric": "gross_profit",
+        "quarter": "2024-Q2"
+      },
+      {
+        "abs_pct_error": 46.0902,
+        "actual": 1605000000.0,
+        "forecast": 865252955.8386,
+        "metric": "operating_income",
+        "quarter": "2024-Q2"
+      },
+      {
+        "abs_pct_error": 4.8416,
+        "actual": 25182000000.0,
+        "forecast": 26401206913.6048,
+        "metric": "total_revenue",
+        "quarter": "2024-Q3"
+      },
+      {
+        "abs_pct_error": 5.4201,
+        "actual": 4997000000.0,
+        "forecast": 4726160018.56,
+        "metric": "gross_profit",
+        "quarter": "2024-Q3"
+      },
+      {
+        "abs_pct_error": 57.9075,
+        "actual": 2717000000.0,
+        "forecast": 1143653223.8083,
+        "metric": "operating_income",
+        "quarter": "2024-Q3"
+      },
+      {
+        "abs_pct_error": 13.7984,
+        "actual": 25707000000.0,
+        "forecast": 29254146845.3281,
+        "metric": "total_revenue",
+        "quarter": "2024-Q4"
+      },
+      {
+        "abs_pct_error": 27.4729,
+        "actual": 4179000000.0,
+        "forecast": 5327094084.2896,
+        "metric": "gross_profit",
+        "quarter": "2024-Q4"
+      },
+      {
+        "abs_pct_error": 85.0902,
+        "actual": 1583000000.0,
+        "forecast": 2929977265.7312,
+        "metric": "operating_income",
+        "quarter": "2024-Q4"
+      },
+      {
+        "abs_pct_error": 36.6829,
+        "actual": 19335000000.0,
+        "forecast": 26427634173.285,
+        "metric": "total_revenue",
+        "quarter": "2025-Q1"
+      },
+      {
+        "abs_pct_error": 53.7511,
+        "actual": 3153000000.0,
+        "forecast": 4847773366.5815,
+        "metric": "gross_profit",
+        "quarter": "2025-Q1"
+      },
+      {
+        "abs_pct_error": 404.1973,
+        "actual": 399000000.0,
+        "forecast": 2011747250.322,
+        "metric": "operating_income",
+        "quarter": "2025-Q1"
+      },
+      {
+        "abs_pct_error": 8.98,
+        "actual": 22496000000.0,
+        "forecast": 24516144311.1253,
+        "metric": "total_revenue",
+        "quarter": "2025-Q2"
+      },
+      {
+        "abs_pct_error": 14.4498,
+        "actual": 3878000000.0,
+        "forecast": 4438364577.5873,
+        "metric": "gross_profit",
+        "quarter": "2025-Q2"
+      },
+      {
+        "abs_pct_error": 67.6284,
+        "actual": 923000000.0,
+        "forecast": 1547209924.1219,
+        "metric": "operating_income",
+        "quarter": "2025-Q2"
+      },
+      {
+        "abs_pct_error": 20.3849,
+        "actual": 28095000000.0,
+        "forecast": 22367859607.1731,
+        "metric": "total_revenue",
+        "quarter": "2025-Q3"
+      },
+      {
+        "abs_pct_error": 24.6076,
+        "actual": 5054000000.0,
+        "forecast": 3810330976.1476,
+        "metric": "gross_profit",
+        "quarter": "2025-Q3"
+      },
+      {
+        "abs_pct_error": 27.3336,
+        "actual": 1624000000.0,
+        "forecast": 1180102671.405,
+        "metric": "operating_income",
+        "quarter": "2025-Q3"
+      },
+      {
+        "abs_pct_error": 19.7071,
+        "actual": 24901000000.0,
+        "forecast": 29808257213.032,
+        "metric": "total_revenue",
+        "quarter": "2025-Q4"
+      },
+      {
+        "abs_pct_error": 2.2309,
+        "actual": 5009000000.0,
+        "forecast": 5120746590.6342,
+        "metric": "gross_profit",
+        "quarter": "2025-Q4"
+      },
+      {
+        "abs_pct_error": 49.8045,
+        "actual": 1409000000.0,
+        "forecast": 707254266.0728,
+        "metric": "operating_income",
+        "quarter": "2025-Q4"
+      },
+      {
+        "abs_pct_error": 11.1778,
+        "actual": 22387000000.0,
+        "forecast": 19884614905.3672,
+        "metric": "total_revenue",
+        "quarter": "2026-Q1"
+      },
+      {
+        "abs_pct_error": 23.4011,
+        "actual": 4720000000.0,
+        "forecast": 3615469191.1439,
+        "metric": "gross_profit",
+        "quarter": "2026-Q1"
+      },
+      {
+        "abs_pct_error": 185.12,
+        "actual": 941000000.0,
+        "forecast": -800979190.9824,
+        "metric": "operating_income",
+        "quarter": "2026-Q1"
+      },
+      {
+        "abs_pct_error": 11.0991,
+        "actual": 28236000000.0,
+        "forecast": 25102050677.8482,
+        "metric": "total_revenue",
+        "quarter": "2026-Q2"
+      },
+      {
+        "abs_pct_error": 2.7381,
+        "actual": 4751000000.0,
+        "forecast": 4620911629.1392,
+        "metric": "gross_profit",
+        "quarter": "2026-Q2"
+      },
+      {
+        "abs_pct_error": 125.3216,
+        "actual": 398000000.0,
+        "forecast": -100780091.9937,
+        "metric": "operating_income",
+        "quarter": "2026-Q2"
+      },
+      {
+        "abs_pct_error": 26.6757,
+        "actual": 28046000000.0,
+        "forecast": 35527465181.4722,
+        "metric": "total_revenue",
+        "quarter": "2026-Q3"
+      },
+      {
+        "abs_pct_error": 20.7564,
+        "actual": 5494000000.0,
+        "forecast": 6634359094.2242,
+        "metric": "gross_profit",
+        "quarter": "2026-Q3"
+      },
+      {
+        "abs_pct_error": 46.3213,
+        "actual": 718000000.0,
+        "forecast": 1050587013.0059,
+        "metric": "operating_income",
+        "quarter": "2026-Q3"
+      }
+    ]
+  },
+  "forward_forecast_published": false,
+  "generated_at": "2026-11-05T08:28:41+00:00",
+  "latest_quarter": "2026-Q3",
+  "qa": null,
+  "quarters": [
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 1329000000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -193500000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -1143884313.9202
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -26012700.0004
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -113375230.136
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -1283272244.0567
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 365169508.8677
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 203781477.6275
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 3653795.0869
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -1281478250.7153
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -1306225702.8892
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -450300699.3007
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 63167874.3961
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -623104073.4109
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -419374468.0851
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 45275.3535,
+        "automotive_leasing": 436832125.6039,
+        "automotive_regulatory_credits": 883300699.3007,
+        "deliveries": 512811.1026,
+        "energy_generation_and_storage": 2061104073.4109,
+        "gross_margin": 0.196,
+        "operating_expenses": 2946604781.5821,
+        "services_and_other": 2585374468.0851
+      },
+      "filing": {
+        "accession": "0001628280-24-002390",
+        "filing_date": "2024-01-29",
+        "form": "10-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828024002390/tsla-20231231.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q4 2023",
+      "lines": [
+        {
+          "actual": 484507.0,
+          "favorable": false,
+          "forecast": 512811.1026,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -28304.1026,
+          "variance_pct": -5.5194
+        },
+        {
+          "actual": 42579.3642,
+          "favorable": false,
+          "forecast": 45275.3535,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -2695.9893,
+          "variance_pct": -5.9547
+        },
+        {
+          "actual": 20630000000.0,
+          "favorable": false,
+          "forecast": 23217703953.6046,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -2587703953.6046,
+          "variance_pct": -11.1454
+        },
+        {
+          "actual": 433000000.0,
+          "favorable": false,
+          "forecast": 883300699.3007,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -450300699.3007,
+          "variance_pct": -50.9793
+        },
+        {
+          "actual": 500000000.0,
+          "favorable": true,
+          "forecast": 436832125.6039,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 63167874.3961,
+          "variance_pct": 14.4604
+        },
+        {
+          "actual": 1438000000.0,
+          "favorable": false,
+          "forecast": 2061104073.4109,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -623104073.4109,
+          "variance_pct": -30.2316
+        },
+        {
+          "actual": 2166000000.0,
+          "favorable": false,
+          "forecast": 2585374468.0851,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -419374468.0851,
+          "variance_pct": -16.221
+        },
+        {
+          "actual": 25167000000.0,
+          "favorable": false,
+          "forecast": 29184315320.0051,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -4017315320.0051,
+          "variance_pct": -13.7653
+        },
+        {
+          "actual": 4438000000.0,
+          "favorable": false,
+          "forecast": 5721272244.0566,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -1283272244.0566,
+          "variance_pct": -22.4298
+        },
+        {
+          "actual": 17.6342,
+          "favorable": false,
+          "forecast": 19.6,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -1.9658,
+          "variance_pct": -10.0296
+        },
+        {
+          "actual": 1094000000.0,
+          "favorable": true,
+          "forecast": 1459169508.8677,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -365169508.8677,
+          "variance_pct": -25.0258
+        },
+        {
+          "actual": 1280000000.0,
+          "favorable": true,
+          "forecast": 1483781477.6275,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -203781477.6275,
+          "variance_pct": -13.7339
+        },
+        {
+          "actual": 2374000000.0,
+          "favorable": true,
+          "forecast": 2946604781.5821,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -572604781.5821,
+          "variance_pct": -19.4327
+        },
+        {
+          "actual": 2064000000.0,
+          "favorable": false,
+          "forecast": 2774667462.4746,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -710667462.4746,
+          "variance_pct": -25.6127
+        },
+        {
+          "actual": 4370000000.0,
+          "favorable": true,
+          "forecast": 3041000000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 1329000000.0,
+          "variance_pct": 43.7027
+        },
+        {
+          "actual": 2306000000.0,
+          "favorable": false,
+          "forecast": 2112500000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 193500000.0,
+          "variance_pct": 9.1598
+        },
+        {
+          "actual": 2064000000.0,
+          "favorable": true,
+          "forecast": 928500000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 1135500000.0,
+          "variance_pct": 122.294
+        }
+      ],
+      "memo": null,
+      "quarter": "2023-Q4",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 45275.3535,
+          "automotive_leasing": 436832125.6039,
+          "automotive_regulatory_credits": 883300699.3007,
+          "automotive_sales": 23217703953.6046,
+          "deliveries": 512811.1026,
+          "energy_generation_and_storage": 2061104073.4109,
+          "free_cash_flow": 928500000.0,
+          "gross_margin": 0.196,
+          "gross_profit": 5721272244.0566,
+          "gross_profit_automotive": 5208884313.9202,
+          "gross_profit_energy": 340012700.0004,
+          "gross_profit_services": 172375230.136,
+          "net_cash_from_operating_activities": 3041000000.0,
+          "operating_expenses": 2946604781.5821,
+          "operating_income": 2774667462.4746,
+          "purchases_of_property_and_equipment": 2112500000.0,
+          "research_and_development": 1459169508.8677,
+          "selling_general_and_administrative": 1483781477.6275,
+          "services_and_other": 2585374468.0851,
+          "total_revenue": 29184315320.0051
+        },
+        "bear": {
+          "automotive_asp": 43011.5858,
+          "automotive_leasing": 436832125.6039,
+          "automotive_regulatory_credits": 883300699.3007,
+          "automotive_sales": 19851136876.3435,
+          "deliveries": 461529.9923,
+          "energy_generation_and_storage": 2061104073.4109,
+          "free_cash_flow": 928500000.0,
+          "gross_margin": 0.186,
+          "gross_profit": 4802101173.1504,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3041000000.0,
+          "operating_expenses": 2946604781.5821,
+          "operating_income": 1855496391.5683,
+          "purchases_of_property_and_equipment": 2112500000.0,
+          "research_and_development": 1459169508.8677,
+          "selling_general_and_administrative": 1483781477.6275,
+          "services_and_other": 2585374468.0851,
+          "total_revenue": 25817748242.7441
+        },
+        "bull": {
+          "automotive_asp": 47539.1212,
+          "automotive_leasing": 436832125.6039,
+          "automotive_regulatory_credits": 883300699.3007,
+          "automotive_sales": 26816448061.0254,
+          "deliveries": 564092.2129,
+          "energy_generation_and_storage": 2061104073.4109,
+          "free_cash_flow": 928500000.0,
+          "gross_margin": 0.206,
+          "gross_profit": 6753310242.0498,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3041000000.0,
+          "operating_expenses": 2946604781.5821,
+          "operating_income": 3806705460.4677,
+          "purchases_of_property_and_equipment": 2112500000.0,
+          "research_and_development": 1459169508.8677,
+          "selling_general_and_administrative": 1483781477.6275,
+          "services_and_other": 2585374468.0851,
+          "total_revenue": 32783059427.426
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": false,
+            "label": "Operating cash flow",
+            "value": -3072000000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -548500000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -1228268313.0487
+          },
+          {
+            "driver": "energy",
+            "favorable": true,
+            "label": "Energy",
+            "value": 89631978.9663
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -76238562.3301
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -1214874896.4125
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 189150000.0
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 114372093.0233
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": false,
+            "label": "Restructuring and other",
+            "value": -54320867.0105
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -5157134514.5807
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -340829589.967
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": true,
+            "label": "Regulatory credits",
+            "value": 27080299.7859
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 33595993.3222
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -21169847.3282
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -360288359.7884
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 43434.3207,
+        "automotive_leasing": 442404006.6778,
+        "automotive_regulatory_credits": 414919700.2141,
+        "deliveries": 505544.0898,
+        "energy_generation_and_storage": 1656169847.3282,
+        "gross_margin": 0.1811,
+        "operating_expenses": 2774201226.0128,
+        "services_and_other": 2648288359.7884
+      },
+      "filing": {
+        "accession": "0001628280-24-017503",
+        "filing_date": "2024-04-24",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828024017503/tsla-20240331.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q1 2024",
+      "lines": [
+        {
+          "actual": 386810.0,
+          "favorable": false,
+          "forecast": 505544.0898,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -118734.0898,
+          "variance_pct": -23.4864
+        },
+        {
+          "actual": 42553.1915,
+          "favorable": false,
+          "forecast": 43434.3207,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -881.1292,
+          "variance_pct": -2.0286
+        },
+        {
+          "actual": 16460000000.0,
+          "favorable": false,
+          "forecast": 21957964104.5476,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -5497964104.5476,
+          "variance_pct": -25.0386
+        },
+        {
+          "actual": 442000000.0,
+          "favorable": true,
+          "forecast": 414919700.2141,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": 27080299.7859,
+          "variance_pct": 6.5266
+        },
+        {
+          "actual": 476000000.0,
+          "favorable": true,
+          "forecast": 442404006.6778,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 33595993.3222,
+          "variance_pct": 7.594
+        },
+        {
+          "actual": 1635000000.0,
+          "favorable": false,
+          "forecast": 1656169847.3282,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -21169847.3282,
+          "variance_pct": -1.2782
+        },
+        {
+          "actual": 2288000000.0,
+          "favorable": false,
+          "forecast": 2648288359.7884,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -360288359.7884,
+          "variance_pct": -13.6046
+        },
+        {
+          "actual": 21301000000.0,
+          "favorable": false,
+          "forecast": 27119746018.5562,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -5818746018.5562,
+          "variance_pct": -21.4558
+        },
+        {
+          "actual": 3696000000.0,
+          "favorable": false,
+          "forecast": 4910874896.4125,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -1214874896.4125,
+          "variance_pct": -24.7385
+        },
+        {
+          "actual": 17.3513,
+          "favorable": false,
+          "forecast": 18.11,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -0.7587,
+          "variance_pct": -4.1894
+        },
+        {
+          "actual": 1151000000.0,
+          "favorable": true,
+          "forecast": 1340150000.0,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -189150000.0,
+          "variance_pct": -14.1141
+        },
+        {
+          "actual": 1374000000.0,
+          "favorable": true,
+          "forecast": 1488372093.0233,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -114372093.0233,
+          "variance_pct": -7.6844
+        },
+        {
+          "actual": 2525000000.0,
+          "favorable": true,
+          "forecast": 2774201226.0128,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -249201226.0128,
+          "variance_pct": -8.9828
+        },
+        {
+          "actual": 1171000000.0,
+          "favorable": false,
+          "forecast": 2136673670.3997,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -965673670.3997,
+          "variance_pct": -45.1952
+        },
+        {
+          "actual": 242000000.0,
+          "favorable": false,
+          "forecast": 3314000000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": -3072000000.0,
+          "variance_pct": -92.6976
+        },
+        {
+          "actual": 2773000000.0,
+          "favorable": false,
+          "forecast": 2224500000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 548500000.0,
+          "variance_pct": 24.6572
+        },
+        {
+          "actual": -2531000000.0,
+          "favorable": false,
+          "forecast": 1089500000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -3620500000.0,
+          "variance_pct": -332.3084
+        }
+      ],
+      "memo": null,
+      "quarter": "2024-Q1",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 43434.3207,
+          "automotive_leasing": 442404006.6778,
+          "automotive_regulatory_credits": 414919700.2141,
+          "automotive_sales": 21957964104.5476,
+          "deliveries": 505544.0898,
+          "energy_generation_and_storage": 1656169847.3282,
+          "free_cash_flow": 1089500000.0,
+          "gross_margin": 0.1811,
+          "gross_profit": 4910874896.4125,
+          "gross_profit_automotive": 4440268313.0487,
+          "gross_profit_energy": 313368021.0337,
+          "gross_profit_services": 157238562.3301,
+          "net_cash_from_operating_activities": 3314000000.0,
+          "operating_expenses": 2774201226.0128,
+          "operating_income": 2136673670.3997,
+          "purchases_of_property_and_equipment": 2224500000.0,
+          "research_and_development": 1340150000.0,
+          "selling_general_and_administrative": 1488372093.0233,
+          "services_and_other": 2648288359.7884,
+          "total_revenue": 27119746018.5562
+        },
+        "bear": {
+          "automotive_asp": 41262.6047,
+          "automotive_leasing": 442404006.6778,
+          "automotive_regulatory_credits": 414919700.2141,
+          "automotive_sales": 18774059326.3302,
+          "deliveries": 454989.6808,
+          "energy_generation_and_storage": 1656169847.3282,
+          "free_cash_flow": 1089500000.0,
+          "gross_margin": 0.1711,
+          "gross_profit": 4095422436.222,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3314000000.0,
+          "operating_expenses": 2774201226.0128,
+          "operating_income": 1321221210.2092,
+          "purchases_of_property_and_equipment": 2224500000.0,
+          "research_and_development": 1340150000.0,
+          "selling_general_and_administrative": 1488372093.0233,
+          "services_and_other": 2648288359.7884,
+          "total_revenue": 23935841240.3387
+        },
+        "bull": {
+          "automotive_asp": 45606.0367,
+          "automotive_leasing": 442404006.6778,
+          "automotive_regulatory_credits": 414919700.2141,
+          "automotive_sales": 25361448563.639,
+          "deliveries": 556098.4988,
+          "energy_generation_and_storage": 1656169847.3282,
+          "free_cash_flow": 1089500000.0,
+          "gross_margin": 0.1911,
+          "gross_profit": 5832989344.2784,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3314000000.0,
+          "operating_expenses": 2774201226.0128,
+          "operating_income": 3058788118.2656,
+          "purchases_of_property_and_equipment": 2224500000.0,
+          "research_and_development": 1340150000.0,
+          "selling_general_and_administrative": 1488372093.0233,
+          "services_and_other": 2648288359.7884,
+          "total_revenue": 30523230477.6475
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 865750000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": true,
+            "label": "Capital expenditures",
+            "value": 129750000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": true,
+            "label": "Automotive",
+            "value": 79869548.9896
+          },
+          {
+            "driver": "energy",
+            "favorable": true,
+            "label": "Energy",
+            "value": 373306476.8188
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 30865685.3806
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": true,
+            "label": "Gross profit",
+            "value": 484041711.189
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 549119001.297
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 350474907.0632
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": false,
+            "label": "Restructuring and other",
+            "value": -643888575.3878
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": true,
+            "label": "Volume",
+            "value": 754002949.218
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -521088751.5556
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": true,
+            "label": "Regulatory credits",
+            "value": 527110364.6833
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 29262411.3475
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": true,
+            "label": "Energy generation and storage",
+            "value": 1372316707.843
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -122778443.1138
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 42912.1101,
+        "automotive_leasing": 428737588.6525,
+        "automotive_regulatory_credits": 362889635.3167,
+        "deliveries": 426385.1337,
+        "energy_generation_and_storage": 1641683289.7319,
+        "gross_margin": 0.1745,
+        "operating_expenses": 3228705332.9724,
+        "services_and_other": 2730778443.1138
+      },
+      "filing": {
+        "accession": "0001628280-24-032662",
+        "filing_date": "2024-07-24",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828024032662/tsla-20240630.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q2 2024",
+      "lines": [
+        {
+          "actual": 443956.0,
+          "favorable": true,
+          "forecast": 426385.1337,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": 17570.8663,
+          "variance_pct": 4.1209
+        },
+        {
+          "actual": 41738.3705,
+          "favorable": false,
+          "forecast": 42912.1101,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -1173.7396,
+          "variance_pct": -2.7352
+        },
+        {
+          "actual": 18530000000.0,
+          "favorable": true,
+          "forecast": 18297085804.7628,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 232914195.2372,
+          "variance_pct": 1.273
+        },
+        {
+          "actual": 890000000.0,
+          "favorable": true,
+          "forecast": 362889635.3167,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": 527110364.6833,
+          "variance_pct": 145.2536
+        },
+        {
+          "actual": 458000000.0,
+          "favorable": true,
+          "forecast": 428737588.6525,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 29262411.3475,
+          "variance_pct": 6.8252
+        },
+        {
+          "actual": 3014000000.0,
+          "favorable": true,
+          "forecast": 1641683289.7319,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": 1372316710.2681,
+          "variance_pct": 83.592
+        },
+        {
+          "actual": 2608000000.0,
+          "favorable": false,
+          "forecast": 2730778443.1138,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -122778443.1138,
+          "variance_pct": -4.4961
+        },
+        {
+          "actual": 25500000000.0,
+          "favorable": true,
+          "forecast": 23461174761.5776,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": 2038825238.4224,
+          "variance_pct": 8.6902
+        },
+        {
+          "actual": 4578000000.0,
+          "favorable": true,
+          "forecast": 4093958288.811,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": 484041711.189,
+          "variance_pct": 11.8233
+        },
+        {
+          "actual": 17.9529,
+          "favorable": true,
+          "forecast": 17.45,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 0.5029,
+          "variance_pct": 2.8819
+        },
+        {
+          "actual": 1074000000.0,
+          "favorable": true,
+          "forecast": 1623119001.297,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -549119001.297,
+          "variance_pct": -33.8311
+        },
+        {
+          "actual": 1277000000.0,
+          "favorable": true,
+          "forecast": 1627474907.0632,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -350474907.0632,
+          "variance_pct": -21.5349
+        },
+        {
+          "actual": 2973000000.0,
+          "favorable": true,
+          "forecast": 3228705332.9724,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -255705332.9724,
+          "variance_pct": -7.9197
+        },
+        {
+          "actual": 1605000000.0,
+          "favorable": true,
+          "forecast": 865252955.8386,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 739747044.1614,
+          "variance_pct": 85.4949
+        },
+        {
+          "actual": 3612000000.0,
+          "favorable": true,
+          "forecast": 2746250000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 865750000.0,
+          "variance_pct": 31.5248
+        },
+        {
+          "actual": 2270000000.0,
+          "favorable": true,
+          "forecast": 2399750000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": -129750000.0,
+          "variance_pct": -5.4068
+        },
+        {
+          "actual": 1342000000.0,
+          "favorable": true,
+          "forecast": 346500000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 995500000.0,
+          "variance_pct": 287.3016
+        }
+      ],
+      "memo": null,
+      "quarter": "2024-Q2",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 42912.1101,
+          "automotive_leasing": 428737588.6525,
+          "automotive_regulatory_credits": 362889635.3167,
+          "automotive_sales": 18297085804.7628,
+          "deliveries": 426385.1337,
+          "energy_generation_and_storage": 1641683289.7319,
+          "free_cash_flow": 346500000.0,
+          "gross_margin": 0.1745,
+          "gross_profit": 4093958288.811,
+          "gross_profit_automotive": 3591130451.0104,
+          "gross_profit_energy": 366693523.1812,
+          "gross_profit_services": 136134314.6194,
+          "net_cash_from_operating_activities": 2746250000.0,
+          "operating_expenses": 3228705332.9724,
+          "operating_income": 865252955.8386,
+          "purchases_of_property_and_equipment": 2399750000.0,
+          "research_and_development": 1623119001.297,
+          "selling_general_and_administrative": 1627474907.0632,
+          "services_and_other": 2730778443.1138,
+          "total_revenue": 23461174761.5776
+        },
+        "bear": {
+          "automotive_asp": 40766.5046,
+          "automotive_leasing": 428737588.6525,
+          "automotive_regulatory_credits": 362889635.3167,
+          "automotive_sales": 15644008360.9987,
+          "deliveries": 383746.6203,
+          "energy_generation_and_storage": 1641683289.7319,
+          "free_cash_flow": 346500000.0,
+          "gross_margin": 0.1645,
+          "gross_profit": 3422932008.7803,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 2746250000.0,
+          "operating_expenses": 3228705332.9724,
+          "operating_income": 194226675.8079,
+          "purchases_of_property_and_equipment": 2399750000.0,
+          "research_and_development": 1623119001.297,
+          "selling_general_and_administrative": 1627474907.0632,
+          "services_and_other": 2730778443.1138,
+          "total_revenue": 20808097317.8136
+        },
+        "bull": {
+          "automotive_asp": 45057.7156,
+          "automotive_leasing": 428737588.6525,
+          "automotive_regulatory_credits": 362889635.3167,
+          "automotive_sales": 21133134101.7,
+          "deliveries": 469023.6471,
+          "energy_generation_and_storage": 1641683289.7319,
+          "free_cash_flow": 346500000.0,
+          "gross_margin": 0.1845,
+          "gross_profit": 4851837654.296,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 2746250000.0,
+          "operating_expenses": 3228705332.9724,
+          "operating_income": 1623132321.3236,
+          "purchases_of_property_and_equipment": 2399750000.0,
+          "research_and_development": 1623119001.297,
+          "selling_general_and_administrative": 1627474907.0632,
+          "services_and_other": 2730778443.1138,
+          "total_revenue": 26297223058.5149
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 3372000000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -1060750000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": true,
+            "label": "Automotive",
+            "value": 341423037.8824
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -186293226.0756
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 115710169.6332
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": true,
+            "label": "Gross profit",
+            "value": 270839981.44
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 236588547.1898
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 203581863.9798
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 862336383.5821
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": true,
+            "label": "Volume",
+            "value": 2057705261.9583
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -793496321.504
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -1090707446.8085
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 57669312.1693
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -1441933068.2571
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -8444651.1628
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 42395.5936,
+        "automotive_leasing": 388330687.8307,
+        "automotive_regulatory_credits": 1829707446.8085,
+        "deliveries": 414354.1713,
+        "energy_generation_and_storage": 3817933068.2571,
+        "gross_margin": 0.179,
+        "operating_expenses": 3582506794.7516,
+        "services_and_other": 2798444651.1628
+      },
+      "filing": {
+        "accession": "0001628280-24-043486",
+        "filing_date": "2024-10-24",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828024043486/tsla-20240930.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q3 2024",
+      "lines": [
+        {
+          "actual": 462890.0,
+          "favorable": true,
+          "forecast": 414354.1713,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": 48535.8287,
+          "variance_pct": 11.7136
+        },
+        {
+          "actual": 40681.3714,
+          "favorable": false,
+          "forecast": 42395.5936,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -1714.2222,
+          "variance_pct": -4.0434
+        },
+        {
+          "actual": 18831000000.0,
+          "favorable": true,
+          "forecast": 17566791059.5457,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 1264208940.4543,
+          "variance_pct": 7.1966
+        },
+        {
+          "actual": 739000000.0,
+          "favorable": false,
+          "forecast": 1829707446.8085,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -1090707446.8085,
+          "variance_pct": -59.611
+        },
+        {
+          "actual": 446000000.0,
+          "favorable": true,
+          "forecast": 388330687.8307,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 57669312.1693,
+          "variance_pct": 14.8506
+        },
+        {
+          "actual": 2376000000.0,
+          "favorable": false,
+          "forecast": 3817933068.2571,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -1441933068.2571,
+          "variance_pct": -37.7674
+        },
+        {
+          "actual": 2790000000.0,
+          "favorable": false,
+          "forecast": 2798444651.1628,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -8444651.1628,
+          "variance_pct": -0.3018
+        },
+        {
+          "actual": 25182000000.0,
+          "favorable": false,
+          "forecast": 26401206913.6048,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -1219206913.6048,
+          "variance_pct": -4.618
+        },
+        {
+          "actual": 4997000000.0,
+          "favorable": true,
+          "forecast": 4726160018.56,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": 270839981.44,
+          "variance_pct": 5.7307
+        },
+        {
+          "actual": 19.8435,
+          "favorable": true,
+          "forecast": 17.9,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 1.9435,
+          "variance_pct": 10.8575
+        },
+        {
+          "actual": 1039000000.0,
+          "favorable": true,
+          "forecast": 1275588547.1898,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -236588547.1898,
+          "variance_pct": -18.5474
+        },
+        {
+          "actual": 1186000000.0,
+          "favorable": true,
+          "forecast": 1389581863.9798,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -203581863.9798,
+          "variance_pct": -14.6506
+        },
+        {
+          "actual": 2280000000.0,
+          "favorable": true,
+          "forecast": 3582506794.7516,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -1302506794.7516,
+          "variance_pct": -36.3574
+        },
+        {
+          "actual": 2717000000.0,
+          "favorable": true,
+          "forecast": 1143653223.8083,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 1573346776.1917,
+          "variance_pct": 137.572
+        },
+        {
+          "actual": 6255000000.0,
+          "favorable": true,
+          "forecast": 2883000000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 3372000000.0,
+          "variance_pct": 116.9615
+        },
+        {
+          "actual": 3513000000.0,
+          "favorable": false,
+          "forecast": 2452250000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 1060750000.0,
+          "variance_pct": 43.2562
+        },
+        {
+          "actual": 2742000000.0,
+          "favorable": true,
+          "forecast": 430750000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 2311250000.0,
+          "variance_pct": 536.5641
+        }
+      ],
+      "memo": null,
+      "quarter": "2024-Q3",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 42395.5936,
+          "automotive_leasing": 388330687.8307,
+          "automotive_regulatory_credits": 1829707446.8085,
+          "automotive_sales": 17566791059.5457,
+          "deliveries": 414354.1713,
+          "energy_generation_and_storage": 3817933068.2571,
+          "free_cash_flow": 430750000.0,
+          "gross_margin": 0.179,
+          "gross_profit": 4726160018.56,
+          "gross_profit_automotive": 3684576962.1176,
+          "gross_profit_energy": 911293226.0756,
+          "gross_profit_services": 130289830.3668,
+          "net_cash_from_operating_activities": 2883000000.0,
+          "operating_expenses": 3582506794.7516,
+          "operating_income": 1143653223.8083,
+          "purchases_of_property_and_equipment": 2452250000.0,
+          "research_and_development": 1275588547.1898,
+          "selling_general_and_administrative": 1389581863.9798,
+          "services_and_other": 2798444651.1628,
+          "total_revenue": 26401206913.6048
+        },
+        "bear": {
+          "automotive_asp": 40275.8139,
+          "automotive_leasing": 388330687.8307,
+          "automotive_regulatory_credits": 1829707446.8085,
+          "automotive_sales": 15019606350.2291,
+          "deliveries": 372918.7542,
+          "energy_generation_and_storage": 3817933068.2571,
+          "free_cash_flow": 430750000.0,
+          "gross_margin": 0.169,
+          "gross_profit": 4031329752.5247,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 2883000000.0,
+          "operating_expenses": 3582506794.7516,
+          "operating_income": 448822957.7731,
+          "purchases_of_property_and_equipment": 2452250000.0,
+          "research_and_development": 1275588547.1898,
+          "selling_general_and_administrative": 1389581863.9798,
+          "services_and_other": 2798444651.1628,
+          "total_revenue": 23854022204.2882
+        },
+        "bull": {
+          "automotive_asp": 44515.3733,
+          "automotive_leasing": 388330687.8307,
+          "automotive_regulatory_credits": 1829707446.8085,
+          "automotive_sales": 20289643666.099,
+          "deliveries": 455789.5884,
+          "energy_generation_and_storage": 3817933068.2571,
+          "free_cash_flow": 430750000.0,
+          "gross_margin": 0.189,
+          "gross_profit": 5504447249.3099,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 2883000000.0,
+          "operating_expenses": 3582506794.7516,
+          "operating_income": 1921940454.5583,
+          "purchases_of_property_and_equipment": 2452250000.0,
+          "research_and_development": 1275588547.1898,
+          "selling_general_and_administrative": 1389581863.9798,
+          "services_and_other": 2798444651.1628,
+          "total_revenue": 29124059520.1581
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 1194250000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -67500000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -1050067869.0324
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -46622313.9269
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -51403901.3303
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -1148094084.2896
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": false,
+            "label": "R&D",
+            "value": -300986649.4401
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": false,
+            "label": "SG&A",
+            "value": -102153631.2849
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 204257099.2834
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -834880422.054
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -2099473020.3828
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -143043321.2996
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 18329243.3538
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -163516998.0757
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -324562326.8698
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 41888.0744,
+        "automotive_leasing": 428670756.6462,
+        "automotive_regulatory_credits": 835043321.2996,
+        "deliveries": 515501.2199,
+        "energy_generation_and_storage": 3224516998.0757,
+        "gross_margin": 0.1821,
+        "operating_expenses": 2397116818.5584,
+        "services_and_other": 3172562326.8698
+      },
+      "filing": {
+        "accession": "0001628280-25-003063",
+        "filing_date": "2025-01-30",
+        "form": "10-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q4 2024",
+      "lines": [
+        {
+          "actual": 495570.0,
+          "favorable": false,
+          "forecast": 515501.2199,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -19931.2199,
+          "variance_pct": -3.8664
+        },
+        {
+          "actual": 37651.5931,
+          "favorable": false,
+          "forecast": 41888.0744,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -4236.4813,
+          "variance_pct": -10.1138
+        },
+        {
+          "actual": 18659000000.0,
+          "favorable": false,
+          "forecast": 21593353442.4368,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -2934353442.4368,
+          "variance_pct": -13.5892
+        },
+        {
+          "actual": 692000000.0,
+          "favorable": false,
+          "forecast": 835043321.2996,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -143043321.2996,
+          "variance_pct": -17.13
+        },
+        {
+          "actual": 447000000.0,
+          "favorable": true,
+          "forecast": 428670756.6462,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 18329243.3538,
+          "variance_pct": 4.2758
+        },
+        {
+          "actual": 3061000000.0,
+          "favorable": false,
+          "forecast": 3224516998.0757,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -163516998.0757,
+          "variance_pct": -5.0711
+        },
+        {
+          "actual": 2848000000.0,
+          "favorable": false,
+          "forecast": 3172562326.8698,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -324562326.8698,
+          "variance_pct": -10.2303
+        },
+        {
+          "actual": 25707000000.0,
+          "favorable": false,
+          "forecast": 29254146845.3281,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -3547146845.3281,
+          "variance_pct": -12.1253
+        },
+        {
+          "actual": 4179000000.0,
+          "favorable": false,
+          "forecast": 5327094084.2896,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -1148094084.2896,
+          "variance_pct": -21.552
+        },
+        {
+          "actual": 16.2563,
+          "favorable": false,
+          "forecast": 18.21,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -1.9537,
+          "variance_pct": -10.7287
+        },
+        {
+          "actual": 1276000000.0,
+          "favorable": false,
+          "forecast": 975013350.5599,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": 300986649.4401,
+          "variance_pct": 30.87
+        },
+        {
+          "actual": 1313000000.0,
+          "favorable": false,
+          "forecast": 1210846368.7151,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": 102153631.2849,
+          "variance_pct": 8.4365
+        },
+        {
+          "actual": 2596000000.0,
+          "favorable": false,
+          "forecast": 2397116818.5584,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": 198883181.4416,
+          "variance_pct": 8.2968
+        },
+        {
+          "actual": 1583000000.0,
+          "favorable": false,
+          "forecast": 2929977265.7312,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -1346977265.7312,
+          "variance_pct": -45.9723
+        },
+        {
+          "actual": 4814000000.0,
+          "favorable": true,
+          "forecast": 3619750000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 1194250000.0,
+          "variance_pct": 32.9926
+        },
+        {
+          "actual": 2783000000.0,
+          "favorable": false,
+          "forecast": 2715500000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 67500000.0,
+          "variance_pct": 2.4857
+        },
+        {
+          "actual": 2031000000.0,
+          "favorable": true,
+          "forecast": 904250000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 1126750000.0,
+          "variance_pct": 124.606
+        }
+      ],
+      "memo": null,
+      "quarter": "2024-Q4",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 41888.0744,
+          "automotive_leasing": 428670756.6462,
+          "automotive_regulatory_credits": 835043321.2996,
+          "automotive_sales": 21593353442.4368,
+          "deliveries": 515501.2199,
+          "energy_generation_and_storage": 3224516998.0757,
+          "free_cash_flow": 904250000.0,
+          "gross_margin": 0.1821,
+          "gross_profit": 5327094084.2896,
+          "gross_profit_automotive": 4338067869.0323,
+          "gross_profit_energy": 818622313.9269,
+          "gross_profit_services": 170403901.3303,
+          "net_cash_from_operating_activities": 3619750000.0,
+          "operating_expenses": 2397116818.5584,
+          "operating_income": 2929977265.7312,
+          "purchases_of_property_and_equipment": 2715500000.0,
+          "research_and_development": 975013350.5599,
+          "selling_general_and_administrative": 1210846368.7151,
+          "services_and_other": 3172562326.8698,
+          "total_revenue": 29254146845.3281
+        },
+        "bear": {
+          "automotive_asp": 39793.6707,
+          "automotive_leasing": 428670756.6462,
+          "automotive_regulatory_credits": 835043321.2996,
+          "automotive_sales": 18462317201.855,
+          "deliveries": 463951.0979,
+          "energy_generation_and_storage": 3224516998.0757,
+          "free_cash_flow": 904250000.0,
+          "gross_margin": 0.1721,
+          "gross_profit": 4495787335.0768,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3619750000.0,
+          "operating_expenses": 2397116818.5584,
+          "operating_income": 2098670516.5184,
+          "purchases_of_property_and_equipment": 2715500000.0,
+          "research_and_development": 975013350.5599,
+          "selling_general_and_administrative": 1210846368.7151,
+          "services_and_other": 3172562326.8698,
+          "total_revenue": 26123110604.7463
+        },
+        "bull": {
+          "automotive_asp": 43982.4781,
+          "automotive_leasing": 428670756.6462,
+          "automotive_regulatory_credits": 835043321.2996,
+          "automotive_sales": 24940323237.5936,
+          "deliveries": 567051.3419,
+          "energy_generation_and_storage": 3224516998.0757,
+          "free_cash_flow": 904250000.0,
+          "gross_margin": 0.1921,
+          "gross_profit": 6262674506.6371,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3619750000.0,
+          "operating_expenses": 2397116818.5584,
+          "operating_income": 3865557688.0787,
+          "purchases_of_property_and_equipment": 2715500000.0,
+          "research_and_development": 975013350.5599,
+          "selling_general_and_administrative": 1210846368.7151,
+          "services_and_other": 3172562326.8698,
+          "total_revenue": 32601116640.4849
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": false,
+            "label": "Operating cash flow",
+            "value": -1574750000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": true,
+            "label": "Capital expenditures",
+            "value": 1342750000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -974134430.4265
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -623060375.8167
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -97578560.3383
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -1694773366.5815
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": false,
+            "label": "R&D",
+            "value": -85179159.0494
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 69693359.375
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 97511915.9339
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -2397135676.6056
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -763147043.2196
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -508923787.5289
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 38665500.0
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -2637393258.267
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -824699907.6639
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 40656.1316,
+        "automotive_leasing": 408334500.0,
+        "automotive_regulatory_credits": 1103923787.5289,
+        "deliveries": 395642.2337,
+        "energy_generation_and_storage": 5367393254.5202,
+        "gross_margin": 0.1834,
+        "operating_expenses": 2836026116.2595,
+        "services_and_other": 3462699907.6639
+      },
+      "filing": {
+        "accession": "0001628280-25-018911",
+        "filing_date": "2025-04-23",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025018911/tsla-20250331.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q1 2025",
+      "lines": [
+        {
+          "actual": 336681.0,
+          "favorable": false,
+          "forecast": 395642.2337,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -58961.2337,
+          "variance_pct": -14.9027
+        },
+        {
+          "actual": 38389.4547,
+          "favorable": false,
+          "forecast": 40656.1316,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -2266.6769,
+          "variance_pct": -5.5752
+        },
+        {
+          "actual": 12925000000.0,
+          "favorable": false,
+          "forecast": 16085282723.572,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -3160282723.572,
+          "variance_pct": -19.647
+        },
+        {
+          "actual": 595000000.0,
+          "favorable": false,
+          "forecast": 1103923787.5289,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -508923787.5289,
+          "variance_pct": -46.1014
+        },
+        {
+          "actual": 447000000.0,
+          "favorable": true,
+          "forecast": 408334500.0,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 38665500.0,
+          "variance_pct": 9.4691
+        },
+        {
+          "actual": 2730000000.0,
+          "favorable": false,
+          "forecast": 5367393254.5202,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -2637393254.5202,
+          "variance_pct": -49.1373
+        },
+        {
+          "actual": 2638000000.0,
+          "favorable": false,
+          "forecast": 3462699907.6639,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -824699907.6639,
+          "variance_pct": -23.8167
+        },
+        {
+          "actual": 19335000000.0,
+          "favorable": false,
+          "forecast": 26427634173.285,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -7092634173.285,
+          "variance_pct": -26.8379
+        },
+        {
+          "actual": 3153000000.0,
+          "favorable": false,
+          "forecast": 4847773366.5815,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -1694773366.5815,
+          "variance_pct": -34.9598
+        },
+        {
+          "actual": 16.3072,
+          "favorable": false,
+          "forecast": 18.34,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -2.0328,
+          "variance_pct": -11.084
+        },
+        {
+          "actual": 1409000000.0,
+          "favorable": false,
+          "forecast": 1323820840.9506,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": 85179159.0494,
+          "variance_pct": 6.4343
+        },
+        {
+          "actual": 1251000000.0,
+          "favorable": true,
+          "forecast": 1320693359.375,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -69693359.375,
+          "variance_pct": -5.277
+        },
+        {
+          "actual": 2754000000.0,
+          "favorable": true,
+          "forecast": 2836026116.2595,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -82026116.2595,
+          "variance_pct": -2.8923
+        },
+        {
+          "actual": 399000000.0,
+          "favorable": false,
+          "forecast": 2011747250.322,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -1612747250.322,
+          "variance_pct": -80.1665
+        },
+        {
+          "actual": 2156000000.0,
+          "favorable": false,
+          "forecast": 3730750000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": -1574750000.0,
+          "variance_pct": -42.21
+        },
+        {
+          "actual": 1492000000.0,
+          "favorable": true,
+          "forecast": 2834750000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": -1342750000.0,
+          "variance_pct": -47.3675
+        },
+        {
+          "actual": 664000000.0,
+          "favorable": false,
+          "forecast": 896000000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -232000000.0,
+          "variance_pct": -25.8929
+        }
+      ],
+      "memo": null,
+      "quarter": "2025-Q1",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 40656.1316,
+          "automotive_leasing": 408334500.0,
+          "automotive_regulatory_credits": 1103923787.5289,
+          "automotive_sales": 16085282723.572,
+          "deliveries": 395642.2337,
+          "energy_generation_and_storage": 5367393254.5202,
+          "free_cash_flow": 896000000.0,
+          "gross_margin": 0.1834,
+          "gross_profit": 4847773366.5815,
+          "gross_profit_automotive": 3241134430.4265,
+          "gross_profit_energy": 1408060375.8167,
+          "gross_profit_services": 198578560.3383,
+          "net_cash_from_operating_activities": 3730750000.0,
+          "operating_expenses": 2836026116.2595,
+          "operating_income": 2011747250.322,
+          "purchases_of_property_and_equipment": 2834750000.0,
+          "research_and_development": 1323820840.9506,
+          "selling_general_and_administrative": 1320693359.375,
+          "services_and_other": 3462699907.6639,
+          "total_revenue": 26427634173.285
+        },
+        "bear": {
+          "automotive_asp": 38623.325,
+          "automotive_leasing": 408334500.0,
+          "automotive_regulatory_credits": 1103923787.5289,
+          "automotive_sales": 13752916725.4505,
+          "deliveries": 356078.0103,
+          "energy_generation_and_storage": 5367393254.5202,
+          "free_cash_flow": 896000000.0,
+          "gross_margin": 0.1734,
+          "gross_profit": 4178119501.5734,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3730750000.0,
+          "operating_expenses": 2836026116.2595,
+          "operating_income": 1342093385.3139,
+          "purchases_of_property_and_equipment": 2834750000.0,
+          "research_and_development": 1323820840.9506,
+          "selling_general_and_administrative": 1320693359.375,
+          "services_and_other": 3462699907.6639,
+          "total_revenue": 24095268175.1635
+        },
+        "bull": {
+          "automotive_asp": 42688.9382,
+          "automotive_leasing": 408334500.0,
+          "automotive_regulatory_credits": 1103923787.5289,
+          "automotive_sales": 18578501541.3981,
+          "deliveries": 435206.4571,
+          "energy_generation_and_storage": 5367393254.5202,
+          "free_cash_flow": 896000000.0,
+          "gross_margin": 0.1934,
+          "gross_profit": 5593292968.4809,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3730750000.0,
+          "operating_expenses": 2836026116.2595,
+          "operating_income": 2757266852.2214,
+          "purchases_of_property_and_equipment": 2834750000.0,
+          "research_and_development": 1323820840.9506,
+          "selling_general_and_administrative": 1320693359.375,
+          "services_and_other": 3462699907.6639,
+          "total_revenue": 28920852991.1111
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": false,
+            "label": "Operating cash flow",
+            "value": -1669250000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": true,
+            "label": "Capital expenditures",
+            "value": 119500000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -117875209.3952
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -426313101.3365
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -16176266.8556
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -560364577.5872
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": false,
+            "label": "R&D",
+            "value": -120628583.8401
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": false,
+            "label": "SG&A",
+            "value": -221753820.9607
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 278537058.2661
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -91079744.0326
+          },
+          {
+            "driver": "price_mix",
+            "favorable": true,
+            "label": "Price and mix",
+            "value": 569931144.3172
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -542346153.8462
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 12885504.2017
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -1878298173.6535
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -91236888.1119
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 39615.1974,
+        "automotive_leasing": 422114495.7983,
+        "automotive_regulatory_credits": 981346153.8462,
+        "deliveries": 386421.1112,
+        "energy_generation_and_storage": 4667298165.1376,
+        "gross_margin": 0.181,
+        "operating_expenses": 2891154653.4653,
+        "services_and_other": 3137236888.1119
+      },
+      "filing": {
+        "accession": "0001628280-25-035806",
+        "filing_date": "2025-07-24",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025035806/tsla-20250630.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q2 2025",
+      "lines": [
+        {
+          "actual": 384122.0,
+          "favorable": false,
+          "forecast": 386421.1112,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -2299.1112,
+          "variance_pct": -0.595
+        },
+        {
+          "actual": 41098.9217,
+          "favorable": true,
+          "forecast": 39615.1974,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": 1483.7243,
+          "variance_pct": 3.7453
+        },
+        {
+          "actual": 15787000000.0,
+          "favorable": true,
+          "forecast": 15308148608.2313,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 478851391.7687,
+          "variance_pct": 3.1281
+        },
+        {
+          "actual": 439000000.0,
+          "favorable": false,
+          "forecast": 981346153.8462,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -542346153.8462,
+          "variance_pct": -55.2655
+        },
+        {
+          "actual": 435000000.0,
+          "favorable": true,
+          "forecast": 422114495.7983,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 12885504.2017,
+          "variance_pct": 3.0526
+        },
+        {
+          "actual": 2789000000.0,
+          "favorable": false,
+          "forecast": 4667298165.1376,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -1878298165.1376,
+          "variance_pct": -40.2438
+        },
+        {
+          "actual": 3046000000.0,
+          "favorable": false,
+          "forecast": 3137236888.1119,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -91236888.1119,
+          "variance_pct": -2.9082
+        },
+        {
+          "actual": 22496000000.0,
+          "favorable": false,
+          "forecast": 24516144311.1253,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -2020144311.1253,
+          "variance_pct": -8.2401
+        },
+        {
+          "actual": 3878000000.0,
+          "favorable": false,
+          "forecast": 4438364577.5873,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -560364577.5873,
+          "variance_pct": -12.6255
+        },
+        {
+          "actual": 17.2386,
+          "favorable": false,
+          "forecast": 18.1,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -0.8614,
+          "variance_pct": -4.7591
+        },
+        {
+          "actual": 1589000000.0,
+          "favorable": false,
+          "forecast": 1468371416.1599,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": 120628583.8401,
+          "variance_pct": 8.2151
+        },
+        {
+          "actual": 1366000000.0,
+          "favorable": false,
+          "forecast": 1144246179.0393,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": 221753820.9607,
+          "variance_pct": 19.3799
+        },
+        {
+          "actual": 2955000000.0,
+          "favorable": false,
+          "forecast": 2891154653.4653,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": 63845346.5347,
+          "variance_pct": 2.2083
+        },
+        {
+          "actual": 923000000.0,
+          "favorable": false,
+          "forecast": 1547209924.1219,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -624209924.1219,
+          "variance_pct": -40.3442
+        },
+        {
+          "actual": 2540000000.0,
+          "favorable": false,
+          "forecast": 4209250000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": -1669250000.0,
+          "variance_pct": -39.6567
+        },
+        {
+          "actual": 2394000000.0,
+          "favorable": true,
+          "forecast": 2513500000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": -119500000.0,
+          "variance_pct": -4.7543
+        },
+        {
+          "actual": 146000000.0,
+          "favorable": false,
+          "forecast": 1695750000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -1549750000.0,
+          "variance_pct": -91.3902
+        }
+      ],
+      "memo": null,
+      "quarter": "2025-Q2",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 39615.1974,
+          "automotive_leasing": 422114495.7983,
+          "automotive_regulatory_credits": 981346153.8462,
+          "automotive_sales": 15308148608.2313,
+          "deliveries": 386421.1112,
+          "energy_generation_and_storage": 4667298165.1376,
+          "free_cash_flow": 1695750000.0,
+          "gross_margin": 0.181,
+          "gross_profit": 4438364577.5873,
+          "gross_profit_automotive": 2983875209.3952,
+          "gross_profit_energy": 1272313101.3365,
+          "gross_profit_services": 182176266.8556,
+          "net_cash_from_operating_activities": 4209250000.0,
+          "operating_expenses": 2891154653.4653,
+          "operating_income": 1547209924.1219,
+          "purchases_of_property_and_equipment": 2513500000.0,
+          "research_and_development": 1468371416.1599,
+          "selling_general_and_administrative": 1144246179.0393,
+          "services_and_other": 3137236888.1119,
+          "total_revenue": 24516144311.1253
+        },
+        "bear": {
+          "automotive_asp": 37634.4375,
+          "automotive_leasing": 422114495.7983,
+          "automotive_regulatory_credits": 981346153.8462,
+          "automotive_sales": 13088467052.7566,
+          "deliveries": 347779.0001,
+          "energy_generation_and_storage": 4667298165.1376,
+          "free_cash_flow": 1695750000.0,
+          "gross_margin": 0.171,
+          "gross_profit": 3812695131.2163,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4209250000.0,
+          "operating_expenses": 2891154653.4653,
+          "operating_income": 921540477.751,
+          "purchases_of_property_and_equipment": 2513500000.0,
+          "research_and_development": 1468371416.1599,
+          "selling_general_and_administrative": 1144246179.0393,
+          "services_and_other": 3137236888.1119,
+          "total_revenue": 22296462755.6506
+        },
+        "bull": {
+          "automotive_asp": 41595.9573,
+          "automotive_leasing": 422114495.7983,
+          "automotive_regulatory_credits": 981346153.8462,
+          "automotive_sales": 17680911632.6712,
+          "deliveries": 425063.2223,
+          "energy_generation_and_storage": 4667298165.1376,
+          "free_cash_flow": 1695750000.0,
+          "gross_margin": 0.191,
+          "gross_profit": 5135781301.093,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4209250000.0,
+          "operating_expenses": 2891154653.4653,
+          "operating_income": 2244626647.6277,
+          "purchases_of_property_and_equipment": 2513500000.0,
+          "research_and_development": 1468371416.1599,
+          "selling_general_and_administrative": 1144246179.0393,
+          "services_and_other": 3137236888.1119,
+          "total_revenue": 26888907335.5652
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 2296750000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": true,
+            "label": "Capital expenditures",
+            "value": 296000000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": true,
+            "label": "Automotive",
+            "value": 716305673.9691
+          },
+          {
+            "driver": "energy",
+            "favorable": true,
+            "label": "Energy",
+            "value": 345450621.2834
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 181912728.5999
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": true,
+            "label": "Gross profit",
+            "value": 1243669023.8523
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 335166899.4413
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": false,
+            "label": "SG&A",
+            "value": -193860610.8066
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": false,
+            "label": "Restructuring and other",
+            "value": -941077983.892
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": true,
+            "label": "Volume",
+            "value": 3811181094.1876
+          },
+          {
+            "driver": "price_mix",
+            "favorable": true,
+            "label": "Price and mix",
+            "value": 745792327.4152
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": true,
+            "label": "Regulatory credits",
+            "value": 113029494.382
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 7534388.6463
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": true,
+            "label": "Energy generation and storage",
+            "value": 880470802.9197
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 169132285.2761
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 39455.3352,
+        "automotive_leasing": 421465611.3537,
+        "automotive_regulatory_credits": 303970505.618,
+        "deliveries": 400504.1774,
+        "energy_generation_and_storage": 2534529197.0803,
+        "gross_margin": 0.1703,
+        "operating_expenses": 2630228304.7427,
+        "services_and_other": 3305867714.7239
+      },
+      "filing": {
+        "accession": "0001628280-25-045968",
+        "filing_date": "2025-10-23",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025045968/tsla-20250930.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q3 2025",
+      "lines": [
+        {
+          "actual": 497099.0,
+          "favorable": true,
+          "forecast": 400504.1774,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": 96594.8226,
+          "variance_pct": 24.1183
+        },
+        {
+          "actual": 40955.6245,
+          "favorable": true,
+          "forecast": 39455.3352,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": 1500.2893,
+          "variance_pct": 3.8025
+        },
+        {
+          "actual": 20359000000.0,
+          "favorable": true,
+          "forecast": 15802026578.3972,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 4556973421.6028,
+          "variance_pct": 28.8379
+        },
+        {
+          "actual": 417000000.0,
+          "favorable": true,
+          "forecast": 303970505.618,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": 113029494.382,
+          "variance_pct": 37.1844
+        },
+        {
+          "actual": 429000000.0,
+          "favorable": true,
+          "forecast": 421465611.3537,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 7534388.6463,
+          "variance_pct": 1.7877
+        },
+        {
+          "actual": 3415000000.0,
+          "favorable": true,
+          "forecast": 2534529197.0803,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": 880470802.9197,
+          "variance_pct": 34.739
+        },
+        {
+          "actual": 3475000000.0,
+          "favorable": true,
+          "forecast": 3305867714.7239,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": 169132285.2761,
+          "variance_pct": 5.1161
+        },
+        {
+          "actual": 28095000000.0,
+          "favorable": true,
+          "forecast": 22367859607.1731,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": 5727140392.8269,
+          "variance_pct": 25.6043
+        },
+        {
+          "actual": 5054000000.0,
+          "favorable": true,
+          "forecast": 3810330976.1476,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": 1243669023.8524,
+          "variance_pct": 32.6394
+        },
+        {
+          "actual": 17.989,
+          "favorable": true,
+          "forecast": 17.03,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 0.959,
+          "variance_pct": 5.6312
+        },
+        {
+          "actual": 1630000000.0,
+          "favorable": true,
+          "forecast": 1965166899.4413,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -335166899.4413,
+          "variance_pct": -17.0554
+        },
+        {
+          "actual": 1562000000.0,
+          "favorable": false,
+          "forecast": 1368139389.1934,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": 193860610.8066,
+          "variance_pct": 14.1697
+        },
+        {
+          "actual": 3430000000.0,
+          "favorable": false,
+          "forecast": 2630228304.7427,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": 799771695.2573,
+          "variance_pct": 30.4069
+        },
+        {
+          "actual": 1624000000.0,
+          "favorable": true,
+          "forecast": 1180102671.405,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 443897328.595,
+          "variance_pct": 37.6151
+        },
+        {
+          "actual": 6238000000.0,
+          "favorable": true,
+          "forecast": 3941250000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 2296750000.0,
+          "variance_pct": 58.2747
+        },
+        {
+          "actual": 2248000000.0,
+          "favorable": true,
+          "forecast": 2544000000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": -296000000.0,
+          "variance_pct": -11.6352
+        },
+        {
+          "actual": 3990000000.0,
+          "favorable": true,
+          "forecast": 1397250000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 2592750000.0,
+          "variance_pct": 185.5609
+        }
+      ],
+      "memo": null,
+      "quarter": "2025-Q3",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 39455.3352,
+          "automotive_leasing": 421465611.3537,
+          "automotive_regulatory_credits": 303970505.618,
+          "automotive_sales": 15802026578.3972,
+          "deliveries": 400504.1774,
+          "energy_generation_and_storage": 2534529197.0803,
+          "free_cash_flow": 1397250000.0,
+          "gross_margin": 0.1703,
+          "gross_profit": 3810330976.1476,
+          "gross_profit_automotive": 2898694326.0309,
+          "gross_profit_energy": 727549378.7166,
+          "gross_profit_services": 184087271.4001,
+          "net_cash_from_operating_activities": 3941250000.0,
+          "operating_expenses": 2630228304.7427,
+          "operating_income": 1180102671.405,
+          "purchases_of_property_and_equipment": 2544000000.0,
+          "research_and_development": 1965166899.4413,
+          "selling_general_and_administrative": 1368139389.1934,
+          "services_and_other": 3305867714.7239,
+          "total_revenue": 22367859607.1731
+        },
+        "bear": {
+          "automotive_asp": 37482.5684,
+          "automotive_leasing": 421465611.3537,
+          "automotive_regulatory_credits": 303970505.618,
+          "automotive_sales": 13510732715.9113,
+          "deliveries": 360453.7597,
+          "energy_generation_and_storage": 2534529197.0803,
+          "free_cash_flow": 1397250000.0,
+          "gross_margin": 0.1603,
+          "gross_profit": 3218273488.8734,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3941250000.0,
+          "operating_expenses": 2630228304.7427,
+          "operating_income": 588045184.1307,
+          "purchases_of_property_and_equipment": 2544000000.0,
+          "research_and_development": 1965166899.4413,
+          "selling_general_and_administrative": 1368139389.1934,
+          "services_and_other": 3305867714.7239,
+          "total_revenue": 20076565744.6872
+        },
+        "bull": {
+          "automotive_asp": 41428.102,
+          "automotive_leasing": 421465611.3537,
+          "automotive_regulatory_credits": 303970505.618,
+          "automotive_sales": 18251340686.4064,
+          "deliveries": 440554.5951,
+          "energy_generation_and_storage": 2534529197.0803,
+          "free_cash_flow": 1397250000.0,
+          "gross_margin": 0.1803,
+          "gross_profit": 4474536420.8474,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3941250000.0,
+          "operating_expenses": 2630228304.7427,
+          "operating_income": 1844308116.1047,
+          "purchases_of_property_and_equipment": 2544000000.0,
+          "research_and_development": 1965166899.4413,
+          "selling_general_and_administrative": 1368139389.1934,
+          "services_and_other": 3305867714.7239,
+          "total_revenue": 24817173715.1823
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": false,
+            "label": "Operating cash flow",
+            "value": -124000000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -165250000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -36525295.7917
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -148998163.7777
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 73776868.9352
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -111746590.6342
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 532572666.025
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 153284991.5683
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 127634666.9681
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -4504426189.9272
+          },
+          {
+            "driver": "price_mix",
+            "favorable": true,
+            "label": "Price and mix",
+            "value": 220038502.0405
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": true,
+            "label": "Regulatory credits",
+            "value": 239689106.9012
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": false,
+            "label": "Leasing",
+            "value": -21747757.8475
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -473072074.9158
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -367738799.2832
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 39523.8985,
+        "automotive_leasing": 422747757.8475,
+        "automotive_regulatory_credits": 302310893.0988,
+        "deliveries": 532194.1529,
+        "energy_generation_and_storage": 4310072074.9158,
+        "gross_margin": 0.1718,
+        "operating_expenses": 4413492324.5614,
+        "services_and_other": 3738738799.2832
+      },
+      "filing": {
+        "accession": "0001628280-26-003952",
+        "filing_date": "2026-01-29",
+        "form": "10-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q4 2025",
+      "lines": [
+        {
+          "actual": 418227.0,
+          "favorable": false,
+          "forecast": 532194.1529,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -113967.1529,
+          "variance_pct": -21.4146
+        },
+        {
+          "actual": 40050.0207,
+          "favorable": true,
+          "forecast": 39523.8985,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": 526.1222,
+          "variance_pct": 1.3311
+        },
+        {
+          "actual": 16750000000.0,
+          "favorable": false,
+          "forecast": 21034387687.8867,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -4284387687.8867,
+          "variance_pct": -20.3685
+        },
+        {
+          "actual": 542000000.0,
+          "favorable": true,
+          "forecast": 302310893.0988,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": 239689106.9012,
+          "variance_pct": 79.2856
+        },
+        {
+          "actual": 401000000.0,
+          "favorable": false,
+          "forecast": 422747757.8475,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": -21747757.8475,
+          "variance_pct": -5.1444
+        },
+        {
+          "actual": 3837000000.0,
+          "favorable": false,
+          "forecast": 4310072074.9158,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -473072074.9158,
+          "variance_pct": -10.976
+        },
+        {
+          "actual": 3371000000.0,
+          "favorable": false,
+          "forecast": 3738738799.2832,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -367738799.2832,
+          "variance_pct": -9.8359
+        },
+        {
+          "actual": 24901000000.0,
+          "favorable": false,
+          "forecast": 29808257213.032,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -4907257213.032,
+          "variance_pct": -16.4627
+        },
+        {
+          "actual": 5009000000.0,
+          "favorable": false,
+          "forecast": 5120746590.6342,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -111746590.6342,
+          "variance_pct": -2.1822
+        },
+        {
+          "actual": 20.1157,
+          "favorable": true,
+          "forecast": 17.18,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 2.9357,
+          "variance_pct": 17.0879
+        },
+        {
+          "actual": 1783000000.0,
+          "favorable": true,
+          "forecast": 2315572666.025,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -532572666.025,
+          "variance_pct": -22.9996
+        },
+        {
+          "actual": 1655000000.0,
+          "favorable": true,
+          "forecast": 1808284991.5683,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -153284991.5683,
+          "variance_pct": -8.4768
+        },
+        {
+          "actual": 3600000000.0,
+          "favorable": true,
+          "forecast": 4413492324.5614,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -813492324.5614,
+          "variance_pct": -18.4319
+        },
+        {
+          "actual": 1409000000.0,
+          "favorable": true,
+          "forecast": 707254266.0728,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 701745733.9272,
+          "variance_pct": 99.2211
+        },
+        {
+          "actual": 3813000000.0,
+          "favorable": false,
+          "forecast": 3937000000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": -124000000.0,
+          "variance_pct": -3.1496
+        },
+        {
+          "actual": 2393000000.0,
+          "favorable": false,
+          "forecast": 2227750000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 165250000.0,
+          "variance_pct": 7.4178
+        },
+        {
+          "actual": 1420000000.0,
+          "favorable": false,
+          "forecast": 1709250000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -289250000.0,
+          "variance_pct": -16.9226
+        }
+      ],
+      "memo": null,
+      "quarter": "2025-Q4",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 39523.8985,
+          "automotive_leasing": 422747757.8475,
+          "automotive_regulatory_credits": 302310893.0988,
+          "automotive_sales": 21034387687.8867,
+          "deliveries": 532194.1529,
+          "energy_generation_and_storage": 4310072074.9158,
+          "free_cash_flow": 1709250000.0,
+          "gross_margin": 0.1718,
+          "gross_profit": 5120746590.6342,
+          "gross_profit_automotive": 3649525295.7917,
+          "gross_profit_energy": 1246998163.7777,
+          "gross_profit_services": 224223131.0648,
+          "net_cash_from_operating_activities": 3937000000.0,
+          "operating_expenses": 4413492324.5614,
+          "operating_income": 707254266.0728,
+          "purchases_of_property_and_equipment": 2227750000.0,
+          "research_and_development": 2315572666.025,
+          "selling_general_and_administrative": 1808284991.5683,
+          "services_and_other": 3738738799.2832,
+          "total_revenue": 29808257213.032
+        },
+        "bear": {
+          "automotive_asp": 37547.7036,
+          "automotive_leasing": 422747757.8475,
+          "automotive_regulatory_credits": 302310893.0988,
+          "automotive_sales": 17984401467.6937,
+          "deliveries": 478974.7376,
+          "energy_generation_and_storage": 4310072074.9158,
+          "free_cash_flow": 1709250000.0,
+          "gross_margin": 0.1618,
+          "gross_profit": 4329488246.6413,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3937000000.0,
+          "operating_expenses": 4413492324.5614,
+          "operating_income": -84004077.9201,
+          "purchases_of_property_and_equipment": 2227750000.0,
+          "research_and_development": 2315572666.025,
+          "selling_general_and_administrative": 1808284991.5683,
+          "services_and_other": 3738738799.2832,
+          "total_revenue": 26758270992.839
+        },
+        "bull": {
+          "automotive_asp": 41500.0934,
+          "automotive_leasing": 422747757.8475,
+          "automotive_regulatory_credits": 302310893.0988,
+          "automotive_sales": 24294717772.1476,
+          "deliveries": 585413.5682,
+          "energy_generation_and_storage": 4310072074.9158,
+          "free_cash_flow": 1709250000.0,
+          "gross_margin": 0.1818,
+          "gross_profit": 6011869170.6479,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3937000000.0,
+          "operating_expenses": 4413492324.5614,
+          "operating_income": 1598376846.0865,
+          "purchases_of_property_and_equipment": 2227750000.0,
+          "research_and_development": 2315572666.025,
+          "selling_general_and_administrative": 1808284991.5683,
+          "services_and_other": 3738738799.2832,
+          "total_revenue": 33068587297.2929
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 250250000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -361250000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": true,
+            "label": "Automotive",
+            "value": 1263990246.1435
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -239883780.8801
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 80424343.5927
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": true,
+            "label": "Gross profit",
+            "value": 1104530808.8561
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 293579349.5298
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 5398705.2551
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 338470327.3414
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": true,
+            "label": "Volume",
+            "value": 2964621062.8199
+          },
+          {
+            "driver": "price_mix",
+            "favorable": true,
+            "label": "Price and mix",
+            "value": 1107862226.1758
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -10247832.3699
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": false,
+            "label": "Leasing",
+            "value": -2955257.2707
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -1594150196.0144
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 37255091.2921
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 40123.5054,
+        "automotive_leasing": 383955257.2707,
+        "automotive_regulatory_credits": 390247832.3699,
+        "deliveries": 284135.6107,
+        "energy_generation_and_storage": 4002150196.0144,
+        "gross_margin": 0.1818,
+        "operating_expenses": 4416448382.1263,
+        "services_and_other": 3707744908.7079
+      },
+      "filing": {
+        "accession": "0001628280-26-026673",
+        "filing_date": "2026-04-23",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q1 2026",
+      "lines": [
+        {
+          "actual": 358023.0,
+          "favorable": true,
+          "forecast": 284135.6107,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": 73887.3893,
+          "variance_pct": 26.0043
+        },
+        {
+          "actual": 43217.8938,
+          "favorable": true,
+          "forecast": 40123.5054,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": 3094.3884,
+          "variance_pct": 7.7122
+        },
+        {
+          "actual": 15473000000.0,
+          "favorable": true,
+          "forecast": 11400516711.0043,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 4072483288.9957,
+          "variance_pct": 35.7219
+        },
+        {
+          "actual": 380000000.0,
+          "favorable": false,
+          "forecast": 390247832.3699,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -10247832.3699,
+          "variance_pct": -2.626
+        },
+        {
+          "actual": 381000000.0,
+          "favorable": false,
+          "forecast": 383955257.2707,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": -2955257.2707,
+          "variance_pct": -0.7697
+        },
+        {
+          "actual": 2408000000.0,
+          "favorable": false,
+          "forecast": 4002150196.0144,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -1594150196.0144,
+          "variance_pct": -39.8323
+        },
+        {
+          "actual": 3745000000.0,
+          "favorable": true,
+          "forecast": 3707744908.7079,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": 37255091.2921,
+          "variance_pct": 1.0048
+        },
+        {
+          "actual": 22387000000.0,
+          "favorable": true,
+          "forecast": 19884614905.3672,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": 2502385094.6328,
+          "variance_pct": 12.5845
+        },
+        {
+          "actual": 4720000000.0,
+          "favorable": true,
+          "forecast": 3615469191.1439,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": 1104530808.8561,
+          "variance_pct": 30.5501
+        },
+        {
+          "actual": 21.0837,
+          "favorable": true,
+          "forecast": 18.18,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 2.9037,
+          "variance_pct": 15.9719
+        },
+        {
+          "actual": 1946000000.0,
+          "favorable": true,
+          "forecast": 2239579349.5298,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -293579349.5298,
+          "variance_pct": -13.1087
+        },
+        {
+          "actual": 1833000000.0,
+          "favorable": true,
+          "forecast": 1838398705.2551,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -5398705.2551,
+          "variance_pct": -0.2937
+        },
+        {
+          "actual": 3779000000.0,
+          "favorable": true,
+          "forecast": 4416448382.1263,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -637448382.1263,
+          "variance_pct": -14.4335
+        },
+        {
+          "actual": 941000000.0,
+          "favorable": true,
+          "forecast": -800979190.9824,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 1741979190.9824,
+          "variance_pct": 217.4812
+        },
+        {
+          "actual": 3937000000.0,
+          "favorable": true,
+          "forecast": 3686750000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 250250000.0,
+          "variance_pct": 6.7878
+        },
+        {
+          "actual": 2493000000.0,
+          "favorable": false,
+          "forecast": 2131750000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 361250000.0,
+          "variance_pct": 16.9462
+        },
+        {
+          "actual": 1444000000.0,
+          "favorable": false,
+          "forecast": 1555000000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -111000000.0,
+          "variance_pct": -7.1383
+        }
+      ],
+      "memo": null,
+      "quarter": "2026-Q1",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 40123.5054,
+          "automotive_leasing": 383955257.2707,
+          "automotive_regulatory_credits": 390247832.3699,
+          "automotive_sales": 11400516711.0043,
+          "deliveries": 284135.6107,
+          "energy_generation_and_storage": 4002150196.0144,
+          "free_cash_flow": 1555000000.0,
+          "gross_margin": 0.1818,
+          "gross_profit": 3615469191.1439,
+          "gross_profit_automotive": 2158009753.8565,
+          "gross_profit_energy": 1191883780.8801,
+          "gross_profit_services": 265575656.4073,
+          "net_cash_from_operating_activities": 3686750000.0,
+          "operating_expenses": 4416448382.1263,
+          "operating_income": -800979190.9824,
+          "purchases_of_property_and_equipment": 2131750000.0,
+          "research_and_development": 2239579349.5298,
+          "selling_general_and_administrative": 1838398705.2551,
+          "services_and_other": 3707744908.7079,
+          "total_revenue": 19884614905.3672
+        },
+        "bear": {
+          "automotive_asp": 38117.3301,
+          "automotive_leasing": 383955257.2707,
+          "automotive_regulatory_credits": 390247832.3699,
+          "automotive_sales": 9747441787.267,
+          "deliveries": 255722.0496,
+          "energy_generation_and_storage": 4002150196.0144,
+          "free_cash_flow": 1555000000.0,
+          "gross_margin": 0.1718,
+          "gross_profit": 3132178568.844,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3686750000.0,
+          "operating_expenses": 4416448382.1263,
+          "operating_income": -1284269813.2823,
+          "purchases_of_property_and_equipment": 2131750000.0,
+          "research_and_development": 2239579349.5298,
+          "selling_general_and_administrative": 1838398705.2551,
+          "services_and_other": 3707744908.7079,
+          "total_revenue": 18231539981.6299
+        },
+        "bull": {
+          "automotive_asp": 42129.6807,
+          "automotive_leasing": 383955257.2707,
+          "automotive_regulatory_credits": 390247832.3699,
+          "automotive_sales": 13167596800.3431,
+          "deliveries": 312549.1718,
+          "energy_generation_and_storage": 4002150196.0144,
+          "free_cash_flow": 1555000000.0,
+          "gross_margin": 0.1918,
+          "gross_profit": 4152795099.9846,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 3686750000.0,
+          "operating_expenses": 4416448382.1263,
+          "operating_income": -263653282.1417,
+          "purchases_of_property_and_equipment": 2131750000.0,
+          "research_and_development": 2239579349.5298,
+          "selling_general_and_administrative": 1838398705.2551,
+          "services_and_other": 3707744908.7079,
+          "total_revenue": 21651694994.706
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 565000000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -3407000000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": true,
+            "label": "Automotive",
+            "value": 145744273.7001
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -251523940.3084
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 235868037.4691
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": true,
+            "label": "Gross profit",
+            "value": 130088370.8608
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 28007806.9553
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 368225419.6643
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": false,
+            "label": "Restructuring and other",
+            "value": -27541505.4867
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": true,
+            "label": "Volume",
+            "value": 2961534674.7385
+          },
+          {
+            "driver": "price_mix",
+            "favorable": true,
+            "label": "Price and mix",
+            "value": 162097046.4848
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -137882352.9412
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 13258389.2617
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": true,
+            "label": "Energy generation and storage",
+            "value": 393835897.4359
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -258894332.8279
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 41330.6152,
+        "automotive_leasing": 350741610.7383,
+        "automotive_regulatory_credits": 283882352.9412,
+        "deliveries": 408471.2556,
+        "energy_generation_and_storage": 2745164102.5641,
+        "gross_margin": 0.1841,
+        "operating_expenses": 4721691721.1329,
+        "services_and_other": 4839894332.8279
+      },
+      "filing": {
+        "accession": "0001628280-26-049270",
+        "filing_date": "2026-07-23",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q2 2026",
+      "lines": [
+        {
+          "actual": 480126.0,
+          "favorable": true,
+          "forecast": 408471.2556,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": 71654.7444,
+          "variance_pct": 17.5422
+        },
+        {
+          "actual": 41668.2288,
+          "favorable": true,
+          "forecast": 41330.6152,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": 337.6136,
+          "variance_pct": 0.8169
+        },
+        {
+          "actual": 20006000000.0,
+          "favorable": true,
+          "forecast": 16882368278.7768,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": 3123631721.2232,
+          "variance_pct": 18.5023
+        },
+        {
+          "actual": 146000000.0,
+          "favorable": false,
+          "forecast": 283882352.9412,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -137882352.9412,
+          "variance_pct": -48.5702
+        },
+        {
+          "actual": 364000000.0,
+          "favorable": true,
+          "forecast": 350741610.7383,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 13258389.2617,
+          "variance_pct": 3.7801
+        },
+        {
+          "actual": 3139000000.0,
+          "favorable": true,
+          "forecast": 2745164102.5641,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": 393835897.4359,
+          "variance_pct": 14.3465
+        },
+        {
+          "actual": 4581000000.0,
+          "favorable": false,
+          "forecast": 4839894332.8279,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -258894332.8279,
+          "variance_pct": -5.3492
+        },
+        {
+          "actual": 28236000000.0,
+          "favorable": true,
+          "forecast": 25102050677.8482,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": 3133949322.1518,
+          "variance_pct": 12.4848
+        },
+        {
+          "actual": 4751000000.0,
+          "favorable": true,
+          "forecast": 4620911629.1392,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": 130088370.8608,
+          "variance_pct": 2.8152
+        },
+        {
+          "actual": 16.826,
+          "favorable": false,
+          "forecast": 18.41,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": -1.584,
+          "variance_pct": -8.604
+        },
+        {
+          "actual": 2371000000.0,
+          "favorable": true,
+          "forecast": 2399007806.9553,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -28007806.9553,
+          "variance_pct": -1.1675
+        },
+        {
+          "actual": 1982000000.0,
+          "favorable": true,
+          "forecast": 2350225419.6643,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -368225419.6643,
+          "variance_pct": -15.6677
+        },
+        {
+          "actual": 4353000000.0,
+          "favorable": true,
+          "forecast": 4721691721.1329,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -368691721.1329,
+          "variance_pct": -7.8085
+        },
+        {
+          "actual": 398000000.0,
+          "favorable": true,
+          "forecast": -100780091.9937,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": 498780091.9937,
+          "variance_pct": 494.9193
+        },
+        {
+          "actual": 4697000000.0,
+          "favorable": true,
+          "forecast": 4132000000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 565000000.0,
+          "variance_pct": 13.6738
+        },
+        {
+          "actual": 5789000000.0,
+          "favorable": false,
+          "forecast": 2382000000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 3407000000.0,
+          "variance_pct": 143.0311
+        },
+        {
+          "actual": -1092000000.0,
+          "favorable": false,
+          "forecast": 1750000000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": -2842000000.0,
+          "variance_pct": -162.4
+        }
+      ],
+      "memo": null,
+      "quarter": "2026-Q2",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 41330.6152,
+          "automotive_leasing": 350741610.7383,
+          "automotive_regulatory_credits": 283882352.9412,
+          "automotive_sales": 16882368278.7768,
+          "deliveries": 408471.2556,
+          "energy_generation_and_storage": 2745164102.5641,
+          "free_cash_flow": 1750000000.0,
+          "gross_margin": 0.1841,
+          "gross_profit": 4620911629.1392,
+          "gross_profit_automotive": 3317255726.2999,
+          "gross_profit_energy": 891523940.3083,
+          "gross_profit_services": 412131962.5309,
+          "net_cash_from_operating_activities": 4132000000.0,
+          "operating_expenses": 4721691721.1329,
+          "operating_income": -100780091.9937,
+          "purchases_of_property_and_equipment": 2382000000.0,
+          "research_and_development": 2399007806.9553,
+          "selling_general_and_administrative": 2350225419.6643,
+          "services_and_other": 4839894332.8279,
+          "total_revenue": 25102050677.8482
+        },
+        "bear": {
+          "automotive_asp": 39264.0844,
+          "automotive_leasing": 350741610.7383,
+          "automotive_regulatory_credits": 283882352.9412,
+          "automotive_sales": 14434424884.0721,
+          "deliveries": 367624.13,
+          "energy_generation_and_storage": 2745164102.5641,
+          "free_cash_flow": 1750000000.0,
+          "gross_margin": 0.1741,
+          "gross_profit": 3944080077.9953,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4132000000.0,
+          "operating_expenses": 4721691721.1329,
+          "operating_income": -777611643.1376,
+          "purchases_of_property_and_equipment": 2382000000.0,
+          "research_and_development": 2399007806.9553,
+          "selling_general_and_administrative": 2350225419.6643,
+          "services_and_other": 4839894332.8279,
+          "total_revenue": 22654107283.1436
+        },
+        "bull": {
+          "automotive_asp": 43397.146,
+          "automotive_leasing": 350741610.7383,
+          "automotive_regulatory_credits": 283882352.9412,
+          "automotive_sales": 19499135369.7114,
+          "deliveries": 449318.3812,
+          "energy_generation_and_storage": 2745164102.5641,
+          "free_cash_flow": 1750000000.0,
+          "gross_margin": 0.1941,
+          "gross_profit": 5380222528.9208,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4132000000.0,
+          "operating_expenses": 4721691721.1329,
+          "operating_income": 658530807.7879,
+          "purchases_of_property_and_equipment": 2382000000.0,
+          "research_and_development": 2399007806.9553,
+          "selling_general_and_administrative": 2350225419.6643,
+          "services_and_other": 4839894332.8279,
+          "total_revenue": 27718817768.7829
+        }
+      }
+    },
+    {
+      "bridges": {
+        "free_cash_flow": [
+          {
+            "driver": "net_cash_from_operating_activities",
+            "favorable": true,
+            "label": "Operating cash flow",
+            "value": 1591750000.0
+          },
+          {
+            "driver": "purchases_of_property_and_equipment",
+            "favorable": false,
+            "label": "Capital expenditures",
+            "value": -1501250000.0
+          }
+        ],
+        "gross_profit": [
+          {
+            "driver": "automotive",
+            "favorable": false,
+            "label": "Automotive",
+            "value": -1138571652.6845
+          },
+          {
+            "driver": "energy",
+            "favorable": false,
+            "label": "Energy",
+            "value": -126027430.4074
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": true,
+            "label": "Services and other",
+            "value": 124239988.8677
+          }
+        ],
+        "operating_income": [
+          {
+            "driver": "gross_profit",
+            "favorable": false,
+            "label": "Gross profit",
+            "value": -1140359094.2242
+          },
+          {
+            "driver": "research_and_development",
+            "favorable": true,
+            "label": "R&D",
+            "value": 122547828.8232
+          },
+          {
+            "driver": "selling_general_and_administrative",
+            "favorable": true,
+            "label": "SG&A",
+            "value": 535773060.0293
+          },
+          {
+            "driver": "restructuring_and_other",
+            "favorable": true,
+            "label": "Restructuring and other",
+            "value": 149451192.3658
+          }
+        ],
+        "revenue": [
+          {
+            "driver": "volume",
+            "favorable": false,
+            "label": "Volume",
+            "value": -5590861815.9812
+          },
+          {
+            "driver": "price_mix",
+            "favorable": false,
+            "label": "Price and mix",
+            "value": -83913368.4908
+          },
+          {
+            "driver": "automotive_regulatory_credits",
+            "favorable": false,
+            "label": "Regulatory credits",
+            "value": -10468109.3394
+          },
+          {
+            "driver": "automotive_leasing",
+            "favorable": true,
+            "label": "Leasing",
+            "value": 23517241.3793
+          },
+          {
+            "driver": "energy_generation_and_storage",
+            "favorable": false,
+            "label": "Energy generation and storage",
+            "value": -720296253.1373
+          },
+          {
+            "driver": "services_and_other",
+            "favorable": false,
+            "label": "Services and other",
+            "value": -1099442875.9028
+          }
+        ]
+      },
+      "drivers": {
+        "automotive_asp": 41472.9419,
+        "automotive_leasing": 329482758.6207,
+        "automotive_regulatory_credits": 123468109.3394,
+        "deliveries": 621339.4559,
+        "energy_generation_and_storage": 3601296253.1373,
+        "gross_margin": 0.1867,
+        "operating_expenses": 5583772081.2183,
+        "services_and_other": 5704442875.9028
+      },
+      "filing": {
+        "accession": "0001628280-26-066775",
+        "filing_date": "2026-10-22",
+        "form": "10-Q",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm"
+      },
+      "has_forecast": true,
+      "kind": "backtest",
+      "label": "Q3 2026",
+      "lines": [
+        {
+          "actual": 486532.0,
+          "favorable": false,
+          "forecast": 621339.4559,
+          "label": "Deliveries",
+          "metric": "deliveries",
+          "unit": "units",
+          "variance": -134807.4559,
+          "variance_pct": -21.6963
+        },
+        {
+          "actual": 41300.4694,
+          "favorable": false,
+          "forecast": 41472.9419,
+          "label": "Automotive ASP",
+          "metric": "automotive_asp",
+          "unit": "USD_per_unit",
+          "variance": -172.4725,
+          "variance_pct": -0.4159
+        },
+        {
+          "actual": 20094000000.0,
+          "favorable": false,
+          "forecast": 25768775184.472,
+          "label": "Automotive sales",
+          "metric": "automotive_sales",
+          "unit": "USD",
+          "variance": -5674775184.472,
+          "variance_pct": -22.0219
+        },
+        {
+          "actual": 113000000.0,
+          "favorable": false,
+          "forecast": 123468109.3394,
+          "label": "Regulatory credits",
+          "metric": "automotive_regulatory_credits",
+          "unit": "USD",
+          "variance": -10468109.3394,
+          "variance_pct": -8.4784
+        },
+        {
+          "actual": 353000000.0,
+          "favorable": true,
+          "forecast": 329482758.6207,
+          "label": "Leasing",
+          "metric": "automotive_leasing",
+          "unit": "USD",
+          "variance": 23517241.3793,
+          "variance_pct": 7.1376
+        },
+        {
+          "actual": 2881000000.0,
+          "favorable": false,
+          "forecast": 3601296253.1373,
+          "label": "Energy generation and storage",
+          "metric": "energy_generation_and_storage",
+          "unit": "USD",
+          "variance": -720296253.1373,
+          "variance_pct": -20.001
+        },
+        {
+          "actual": 4605000000.0,
+          "favorable": false,
+          "forecast": 5704442875.9028,
+          "label": "Services and other",
+          "metric": "services_and_other",
+          "unit": "USD",
+          "variance": -1099442875.9028,
+          "variance_pct": -19.2734
+        },
+        {
+          "actual": 28046000000.0,
+          "favorable": false,
+          "forecast": 35527465181.4722,
+          "label": "Total revenue",
+          "metric": "total_revenue",
+          "unit": "USD",
+          "variance": -7481465181.4722,
+          "variance_pct": -21.0583
+        },
+        {
+          "actual": 5494000000.0,
+          "favorable": false,
+          "forecast": 6634359094.2242,
+          "label": "Gross profit",
+          "metric": "gross_profit",
+          "unit": "USD",
+          "variance": -1140359094.2242,
+          "variance_pct": -17.1887
+        },
+        {
+          "actual": 19.5892,
+          "favorable": true,
+          "forecast": 18.67,
+          "label": "Gross margin",
+          "metric": "gross_margin",
+          "unit": "percent",
+          "variance": 0.9192,
+          "variance_pct": 4.9234
+        },
+        {
+          "actual": 2761000000.0,
+          "favorable": true,
+          "forecast": 2883547828.8232,
+          "label": "R&D",
+          "metric": "research_and_development",
+          "unit": "USD",
+          "variance": -122547828.8232,
+          "variance_pct": -4.2499
+        },
+        {
+          "actual": 2015000000.0,
+          "favorable": true,
+          "forecast": 2550773060.0293,
+          "label": "SG&A",
+          "metric": "selling_general_and_administrative",
+          "unit": "USD",
+          "variance": -535773060.0293,
+          "variance_pct": -21.0043
+        },
+        {
+          "actual": 4776000000.0,
+          "favorable": true,
+          "forecast": 5583772081.2183,
+          "label": "Operating expenses",
+          "metric": "operating_expenses",
+          "unit": "USD",
+          "variance": -807772081.2183,
+          "variance_pct": -14.4664
+        },
+        {
+          "actual": 718000000.0,
+          "favorable": false,
+          "forecast": 1050587013.0059,
+          "label": "Operating income",
+          "metric": "operating_income",
+          "unit": "USD",
+          "variance": -332587013.0059,
+          "variance_pct": -31.6573
+        },
+        {
+          "actual": 6263000000.0,
+          "favorable": true,
+          "forecast": 4671250000.0,
+          "label": "Operating cash flow",
+          "metric": "net_cash_from_operating_activities",
+          "unit": "USD",
+          "variance": 1591750000.0,
+          "variance_pct": 34.0755
+        },
+        {
+          "actual": 4732000000.0,
+          "favorable": false,
+          "forecast": 3230750000.0,
+          "label": "Capital expenditures",
+          "metric": "purchases_of_property_and_equipment",
+          "unit": "USD",
+          "variance": 1501250000.0,
+          "variance_pct": 46.4675
+        },
+        {
+          "actual": 1531000000.0,
+          "favorable": true,
+          "forecast": 1440500000.0,
+          "label": "Free cash flow",
+          "metric": "free_cash_flow",
+          "unit": "USD",
+          "variance": 90500000.0,
+          "variance_pct": 6.2825
+        }
+      ],
+      "memo": null,
+      "quarter": "2026-Q3",
+      "scenarios": {
+        "base": {
+          "automotive_asp": 41472.9419,
+          "automotive_leasing": 329482758.6207,
+          "automotive_regulatory_credits": 123468109.3394,
+          "automotive_sales": 25768775184.472,
+          "deliveries": 621339.4559,
+          "energy_generation_and_storage": 3601296253.1373,
+          "free_cash_flow": 1440500000.0,
+          "gross_margin": 0.1867,
+          "gross_profit": 6634359094.2242,
+          "gross_profit_automotive": 4944571652.6844,
+          "gross_profit_energy": 1080027430.4074,
+          "gross_profit_services": 609760011.1323,
+          "net_cash_from_operating_activities": 4671250000.0,
+          "operating_expenses": 5583772081.2183,
+          "operating_income": 1050587013.0059,
+          "purchases_of_property_and_equipment": 3230750000.0,
+          "research_and_development": 2883547828.8232,
+          "selling_general_and_administrative": 2550773060.0293,
+          "services_and_other": 5704442875.9028,
+          "total_revenue": 35527465181.4722
+        },
+        "bear": {
+          "automotive_asp": 39399.2948,
+          "automotive_leasing": 329482758.6207,
+          "automotive_regulatory_credits": 123468109.3394,
+          "automotive_sales": 22032302757.2842,
+          "deliveries": 559205.5103,
+          "energy_generation_and_storage": 3601296253.1373,
+          "free_cash_flow": 1440500000.0,
+          "gross_margin": 0.1767,
+          "gross_profit": 5617468419.682,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4671250000.0,
+          "operating_expenses": 5583772081.2183,
+          "operating_income": 33696338.4637,
+          "purchases_of_property_and_equipment": 3230750000.0,
+          "research_and_development": 2883547828.8232,
+          "selling_general_and_administrative": 2550773060.0293,
+          "services_and_other": 5704442875.9028,
+          "total_revenue": 31790992754.2844
+        },
+        "bull": {
+          "automotive_asp": 43546.589,
+          "automotive_leasing": 329482758.6207,
+          "automotive_regulatory_credits": 123468109.3394,
+          "automotive_sales": 29762935303.6997,
+          "deliveries": 683473.4015,
+          "energy_generation_and_storage": 3601296253.1373,
+          "free_cash_flow": 1440500000.0,
+          "gross_margin": 0.1967,
+          "gross_profit": 7773903696.6477,
+          "gross_profit_automotive": null,
+          "gross_profit_energy": null,
+          "gross_profit_services": null,
+          "net_cash_from_operating_activities": 4671250000.0,
+          "operating_expenses": 5583772081.2183,
+          "operating_income": 2190131615.4294,
+          "purchases_of_property_and_equipment": 3230750000.0,
+          "research_and_development": 2883547828.8232,
+          "selling_general_and_administrative": 2550773060.0293,
+          "services_and_other": 5704442875.9028,
+          "total_revenue": 39521625300.6999
+        }
+      }
+    }
+  ],
+  "run": {
+    "data_as_of": null,
+    "duration_seconds": 0.1415,
+    "estimated_cost_usd": null,
+    "input_tokens": null,
+    "model": null,
+    "output_tokens": null,
+    "stages": [
+      {
+        "name": "ingest",
+        "seconds": null
+      },
+      {
+        "name": "load",
+        "seconds": null
+      },
+      {
+        "name": "forecast",
+        "seconds": null
+      },
+      {
+        "name": "explain",
+        "seconds": null
+      },
+      {
+        "name": "verify",
+        "seconds": null
+      },
+      {
+        "name": "publish",
+        "seconds": 0.1415
+      }
+    ],
+    "started_at": "2026-11-05T08:28:41+00:00"
+  },
+  "scenario_flex": {
+    "automotive_asp_pct": {
+      "base": 0.0,
+      "bear": -5.0,
+      "bull": 5.0
+    },
+    "deliveries_pct": {
+      "base": 0.0,
+      "bear": -10.0,
+      "bull": 10.0
+    },
+    "gross_margin_bp": {
+      "base": 0.0,
+      "bear": -100.0,
+      "bull": 100.0
+    }
+  },
+  "schema_version": 1
+}
