@@ -262,6 +262,41 @@
   },
   "forward_forecast_published": false,
   "generated_at": "2026-11-05T18:35:39+00:00",
+  "last_full_run": {
+    "data_as_of": "2026-10-22",
+    "duration_seconds": 422.5516,
+    "estimated_cost_usd": 0.033463,
+    "input_tokens": 136980,
+    "model": "gpt-6-luna",
+    "output_tokens": 39530,
+    "stages": [
+      {
+        "name": "ingest",
+        "seconds": 15.1453
+      },
+      {
+        "name": "load",
+        "seconds": 0.0095
+      },
+      {
+        "name": "forecast",
+        "seconds": 1.3124
+      },
+      {
+        "name": "explain",
+        "seconds": 405.6929
+      },
+      {
+        "name": "verify",
+        "seconds": 0.2821
+      },
+      {
+        "name": "publish",
+        "seconds": 0.0717
+      }
+    ],
+    "started_at": "2026-11-05T13:39:45+00:00"
+  },
   "latest_quarter": "2026-Q3",
   "qa": {
     "answers": [

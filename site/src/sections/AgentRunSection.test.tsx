@@ -186,3 +186,32 @@ describe("formatting", () => {
     expect(screen.getByText("The run details appear after the next full pipeline run.")).toBeTruthy();
   });
 });
+
+describe("last full run", () => {
+  test("shows the full run and says a cached refresh came after it", () => {
+    const refresh: RunMetadata = {
+      ...recorded,
+      started_at: "2026-11-06T09:00:00+00:00",
+      duration_seconds: 18,
+      input_tokens: 0,
+      output_tokens: 0,
+      estimated_cost_usd: 0,
+    };
+    const dashboard: Dashboard = { ...makeTestDashboard(), run: refresh, last_full_run: recorded };
+    render(
+      <AgentRunSection
+        dashboard={dashboard}
+        quarter={dashboard.quarters[0]}
+        onSelectQuarter={() => undefined}
+      />,
+    );
+    expect(screen.getByText(formatCost(0.06) as string)).toBeTruthy();
+    expect(screen.getByText(/The last full run, where the model wrote every memo and answer/)).toBeTruthy();
+    expect(screen.getByText(/in 18 seconds, reusing/)).toBeTruthy();
+  });
+
+  test("with no full run recorded, shows the latest run without the note", () => {
+    renderWith(recorded);
+    expect(screen.queryByText(/The last full run/)).toBeNull();
+  });
+});

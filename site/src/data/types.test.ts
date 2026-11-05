@@ -8,6 +8,7 @@ const sample: Dashboard = {
   generated_at: "2026-11-05T08:00:00+00:00",
   latest_quarter: "2026-Q3",
   forward_forecast_published: false,
+  last_full_run: null,
   run: {
     started_at: null,
     duration_seconds: null,
