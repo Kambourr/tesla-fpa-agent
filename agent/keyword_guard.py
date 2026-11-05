@@ -64,12 +64,15 @@ FLAGGED_PHRASES: tuple[str, ...] = (
 )
 
 # "$X per share" or "$X a share" is a price unless it reports EPS, a dividend or a
-# buyback price. That exemption is checked in the same sentence as the match.
+# buyback price. The reporting word must come earlier in the same sentence, with no
+# target or valuation word between it and the amount, so "EPS was $0.52 per share
+# and the target is $300 per share" still flags the $300.
 _PER_SHARE = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?\s+(?:per|a)\s+share\b", re.IGNORECASE)
 _REPORTED_PER_SHARE = re.compile(
     r"\b(?:EPS|earnings|income|diluted|basic|dividends?|repurchas\w*|buybacks?)\b",
     re.IGNORECASE,
 )
+_VALUATION_WORD = re.compile(r"\b(?:target\w*|worth|valu\w*|fair)\b", re.IGNORECASE)
 _COMPILED = tuple(re.compile(pattern, re.IGNORECASE) for pattern in FLAGGED_PHRASES)
 
 
@@ -103,7 +106,9 @@ def check_text(text: str, text_kind: str) -> tuple[GuardHit, ...]:
         for match in pattern.finditer(text):
             hits.append(GuardHit(match.group(0), match.start(), match.end(), text_kind))
     for match in _PER_SHARE.finditer(text):
-        if _REPORTED_PER_SHARE.search(_sentence_before(text, match.start())):
+        before = _sentence_before(text, match.start())
+        reported = list(_REPORTED_PER_SHARE.finditer(before))
+        if reported and not _VALUATION_WORD.search(before[reported[-1].end() :]):
             continue
         hits.append(GuardHit(match.group(0), match.start(), match.end(), text_kind))
     return tuple(sorted(hits, key=lambda hit: (hit.start, hit.end)))

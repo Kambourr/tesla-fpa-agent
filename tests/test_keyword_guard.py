@@ -91,3 +91,9 @@ def test_check_narrative_is_empty_for_a_clean_memo_and_answers() -> None:
     answers = {1: "Sales of regulatory credits declined.", 2: "Revenue per vehicle rose."}
 
     assert check_narrative(memo, answers) == ()
+
+
+def test_eps_earlier_in_a_sentence_does_not_hide_a_price_target() -> None:
+    text = "EPS was $0.52 per share and the target is $300 per share."
+    hits = check_text(text, "memo")
+    assert [hit.phrase for hit in hits] == ["$300 per share"]
