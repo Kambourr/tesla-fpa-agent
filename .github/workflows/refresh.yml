@@ -1,0 +1,85 @@
+name: Refresh data
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Regenerate every narrative, not only the ones whose inputs changed"
+        type: boolean
+        default: false
+  # To run this every quarter, uncomment the block below. It is off by default, so the
+  # pipeline runs only when someone starts it by hand. The cron runs at 14:17 UTC on the
+  # 5th of January, April, July and October, a few days after Tesla's quarterly filings.
+  # schedule:
+  #   - cron: "17 14 5 1,4,7,10 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: run the pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          # Data commits go to main, which deploy.yml builds after this workflow completes.
+          ref: main
+
+      - name: Install uv and Python 3.11
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Install the project from the lockfile
+        run: uv sync --locked
+
+      - name: Check that the required secrets are set
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY secret is missing. Add it under the repository's Actions secrets."
+            exit 1
+          fi
+          if [ -z "$SEC_USER_AGENT" ]; then
+            echo "SEC_USER_AGENT secret is missing. Add it under the repository's Actions secrets."
+            exit 1
+          fi
+
+      - name: Run the pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          PUBLISH_FORWARD_FORECAST: "false"
+          FORCE: ${{ inputs.force }}
+        run: |
+          if [ "$FORCE" = "true" ]; then
+            uv run python -m agent run --force
+          else
+            uv run python -m agent run
+          fi
+
+      - name: Commit the refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/public/data/dashboard.json
+          if [ -f data/narrative_cache.json ]; then
+            git add data/narrative_cache.json
+          fi
+          if git diff --cached --quiet; then
+            echo "The refreshed data matches the committed data. Nothing to push."
+          else
+            git commit -m "Refresh data from the latest filings"
+            git push
+          fi
