@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 36 of 54 (67%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 37 of 54 (69%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -361,7 +361,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** Verified ticks, flagged ticks, and unsupported ticks match section 6 (green tick, amber flag, amber-outline question mark) and have accessible names. Hover or focus shows the source line, filing, and result; a flagged tick shows the expected value; activating a tied tick opens the source filing. A legend sits with the memo. A component test covers all three states.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (dfc3cc51ff88ab990fe3fdcaba7da802c527c2e5)
 
 ### M5-T4 — Hero revenue bridge
 
