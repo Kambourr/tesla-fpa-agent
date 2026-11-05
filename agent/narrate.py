@@ -54,7 +54,8 @@ class OpenAIClient:
 
     def __init__(self, settings: Settings | None = None) -> None:
         resolved = Settings() if settings is None else settings
-        key = resolved.openai_api_key.get_secret_value()
+        # Trim whitespace a pasted secret can carry; a key never contains spaces.
+        key = resolved.openai_api_key.get_secret_value().strip()
         if not key:
             raise NarrationError("OPENAI_API_KEY is not set. Narration needs it to call the model.")
         self._client = OpenAI(api_key=key)

@@ -191,3 +191,16 @@ def test_default_transport_sends_the_user_agent(monkeypatch: pytest.MonkeyPatch)
     monkeypatch.setattr(urllib.request, "urlopen", urlopen)
     assert default_transport(COMPANYFACTS_URL, USER_AGENT) == b"{}"
     assert captured == {"header": USER_AGENT, "url": COMPANYFACTS_URL}
+
+
+def test_a_user_agent_pasted_across_lines_becomes_one_header_line(tmp_path: Path) -> None:
+    seen: list[str] = []
+
+    def transport(url: str, user_agent: str) -> bytes:
+        seen.append(user_agent)
+        return b"{}"
+
+    pasted = "Example Research\r\n  contact@example.com\n"
+    client = SecClient(pasted, cache_dir=tmp_path, transport=transport)
+    client.get("https://data.sec.gov/submissions/CIK0001318605.json")
+    assert seen == ["Example Research contact@example.com"]

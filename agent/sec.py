@@ -70,7 +70,9 @@ class SecClient:
         now_ns: NowNs | None = None,
         sleep_ns: SleepNs | None = None,
     ) -> None:
-        cleaned = user_agent.strip()
+        # A secret pasted across lines ("Name" newline "email") is not a valid HTTP
+        # header and stopped the first Actions run. Collapse all whitespace.
+        cleaned = " ".join(user_agent.split())
         if cleaned == "":
             raise MissingUserAgentError("SEC_USER_AGENT is empty")
         self._user_agent = cleaned
