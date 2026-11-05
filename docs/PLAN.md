@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 29 of 54 (54%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 30 of 54 (56%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -298,7 +298,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** Publish writes quarters, forecasts, scenarios, bridges, memos, Q&A, claims, verification results, backtest accuracy, and run metadata (run time, duration, model, tokens, estimated cost, data as-of date). `pytest` fails if the output does not match the schema the frontend imports. Secrets do not appear in the JSON or in the command output. With `PUBLISH_FORWARD_FORECAST=false`, no unpublished forward quarter is included as a published forecast-versus-actual.
 - **Depends on:** M2-T10, M3-T8
 - **Can run in parallel with:** none
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (eca07f3ca1e57e1865ccb871d309bc806612eb2f)
 
 ### M4-T2 — Single run command
 
