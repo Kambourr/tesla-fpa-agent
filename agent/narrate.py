@@ -5,6 +5,10 @@ The model sees only the quarter's fact sheet (``agent.fact_sheet``). Questions
 model's claims are checked later by ``agent.verifier``. This module records
 validation problems as ``issues`` and never raises for them. Re-asking is a
 later task.
+
+Cache: a stored narration is reused when its input hash, kind, and quarter
+match and its ``verified`` flag is set (see ``mark_verified``). Only verified
+text is reused. ``force`` skips the cache.
 """
 
 from __future__ import annotations
@@ -85,6 +89,7 @@ class NarrationResult:
     input_tokens: int
     output_tokens: int
     issues: list[str]
+    cached: bool = False
 
 
 def build_user_message(
@@ -144,11 +149,24 @@ def narrate_quarter(
     prompts: PromptBundle,
     model: str,
     with_questions: bool,
+    force: bool = False,
 ) -> NarrationResult:
+    """Return the verified stored narration when it matches, else call the model.
+
+    The user message and input hash are built first. A hit needs a stored row
+    for this quarter and kind with the same hash and ``verified`` set. Then the
+    client is not called. ``force=True`` calls the client even on a hit.
+    """
     facts = quarter_facts(connection, quarter)
     questions = list(prompts.questions) if with_questions else []
     backtest = backtest_facts(connection) if with_questions else ()
     user = build_user_message(quarter, facts, questions=questions, backtest=backtest)
+    kind = "memo+qa" if with_questions else "memo"
+    digest = input_hash(user, prompts, model)
+    if not force:
+        hit = _verified_result(connection, quarter, kind, digest)
+        if hit is not None:
+            return hit
     result = client.draft(
         system=prompts.memo_instructions,
         user=user,
@@ -157,9 +175,9 @@ def narrate_quarter(
     )
     return NarrationResult(
         quarter=quarter,
-        kind="memo+qa" if with_questions else "memo",
+        kind=kind,
         draft=result.draft,
-        input_hash=input_hash(user, prompts, model),
+        input_hash=digest,
         input_tokens=result.input_tokens,
         output_tokens=result.output_tokens,
         issues=validate_draft(result.draft, with_questions=with_questions),
@@ -172,11 +190,13 @@ def narrate_all(
     *,
     prompts: PromptBundle | None = None,
     model: str | None = None,
+    force: bool = False,
 ) -> list[NarrationResult]:
     """One memo per published quarter with a forecast, oldest first.
 
-    The latest such quarter also gets the ten questions. Nothing is written to
-    the database; call ``store_narration`` to keep a result.
+    The latest such quarter also gets the ten questions. A verified stored
+    narration is reused unless ``force`` is set. Nothing is written to the
+    database; call ``store_narration`` to keep a result.
     """
     bundle = load_prompts() if prompts is None else prompts
     chosen_model = Settings().openai_model if model is None else model
@@ -197,6 +217,7 @@ def narrate_all(
             prompts=bundle,
             model=chosen_model,
             with_questions=quarter == latest,
+            force=force,
         )
         for quarter in quarters
     ]
@@ -208,11 +229,18 @@ def store_narration(
     prompts: PromptBundle,
     model: str,
 ) -> None:
-    """Write the result to ``narrative``, replacing the quarter's row."""
+    """Write the result to ``narrative``, replacing the quarter's row.
+
+    A freshly drafted result is stored unverified until ``mark_verified`` is
+    called for its hash. A cached result came from a verified row, so it stays
+    verified.
+    """
     connection.execute(
         """
-        INSERT OR REPLACE INTO narrative VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT OR REPLACE INTO narrative (
+            quarter, kind, input_hash, prompt_version, model, payload,
+            input_tokens, output_tokens, issues, created_at, verified
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
             result.quarter,
@@ -225,7 +253,49 @@ def store_narration(
             result.output_tokens,
             json.dumps(result.issues),
             datetime.now(UTC).replace(tzinfo=None),
+            result.cached,
         ],
+    )
+
+
+def mark_verified(connection: duckdb.DuckDBPyConnection, quarter: str, input_hash: str) -> None:
+    """Set ``verified`` on the quarter's stored row, only if its hash matches.
+
+    Call this after the verifier has passed the stored draft's claims. A row
+    stored under a different hash is left unchanged.
+    """
+    connection.execute(
+        "UPDATE narrative SET verified = TRUE WHERE quarter = ? AND input_hash = ?",
+        [quarter, input_hash],
+    )
+
+
+def _verified_result(
+    connection: duckdb.DuckDBPyConnection,
+    quarter: str,
+    kind: str,
+    digest: str,
+) -> NarrationResult | None:
+    """The stored verified narration for this input, or None when there is none."""
+    row = connection.execute(
+        """
+        SELECT payload, issues FROM narrative
+        WHERE quarter = ? AND kind = ? AND input_hash = ? AND verified = TRUE
+        """,
+        [quarter, kind, digest],
+    ).fetchone()
+    if row is None:
+        return None
+    payload, issues = row
+    return NarrationResult(
+        quarter=quarter,
+        kind=kind,
+        draft=NarrativeDraft.model_validate_json(payload),
+        input_hash=digest,
+        input_tokens=0,
+        output_tokens=0,
+        issues=list(json.loads(issues)),
+        cached=True,
     )
 
 
