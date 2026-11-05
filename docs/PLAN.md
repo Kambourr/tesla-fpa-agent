@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 30 of 54 (56%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 33 of 54 (61%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -238,7 +238,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with a mocked OpenAI client returns structured JSON: a memo of about 150–250 words and answers of about 60–120 words. Claims accompany every number the text mentions. Twelve memos are produced and only the latest quarter gets the ten answers. The client is given the computed tables for that quarter, not raw filings. Questions 7 and 8 receive the backtest table.
 - **Depends on:** M2-T10, M3-T1
 - **Can run in parallel with:** M3-T5, M3-T6 if those have not already landed
-- **Status:** todo
+- **Status:** done (c956d48173c847beb2a0e8aae2878b16ebc7926e)
 
 ### M3-T3 — Narrative cache and force flag
 
@@ -385,7 +385,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The sequence is ingest, load, forecast, explain, verify, publish, each with its duration from run metadata. The page also shows last run date, total run time, AI cost, and model. Values come from the published metadata. Nothing in this section animates on its own.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (42a9a1261437ef1917f4661be14b6cd7e34ddcd6)
 
 ### M5-T7 — Analyst memo
 
@@ -433,7 +433,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The section shows absolute percent error by quarter for revenue, gross profit, and operating income, plus the average. A fixture quarter with a large error is displayed, not hidden. Wording stays plain.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (d9e79b3169073d65726f241045fd76ced18d3e40)
 
 ### M5-T13 — How it works and how it is controlled
 
