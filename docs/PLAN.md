@@ -270,7 +270,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test flags text that contains buy/sell instructions or a price target, and passes a memo that only discusses variances and metrics. The guard is a keyword check, not another model call.
 - **Depends on:** M3-T1
 - **Can run in parallel with:** M3-T2, M3-T5
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M3-T7 — Re-ask once
 
