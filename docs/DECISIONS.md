@@ -2,6 +2,12 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-04 — Free cash flow bridge
+
+**Decision:** `agent/free_cash_flow_bridge.py` writes two bars: `net_cash_from_operating_activities` (actual minus forecast CFO) and `purchases_of_property_and_equipment` (minus the change in capex, so spending above forecast is negative and unfavorable). The variance is actual minus forecast free cash flow. Ingest does not store an actual `free_cash_flow`, so the bridge computes it as CFO minus capex from the first-reported, de-cumulated lines. A stored value is used if a later task adds one, and `reconciled()` rejects it if it does not tie.
+
+**Alternatives considered:** Adding `free_cash_flow` to `quarter_actual` during ingest. Rejected for this task because that row would need an accession and filing URL, and no single filing tags it. The verifier and the publish step can compute it the same way.
+
 ## 2026-11-04 — Operating income bridge bars
 
 **Decision:** `agent/operating_income_bridge.py` writes the `operating_income` bridge. The bars are `gross_profit` (actual minus forecast gross profit), then `research_and_development`, `selling_general_and_administrative`, and `restructuring_and_other`, each equal to minus the change in that cost, so a cost above forecast is a negative, unfavorable bar. `restructuring_and_other` is the change in total operating expenses minus the changes in R&D and SG&A. It holds restructuring and any other opex line Tesla reports, which saves a separate XBRL tag for a line that appears only in some quarters. When either side lacks R&D or SG&A, one `operating_expenses` bar replaces those three. The bars are built with `reconciled()` against stored actual minus forecast `operating_income`. Actual gross profit falls back to total revenue minus cost of revenue when `gross_profit` is not stored.
