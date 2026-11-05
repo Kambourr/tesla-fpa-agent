@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 25 of 54 (46%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 26 of 54 (48%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -218,7 +218,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** `python -m agent model` and `python -m agent variance` run against the local database (or a fixture database in CI) and write the base forecast, three scenarios, backtest table, and four bridges. No forward quarter is marked for publication while `PUBLISH_FORWARD_FORECAST=false`.
 - **Depends on:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T8, M2-T9
 - **Can run in parallel with:** none
-- **Status:** in progress (Claude Code, 2026-11-04)
+- **Status:** done (6d470ce98a51078ae94ab45cc8fddfb1102f57ad)
 
 ## M3 — Narration and verification
 
