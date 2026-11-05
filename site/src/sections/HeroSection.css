@@ -1,0 +1,125 @@
+/* Hero revenue bridge. Colors come only from the tokens in styles/tokens.css. */
+
+.hero-bridge {
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-bridge-scroll {
+  width: 100%;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  overflow-x: auto;
+}
+
+.hero-bridge-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero-bridge-svg text {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  fill: var(--ink);
+}
+
+.hero-axis-label {
+  font-size: 11px;
+}
+
+.hero-grid,
+.hero-baseline,
+.hero-connector {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.hero-value {
+  font-weight: 500;
+}
+
+.hero-glyph {
+  font-size: 10px;
+}
+
+.hero-glyph.is-favorable {
+  fill: var(--green);
+}
+
+.hero-glyph.is-unfavorable {
+  fill: var(--amber);
+}
+
+.hero-bar.is-forecast {
+  fill: var(--cobalt);
+}
+
+.hero-bar.is-actual {
+  fill: var(--ink);
+}
+
+.hero-bar.is-favorable {
+  fill: var(--green);
+}
+
+.hero-bar.is-unfavorable {
+  fill: var(--amber);
+}
+
+/* One draw on first mount: each step grows from its base, in order, over about 1.2 s. */
+.hero-step.is-drawing > .hero-bar {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hero-bar-grow 0.36s ease-out both;
+  animation-delay: calc(var(--bar-index) * 0.12s);
+}
+
+.hero-step.is-drawing > .hero-value,
+.hero-step.is-drawing > .hero-category {
+  animation: hero-label-in 0.36s ease-out both;
+  animation-delay: calc(var(--bar-index) * 0.12s);
+}
+
+@keyframes hero-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes hero-label-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Clips the visually hidden table so its nowrap content cannot widen the page at phone width. */
+.hero-table-clip {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.seal-slot {
+  margin-top: 1rem;
+}
+
+/* At phone width the bridge keeps its size and scrolls sideways inside its own container. */
+@media (max-width: 480px) {
+  .hero-bridge-svg {
+    min-width: 680px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-step.is-drawing > * {
+    animation: none;
+  }
+}
