@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 21 of 53 (40%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 22 of 53 (42%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -186,7 +186,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For each segment shown in the filings, a test covers the volume/revenue effect (change in segment revenue times forecast segment margin) and the margin-rate effect (change in segment margin percent times actual segment revenue). Bars group into automotive, energy, and services and other. Their sum equals gross profit variance exactly. Each bar is labeled favorable or unfavorable. Where segment margin is not reported, the total-margin path from section 4 is used and documented.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-04)
 
 ### M2-T8 — Operating income bridge
 
@@ -314,7 +314,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `.github/workflows/deploy.yml` builds the site on push to `main` and is the Pages deploy workflow. YAML is valid. The workflow does not print secrets. Committing the file does not, by itself, enable GitHub Pages or change repo visibility; if the GitHub UI or API would need a settings change, stop and leave the question in `docs/PROGRESS.md`.
 - **Depends on:** M5-T1
 - **Can run in parallel with:** M4-T3, M5-T2 and later site tasks
-- **Status:** todo
+- **Status:** done (50de24b9c39d0c4333ee9bdc16bec68e73865df6)
 
 ## M5 — Dashboard
 
