@@ -238,7 +238,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with a mocked OpenAI client returns structured JSON: a memo of about 150–250 words and answers of about 60–120 words. Claims accompany every number the text mentions. Twelve memos are produced and only the latest quarter gets the ten answers. The client is given the computed tables for that quarter, not raw filings. Questions 7 and 8 receive the backtest table.
 - **Depends on:** M2-T10, M3-T1
 - **Can run in parallel with:** M3-T5, M3-T6 if those have not already landed
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M3-T3 — Narrative cache and force flag
 
