@@ -1,0 +1,116 @@
+/* Forecast section. Colors come only from the tokens in styles/tokens.css. */
+
+.forecast {
+  max-width: var(--canvas);
+}
+
+.forecast__scenarios {
+  display: inline-flex;
+  margin-top: 1.25rem;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.forecast__scenarios button {
+  min-height: 2.5rem;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-inline-start: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.forecast__scenarios button:first-child {
+  border-inline-start: 0;
+}
+
+.forecast__scenarios button[aria-pressed="true"] {
+  background: var(--cobalt);
+  color: var(--surface);
+}
+
+.forecast__scenarios button:disabled {
+  color: var(--ink-quiet);
+  cursor: not-allowed;
+}
+
+.forecast__note,
+.forecast__flex {
+  max-width: var(--prose);
+  margin: 0.75rem 0 0;
+  color: var(--ink-quiet);
+}
+
+.forecast__table-wrap {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  background: var(--surface);
+}
+
+.forecast-table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  background: var(--surface);
+  font-variant-numeric: tabular-nums;
+}
+
+.forecast-table th,
+.forecast-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.forecast-table thead th {
+  color: var(--ink-quiet);
+  font-weight: 600;
+}
+
+/* Two classes so it outranks ".forecast-table td": figures line up on the right
+   edge, like a financial statement. */
+.forecast-table .forecast-table__num {
+  text-align: end;
+}
+
+.forecast-table__line {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+  font-weight: 500;
+}
+
+.forecast-table thead .forecast-table__line {
+  z-index: 2;
+}
+
+.forecast-table__variance--favorable {
+  color: var(--green);
+}
+
+.forecast-table__variance--unfavorable {
+  color: var(--amber);
+}
+
+.forecast-table__cell--moved {
+  animation: forecast-cell-fade 180ms ease-out;
+}
+
+@keyframes forecast-cell-fade {
+  from {
+    background-color: color-mix(in srgb, var(--cobalt) 16%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forecast-table__cell--moved {
+    animation: none;
+  }
+}
