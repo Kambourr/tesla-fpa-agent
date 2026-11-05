@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M5 dashboard sections and M3 narration/verification are on `main`; `M4-T2` (the single `run` command) is in progress, then the first live refresh in GitHub Actions and M6 launch tasks. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews, checks visually, and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 48 of 54 (89%).
+- **Tasks done:** 49 of 54 (91%).
 - **What's next:** Jacob runs the "Refresh data" workflow once (Actions tab, Refresh data, Run workflow) for the first real narration with the `OPENAI_API_KEY` secret; it commits `dashboard.json` and `data/narrative_cache.json` and the site redeploys. Meanwhile `M5-T15`, then `M6-T1` to `M6-T6`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -14,6 +14,20 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 05:39 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M6-T4 (done; Claude Code)
+**What changed:** No code. Recorded the anti-goal sweep, run on `main`:
+- Brand: `git ls-files` holds one image, `site/public/favicon.svg`, a green tick mark on paper; no Tesla logo, wordmark, product photo, or brand font (`grep -rniE "gotham|universal sans"` empty). The masthead text "Tesla FP&A Agent" is plain IBM Plex Sans, commented in `site/src/config.ts` as not a wordmark.
+- Color: no red or near-red hex in `site/src` or `site/index.html`; the palette is the section 6 tokens only.
+- Sources: every URL in `agent/`, `config/`, `scripts/`, and `data/manual/` is `https://data.sec.gov`, `https://www.sec.gov`, `https://ir.tesla.com` (the delivery releases), or an XBRL namespace. No other feed.
+- No live chatbot: `grep -rniE "openai|api\.openai|sk-" site/src site/index.html` is empty; the built bundle contains no OpenAI client and no fetch to an API. The page reads the bundled `dashboard.json` only. The footer disclaimer is the exact required text.
+**Current state:** `uv run pytest`: 334 passed; site tests and build pass.
+**Next step:** README screenshot after the first live refresh, then the M6-T5 secret scan and closeout.
+**Blockers / questions for Jacob:** (a), (c), (d), and (g) as in the status block.
+**Notes for the next agent:** Re-run these greps if a new asset or source is added.
+**Last commit:** 372bf6a38ecacfaff8580871b8e92910294dfaf8 on task/M6-T4-anti-goal-sweep
 
 ## 2026-11-05 05:17 (America/Los_Angeles) — Claude Code
 
