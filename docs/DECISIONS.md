@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-05 — Verified narratives persist in a committed cache file
+
+**Decision:** `data/narrative_cache.json` holds every narrative whose final review was clean: quarter, kind, input hash, prompt version, model, the draft, tokens, and issues. `python -m agent run` imports it before narration and exports it after verification; the refresh workflow commits it with `dashboard.json`. A quarter reuses its text only when the input hash (fact sheet, prompt version and content, model) matches.
+
+**Why:** Section 4 says past narratives must not shift run to run and only new or changed quarters call the API. GitHub Actions starts every run with an empty DuckDB file, so the cache table alone would never hit there.
+
+**Alternatives considered:** An Actions cache of the database. Rejected because Actions evicts caches after seven days without use, and quarterly refreshes would miss. Committing the DuckDB file. Rejected because it is binary, large, and holds the full filing data the repo does not need to version.
+
 ## 2026-11-05 — Publish JSON pulled ahead of narration; one file for the site
 
 **Decision:** `M4-T1` ran before `M3-T8`, its listed dependency. The schema defines `memo` and `qa` now and leaves them null until narration and verification fill them, so the M5 dashboard sections can be built against real data in parallel with M3. The site reads a single file, `site/public/data/dashboard.json` (schema version 1), rather than one file per table: the whole payload is about 150 KB, and one fetch keeps the quarter picker instant. `variance_pct` is variance over the absolute forecast, null when the forecast is zero or missing; for gross margin it is a relative change, and the points change is `variance` on the percent line. Cost lines (R&D, SG&A, operating expenses, capex) are favorable when below forecast. Gross margin is a percent in `lines` and a fraction in `drivers` and `scenarios`, matching the stored forecast the browser recomputes from.

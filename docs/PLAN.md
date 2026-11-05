@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 46 of 54 (85%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 47 of 54 (87%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -306,7 +306,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `python -m agent run` executes ingest, model, variance, narrate, verify, and publish in order. `python -m agent ingest`, `model`, `variance`, `narrate`, `verify`, and `publish` each still run alone. A fixture-mode test completes without a live API call. A `make run` target may call the same command; if it does, it is documented.
 - **Depends on:** M1-T9, M2-T10, M3-T8, M4-T1
 - **Can run in parallel with:** M5 sections that only need the schema, once M4-T1 has merged
-- **Status:** todo
+- **Status:** done (8da111ffe5dcae4e350fddbcb9648c0ea6730dcf)
 
 ### M4-T3 — refresh.yml
 
