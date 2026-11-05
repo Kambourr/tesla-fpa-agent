@@ -248,3 +248,31 @@ def test_cli_prints_no_secret(tmp_path: Path) -> None:
     assert key not in combined
     assert "facts" in result.stdout
     assert database.is_file()
+
+
+def test_live_path_builds_the_sec_client_from_settings(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """The default path runs the real ``from_settings`` call, with no network."""
+    fixtures = tmp_path / "sec"
+    write_filings(fixtures)
+    bodies = {
+        "companyfacts": (fixtures / "companyfacts.json").read_bytes(),
+        "submissions": (fixtures / "submissions.json").read_bytes(),
+    }
+    agents: list[str] = []
+
+    def transport(url: str, user_agent: str) -> bytes:
+        agents.append(user_agent)
+        return bodies["companyfacts" if "companyfacts" in url else "submissions"]
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda *_a, **_k: pytest.fail("network"))
+    monkeypatch.setattr("agent.sec.default_transport", transport)
+    monkeypatch.setattr("agent.sec.DEFAULT_CACHE_DIR", tmp_path / "cache")
+    monkeypatch.setenv("SEC_USER_AGENT", "fixture-contact-string")
+    database = tmp_path / "live.duckdb"
+    run_ingest(database=database, csv_path=default_csv_path())
+    assert agents == ["fixture-contact-string", "fixture-contact-string"]
+    connection = duckdb.connect(str(database))
+    count = connection.execute("SELECT count(*) FROM quarter_actual").fetchone()
+    assert count is not None and count[0] > 0

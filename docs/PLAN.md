@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 16 of 53 (30%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 26 of 54 (48%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -128,6 +128,14 @@ Public data only. SEC companyfacts for CIK 0001318605, plus the filing index so 
 - **Can run in parallel with:** none
 - **Status:** done (5da704bcb15846fd72b6e8775e317d70f28575ba)
 
+### M1-T10 — Segment lines from filing XBRL instances
+
+- **Goal:** Load the revenue and cost segment lines (automotive sales, regulatory credits, leasing, energy, services, and the segment costs) from each 10-Q and 10-K XBRL instance, because companyfacts drops the dimension members those lines need.
+- **Acceptance:** Tests with a saved instance fixture, and no network, show that each segment metric in `config/xbrl_tags.json` is read from the context whose only explicit member is the configured one, for the filing's own quarter, and stored through `store_reported_facts` with the filing's accession, date, and URL. The segment lines for a filing tie to total revenue and total cost of revenue in that filing. The client uses the cached SEC client with `SEC_USER_AGENT` and the 10-requests-per-second limit. `python -m agent ingest` loads them. Without them, the base forecast has no automotive sales or total revenue, and the revenue bridge cannot run on live data.
+- **Depends on:** M1-T9
+- **Can run in parallel with:** M2-T10, M3-T5, M3-T6, and M5 tasks
+- **Status:** todo
+
 ## M2 — Model and variance
 
 Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The model knows last quarter's full results and does not know this quarter's delivery report. Publish forecast-versus-actual for reported quarters only. `PUBLISH_FORWARD_FORECAST` stays `false`.
@@ -154,7 +162,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For a fixture quarter the forecast includes deliveries, automotive sales (deliveries times ASP), regulatory credits, leasing, energy, services, gross profit, operating expenses, operating income, capex, and free cash flow. The result uses only cutoff inputs. Empty history is explicit when a quarter has fewer than the documented minimum of earlier quarters (the site copy later says four).
 - **Depends on:** M2-T2
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (c639f699414bda0669f7b3a20fbb3ebd24e024db)
 
 ### M2-T4 — Bull, base, and bear scenarios
 
@@ -162,7 +170,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Each target quarter gets bull, base, and bear forecasts. A test checks the scenario ordering implied by the config (the bull delivery assumption is above base, bear below, on the configured drivers) and checks that base matches M2-T3. Percentages are read from config, not hardcoded in the scenario function.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T5, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (cb1ef8002daa2194f8a79b0a3d6cb8430098b1f7)
 
 ### M2-T5 — Backtest accuracy
 
@@ -170,7 +178,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test on a fixture computes absolute percent error for those three lines and the average across quarters. The published table includes quarters where the error is large. No error is dropped or clipped to look better.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T6, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (71192a1da7659c1ab05acc6839cafa7f223f4b4e)
 
 ### M2-T6 — Revenue bridge
 
@@ -178,7 +186,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** A test asserts exact equality of volume (change in deliveries times forecast ASP) + price/mix (change in ASP times actual deliveries) + regulatory credits + leasing + energy + services and other with total revenue variance. ASP is automotive sales revenue divided by total deliveries. Each bar is labeled favorable or unfavorable. The leasing limitation (leased units sit inside deliveries) is recorded for the methods copy in M5-T13.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T7, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (69b9f4eb7a4be1033000e9076f25c1b58d205257)
 
 ### M2-T7 — Gross profit bridge
 
@@ -186,7 +194,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** For each segment shown in the filings, a test covers the volume/revenue effect (change in segment revenue times forecast segment margin) and the margin-rate effect (change in segment margin percent times actual segment revenue). Bars group into automotive, energy, and services and other. Their sum equals gross profit variance exactly. Each bar is labeled favorable or unfavorable. Where segment margin is not reported, the total-margin path from section 4 is used and documented.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T8, M2-T9
-- **Status:** todo
+- **Status:** done (306a9a85eda536322f241d00b3a185393c7c797d)
 
 ### M2-T8 — Operating income bridge
 
@@ -194,7 +202,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** Bars are gross profit variance, R&D, SG&A, and restructuring or other opex when present. A higher cost is unfavorable (sign flip). A test asserts the bars sum exactly to operating income variance, including a fixture where R&D or SG&A increased. Each bar is labeled favorable or unfavorable.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T9
-- **Status:** todo
+- **Status:** done (5960dc9803d14f8efc1d65710510e3533b22f25d)
 
 ### M2-T9 — Free cash flow bridge
 
@@ -202,7 +210,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** The two bars are operating cash flow and capex. Higher capex is unfavorable. A test asserts an exact sum to free cash flow variance (free cash flow is CFO minus capex) and checks the unfavorable label when capex rose.
 - **Depends on:** M2-T3
 - **Can run in parallel with:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T8
-- **Status:** todo
+- **Status:** done (cd327ed5ad0273cd502c03aadc1aa86231a0d084)
 
 ### M2-T10 — Model and variance commands
 
@@ -210,7 +218,7 @@ Forecast cutoff is the filing date of the previous quarter's 10-Q or 10-K. The m
 - **Acceptance:** `python -m agent model` and `python -m agent variance` run against the local database (or a fixture database in CI) and write the base forecast, three scenarios, backtest table, and four bridges. No forward quarter is marked for publication while `PUBLISH_FORWARD_FORECAST=false`.
 - **Depends on:** M2-T4, M2-T5, M2-T6, M2-T7, M2-T8, M2-T9
 - **Can run in parallel with:** none
-- **Status:** todo
+- **Status:** done (6d470ce98a51078ae94ab45cc8fddfb1102f57ad)
 
 ## M3 — Narration and verification
 
@@ -433,7 +441,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** A simple inline SVG diagram (not a screenshot of code) shows the stages. The copy covers verification rules, public SEC and investor-relations sources only, the leasing limitation on the revenue bridge, and that visitors do not call the model. No Tesla logo, wordmark, or product image.
 - **Depends on:** M5-T2
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T14
-- **Status:** todo
+- **Status:** done (23b6ee0368dd2a5732f32121f3d27cfc48dba1f7)
 
 ### M5-T14 — About
 
@@ -441,7 +449,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The about copy is "Built by Jacob Kambour, MS Finance & Analytics, Santa Clara University." GitHub, LinkedIn, and résumé URLs are read from `site/src/config.ts`. Placeholders are obvious and empty of guessed URLs. The page still renders when they are blank.
 - **Depends on:** M5-T2
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13
-- **Status:** todo
+- **Status:** done (3961ba389d9d3048a6f9a6667da8ef6739edd712)
 
 ### M5-T15 — Accessibility and Lighthouse
 

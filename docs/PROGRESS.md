@@ -2,15 +2,96 @@
 
 ## Current status
 
-- **Current milestone:** M4 publish. The Pages workflow is on `task/M4-T4-deploy-workflow` and is not on `main` yet. `M0-T1`, `M1-T1`, `M1-T2`, `M1-T3`, `M1-T4`, `M1-T5`, `M1-T6`, `M1-T7`, `M1-T8`, `M1-T9`, `M2-T1`, `M2-T2`, `M3-T1`, `M5-T1`, and `M5-T2` are on `main`. `M5-T13` and `M5-T14` are on their own branches.
-- **Tasks done:** 16 of 53 (30%).
-- **What's next:** Merge this pull request only when Jacob wants the workflow on `main`. The deploy job will fail until Pages is set to GitHub Actions. `M2-T3` can start: `M2-T2` is on `main`. Do not claim `M1-T6` or `M1-T7`. Do not enable Pages from a task.
+- **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T10`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
+- **Tasks done:** 26 of 54 (48%).
+- **What's next:** `M1-T10` (segment lines from filing instances), `M3-T5` (verifier), and `M3-T6` (keyword guard) can run in parallel. `M3-T2` (narration) is unblocked by `M2-T10`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
-  - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+  - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `load_forecast_inputs(connection, quarter)` reads facts and deliveries as of the previous quarter's first 10-Q or 10-K filing date. `uv run python -m agent ingest --fixtures <dir> --database <path>` loads local JSON and `data/manual/deliveries.csv`. The default command, without `--fixtures`, uses the SEC cache and needs `SEC_USER_AGENT`. It does not print that value and it does not fetch investor-relations pages. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path. There is no `python -m agent run` yet.
+  - (e) PR #20 (`deploy.yml`) is ready. Jacob asked how to enable Pages. The repo is private, so Pages needs GitHub Pro (or a public repo), and the site is public either way. Waiting on Jacob to set Pages Source to GitHub Actions and say when to merge #20.
+  - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-04 21:37 (America/Los_Angeles) — Claude Code
+
+**Task(s):** live-run check (no plan task)
+**What changed:**
+- First live run from this environment. Fixed `agent/ingest.py`: the SEC client is built from `Settings()`, and the filing index overflow pages are loaded (`SecClient.filing_index_page` in `agent/sec.py`, `merge_submission_pages`). Added a test that runs the real live path with a fake transport.
+- Updated blockers (b), (e), and (f) in the status block. Decision logged in `docs/DECISIONS.md`.
+**Current state:** Live `python -m agent ingest` stored 1,850 facts, and deliveries run through 2026-Q3. `model` wrote 12 quarters (2023-Q4 to 2026-Q3) with the forward forecast off. `variance` wrote all 12 free cash flow bridges and reported the other 36 as not buildable, because revenue segment lines are missing (`M1-T10`), so forecast total revenue and gross profit are empty. `uv run pytest`: 136 passed.
+**Next step:** Claim `M1-T10`. Read the segment lines from each 10-Q and 10-K XBRL instance under `https://www.sec.gov/Archives/edgar/data/1318605/`, through `SecClient`.
+**Blockers / questions for Jacob:** (a), (c), (d), and (e) as in the status block.
+**Notes for the next agent:** `data/fpa.duckdb` and `data/cache/` are git-ignored. Do not commit them. SEC rejects requests without a real contact `User-Agent`.
+**Last commit:** 8246c8d62a18ac3cdc6fe5b3d30e1869de707434 on fix/live-ingest-sec-client
+
+## 2026-11-04 17:57 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T10 (done); M1-T10 added to the plan
+**What changed:**
+- Added `agent/model_stage.py`, `sql/010_published_quarter.sql`, and the `model` and `variance` subcommands in `agent/__main__.py`. `model` writes bull, base, and bear plus the backtest for the last 12 reported quarters and records them in `published_quarter`. The forward quarter is computed only when `PUBLISH_FORWARD_FORECAST=true`. `variance` writes the four bridges and exits 1, naming each one, when a bridge cannot be built.
+- Fixed `agent/revenue_bridge.py` to read actual deliveries from the `deliveries` table. Fixed `agent/actuals.py` so the latest, unfinished year gets cash-flow Q1 to Q3 without waiting for the 10-K. Both bugs were hidden by unit tests that inserted rows directly.
+- Added `tests/pipeline_fixture.py` (synthetic 19-quarter database through the real storage path) and `tests/test_model_stage.py`, plus a regression test in `tests/test_actuals.py`.
+- Added `M1-T10` to `docs/PLAN.md`. Companyfacts drops the dimension members every revenue segment line needs, so on live data the forecast has no automotive sales or total revenue. Logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 135 passed. Ruff check and format check passed. On the fixture, all 48 bridges (12 quarters × 4) sum exactly to their variance.
+**Next step:** Merge the M2-T10 pull request. Then claim `M1-T10`: fetch each 10-Q and 10-K XBRL instance through `SecClient` (cached, rate-limited), read the contexts whose only explicit member is the configured one, and store the segment lines with `store_reported_facts`. Use a saved instance fixture in tests, with no network.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Use `tests/pipeline_fixture.py` for stage tests rather than inserting `quarter_actual` rows by hand: that is how both bugs above hid. The commit named below is the stage commands. The two fixes are the two commits before it.
+**Last commit:** 6d470ce98a51078ae94ab45cc8fddfb1102f57ad on task/M2-T10-model-variance-commands
+
+## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T9 (done)
+**What changed:**
+- Added `agent/free_cash_flow_bridge.py`: an operating cash flow bar and a capex bar (minus the capex change, so higher capex is unfavorable). Actual free cash flow is CFO minus capex, because ingest does not store it.
+- Added `tests/test_free_cash_flow_bridge.py`: higher capex is unfavorable, lower capex is favorable, a non-tying stored value is rejected, and the database write sums exactly with rounded forecast inputs. Decision logged in `docs/DECISIONS.md`.
+**Current state:** All four bridges exist. `uv run pytest`: 127 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T9 pull request, then claim `M2-T10`: `python -m agent model` writes base, bull, and bear plus the backtest for every published quarter, and `python -m agent variance` writes the four bridges. Neither marks a forward quarter for publication while `PUBLISH_FORWARD_FORECAST=false`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** cd327ed5ad0273cd502c03aadc1aa86231a0d084 on task/M2-T9-free-cash-flow-bridge
+
+## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T8 (done)
+**What changed:**
+- Added `agent/operating_income_bridge.py`. The bars are gross profit variance, then R&D, SG&A, and `restructuring_and_other` (opex change minus the R&D and SG&A changes), with the sign flipped so a higher cost is unfavorable. One `operating_expenses` bar replaces the three when either side lacks R&D or SG&A.
+- Added `tests/test_operating_income_bridge.py`: a fixture where R&D and SG&A rose, one where they fell, the single-bar fallback, a non-tying actual, and the database write. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 122 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T8 pull request, then claim `M2-T9`: operating cash flow and capex bars (higher capex is unfavorable) built with `reconciled()` against stored `free_cash_flow`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** 5960dc9803d14f8efc1d65710510e3533b22f25d on task/M2-T8-operating-income-bridge
+
+## 2026-11-04 17:47 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T7 (done)
+**What changed:**
+- Added `agent/gross_profit_bridge.py`. With segment cost on both sides, it writes one bar per segment (revenue effect plus margin-rate effect). Without it, it writes three revenue bars at the forecast total margin plus a `gross_margin_rate` bar. Today every quarter takes the total path, because companyfacts has no segment cost.
+- `agent/forecast.py` stores `gross_profit_automotive`, `gross_profit_energy`, and `gross_profit_services` when it uses segment margins. `agent/scenarios.py` leaves them out of bull and bear.
+- Added `reconciled()` to `agent/bridge.py`: bars are quantized and the rounding gap goes to the largest bar, so they sum exactly to the stored variance. A gap above $1,000 raises. `agent/revenue_bridge.py` uses it now and ties to stored `total_revenue`. Before this, rounded forecast inputs left the revenue bars cents off the variance.
+- Added `tests/test_gross_profit_bridge.py`, a rounded-input test in `tests/test_revenue_bridge.py`, and segment-profit assertions in `tests/test_forecast.py`. Decision logged in `docs/DECISIONS.md`.
+**Current state:** `uv run pytest`: 116 passed. Ruff check and format check passed. The site was not touched.
+**Next step:** Merge the M2-T7 pull request, then claim `M2-T8`: bars for gross profit variance, R&D, SG&A, and other opex (higher cost is unfavorable), built with `reconciled()` against stored `operating_income`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block. (e) asks whether to merge PR #20 now or wait until Pages is enabled.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not use the stored four-place `gross_margin` in a bridge. Imply margins from dollar amounts. A `gross_margin_rate` bar means the total-margin path ran. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** 306a9a85eda536322f241d00b3a185393c7c797d on task/M2-T7-gross-profit-bridge
+
+## 2026-11-04 17:42 (America/Los_Angeles) — Claude Code
+
+**Task(s):** takeover; M2-T7 (in progress)
+**What changed:**
+- Claude Code took over from Grok and the Cursor agents, whose usage ran out. `docs/BRIEF.md` matches the original brief byte for byte, and every section 11 handoff file is present.
+- Found work that was finished but not on `main`: PRs #17, #18, #19, and #21 (`M2-T3` through `M2-T6`, stacked). Merged `main` into `task/M2-T6-revenue-bridge` (docs conflicts only), CI green, merged #21 with a merge commit, so #17 to #19 landed too.
+- PR #15 had merged `M5-T14` into `task/M5-T13-how-it-works` after that branch was already on `main`, so the about section never reached `main`. Opened and merged PR #22 to fix that.
+- `M4-T4` (PR #20) is done but not merged. Its author wrote that it should wait for Jacob, because the deploy job fails until Pages is turned on. Marked done in `docs/PLAN.md` and added question (e).
+- `task/M2-T7-gross-profit-bridge` and `task/M3-T5-verifier` held only claim commits from the Cursor agents, with no code. Claude Code takes over `M2-T7`. `M3-T5` is free to claim again.
+**Current state:** `main` at the merge of #22. `uv run pytest`: 107 passed. Ruff check and format check passed. In `site/`, `npm test` (1 passed) and `npm run build` succeeded.
+**Next step:** Build `M2-T7` on `task/M2-T7-gross-profit-bridge`: segment volume and margin-rate bars when segment cost is reported, the total-margin path otherwise, summing exactly to the gross profit variance.
+**Blockers / questions for Jacob:** (a) to (d) as in the status block, plus (e): merge PR #20 now, or wait until Pages is enabled?
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Stacked task branches: merge with a merge commit, not a squash, so the PRs below the top one close as merged. Some of the older `task/*` branches look "ahead" of `main` only because they were squash-merged.
+**Last commit:** c73ac47e5b0e8830850cafc9216e45c1a1bca595 on main (before this entry)
 
 ## 2026-11-04 14:01 (America/Los_Angeles) — Cursor agent
 
@@ -31,6 +112,75 @@
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Do not change repo visibility. Do not put a secret in `deploy.yml`. The commit named below is the workflow. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
 **Last commit:** 50de24b9c39d0c4333ee9bdc16bec68e73865df6 on task/M4-T4-deploy-workflow
 
+## 2026-11-04 14:02 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T6 (done)
+**What changed:**
+- Added `agent/revenue_bridge.py`. The six bars are volume, price/mix, regulatory credits, leasing, energy, and services.
+- Volume is the change in total deliveries times forecast ASP. Price/mix is the change in ASP times actual deliveries. ASP is automotive sales divided by total deliveries. A positive bar is favorable.
+- Added `tests/test_revenue_bridge.py`. The leasing limitation is in `docs/DECISIONS.md` for the `M5-T13` methods copy.
+**Current state:** The revenue bridge can be stored for one quarter. Gross profit, operating income, and free cash flow bridges are not built yet. Local `uv run pytest`: 104 passed. Ruff check and format check passed.
+**Next step:** Merge pull requests #17, #18, and #19, then this one. `M2-T7` should split gross-profit variance into volume and margin-rate bars that sum exactly.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Leased units stay inside the delivery total. This branch includes `M2-T3` through `M2-T5` until those pull requests are on `main`. The commit named below is the revenue bridge. Later commits on this branch only update the handoff.
+**Last commit:** 69b9f4eb7a4be1033000e9076f25c1b58d205257 on task/M2-T6-revenue-bridge
+
+## 2026-11-04 14:01 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T5 (done)
+**What changed:**
+- Added `agent/backtest.py`. Absolute percent error is `100 * abs(forecast - actual) / abs(actual)` for total revenue, gross profit, and operating income.
+- A miss above 100 percent is stored as that larger percent. An actual of zero keeps the quarter and stores a null error. The average is the mean of the non-null errors and is not a quarter row.
+- Added `tests/test_backtest.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** The accuracy table can be written for a quarter that already has a base forecast. The four bridges are not built yet. Local `uv run pytest`: 102 passed. Ruff check and format check passed.
+**Next step:** Merge pull requests #17 and #18, then this one. `M2-T6` should build the six-bar revenue bridge so the bars sum to the total revenue variance.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not clip a backtest error. This branch includes the M2-T3 and M2-T4 commits until those pull requests are on `main`. The commit named below is the backtest. Later commits on this branch only update the handoff.
+**Last commit:** 71192a1da7659c1ab05acc6839cafa7f223f4b4e on task/M2-T5-backtest
+
+## 2026-11-04 13:57 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T4 (done)
+**What changed:**
+- Added `agent/scenarios.py`. Bull and bear flex deliveries, ASP, and gross margin by the config percentages. Automotive sales is the product of the flexed factors. The other lines stay at the base forecast.
+- Base rows match `base_forecast()`. An empty base stays empty in all three scenarios.
+- Added `tests/test_scenarios.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** Three scenarios can be stored for one quarter. The backtest and the bridges are not built yet. Local `uv run pytest`: 98 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T3 pull request, then this one. `M2-T5` should measure absolute percent error for revenue, gross profit, and operating income, including large misses.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not hardcode 10, 5, or 100 in the scenario function. This branch includes the M2-T3 commits until that pull request is on `main`. The commit named below is the scenario flex. Later commits on this branch only update the handoff.
+**Last commit:** cb1ef8002daa2194f8a79b0a3d6cb8430098b1f7 on task/M2-T4-scenarios
+
+## 2026-11-04 13:55 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M2-T3 (done)
+**What changed:**
+- Added `agent/forecast.py`. `base_forecast()` applies `config/forecast.json` to cutoff inputs. `write_base_forecast()` stores the base scenario.
+- The stored lines are deliveries, ASP, automotive sales, regulatory credits, leasing, energy, services, total revenue, gross margin, gross profit, operating expenses, operating income, CFO, capex, and free cash flow. R&D and SG&A are added when their history can build a run-rate.
+- Fewer than four earlier quarters sets `empty_history` and leaves the value null. A later filing and the target quarter's deliveries are not inputs.
+- Added `tests/test_forecast.py`. The choice is in `docs/DECISIONS.md`.
+**Current state:** The base forecast can be written for one quarter. Scenarios, the backtest, and the bridges are not built yet. Local `uv run pytest`: 96 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T3 pull request. `M2-T4` should flex deliveries, ASP, and gross margin from the config percentages and keep base equal to this forecast.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not hardcode the scenario percentages. Capex in `forecast` is `purchases_of_property_and_equipment`. `gross_margin` is the ratio that turns forecast revenue into forecast gross profit. This branch is based on `main` after the M2-T2 merge. The commit named below is the base forecast. Later commits on this branch only update the handoff.
+**Last commit:** c639f699414bda0669f7b3a20fbb3ebd24e024db on task/M2-T3-base-forecast
+
 ## 2026-11-04 13:48 (America/Los_Angeles) — Cursor agent
 
 **Task(s):** M2-T2 (done)
@@ -48,6 +198,41 @@
 - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403. No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
 **Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not claim `M1-T6` or `M1-T7`. Do not read `quarter_actual` as the forecast input when a later filing on or before the cutoff restates the period. Do not include the target quarter's deliveries. This branch includes the M1-T9 commits until that pull request is on `main`. The commit named below is the cutoff loader. Later commits on this branch only update the handoff.
 **Last commit:** 159b63e7e00388a0563c8203d1de442f7bb6823f on task/M2-T2-cutoff-no-lookahead
+
+## 2026-11-04 13:47 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M5-T14 (done)
+**What changed:**
+- Added the about section after the methods section. The credit is "Built by Jacob Kambour, MS Finance & Analytics, Santa Clara University."
+- GitHub, LinkedIn, and résumé are read from `profileLinks` in `site/src/config.ts`. All three stay empty strings. A blank row says "Not filled in yet" and is not a link.
+- Added `tests/test_about.py`. Recorded the blank-link choice in `docs/DECISIONS.md`.
+**Current state:** The about block follows the methods section, under the quarter status. This branch is rebased onto `task/M5-T13-how-it-works`, which is on `main` with the quarter picker. Ruff check and format check passed. `npm test` and `npm run build` in `site/` succeeded. A local preview at `http://127.0.0.1:4173/tesla-fpa-agent/` was checked. No links are rendered. Pages is not enabled.
+**Next step:** Merge the M5-T13 pull request, then this one. Fill `profileLinks` only when Jacob supplies the URLs.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Do not invent GitHub, LinkedIn, or résumé URLs. The commit named below is the section. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 3961ba389d9d3048a6f9a6667da8ef6739edd712 on task/M5-T14-about
+
+## 2026-11-04 13:45 (America/Los_Angeles) — Cursor agent
+
+**Task(s):** M5-T13 (done)
+**What changed:**
+- Added an inline SVG of the six pipeline stages. Below 481px the same stages are a vertical SVG. Explain is marked Model. The other stages are marked Code.
+- The fixture in `site/src/methodExample.ts` is labeled "Example of the pipeline. Not a recorded run." It has no durations and no dollar amounts.
+- The section says the code checks figures and the model writes, that this page does not call the model, how verified, flagged, and unsupported figures differ, that the sources are public SEC filings and investor-relations releases only, and that leased units sit inside total deliveries.
+- Added `tests/test_method_section.py`. Recorded the choice in `docs/DECISIONS.md`.
+**Current state:** The methods section is on the page under the quarter status. Rebased onto `main` after the quarter picker merged. Ruff check and format check passed. `npm run build` in `site/` succeeded. A local preview at `http://127.0.0.1:4173/tesla-fpa-agent/` was checked in light at 1280px and in dark at 375px. The wide diagram shows on the desktop width. The narrow diagram shows at 375px. No horizontal overflow. No console warnings. Pages is not enabled.
+**Next step:** Merge this pull request. `M5-T6` should take durations from published run metadata, not from `methodExample.ts`.
+**Blockers / questions for Jacob:**
+- (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
+- (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values).
+- (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+- (d) Every deliveries `source_url` returned HTTP 403 from this environment, so the live page check did not run. Please run `scripts/check_deliveries --fetch` from a network that can open the investor-relations pages. The CSV was left as transcribed in M1-T4.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. Do not enable Pages. Do not put a recorded duration or a dollar amount in `methodExample.ts`. `.narrative` is only for the memo and the Q&A. The commit named below is the section. The tip of this branch may be one commit later, and that later commit only writes this hash into `docs/PLAN.md` and this entry into `docs/PROGRESS.md`.
+**Last commit:** 23b6ee0368dd2a5732f32121f3d27cfc48dba1f7 on task/M5-T13-how-it-works
 
 ## 2026-11-04 13:39 (America/Los_Angeles) — Cursor agent
 

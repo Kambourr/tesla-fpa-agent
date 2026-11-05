@@ -15,6 +15,94 @@ Newest entry at the top. Every non-obvious choice goes here: the decision, the a
 
 **What this means for later tasks:** Do not turn Pages on, do not change visibility, and do not add a secret to this workflow.
 
+## 2026-11-04 — Live ingest loads the filing index overflow pages
+
+**Decision:** `python -m agent ingest` (no `--fixtures`) builds `SecClient` from `Settings()` and, after the submissions index, downloads every overflow page named under `filings.files` through `SecClient.filing_index_page`, which accepts only names of the form `CIK0001318605-submissions-NNN.json`. `merge_submission_pages` appends each page's columns to `filings.recent` before facts are tied to filings. In fixture mode, a page listed in `submissions.json` must sit next to it in the fixture directory.
+
+**Why:** The first live run on 2026-11-04 failed twice. First, ingest called `SecClient.from_settings()` without its `settings` argument, which the tests hid by stubbing that call. Second, SEC keeps only the latest 1,000 filings in `recent` (back to 2018-06-14 for Tesla), so a 2012 10-K in companyfacts had no filing row. With the page loaded, the run stored 1,850 facts.
+
+**Alternatives considered:** Skipping companyfacts values whose filing is not in `recent`. Rejected because it drops facts silently, and section 4 requires a filing link for every value.
+
+## 2026-11-04 — Model and variance commands, and two load fixes they exposed
+
+**Decision:** `agent/model_stage.py` holds both stages. `python -m agent model` clears `forecast`, `backtest`, `bridge`, and `published_quarter`, then for each of the last 12 quarters with reported total revenue writes bull, base, and bear (`write_scenarios`) and the backtest row. Each quarter is recorded in the new table `published_quarter` (`sql/010_published_quarter.sql`) with kind `backtest` and `has_forecast`, which is false when the base forecast is empty for short history. When `PUBLISH_FORWARD_FORECAST` is true, the next quarter is forecast and recorded with kind `forward`. When it is false, no forward forecast is computed at all, so a forward number cannot reach the publish step by mistake. `python -m agent variance` clears `bridge` and writes the four bridges for every `backtest` quarter with a forecast. If a bridge cannot be built, the others are still written, each failure is printed with its quarter and bridge, and the command exits 1. Accuracy beats coverage: a missing bridge is reported, not hidden.
+
+Building this against a synthetic 19-quarter database (`tests/pipeline_fixture.py`, loaded through `store_reported_facts` and `assemble_quarter_actuals`) found two defects that unit tests with hand-inserted rows had hidden:
+
+- **Actual deliveries.** The revenue bridge read actual deliveries from `quarter_actual`. Ingest stores delivery counts only in the `deliveries` table, so the bridge could not run on an ingested database. It now reads `deliveries.deliveries_total`.
+- **Cash flow in an unfinished year.** `assemble_quarter_actuals` wrote cash-flow quarters only for years with a 10-K, so the latest year's Q1 to Q3 had no CFO or capex, and those are the quarters the dashboard leads with. Q1 to Q3 now de-cumulate from the 10-Qs on file. Q4 still needs the 10-K.
+
+**Alternatives considered:** Computing the forward forecast always and filtering it at publish time. Rejected because a stored forward number is one bug away from the site, and Jacob has not approved showing one. Skipping a quarter whose bridge fails and exiting 0. Rejected because the site would show a gap without saying why.
+
+## 2026-11-04 — Plan change: add M1-T10 for segment lines
+
+**Decision:** Add `M1-T10` to `docs/PLAN.md`: read the segment revenue and cost lines from each filing's XBRL instance. The plan had no task for this. Every revenue segment metric in `config/xbrl_tags.json` (automotive sales, regulatory credits, leasing, energy, services) and every segment cost is tagged with a dimension member. Companyfacts drops dimensions, so ingest stores none of them (see "First-reported quarter actuals"). On live data the base forecast therefore has no automotive sales, no total revenue, and no gross profit from the segment path, and the revenue bridge raises. Fixture tests did not show this, because they insert the lines directly.
+
+**Alternatives considered:** Dropping the segment bars from the revenue bridge. Rejected because section 4 requires them, and the volume and price/mix bars need automotive sales. The SEC frames API. Rejected because it has no dimensions either. Folding the work into `M2-T10`. Rejected because it is ingest work with its own fixture and network rules.
+
+**What this means for later tasks:** `M2-T10` can pass its acceptance on a fixture database. `M6-T3` (fresh-clone run) cannot pass until `M1-T10` is done.
+
+## 2026-11-04 — Free cash flow bridge
+
+**Decision:** `agent/free_cash_flow_bridge.py` writes two bars: `net_cash_from_operating_activities` (actual minus forecast CFO) and `purchases_of_property_and_equipment` (minus the change in capex, so spending above forecast is negative and unfavorable). The variance is actual minus forecast free cash flow. Ingest does not store an actual `free_cash_flow`, so the bridge computes it as CFO minus capex from the first-reported, de-cumulated lines. A stored value is used if a later task adds one, and `reconciled()` rejects it if it does not tie.
+
+**Alternatives considered:** Adding `free_cash_flow` to `quarter_actual` during ingest. Rejected for this task because that row would need an accession and filing URL, and no single filing tags it. The verifier and the publish step can compute it the same way.
+
+## 2026-11-04 — Operating income bridge bars
+
+**Decision:** `agent/operating_income_bridge.py` writes the `operating_income` bridge. The bars are `gross_profit` (actual minus forecast gross profit), then `research_and_development`, `selling_general_and_administrative`, and `restructuring_and_other`, each equal to minus the change in that cost, so a cost above forecast is a negative, unfavorable bar. `restructuring_and_other` is the change in total operating expenses minus the changes in R&D and SG&A. It holds restructuring and any other opex line Tesla reports, which saves a separate XBRL tag for a line that appears only in some quarters. When either side lacks R&D or SG&A, one `operating_expenses` bar replaces those three. The bars are built with `reconciled()` against stored actual minus forecast `operating_income`. Actual gross profit falls back to total revenue minus cost of revenue when `gross_profit` is not stored.
+
+The forecast projects R&D, SG&A, and total opex separately, each with its own run rate, so forecast `restructuring_and_other` is whatever total opex holds beyond the two lines. It is a forecast of that remainder, not a plug.
+
+**Alternatives considered:** A restructuring bar shown only when a restructuring tag exists. Rejected because the tag is missing in most quarters, and the remainder would then go unexplained. Leaving the sign unflipped and calling the bar "unfavorable" in the label only. Rejected because the brief says a higher cost is unfavorable, and a negative bar keeps the waterfall arithmetic and the label consistent.
+
+## 2026-11-04 — Gross profit bridge, and every bridge ties to the stored variance
+
+**Decision:** `agent/gross_profit_bridge.py` writes the `gross_profit` bridge. When the base forecast has segment gross profit and the actuals have all three segment cost lines (`cost_of_revenue_automotive`, `cost_of_revenue_energy`, `cost_of_revenue_services`), there is one bar per segment (`automotive`, `energy`, `services_and_other`). Each bar is the revenue effect (change in segment revenue times forecast segment margin) plus the margin-rate effect (change in segment margin times actual segment revenue). Automotive revenue is sales plus regulatory credits plus leasing, matching the forecast's automotive margin. Otherwise the bridge takes the total-margin path: the same three revenue bars at the forecast total margin, plus a `gross_margin_rate` bar equal to the change in total margin times actual total revenue. A `gross_margin_rate` row in `bridge` therefore means the total path was used.
+
+Today every quarter takes the total path. Companyfacts has no segment cost, so neither the forecast inputs nor the actuals hold it (see the 2026-11-04 per-filing storage entry). The segment path runs as soon as a later task loads the segment lines from filing instances.
+
+The base forecast now also stores `gross_profit_automotive`, `gross_profit_energy`, and `gross_profit_services` when it uses segment margins. Those rows are base only. The bull and bear flex moves the blended `gross_margin`, so copying segment profit into those scenarios would be wrong.
+
+Margins inside the bridge are implied: gross profit divided by revenue, at full precision. The stored `gross_margin` has four decimal places, and 0.00005 of $25B is about $1.25M, so a rounded margin cannot be used for a bar that has to sum exactly.
+
+`agent/bridge.py` gains `reconciled()`. It quantizes each bar to four places and adds the remaining gap to the largest bar, so the bars sum exactly to the variance. The variance is actual minus forecast of the stored total (`gross_profit`, or `total_revenue` for the revenue bridge). A gap above $1,000 raises `BridgeError`, because the inputs then fail to tie, for example segment costs that do not add up to total cost. The revenue bridge now uses `reconciled()` too. Before, its bars summed exactly only on clean test numbers: stored forecast sales is rounded, so it is not exactly forecast deliveries times forecast ASP, and actual ASP is a repeating decimal. A test with rounded inputs missed by $0.0244 under the old code.
+
+**Alternatives considered:**
+
+- Store the segment margins in `forecast`. Rejected because `DECIMAL(24, 4)` rounds a margin to four places, which moves a bar by millions. Segment gross profit in dollars keeps its precision.
+- Allocate the total margin-rate effect across segments by revenue share. Rejected because that invents a segment split the filings do not report. One `gross_margin_rate` bar says what is known.
+- Put the rounding gap in a separate "rounding" bar. Rejected because it adds a bar the brief does not list, for a few cents.
+- Widen the money columns. Rejected because the gap comes from rounding forecast lines before they are multiplied, which wider columns only shrink.
+
+**What this means for later tasks:** M2-T8 and M2-T9 should build their bars with `reconciled()` against the stored totals. The site should label `gross_margin_rate` as "Gross margin rate (total)" and note that segment cost was not reported. A task that loads segment cost lines from filing instances turns on the segment path without changing this module.
+
+## 2026-11-04 — Revenue bridge uses total deliveries, including leased units
+
+**Decision:** The volume bar is the change in total deliveries times the forecast ASP. The price/mix bar is the change in ASP times actual total deliveries. ASP is automotive sales divided by total deliveries. Regulatory credits, leasing, energy, and services are actual minus forecast. A positive bar is favorable. Zero is not favorable. Leased units sit inside the delivery total, so the volume bar is not a pure retail-unit effect. `M5-T13` should say that in the methods copy.
+
+**Alternatives considered:** Removing leased units from the volume bar would need a leased-unit count the delivery file does not have. Treating a zero leasing bar as favorable would mark an unchanged line as good news.
+
+## 2026-11-04 — Backtest keeps every miss, including a large one
+
+**Decision:** Absolute percent error is `100 * abs(forecast - actual) / abs(actual)`, stored as a percent. A result of 300 means the miss was three times the actual. The value is not clipped. An actual of zero, or a null forecast, stores the quarter with a null error. The average is the mean of the non-null errors for that metric. It is computed from the table and is not inserted as a quarter named `average`.
+
+**Alternatives considered:** Dropping a zero actual would hide the quarter. Capping the error at 100 percent would make a bad forecast look bounded. Storing the average under `quarter = 'average'` would make a later loop treat it as a period.
+
+## 2026-11-04 — Scenarios flex three drivers and compound sales
+
+**Decision:** `scenario_forecasts()` starts from `base_forecast()` and writes bull, base, and bear. The flex amounts and units are read from `config/forecast.json` at call time. Deliveries and ASP move by a percent of themselves. Gross margin moves by basis points, which is an absolute ratio change (`100` basis points is `0.01`). Automotive sales is the flexed delivery count times the flexed ASP. Total revenue, gross profit, and operating income are rebuilt from those flexed pieces. Credits, leasing, energy, services, operating expenses, CFO, capex, and free cash flow stay at the base amount. An empty base forecast stays empty in all three scenarios.
+
+**Alternatives considered:** Flexing sales by a separate percent would ignore the compounding the config notes already describe. Hardcoding 10, 5, and 100 in the scenario function would miss a later config edit. Flexing free cash flow would invent a cash effect the formulas do not have.
+
+## 2026-11-04 — Base forecast executes the config on cutoff history
+
+**Decision:** `base_forecast()` reads only the `ForecastInputs` from `load_forecast_inputs()`. A target quarter with fewer than `minimum_earlier_quarters` earlier quarters in that input is stored with a null value and `empty_history` true. The count is any earlier quarter that has a delivery row or a mapped financial fact, not a count of one metric.
+
+Deliveries are `D(Q-4) * (1 + g)` with `g = D(Q-1) / D(Q-5) - 1`, and `g` is 0 when `D(Q-5)` is missing or zero. ASP drops a prior quarter with missing sales or zero deliveries and averages what remains. Run-rate lines need all four prior quarters. Capex is stored as `purchases_of_property_and_equipment`. Cash-flow history is year-to-date de-cumulated; a year can contribute Q1 or Q2 without a later 10-Q. Income history uses a single-quarter duration when one is stored, and derives Q4 from the annual amount only when that duration is absent. Gross profit uses automotive, energy, and services margins when all three are in the four prior quarters. Otherwise it uses total gross profit divided by total revenue. The stored `gross_margin` is the margin that turns forecast revenue into that gross profit. R&D and SG&A are written only when their own run-rate can be built.
+
+**Alternatives considered:** Reading `quarter_actual` would ignore a restatement that was already public on the cutoff. Requiring five earlier quarters would contradict the four-quarter empty state. Averaging a run-rate over the quarters that happen to exist would hide a hole in the history. Treating every Q4 duration as derived would drop a single-quarter amount `fact_as_of` already selected.
+
 ## 2026-11-04 — Forecast cutoff is the previous quarter's first filing
 
 **Decision:** `load_forecast_inputs()` dates the forecast for quarter Q at the earliest `filing_date` of a 10-Q, 10-K, or amendment whose own period end is Q-1. Facts are `fact_as_of(cutoff_date)`, so a restatement filed on or before that date replaces the first-reported number. `quarter_actual` stays the first report. A 10-Q/A of Q-1 does not move the cutoff later, so an amendment filed after the original 10-Q is invisible to the forecast for Q. Deliveries and production are included only when the quarter is before Q and the release date is on or before the cutoff. Q's own delivery row is dropped even when its release date is earlier than the cutoff.
@@ -28,6 +116,35 @@ Newest entry at the top. Every non-obvious choice goes here: the decision, the a
 The database keeps every loaded quarter. After the load it checks that `quarter_actual` for `total_revenue`, and the `deliveries` table, both contain the last 12 reported quarters plus the earlier quarters the forecast reads. That history is the deepest `input_offsets` value in `config/forecast.json`, which is five quarters (through Q-5). `minimum_earlier_quarters` is 4, which is shorter than those offsets, so the check uses the offsets. A restatement stays in `fact`.
 
 **Alternatives considered:** Trimming the database to exactly those quarters would drop restatements and the deliveries quarters before the window. Checking only `minimum_earlier_quarters` would leave the Q-5 input unread. Scraping investor-relations pages during ingest would repeat the fetch that already returns HTTP 403 from this network. M1-T5 kept that fetch out of the load path.
+
+## 2026-11-04 — About links stay blank until Jacob fills them in
+
+**Decision:** The about credit is the sentence in section 5. GitHub, LinkedIn, and résumé come from `profileLinks` in `site/src/config.ts`. All three values stay empty strings. A blank value renders the label and the words "Not filled in yet". It does not render an anchor, so the page has no guessed URL and no link that goes nowhere.
+
+**Why:** M5-T14 says the placeholders are obvious and empty of guessed URLs, and the page still renders when they are blank. An example URL would be a guess.
+
+**Alternatives considered:**
+
+- Placeholder links to `example.com` or `#`. Rejected because they look like real destinations.
+- Hiding the three rows until a URL exists. Rejected because the empty state would not show Jacob where to type.
+
+**What this means for later tasks:** Fill `profileLinks` only when Jacob supplies the URLs. Do not invent them.
+
+## 2026-11-04 — Methods diagram is an example, not a recorded run
+
+**Decision:** `site/src/methodExample.ts` is the shape of the six section 5 stages. The page says "Example of the pipeline. Not a recorded run." The fixture has no durations, costs, or dollar amounts. Explain is the only stage whose actor is Model. The other five are Code. The word is in the diagram, and Model is also cobalt, so the split does not depend on color. At 480px and below the same stages render as a vertical SVG.
+
+The prose says visitors do not call the model, that a commentary figure is verified, flagged, or unsupported, that the only sources are public SEC filings and investor-relations releases, and that leased units sit inside total deliveries. Automotive ASP uses that total, so the volume bar treats a leased unit like a sold one. Leasing stays its own bar.
+
+**Why:** M5-T13 asks for the diagram and those limits before a published run exists. Durations and cost belong to M5-T6, which reads run metadata.
+
+**Alternatives considered:**
+
+- A screenshot of code or of a terminal. Rejected because the task asks for an inline SVG.
+- Arrow characters between the stages. Rejected because the site scan forbids `→`, and a ledger line is enough.
+- Sample durations or a dollar figure marked "example." Rejected because a number on this page would be easy to read as a result. The label says the diagram is not a recorded run, and it contains no amounts.
+
+**What this means for later tasks:** M5-T6 can show durations from published run metadata. Do not put those numbers in `methodExample.ts`.
 
 ## 2026-11-04 — First-reported quarter actuals, with restatements kept
 

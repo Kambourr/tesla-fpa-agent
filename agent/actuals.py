@@ -366,26 +366,31 @@ def _assemble_cash_flow(
             annuals[year] = row
     years = {int(label[:4]) for label in ytd} | set(annuals)
     for year in years:
-        pieces = [ytd.get(f"{year}-Q{number}") for number in (1, 2, 3)]
+        # A year still in progress has no 10-K. Its quarters de-cumulate from
+        # the 10-Qs that exist, so the latest quarters are not left blank.
+        q1, q2, q3 = (ytd.get(f"{year}-Q{number}") for number in (1, 2, 3))
         annual = annuals.get(year)
-        if annual is None or any(piece is None for piece in pieces):
+        if q1 is not None:
+            _insert_actual_value(
+                connection, f"{year}-Q1", metric, Decimal(_whole(q1.value)), q1, "first_reported"
+            )
+        if q1 is not None and q2 is not None:
+            single = _whole(q2.value) - _whole(q1.value)
+            _insert_actual_value(
+                connection, f"{year}-Q2", metric, Decimal(single), q2, "decumulated"
+            )
+        if q2 is not None and q3 is not None:
+            single = _whole(q3.value) - _whole(q2.value)
+            _insert_actual_value(
+                connection, f"{year}-Q3", metric, Decimal(single), q3, "decumulated"
+            )
+        if q1 is None or q2 is None or q3 is None or annual is None:
             continue
-        q1, q2, q3 = pieces
-        assert q1 is not None and q2 is not None and q3 is not None
         amounts = cash_flow_quarters(
             _whole(q1.value),
             _whole(q2.value),
             _whole(q3.value),
             _whole(annual.value),
-        )
-        _insert_actual_value(
-            connection, f"{year}-Q1", metric, Decimal(amounts.q1), q1, "first_reported"
-        )
-        _insert_actual_value(
-            connection, f"{year}-Q2", metric, Decimal(amounts.q2), q2, "decumulated"
-        )
-        _insert_actual_value(
-            connection, f"{year}-Q3", metric, Decimal(amounts.q3), q3, "decumulated"
         )
         _insert_actual_value(
             connection,
