@@ -57,7 +57,19 @@ export function numberCandidates(value: number): string[] {
   const [integer, fraction] = plain.split(".");
   const grouped = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const withCommas = fraction === undefined ? grouped : `${grouped}.${fraction}`;
-  return withCommas === plain ? [plain] : [withCommas, plain];
+  const forms = withCommas === plain ? [plain] : [withCommas, plain];
+  // Prose keeps trailing zeros a claim value drops: 1.5 is written "$1.50 billion",
+  // 20 is written "20.0%". Try those forms too, with and without grouping.
+  for (const places of [1, 2]) {
+    const fixed = absolute.toFixed(places);
+    if (Number(fixed) !== Number(plain) || forms.includes(fixed)) {
+      continue;
+    }
+    const [fixedInteger, fixedFraction] = fixed.split(".");
+    const fixedGrouped = `${fixedInteger.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}.${fixedFraction}`;
+    forms.push(...new Set([fixedGrouped, fixed]));
+  }
+  return forms;
 }
 
 function escapeRegExp(text: string): string {
@@ -99,21 +111,51 @@ function findToken(sentence: string, value: number, taken: Wrap[]): { start: num
   return found.find((span) => !overlaps(span, taken)) ?? null;
 }
 
-/** Assigns each claim to a token in its sentence. Returns the wraps per sentence and the claims that were not found. */
+/**
+ * Assigns each claim to a token. First pass: the sentence its sentence_ref
+ * names. Second pass, for claims not found there: the nearest other sentence
+ * with an unused match. Models number sentences unevenly (a clause after a
+ * semicolon may count as its own sentence), and the verifier never relies on
+ * sentence_ref, so a figure should not lose its tick over an off-by-one.
+ * Returns the wraps per sentence and the claims that were not found anywhere.
+ */
 function placeClaims(sentences: Sentence[], claims: ClaimView[]) {
   const wrapsBySentence = new Map<number, Wrap[]>();
-  const unmatched: ClaimView[] = [];
+  const place = (sentence: Sentence, claim: ClaimView): boolean => {
+    const taken = wrapsBySentence.get(sentence.number) ?? [];
+    const span = findToken(sentence.text, claim.value, taken);
+    if (!span) {
+      return false;
+    }
+    wrapsBySentence.set(sentence.number, [...taken, { ...span, claim }]);
+    return true;
+  };
+  // One written figure can back two claims (a variance and the bridge bar with
+  // the same value). The second claim then shares the first one's tick instead
+  // of being listed as not found.
+  const shares = (claim: ClaimView): boolean =>
+    sentences.some((sentence) =>
+      (wrapsBySentence.get(sentence.number) ?? []).some(
+        (wrap) => wrap.claim.value === claim.value && wrap.claim.status === claim.status,
+      ),
+    );
+  const leftover: ClaimView[] = [];
   for (const claim of claims) {
     const sentence = sentences.find((item) => String(item.number) === claim.sentence_ref);
-    const taken = sentence ? (wrapsBySentence.get(sentence.number) ?? []) : [];
-    const span = sentence ? findToken(sentence.text, claim.value, taken) : null;
-    if (!sentence || !span) {
-      unmatched.push(claim);
-      continue;
+    if (!sentence || !place(sentence, claim)) {
+      leftover.push(claim);
     }
-    const wraps = wrapsBySentence.get(sentence.number) ?? [];
-    wraps.push({ ...span, claim });
-    wrapsBySentence.set(sentence.number, wraps);
+  }
+  const unmatched: ClaimView[] = [];
+  for (const claim of leftover) {
+    const ref = Number.parseInt(claim.sentence_ref, 10);
+    const anchor = Number.isFinite(ref) ? ref : 1;
+    const byDistance = [...sentences].sort(
+      (a, b) => Math.abs(a.number - anchor) - Math.abs(b.number - anchor) || a.number - b.number,
+    );
+    if (!byDistance.some((sentence) => place(sentence, claim)) && !shares(claim)) {
+      unmatched.push(claim);
+    }
   }
   return { wrapsBySentence, unmatched };
 }
