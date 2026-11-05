@@ -22,7 +22,7 @@
 **Current state:** `uv run pytest`: 251 passed; site tests and build pass.
 **Next step:** Merge this PR and continue down the merge queue.
 **Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
-**Notes for the next agent:** The axis starts at zero, so small drivers (leasing) draw at a 2px minimum; their labels show the true values.
+**Notes for the next agent:** Claude Code changed the axis after a visual check: it starts at a padded level below the bridge's lowest point (not zero), the forecast and actual bars carry a break mark, and a note under the chart says where the axis starts (`bridgeDomain` in `HeroSection.tsx`). A bridge that reaches zero keeps a zero-based axis.
 **Last commit:** 38bff51b4055e5687e2718381531b36a53221102 on task/M5-T4-hero-bridge
 
 ## 2026-11-05 00:54 (America/Los_Angeles) — Claude Code
