@@ -377,7 +377,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The seal states the verified count out of the total, including when some are flagged (flagged figures stay visible). It links to the verification or methods section. The count comes from the published verification results, not a hardcoded "41 of 41".
 - **Depends on:** M5-T3, M5-T4
 - **Can run in parallel with:** M5-T6, M5-T7, M5-T8
-- **Status:** todo
+- **Status:** in progress (Claude Code, 2026-11-05)
 
 ### M5-T6 — How the agent ran
 
