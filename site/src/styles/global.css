@@ -398,6 +398,48 @@ h1 {
   text-wrap: pretty;
 }
 
+.about {
+  max-width: var(--prose);
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.about h2 {
+  font-size: clamp(1.5rem, 1.15rem + 1vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.about p {
+  margin-top: 0.85rem;
+  text-wrap: pretty;
+}
+
+.about-links {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.about-links li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.about-label {
+  font-weight: 500;
+}
+
+.about-missing {
+  color: var(--ink-quiet);
+}
+
 .colophon {
   border-top: 1px solid var(--rule);
   padding-block: 1.5rem 2.25rem;
