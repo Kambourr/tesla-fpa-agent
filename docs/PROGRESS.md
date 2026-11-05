@@ -3,8 +3,8 @@
 ## Current status
 
 - **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 56 of 59 (95%).
-- **What's next:** M7-T2 to M7-T5 (full-run figure, social preview, write-up page, mobile performance), claimed by Claude Code.
+- **Tasks done:** 58 of 59 (98%).
+- **What's next:** M7-T5 (mobile performance), claimed by Claude Code.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -22,6 +22,20 @@
 **Checks:** `tests/test_site_shell.py` 9 passed (new test checks the tags and the PNG's size from its header); site tests and build pass.
 **Next step:** M7-T4, M7-T5.
 **Blockers / questions for Jacob:** None. Some platforms cache previews; LinkedIn's Post Inspector refreshes it.
+
+**Task(s):** M7-T4 (done, 5619667692fb2ac3a26d723403d4a4371c7a6fe7).
+**What changed:** New page https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html, a second Vite entry (`site/how-it-was-built.html`, `site/src/writeup/`) using the dashboard's tokens, fonts, masthead, and theme toggle. Sections: the split between code and model, what the checker catches (wrong number, no source, wrong sign, advice language; tolerances from `agent/verifier.py`), decisions that mattered, forecast accuracy, limits, stack. Every count is read from the bundled `dashboard.json` (sources, check totals, backtest averages, last full run) with plain-text fallbacks. Linked from the dashboard's build chain ("Read how it was built") and the README.
+**Checks:** site tests 147 passed (three new for the page), tsc clean, build emits both pages; Playwright: no console errors, no horizontal scroll at 375px, links work both ways; Lighthouse accessibility, best practices, and SEO 100.
+**Next step:** M7-T5.
+**Blockers / questions for Jacob:** None. The page credits "MS Finance & Analytics, Santa Clara University", matching the About section.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T2 (done, 78480aa05215b493163a0da88549d8499f2f5b66).
+**What changed:** `dashboard.json` gains `last_full_run`: the run metadata of the most recent run in which the model wrote every narrative (no cache hits). `agent/run.py` sets it from the current run when that holds, and otherwise carries it forward from the file being replaced (an unreadable or older file gives null, never a guess). The build chain's "Shipped" step now reads "A full run takes 7 min 3 s and $0.03 of model use; one click refreshes the page." "How the agent ran" shows the full run and notes the later cached refresh. The committed file was backfilled with the run record from d14cfbc (Actions run 42037719383: 422.6 s, $0.0335), the last run that regenerated everything.
+**Checks:** `uv run pytest` 337 passed (two new: carry-forward, older file); site tests 144 passed; ruff and tsc clean.
+**Next step:** M7-T3 to M7-T5.
+**Blockers / questions for Jacob:** None.
 
 ## 2026-11-05 10:45 (America/Los_Angeles) — Claude Code
 

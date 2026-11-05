@@ -2,7 +2,7 @@
 
 Quarterly variance analysis is slow, manual work. An analyst rebuilds the forecast, ties the actuals to the 10-Q, breaks the miss into drivers, and writes the commentary, and every figure in that commentary has to be checked by hand before anyone trusts it. AI can draft the commentary in seconds, but finance cannot use numbers it cannot check. This project automates the whole loop on Tesla's public filings and makes the checking part of the product: code builds the forecast and the variance bridges, a model drafts the memo, and code verifies every figure the model wrote against the database before anything is published.
 
-**Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/
+**Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/ · **Plain-language write-up:** https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html
 
 ![The dashboard for Q3 2026: a sentence the model wrote with a tick on every figure, 337 of 337 figures tied to the filings, the five steps that went into it, and the revenue bridge from forecast to actual](docs/images/dashboard.png)
 

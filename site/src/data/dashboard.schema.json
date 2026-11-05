@@ -907,6 +907,16 @@
       "title": "Generated At",
       "type": "string"
     },
+    "last_full_run": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunMetadata"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "latest_quarter": {
       "title": "Latest Quarter",
       "type": "string"
@@ -949,6 +959,7 @@
     "latest_quarter",
     "forward_forecast_published",
     "run",
+    "last_full_run",
     "quarters",
     "qa",
     "backtest",

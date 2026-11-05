@@ -59,7 +59,11 @@ function StageDuration({ seconds }: { seconds: number | null }) {
 }
 
 export function AgentRunSection({ dashboard }: SectionProps) {
-  const run = dashboard.run;
+  // Show the run in which the model wrote everything; a cached refresh would
+  // show a near-empty model stage and undersell what the pipeline does.
+  const latest = dashboard.run;
+  const run = dashboard.last_full_run ?? latest;
+  const refreshedSince = run !== latest && latest.started_at !== null;
   const unrecorded = isRunUnrecorded(run);
   const secondsByStage = new Map<StageName, number | null>(
     run.stages.map((stage) => [stage.name, stage.seconds]),
@@ -86,6 +90,13 @@ export function AgentRunSection({ dashboard }: SectionProps) {
           </ol>
           {unrecorded ? null : <RunStats run={run} />}
         </div>
+        {refreshedSince ? (
+          <p className="agent-run-note">
+            The last full run, where the model wrote every memo and answer. Refreshed since on{" "}
+            {formatRunDate(latest.started_at)} in {formatRunTime(latest.duration_seconds)}, reusing
+            the verified narratives.
+          </p>
+        ) : null}
       </section>
     </>
   );

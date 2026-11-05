@@ -39,6 +39,7 @@ function threeQuarterDashboard(): Dashboard {
     generated_at: "2026-11-05T00:00:00Z",
     latest_quarter: "2024-Q3",
     forward_forecast_published: false,
+    last_full_run: null,
     run: {
       started_at: null,
       duration_seconds: null,
