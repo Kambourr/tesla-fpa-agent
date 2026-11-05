@@ -2,7 +2,7 @@
 
 ## Current status
 
-- **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T9`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
+- **Current milestone:** M2 is complete and on `main`. Claude Code is the builder. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T10`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages. New task `M1-T10` (segment lines from filing XBRL instances) is `todo` and is needed before a live run gives real numbers.
 - **Tasks done:** 26 of 54 (48%).
 - **What's next:** `M1-T10` (segment lines from filing instances), `M3-T5` (verifier), and `M3-T6` (keyword guard) can run in parallel. `M3-T2` (narration) is unblocked by `M2-T10`.
 - **Open blockers:**
