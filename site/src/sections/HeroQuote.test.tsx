@@ -116,5 +116,8 @@ describe("BuildChain", () => {
     const titles = screen.getAllByRole("heading", { level: 3 }).map((item) => item.textContent);
     expect(titles).toEqual(["Pulled", "Forecast", "Explained", "Checked", "Shipped"]);
     expect(screen.getByRole("link", { name: "Jacob Kambour" }).getAttribute("href")).toBe("#about-title");
+    expect(screen.getByRole("link", { name: "Read how it was built" }).getAttribute("href")).toBe(
+      "how-it-was-built.html",
+    );
   });
 });

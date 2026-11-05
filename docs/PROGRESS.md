@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M7 (redesign for a first-time reader), added at Jacob's request after the original plan was complete. Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 56 of 59 (95%).
+- **Tasks done:** 57 of 59 (97%).
 - **What's next:** M7-T2 to M7-T5 (full-run figure, social preview, write-up page, mobile performance), claimed by Claude Code.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
@@ -14,6 +14,14 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-05 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M7-T4 (done, 5619667692fb2ac3a26d723403d4a4371c7a6fe7).
+**What changed:** New page https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html, a second Vite entry (`site/how-it-was-built.html`, `site/src/writeup/`) using the dashboard's tokens, fonts, masthead, and theme toggle. Sections: the split between code and model, what the checker catches (wrong number, no source, wrong sign, advice language; tolerances from `agent/verifier.py`), decisions that mattered, forecast accuracy, limits, stack. Every count is read from the bundled `dashboard.json` (sources, check totals, backtest averages, last full run) with plain-text fallbacks. Linked from the dashboard's build chain ("Read how it was built") and the README.
+**Checks:** site tests 147 passed (three new for the page), tsc clean, build emits both pages; Playwright: no console errors, no horizontal scroll at 375px, links work both ways; Lighthouse accessibility, best practices, and SEO 100.
+**Next step:** M7-T5.
+**Blockers / questions for Jacob:** None. The page credits "MS Finance & Analytics, Santa Clara University", matching the About section.
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
