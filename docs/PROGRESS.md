@@ -7,12 +7,24 @@
 - **What's next:** `M1-T10` (segment lines from filing instances), `M3-T5` (verifier), and `M3-T6` (keyword guard) can run in parallel. `M3-T2` (narration) is unblocked by `M2-T10`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
-  - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
+  - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
-  - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
-  - (f) This cloud environment's network policy refuses `data.sec.gov` and `www.sec.gov`, so `M1-T10` can be built and tested on fixtures here but not checked against a real filing. Jacob: add both hosts under Allowed domains in the environment's Network access settings (https://code.claude.com/docs/en/cloud-environments#network-access), or run the live check from your own machine with `SEC_USER_AGENT` set.
+  - (e) PR #20 (`deploy.yml`) is ready. Jacob asked how to enable Pages. The repo is private, so Pages needs GitHub Pro (or a public repo), and the site is public either way. Waiting on Jacob to set Pages Source to GitHub Actions and say when to merge #20.
+  - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-04 21:37 (America/Los_Angeles) — Claude Code
+
+**Task(s):** live-run check (no plan task)
+**What changed:**
+- First live run from this environment. Fixed `agent/ingest.py`: the SEC client is built from `Settings()`, and the filing index overflow pages are loaded (`SecClient.filing_index_page` in `agent/sec.py`, `merge_submission_pages`). Added a test that runs the real live path with a fake transport.
+- Updated blockers (b), (e), and (f) in the status block. Decision logged in `docs/DECISIONS.md`.
+**Current state:** Live `python -m agent ingest` stored 1,850 facts, and deliveries run through 2026-Q3. `model` wrote 12 quarters (2023-Q4 to 2026-Q3) with the forward forecast off. `variance` wrote all 12 free cash flow bridges and reported the other 36 as not buildable, because revenue segment lines are missing (`M1-T10`), so forecast total revenue and gross profit are empty. `uv run pytest`: 137 passed.
+**Next step:** Claim `M1-T10`. Read the segment lines from each 10-Q and 10-K XBRL instance under `https://www.sec.gov/Archives/edgar/data/1318605/`, through `SecClient`.
+**Blockers / questions for Jacob:** (a), (c), (d), and (e) as in the status block.
+**Notes for the next agent:** `data/fpa.duckdb` and `data/cache/` are git-ignored. Do not commit them. SEC rejects requests without a real contact `User-Agent`.
+**Last commit:** 8246c8d62a18ac3cdc6fe5b3d30e1869de707434 on fix/live-ingest-sec-client
 
 ## 2026-11-04 17:57 (America/Los_Angeles) — Claude Code
 
