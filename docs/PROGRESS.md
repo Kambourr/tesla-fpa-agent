@@ -2,16 +2,28 @@
 
 ## Current status
 
-- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T8` is done on `task/M2-T8-operating-income-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T7`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
-- **Tasks done:** 24 of 53 (45%).
-- **What's next:** `M2-T9` (free cash flow bridge), then `M3-T5`, `M3-T6`, and `M2-T10`.
+- **Current milestone:** M2 model and variance. Claude Code is the builder. `M2-T9` is done on `task/M2-T9-free-cash-flow-bridge` and goes to `main` with its pull request. `M0-T1`, `M1-T1` through `M1-T9`, `M2-T1` through `M2-T8`, `M3-T1`, `M5-T1`, `M5-T2`, `M5-T13`, and `M5-T14` are on `main`. `M4-T4` is done on `task/M4-T4-deploy-workflow` (PR #20) and stays off `main` until Jacob decides on Pages.
+- **Tasks done:** 25 of 53 (47%).
+- **What's next:** `M2-T10` (`model` and `variance` commands). `M3-T5` (verifier) and `M3-T6` (keyword guard) can run in parallel.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Jacob must add repo secrets `OPENAI_API_KEY` and `SEC_USER_AGENT` (names only, never values). A live SEC call needs `SEC_USER_AGENT`. CI does not call the live site.
   - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) PR #20 (`deploy.yml`) is ready. Once it is on `main`, every push to `main` runs a deploy job that fails until Pages is set to GitHub Actions. Jacob: merge it now and accept the red deploy runs, or wait until you enable Pages?
-- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge`, `write_gross_profit_bridge`, and `write_operating_income_bridge` (each takes a connection and a quarter) store the bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+- **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `write_revenue_bridge`, `write_gross_profit_bridge`, `write_operating_income_bridge`, and `write_free_cash_flow_bridge` (each takes a connection and a quarter) store the bars. Each bridge sums exactly to the stored actual minus the base forecast. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`. `npm run dev` serves the app at the `/tesla-fpa-agent/` base path.
+
+## 2026-11-04 17:52 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M2-T9 (done)
+**What changed:**
+- Added `agent/free_cash_flow_bridge.py`: an operating cash flow bar and a capex bar (minus the capex change, so higher capex is unfavorable). Actual free cash flow is CFO minus capex, because ingest does not store it.
+- Added `tests/test_free_cash_flow_bridge.py`: higher capex is unfavorable, lower capex is favorable, a non-tying stored value is rejected, and the database write sums exactly with rounded forecast inputs. Decision logged in `docs/DECISIONS.md`.
+**Current state:** All four bridges exist. `uv run pytest`: 127 passed. Ruff check and format check passed.
+**Next step:** Merge the M2-T9 pull request, then claim `M2-T10`: `python -m agent model` writes base, bull, and bear plus the backtest for every published quarter, and `python -m agent variance` writes the four bridges. Neither marks a forward quarter for publication while `PUBLISH_FORWARD_FORECAST=false`.
+**Blockers / questions for Jacob:** (a) to (e) as in the status block.
+**Notes for the next agent:** Do not edit `docs/BRIEF.md` or `data/manual/deliveries.csv`. The commit named below is the bridge. Later commits on this branch only update the handoff.
+**Last commit:** cd327ed5ad0273cd502c03aadc1aa86231a0d084 on task/M2-T9-free-cash-flow-bridge
 
 ## 2026-11-04 17:50 (America/Los_Angeles) — Claude Code
 
