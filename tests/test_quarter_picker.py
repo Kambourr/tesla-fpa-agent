@@ -1,7 +1,7 @@
 """Acceptance checks for the M5-T2 quarter shell.
 
 The picker behavior runs in the site test command. These tests lock the
-required copy and keep wireframe dollar amounts out of the fixture.
+required copy, and check that quarters come from dashboard.json.
 """
 
 from pathlib import Path
@@ -16,15 +16,19 @@ DISCLAIMER = (
 )
 
 
-def test_fixture_marks_history_and_names_the_latest_quarter() -> None:
+def test_quarters_come_from_the_published_dashboard_not_a_fixture() -> None:
     text = (SITE_SRC / "quarters.ts").read_text(encoding="utf-8")
     assert NEEDS_HISTORY in text
-    assert "hasForecast: false" in text
-    assert "hasForecast: true" in text
-    assert text.index("2025-Q4") < text.index("2026-Q3")
-    assert '{ id: "2026-Q3", label: "Q3 2026", hasForecast: true }' in text
+    assert "quarterRecords" in text
+    assert "has_forecast" in text
+    assert "quarterFixture" not in text
     assert "$" not in text
     assert "24.1" not in text
+    # The test-only sample must never be imported by production code.
+    for path in SITE_SRC.rglob("*.tsx"):
+        if path.name.endswith(".test.tsx"):
+            continue
+        assert "testDashboard" not in path.read_text(encoding="utf-8"), path
 
 
 def test_shell_keeps_the_header_disclaimer_and_history_message() -> None:
