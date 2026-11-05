@@ -3,8 +3,8 @@
 ## Current status
 
 - **Current milestone:** M5 dashboard sections and M3 narration/verification are on `main`; `M4-T2` (the single `run` command) is in progress, then the first live refresh in GitHub Actions and M6 launch tasks. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews, checks visually, and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 46 of 54 (85%).
-- **What's next:** Merge `M4-T2` (`python -m agent run`, narrative cache file, memo and Q&A in `dashboard.json`). Then Jacob runs the "Refresh data" workflow once (Actions tab, Run workflow) for the first real OpenAI narration. Then `M5-T15` (accessibility and Lighthouse), `M6-T1` to `M6-T6`.
+- **Tasks done:** 47 of 54 (87%).
+- **What's next:** Jacob runs the "Refresh data" workflow once (Actions tab, Refresh data, Run workflow) for the first real narration with the `OPENAI_API_KEY` secret; it commits `dashboard.json` and `data/narrative_cache.json` and the site redeploys. Meanwhile `M5-T15`, then `M6-T1` to `M6-T6`.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,20 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 05:09 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M4-T2 (done)
+**What changed:**
+- Added `agent/run.py` and `python -m agent run` (Haiku subagent, reviewed by Claude Code): ingest, load, forecast (model + variance), explain (narration with one re-ask), verify, publish, each timed into the published run metadata with the model, tokens (re-asks included), estimated cost, and data-as-of date. A bridge that cannot be built stops the run instead of publishing a gap. A `Makefile` adds `make run` and `make test`.
+- `agent/publish.py` fills each quarter's `memo` and the latest quarter's `qa` from the narrative and verification tables, with each claim's status, expected value, and source. A narrative without a verification row stops publishing with "run python -m agent verify", so unchecked figures are never shown as checked.
+- Added `agent/narrative_store.py`: verified narratives are exported to `data/narrative_cache.json` after verify and imported before explain, so a fresh database (every GitHub Actions run) reuses already-verified text. Decision logged in `docs/DECISIONS.md`.
+- Added `tests/test_run.py` (13) and `tests/test_narrative_store.py` (10).
+**Current state:** `uv run pytest`: 332 passed; site tests and build pass. Fixture-mode run: six stages timed, 12 memos plus 10 answers, dashboard validates; a second run with the same cache file makes zero model calls. No live OpenAI call has run yet.
+**Next step:** Jacob runs "Refresh data" once in the Actions tab.
+**Blockers / questions for Jacob:** (a), (c), (d), and (g) as in the status block.
+**Notes for the next agent:** A fixture run must pass `--database` and `--output` so fixture numbers never overwrite `data/fpa.duckdb` or the committed `dashboard.json`. When a new latest quarter arrives, the previous latest is drafted again as a memo only (one extra call).
+**Last commit:** 8da111ffe5dcae4e350fddbcb9648c0ea6730dcf on task/M4-T2-run-command
 
 ## 2026-11-05 01:44 (America/Los_Angeles) — Claude Code
 
