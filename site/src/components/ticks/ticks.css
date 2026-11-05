@@ -1,0 +1,209 @@
+/*
+  Tick marks: the audited-workpaper signature (docs/BRIEF.md section 6).
+  Colors come only from the tokens in styles/tokens.css. No shadows, no new hexes.
+*/
+
+.tick-number {
+  white-space: nowrap;
+  position: relative;
+  display: inline;
+}
+
+.tick-text.is-flagged {
+  text-decoration: underline dotted var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.tick-trigger {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.14em;
+  padding: 0;
+  vertical-align: -0.04em;
+  line-height: 0;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.tick-trigger:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.tick-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tick-icon-verified path {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tick-icon-flagged .tick-pole {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.tick-icon-flagged .tick-flag {
+  fill: var(--amber);
+}
+
+.tick-icon-unsupported .tick-ring {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1.4;
+}
+
+.tick-icon-unsupported .tick-query {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.tick-icon-unsupported .tick-dot {
+  fill: var(--amber);
+}
+
+/* Tooltip: a plain panel on the raised surface, 1px rule, no shadow. */
+.tick-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: grid;
+  gap: 0.35rem;
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  box-shadow: none;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+}
+
+.tick-tooltip[hidden] {
+  display: none;
+}
+
+.tick-tooltip:not([hidden]) {
+  animation: tick-tooltip-in 120ms ease-out;
+}
+
+.tick-tooltip-title {
+  font-weight: 500;
+}
+
+.tick-tooltip-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.5rem;
+}
+
+.tick-tooltip-key {
+  color: var(--ink-quiet);
+}
+
+.tick-tooltip-value {
+  overflow-wrap: anywhere;
+}
+
+@keyframes tick-tooltip-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Legend: an auditor's tickmark legend, sits next to the memo. */
+.tick-legend {
+  max-width: var(--prose);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.tick-legend-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.tick-legend-list {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.tick-legend-item {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tick-legend-item dt {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: 0;
+}
+
+.tick-legend-item dd {
+  margin: 0;
+}
+
+/* Figures the memo text did not show, listed after the paragraph. */
+.tick-unmatched {
+  max-width: var(--prose);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.tick-unmatched-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.tick-unmatched-list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tick-tooltip:not([hidden]) {
+    animation: none;
+  }
+}

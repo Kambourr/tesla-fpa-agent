@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 31 of 54 (57%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 38 of 54 (70%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -246,7 +246,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test runs narration twice against the same tables and shows the second run does not call the API. Changing the table hash, the prompt version, or the model misses the cache. `--force` regenerates even on a hit. Cached text is the already-verified text.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T4
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (ff3c8d53739dde265051eea58b0e5b35a3bc035b)
 
 ### M3-T4 — Token and cost logging
 
@@ -361,7 +361,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** Verified ticks, flagged ticks, and unsupported ticks match section 6 (green tick, amber flag, amber-outline question mark) and have accessible names. Hover or focus shows the source line, filing, and result; a flagged tick shows the expected value; activating a tied tick opens the source filing. A legend sits with the memo. A component test covers all three states.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T4, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (dfc3cc51ff88ab990fe3fdcaba7da802c527c2e5)
 
 ### M5-T4 — Hero revenue bridge
 
@@ -369,7 +369,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The headline is exactly "Tesla's quarter, forecast and explained by an agent, checked against the filings." Under it: the quarter, forecast vs actual revenue, and the variance in dollars and percent. The custom SVG waterfall is forecast revenue, volume, price/mix, credits, leasing, energy, services and other, actual revenue. On first load the bars draw in sequence in about 1.2 seconds, then the seal's ticks appear; `prefers-reduced-motion` shows the final state immediately. A visually hidden table lists the bridge values. At 375px the bridge scrolls horizontally or switches to a vertical bridge.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T6, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (38bff51b4055e5687e2718381531b36a53221102)
 
 ### M5-T5 — Verification seal
 
@@ -385,7 +385,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The sequence is ingest, load, forecast, explain, verify, publish, each with its duration from run metadata. The page also shows last run date, total run time, AI cost, and model. Values come from the published metadata. Nothing in this section animates on its own.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T8, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (42a9a1261437ef1917f4661be14b6cd7e34ddcd6)
 
 ### M5-T7 — Analyst memo
 
@@ -401,7 +401,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The table columns are line, Forecast, Actual, Variance $, and Variance %. Favorable and unfavorable cells include a plus or minus and the word, not color alone. The bull/base/bear control recomputes forecast columns in the browser from the published drivers. The table scrolls horizontally at narrow widths with the first column pinned. User-triggered scenario changes may animate briefly.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T10, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (4a5c49a8edf73fbb94f0e7585b7158bea9eb7582)
 
 ### M5-T9 — TypeScript and Python scenario parity
 
@@ -417,7 +417,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** A custom SVG line chart (D3 scales, not a default chart-library theme) plots forecast and actual revenue for the published quarters. A text alternative exposes the same values. The selected quarter is identifiable without color alone.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T12, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (de6116643d8e952b0d62cd07a243ee02bacf2acd)
 
 ### M5-T11 — Ask the analyst
 
@@ -433,7 +433,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The section shows absolute percent error by quarter for revenue, gross profit, and operating income, plus the average. A fixture quarter with a large error is displayed, not hidden. Wording stays plain.
 - **Depends on:** M5-T2, M4-T1
 - **Can run in parallel with:** M5-T3, M5-T4, M5-T6, M5-T8, M5-T10, M5-T13, M5-T14
-- **Status:** todo
+- **Status:** done (d9e79b3169073d65726f241045fd76ced18d3e40)
 
 ### M5-T13 — How it works and how it is controlled
 
