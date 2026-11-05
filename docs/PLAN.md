@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 38 of 54 (70%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 39 of 54 (72%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -254,7 +254,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with mock token counts writes the model name, input tokens, output tokens, and estimated dollar cost. The logger never prints `OPENAI_API_KEY` or `SEC_USER_AGENT`. The estimate is available for the publish metadata in M4-T1.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T3
-- **Status:** todo
+- **Status:** done (29d929b8072ed627056111826ee43842c4046df2)
 
 ### M3-T5 — Verifier
 
