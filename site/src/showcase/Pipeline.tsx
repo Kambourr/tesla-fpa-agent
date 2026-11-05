@@ -286,6 +286,16 @@ function buildSteps(dashboard: Dashboard, quarter: QuarterView): StepView[] {
   ];
 }
 
+/** A validation message in plain words: "memo: sentence_ref 9 is past the 8 sentences". */
+export function issueText(text: string): string {
+  const past = /sentence_ref (\d+) is past the (\d+) sentences/.exec(text);
+  if (past) return `a figure pointed to sentence ${past[1]} of a ${past[2]}-sentence text`;
+  const words = /has (\d+) words, outside (\d+) to (\d+)/.exec(text);
+  if (words) return `${words[1]} words, outside the ${words[2]} to ${words[3]} limit`;
+  if (/^memo: buy|advice wording|: (buy|sell)\b/i.test(text)) return "investment-advice wording";
+  return text.replace(/^(memo|answer \d+): /, "");
+}
+
 export function FirstDraftLine({ dashboard }: { dashboard: Dashboard }) {
   const drafts = dashboard.first_drafts;
   if (!drafts || drafts.recorded === 0) {
@@ -298,21 +308,26 @@ export function FirstDraftLine({ dashboard }: { dashboard: Dashboard }) {
   }
   const scope =
     drafts.recorded < drafts.narratives ? ` (${drafts.recorded} of ${drafts.narratives} narratives recorded)` : "";
+  const figures =
+    drafts.caught === 0
+      ? `all ${count(drafts.checked)} figures tied on the first try`
+      : `code rejected ${count(drafts.caught)} of ${count(drafts.checked)} figures`;
   if (drafts.rejected === 0) {
-    return (
-      <p className="pipeline-first">
-        First drafts: {count(drafts.checked)} figures checked, none rejected{scope}.
-      </p>
-    );
+    return <p className="pipeline-first">First drafts: {figures}; no draft was sent back{scope}.</p>;
   }
+  const reasons = [...new Set((drafts.first_issues ?? []).map((item) => issueText(item.text)))];
+  const why = reasons.length > 0 ? ` for ${reasons.slice(0, 2).join(" and ")}` : "";
+  const finals = drafts.final_issues ?? [];
+  const outcome =
+    drafts.final_problems === 0 && finals.length === 0
+      ? "fixed on the second try"
+      : finals.length > 0
+        ? `the second draft still broke that rule, so it is published as not verified and re-drafted on the next run`
+        : `${drafts.final_problems} ${drafts.final_problems === 1 ? "figure" : "figures"} stayed flagged on the page`;
   return (
     <p className="pipeline-first">
-      First drafts: code rejected {count(drafts.caught)} of {count(drafts.checked)} figures
-      {drafts.guard_hits > 0 ? ` and ${drafts.guard_hits} advice phrases` : ""} in {drafts.rejected}{" "}
-      {drafts.rejected === 1 ? "draft" : "drafts"}, sent them back, and{" "}
-      {drafts.final_problems === 0
-        ? "every one was corrected"
-        : `${drafts.final_problems} stayed flagged on the page`}
+      First drafts: {figures}. Code sent {drafts.rejected} {drafts.rejected === 1 ? "draft" : "drafts"} back
+      {why}; {outcome}
       {scope}.
     </p>
   );

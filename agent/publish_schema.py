@@ -180,13 +180,22 @@ class FirstDraftCatch(_Model):
     source: str | None
 
 
+class DraftIssue(_Model):
+    """A rule a draft broke other than a wrong figure (structure, length, advice wording)."""
+
+    quarter: str
+    text: str
+
+
 class FirstDrafts(_Model):
     """What code caught in the model's first drafts, over the narratives that recorded it.
 
     ``recorded`` of ``narratives`` carry a record; the rest were drafted before
     recording began. ``rejected`` drafts had at least one problem and were sent
     back once. ``final_problems`` counts what is still flagged or unsupported
-    after the re-ask, across those same narratives.
+    after the re-ask, across those same narratives. ``first_issues`` lists the
+    first drafts' other problems (validation issues and advice phrases);
+    ``final_issues`` lists what the published drafts still break.
     """
 
     narratives: int
@@ -197,6 +206,8 @@ class FirstDrafts(_Model):
     rejected: int
     final_problems: int
     catches: list[FirstDraftCatch]
+    first_issues: list[DraftIssue]
+    final_issues: list[DraftIssue]
 
 
 class Dashboard(_Model):

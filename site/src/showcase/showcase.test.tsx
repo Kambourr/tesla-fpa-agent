@@ -6,7 +6,7 @@ import { formatCost, formatRunTime, formatStageSeconds } from "../sections/Agent
 import { BreakIt, missText, nudged } from "./BreakIt";
 import { buildExcerpt, editedValueText } from "./breakItModel";
 import { OutputTabs } from "./OutputTabs";
-import { FirstDraftLine, Pipeline } from "./Pipeline";
+import { FirstDraftLine, issueText, Pipeline } from "./Pipeline";
 
 const live = published as unknown as Dashboard;
 const latest = live.quarters.find((item) => item.quarter === live.latest_quarter)!;
@@ -90,25 +90,36 @@ describe("FirstDraftLine", () => {
   const base: FirstDrafts = {
     narratives: 12,
     recorded: 12,
-    checked: 337,
+    checked: 348,
     caught: 0,
     guard_hits: 0,
     rejected: 0,
     final_problems: 0,
     catches: [],
+    first_issues: [],
+    final_issues: [],
   };
   const show = (drafts: FirstDrafts) =>
     render(<FirstDraftLine dashboard={{ ...live, first_drafts: drafts }} />).container.textContent;
+  const pastEnd = { quarter: "2026-Q1", text: "memo: sentence_ref 9 is past the 8 sentences" };
 
   it("states each case without inventing a catch", () => {
     expect(show({ ...base, recorded: 0 })).toMatch(/recorded from the next full run/);
-    expect(show(base)).toMatch(/337 figures checked, none rejected/);
+    expect(show(base)).toMatch(/all 348 figures tied on the first try; no draft was sent back/);
     expect(show({ ...base, caught: 9, rejected: 4 })).toMatch(
-      /rejected 9 of 337 figures in 4 drafts, sent them back, and every one was corrected/,
+      /code rejected 9 of 348 figures\. Code sent 4 drafts back; fixed on the second try/,
     );
     expect(show({ ...base, caught: 9, rejected: 4, final_problems: 1, recorded: 10 })).toMatch(
-      /1 stayed flagged on the page \(10 of 12 narratives recorded\)/,
+      /1 figure stayed flagged on the page \(10 of 12 narratives recorded\)/,
     );
+  });
+
+  it("names a structure problem and says when the retry did not fix it", () => {
+    const text = show({ ...base, rejected: 1, first_issues: [pastEnd], final_issues: [pastEnd] });
+    expect(text).toMatch(/all 348 figures tied on the first try/);
+    expect(text).toMatch(/1 draft back for a figure pointed to sentence 9 of a 8-sentence text/);
+    expect(text).toMatch(/published as not verified/);
+    expect(issueText("memo has 300 words, outside 150 to 250")).toBe("300 words, outside the 150 to 250 limit");
   });
 });
 

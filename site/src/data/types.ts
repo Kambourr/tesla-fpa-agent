@@ -170,6 +170,12 @@ export interface FirstDraftCatch {
   source: string | null;
 }
 
+/** A rule a draft broke other than a wrong figure. */
+export interface DraftIssue {
+  quarter: string;
+  text: string;
+}
+
 /** What code caught in first drafts, over the narratives that recorded it. */
 export interface FirstDrafts {
   narratives: number;
@@ -180,6 +186,8 @@ export interface FirstDrafts {
   rejected: number;
   final_problems: number;
   catches: FirstDraftCatch[];
+  first_issues: DraftIssue[];
+  final_issues: DraftIssue[];
 }
 
 export interface Dashboard {

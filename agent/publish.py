@@ -31,6 +31,7 @@ from agent.publish_schema import (
     BridgeName,
     ClaimView,
     Dashboard,
+    DraftIssue,
     Drivers,
     Filing,
     FirstDraftCatch,
@@ -574,19 +575,33 @@ def _first_drafts(connection: duckdb.DuckDBPyConnection) -> FirstDrafts:
     """Aggregate the stored first-draft reviews of the published narratives."""
     rows = connection.execute(
         """
-        SELECT n.quarter, n.first_review, v.flagged, v.unsupported
+        SELECT n.quarter, n.first_review, v.flagged, v.unsupported, v.issues, v.guard_hits
         FROM narrative AS n
         JOIN published_quarter AS p ON p.quarter = n.quarter
         LEFT JOIN verification AS v ON v.quarter = n.quarter
         ORDER BY n.quarter
         """
     ).fetchall()
-    return aggregate_first_drafts(
+    drafts = aggregate_first_drafts(
         [
             (quarter, None if raw is None else json.loads(str(raw)), flagged, unsupported)
-            for quarter, raw, flagged, unsupported in rows
+            for quarter, raw, flagged, unsupported, _, _ in rows
         ]
     )
+    final_issues = [
+        DraftIssue(quarter=quarter, text=str(text))
+        for quarter, _, _, _, issues, hits in rows
+        for text in [*json.loads(str(issues or "[]")), *_guard_texts(hits)]
+    ]
+    return drafts.model_copy(update={"final_issues": final_issues})
+
+
+def _guard_texts(raw: object) -> list[str]:
+    hits = json.loads(str(raw or "[]"))
+    return [
+        f"advice wording: {hit.get('phrase', hit)}" if isinstance(hit, dict) else str(hit)
+        for hit in hits
+    ]
 
 
 def aggregate_first_drafts(
@@ -596,6 +611,7 @@ def aggregate_first_drafts(
     and the final draft's flagged and unsupported counts."""
     checked = caught = guard_hits = rejected = final_problems = recorded = 0
     catches: list[FirstDraftCatch] = []
+    first_issues: list[DraftIssue] = []
     for quarter, record, flagged, unsupported in rows:
         if record is None:
             continue
@@ -603,6 +619,10 @@ def aggregate_first_drafts(
         checked += int(record["checked"])
         caught += int(record["flagged"]) + int(record["unsupported"])
         guard_hits += len(record["guard_hits"])
+        first_issues.extend(
+            DraftIssue(quarter=quarter, text=str(text))
+            for text in [*record["issues"], *record["guard_hits"]]
+        )
         if record["catches"] or record["guard_hits"] or record["issues"]:
             rejected += 1
             final_problems += int(flagged or 0) + int(unsupported or 0)
@@ -630,4 +650,6 @@ def aggregate_first_drafts(
         rejected=rejected,
         final_problems=final_problems,
         catches=catches,
+        first_issues=first_issues,
+        final_issues=[],
     )

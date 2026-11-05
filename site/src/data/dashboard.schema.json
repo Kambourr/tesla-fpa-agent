@@ -208,6 +208,26 @@
       "title": "ClaimView",
       "type": "object"
     },
+    "DraftIssue": {
+      "additionalProperties": false,
+      "description": "A rule a draft broke other than a wrong figure (structure, length, advice wording).",
+      "properties": {
+        "quarter": {
+          "title": "Quarter",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quarter",
+        "text"
+      ],
+      "title": "DraftIssue",
+      "type": "object"
+    },
     "Drivers": {
       "additionalProperties": false,
       "description": "Base forecast values the browser needs to recompute the scenarios.",
@@ -430,7 +450,7 @@
     },
     "FirstDrafts": {
       "additionalProperties": false,
-      "description": "What code caught in the model's first drafts, over the narratives that recorded it.\n\n``recorded`` of ``narratives`` carry a record; the rest were drafted before\nrecording began. ``rejected`` drafts had at least one problem and were sent\nback once. ``final_problems`` counts what is still flagged or unsupported\nafter the re-ask, across those same narratives.",
+      "description": "What code caught in the model's first drafts, over the narratives that recorded it.\n\n``recorded`` of ``narratives`` carry a record; the rest were drafted before\nrecording began. ``rejected`` drafts had at least one problem and were sent\nback once. ``final_problems`` counts what is still flagged or unsupported\nafter the re-ask, across those same narratives. ``first_issues`` lists the\nfirst drafts' other problems (validation issues and advice phrases);\n``final_issues`` lists what the published drafts still break.",
       "properties": {
         "catches": {
           "items": {
@@ -447,9 +467,23 @@
           "title": "Checked",
           "type": "integer"
         },
+        "final_issues": {
+          "items": {
+            "$ref": "#/$defs/DraftIssue"
+          },
+          "title": "Final Issues",
+          "type": "array"
+        },
         "final_problems": {
           "title": "Final Problems",
           "type": "integer"
+        },
+        "first_issues": {
+          "items": {
+            "$ref": "#/$defs/DraftIssue"
+          },
+          "title": "First Issues",
+          "type": "array"
         },
         "guard_hits": {
           "title": "Guard Hits",
@@ -476,7 +510,9 @@
         "guard_hits",
         "rejected",
         "final_problems",
-        "catches"
+        "catches",
+        "first_issues",
+        "final_issues"
       ],
       "title": "FirstDrafts",
       "type": "object"
