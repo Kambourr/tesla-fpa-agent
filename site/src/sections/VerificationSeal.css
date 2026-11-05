@@ -1,0 +1,59 @@
+/*
+  Verification seal under the hero bridge. Colors come only from the tokens in styles/tokens.css.
+  The ticks appear once the bridge has drawn: the last one ends about 285 ms after that.
+*/
+
+.verification-seal {
+  max-width: var(--prose);
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.seal-text {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.seal-marks {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.5rem;
+  vertical-align: -0.2em;
+}
+
+.seal-mark {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  opacity: 0;
+  transform: scale(0.5);
+  transform-origin: center;
+  transition:
+    opacity 160ms ease-out,
+    transform 160ms ease-out;
+  transition-delay: calc(var(--seal-index, 0) * 25ms);
+}
+
+.verification-seal[data-drawn="true"] .seal-mark {
+  opacity: 1;
+  transform: none;
+}
+
+.seal-link-line {
+  margin: 0.35rem 0 0;
+}
+
+.seal-link {
+  color: var(--cobalt);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-mark {
+    transition: none;
+  }
+}

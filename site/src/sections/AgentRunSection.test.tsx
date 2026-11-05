@@ -177,7 +177,12 @@ describe("formatting", () => {
     expect(formatRunDate(null)).toBeNull();
   });
   test("a publish-only duration does not count as a recorded run", () => {
-    renderWith({ ...unrecorded, duration_seconds: 0.14, stages: [{ name: "publish", seconds: 0.14 }] });
+    renderWith({
+      ...unrecorded,
+      started_at: "2026-11-05T08:28:00+00:00",
+      duration_seconds: 0.14,
+      stages: [{ name: "publish", seconds: 0.14 }],
+    });
     expect(screen.getByText("The run details appear after the next full pipeline run.")).toBeTruthy();
   });
 });

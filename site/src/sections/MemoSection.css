@@ -1,0 +1,93 @@
+/*
+  Analyst memo: a sheet of paper in the prose column, with the tickmark legend
+  beside it on wide screens and below it on narrow ones. Colors come only from
+  the tokens in styles/tokens.css. No shadows, no rounded corners.
+*/
+
+.memo-section h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.memo-layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 1.25rem;
+}
+
+.memo-sheet {
+  max-width: var(--prose);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.memo-head {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-quiet);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.memo-head p {
+  margin: 0;
+}
+
+.memo-body {
+  margin-top: 1.5rem;
+}
+
+.memo-body .narrative {
+  margin: 0;
+}
+
+.memo-body .narrative + .narrative {
+  margin-top: 1em;
+}
+
+.memo-count {
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-quiet);
+}
+
+.memo-count-flagged {
+  color: var(--amber);
+}
+
+.memo-count-unsupported {
+  color: var(--amber);
+}
+
+.memo-empty {
+  max-width: var(--prose);
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.memo-aside .tick-legend {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (min-width: 900px) {
+  .memo-layout {
+    grid-template-columns: minmax(0, var(--prose)) minmax(12rem, 16rem);
+    column-gap: 3rem;
+    justify-content: start;
+  }
+}

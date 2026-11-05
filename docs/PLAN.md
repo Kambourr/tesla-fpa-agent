@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 37 of 54 (69%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 46 of 54 (85%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -246,7 +246,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test runs narration twice against the same tables and shows the second run does not call the API. Changing the table hash, the prompt version, or the model misses the cache. `--force` regenerates even on a hit. Cached text is the already-verified text.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T4
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (ff3c8d53739dde265051eea58b0e5b35a3bc035b)
 
 ### M3-T4 — Token and cost logging
 
@@ -254,7 +254,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A test with mock token counts writes the model name, input tokens, output tokens, and estimated dollar cost. The logger never prints `OPENAI_API_KEY` or `SEC_USER_AGENT`. The estimate is available for the publish metadata in M4-T1.
 - **Depends on:** M3-T2
 - **Can run in parallel with:** M3-T3
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (29d929b8072ed627056111826ee43842c4046df2)
 
 ### M3-T5 — Verifier
 
@@ -278,7 +278,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** A mocked test where the first response is wrong and the second is right ends verified. A test where the second response is still wrong stays flagged or unsupported and is still published. No test path silently replaces the model's number with the database number.
 - **Depends on:** M3-T2, M3-T5
 - **Can run in parallel with:** M3-T3, M3-T4
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (9f5998f970967173a8ba4ecdca152be6a1e26dfc)
 
 ### M3-T8 — Verification report and narrate/verify commands
 
@@ -286,7 +286,7 @@ The model sees computed tables only. It never sees raw filings. Prompts live in 
 - **Acceptance:** `python -m agent narrate` and `python -m agent verify` run on fixtures. Each quarter gets a report with verified, flagged, and unsupported counts, plus a note when a later filing restated a period that actuals still hold at the first-reported value (see M1-T8). The keyword-guard result is in the report.
 - **Depends on:** M3-T3, M3-T4, M3-T6, M3-T7
 - **Can run in parallel with:** none
-- **Status:** in progress (Claude Code, 2026-11-05)
+- **Status:** done (4eb7cb1534c6d99e1ac01b7a9945069413bd2330)
 
 ## M4 — Publish and automation
 
@@ -314,7 +314,7 @@ The site reads committed JSON only. Visitors never call the API. Do not enable G
 - **Acceptance:** `.github/workflows/refresh.yml` supports `workflow_dispatch`. Any schedule is present only if it is disabled by default. The workflow reads `OPENAI_API_KEY` and `SEC_USER_AGENT` from secrets and does not echo them. It commits updated data so `deploy.yml` can run afterward. The workflow file contains no secret values. Repo settings are not changed.
 - **Depends on:** M4-T2
 - **Can run in parallel with:** M4-T4, M5-T3 through M5-T14
-- **Status:** todo
+- **Status:** done (80c6cb4d373185a46f16b83180dd089b428879a8)
 
 ### M4-T4 — deploy.yml
 
@@ -377,7 +377,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The seal states the verified count out of the total, including when some are flagged (flagged figures stay visible). It links to the verification or methods section. The count comes from the published verification results, not a hardcoded "41 of 41".
 - **Depends on:** M5-T3, M5-T4
 - **Can run in parallel with:** M5-T6, M5-T7, M5-T8
-- **Status:** todo
+- **Status:** done (f2f5f8ad0f5ae1bfd335773b70fa41b536ee1acf)
 
 ### M5-T6 — How the agent ran
 
@@ -393,7 +393,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The selected quarter's memo renders in Source Serif 4 inside the prose column. Every figure uses the M5-T3 tick. Flagged figures are visibly marked. Switching quarters loads that quarter's memo. The legend from M5-T3 is visible here.
 - **Depends on:** M5-T3
 - **Can run in parallel with:** M5-T5, M5-T11
-- **Status:** todo
+- **Status:** done (5c5119f0ac1d3afe08eb1cde1d99dbcda7f24043)
 
 ### M5-T8 — Forecast table and scenario toggle
 
@@ -409,7 +409,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** One fixture of drivers and bull/base/bear outputs is produced by the Python model. A TypeScript test recomputes those forecast columns and matches the Python output exactly on the agreed rounding. Both `pytest` and the site test command pass on that fixture. The fixture is committed.
 - **Depends on:** M2-T4, M5-T8
 - **Can run in parallel with:** M5-T10, M5-T11, M5-T12
-- **Status:** todo
+- **Status:** done (a3b0c40eb33b45fbc89c3f4b8416ff671a35ae63)
 
 ### M5-T10 — Twelve-quarter forecast chart
 
@@ -425,7 +425,7 @@ Design constraints for every M5 task, from section 6:
 - **Acceptance:** The latest quarter expands each of the ten questions to its answer, each with tick-marked numbers and a source link. When an earlier quarter is selected, the section says the Q&A covers the latest quarter only and offers a control that switches to it. Answers are the published JSON, not a live request.
 - **Depends on:** M5-T3
 - **Can run in parallel with:** M5-T7, M5-T9
-- **Status:** todo
+- **Status:** done (df6407001ce19246f0867bb49dac2a010c9b8335)
 
 ### M5-T12 — Model accuracy
 

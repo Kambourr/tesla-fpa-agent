@@ -137,16 +137,34 @@ def test_test_workflow_runs_pytest_on_pull_requests() -> None:
         assert pattern.search(text) is None
 
 
+def _committable_files() -> list[Path]:
+    """Tracked files plus untracked files git would add: what could reach GitHub.
+
+    Walking the whole directory also read git-ignored caches and the agents'
+    temporary worktrees under .claude/, which change during a run and made this
+    test fail at random when a file vanished mid-walk.
+    """
+    try:
+        listed = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        ).stdout.decode("utf-8")
+        names = [name for name in listed.split("\0") if name]
+        return [REPO_ROOT / name for name in names]
+    except (OSError, subprocess.CalledProcessError):
+        return [path for path in REPO_ROOT.rglob("*") if path.is_file()]
+
+
 def test_source_tree_has_no_secret_material() -> None:
     offenders: list[str] = []
-    for path in REPO_ROOT.rglob("*"):
+    for path in _committable_files():
         if any(part in SKIP_PARTS for part in path.parts):
-            continue
-        if not path.is_file():
             continue
         try:
             text = path.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
+        except (UnicodeDecodeError, FileNotFoundError, IsADirectoryError):
             continue
         for pattern in SECRET_PATTERNS:
             if pattern.search(text):
