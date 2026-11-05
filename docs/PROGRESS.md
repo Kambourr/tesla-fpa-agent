@@ -3,7 +3,7 @@
 ## Current status
 
 - **Current milestone:** M3 narration and verification, with M4-T1 (publish JSON) pulled forward. Claude Code is the builder and project manager; Haiku subagents code each task on its own branch and Claude Code reviews and merges. Pages is live at https://kambourr.github.io/tesla-fpa-agent/.
-- **Tasks done:** 30 of 54 (56%).
+- **Tasks done:** 35 of 54 (65%).
 - **What's next:** `M3-T2` (narration, in progress). Dashboard sections that read `dashboard.json` can start now: `M5-T4` (hero bridge), `M5-T6` (how the agent ran), `M5-T8` (forecast table and scenarios), `M5-T10` (12-quarter chart), `M5-T12` (model accuracy). `M5-T3` (tick marks) needs claims from narration.
 - **Open blockers:**
   - (a) The brief says the repo should be public, but Jacob said do NOT make it public, enable Pages, or change repo settings without his explicit go-ahead. The repo is currently private, so Pages deployment needs his decision.
@@ -13,6 +13,66 @@
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/), then from the repo root run `uv sync` and `uv run pytest`. `uv run python -m agent ingest --fixtures <dir>` loads local JSON (without `--fixtures` it needs `SEC_USER_AGENT`). Then `uv run python -m agent model` and `uv run python -m agent variance` write forecasts, scenarios, the backtest, and the four bridges into `data/fpa.duckdb`. On live data the revenue segment lines are still blank until `M1-T10`, so `variance` reports the bridges it cannot build. Nothing fetches on a test run. For the site, install Node 22, then in `site/` run `npm ci`, `npm test`, and `npm run build`.
+
+## 2026-11-05 01:09 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T8 (done)
+**What changed:**
+- `site/src/sections/ForecastSection.tsx` (+ `scenarioMath.ts`, format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: Bear/Base/Bull toggle (aria-pressed buttons) and the P&L table (line, forecast, actual, variance $, variance %) with signed variances, favorable green or unfavorable amber plus a hidden word, a sticky first column, and a flex sentence built from `scenario_flex`.
+- `recomputeScenario` ports `agent/scenarios.py` `_flex` with exact decimal arithmetic and half-even rounding to four places; tests match the Python output on four invented driver sets.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Bull and bear recompute to the published values within 0.0001 for all 12 real quarters. Base does not recompute exactly from the four-decimal drivers (up to about $1.15M on gross profit), because the Python base uses unrounded inputs, so the page shows the published base. `M5-T9` parity covers bull and bear.
+**Last commit:** 4a5c49a8edf73fbb94f0e7585b7158bea9eb7582 on task/M5-T8-forecast-table
+
+## 2026-11-05 00:59 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T4 (done)
+**What changed:**
+- `site/src/sections/HeroSection.tsx` (+ format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: the lede ("Q3 2026: forecast $35.53B, actual $28.05B, −$7.48B (−21.1%).") and the custom SVG revenue waterfall (forecast, six drivers, actual) with signed labels, ▲/▼ glyphs, favorable green and unfavorable amber, connectors, and a hidden table. Bars draw in sequence over 1.2 s on first load, then `data-drawn="true"`; reduced motion shows the final state at once. The bridge scrolls horizontally at 480px and below. An empty `.seal-slot` waits for M5-T5.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Claude Code changed the axis after a visual check: it starts at a padded level below the bridge's lowest point (not zero), the forecast and actual bars carry a break mark, and a note under the chart says where the axis starts (`bridgeDomain` in `HeroSection.tsx`). A bridge that reaches zero keeps a zero-based axis.
+**Last commit:** 38bff51b4055e5687e2718381531b36a53221102 on task/M5-T4-hero-bridge
+
+## 2026-11-05 00:54 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T6 (done)
+**What changed:**
+- `site/src/sections/AgentRunSection.tsx` (+ format, CSS, tests), coded by a Haiku subagent and reviewed by Claude Code: the six stages in order (1 Ingest to 6 Publish) with durations from `dashboard.run.stages`, Explain marked "Model" and the rest "Code", and a stat list (last run, total run time, AI cost, model, data as of). Nothing animates.
+- Claude Code changed the empty rule: until a full run records a start time or a model, the section says "The run details appear after the next full pipeline run." A publish-only run's own duration no longer reads as the pipeline's run time.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
+**Next step:** Merge this PR and continue down the merge queue.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** `M4-T2` must fill `run.started_at`, `duration_seconds`, every stage's seconds, `model`, tokens, and cost.
+**Last commit:** 42a9a1261437ef1917f4661be14b6cd7e34ddcd6 on task/M5-T6-agent-run
+
+## 2026-11-05 00:44 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M5-T12 (done)
+**What changed:**
+- `site/src/sections/AccuracySection.tsx` (+ `AccuracyFormat.ts`, `AccuracySection.css`, tests), coded by a Haiku subagent and reviewed by Claude Code: absolute percent error by quarter for revenue, gross profit, and operating income, plus a bold average row, from `dashboard.backtest`. Each cell shows the full number and a quiet inline bar capped at 100% with a "+" marker beyond, so a large miss is never clipped. The selected quarter's row is marked. The table scrolls with a sticky first column.
+**Current state:** `uv run pytest`: 251 passed; site tests and build pass.
+**Next step:** Merge this PR; continue merging the other M5 sections.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** Error bars use quiet ink, not green or amber: an error is not favorable or unfavorable.
+**Last commit:** d9e79b3169073d65726f241045fd76ced18d3e40 on task/M5-T12-model-accuracy
+
+## 2026-11-05 00:38 (America/Los_Angeles) — Claude Code
+
+**Task(s):** M3-T2 (done)
+**What changed:**
+- Added `agent/narrate.py` (coded by a Haiku subagent, reviewed by Claude Code): `narrate_all` drafts a memo for each published quarter with a forecast, oldest first, and the ten answers for the latest quarter only. The user message is JSON holding only the quarter's fact sheet, the questions, and, with the questions, the backtest sheet for questions 7 and 8. `OpenAIClient` uses the Responses API with `text_format=NarrativeDraft` and refuses an empty key.
+- `validate_draft` records issues (memo 150–250 words, answers 60–120, the right answer set, a `sentence_ref` past the text) without raising; the re-ask task acts on them. `input_hash` covers the message, the prompt version and content hash, and the model.
+- `prompts/memo.md` now requires claims to cite fact-sheet keys and periods, signed values, and fixed unit strings, and to avoid the keyword guard's phrases. Prompt version `2026-11-05.1`. `sql/011_narrative.sql` stores each quarter's draft, tokens, and issues.
+- Added `tests/test_narrate.py` (14 tests, fake client, no network).
+**Current state:** `uv run pytest`: 251 passed. The real OpenAI call has not run yet; it runs in GitHub Actions with the `OPENAI_API_KEY` secret once `refresh.yml` exists (M4-T3).
+**Next step:** Merge this PR. Then `M3-T3` (cache and `--force`) and `M3-T4` (token and cost logging) in parallel, then `M3-T7` (re-ask once) and `M3-T8`.
+**Blockers / questions for Jacob:** (a), (c), and (d) as in the status block.
+**Notes for the next agent:** `narrate_all` does not write the database; call `store_narration` per result. Temperature is 0.2 from `prompts/manifest.json`; if the configured model rejects `temperature`, handle it in `OpenAIClient`, not in the prompt files.
+**Last commit:** c956d48173c847beb2a0e8aae2878b16ebc7926e on task/M3-T2-narrate
 
 ## 2026-11-05 00:34 (America/Los_Angeles) — Claude Code
 
