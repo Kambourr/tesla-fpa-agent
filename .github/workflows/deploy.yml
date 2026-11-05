@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+  # Commits pushed by the refresh workflow use GITHUB_TOKEN, which does not start push
+  # workflows. This trigger deploys the data that a successful refresh just committed.
+  workflow_run:
+    workflows:
+      - "Refresh data"
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -17,11 +24,16 @@ concurrency:
 jobs:
   build:
     name: build site
+    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - name: Check out the repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # A workflow_run event checks out the default branch, but name it so the build
+          # always uses the latest main, including the data commit from the refresh.
+          ref: main
 
       - name: Install Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
