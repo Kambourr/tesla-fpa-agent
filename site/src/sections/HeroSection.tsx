@@ -103,10 +103,11 @@ export function HeroSection({ quarter }: SectionProps) {
   const innerWidth = WIDTH - MARGIN.left - MARGIN.right;
   const innerHeight = HEIGHT - MARGIN.top - MARGIN.bottom;
 
-  const levels = steps.flatMap((step) => [step.start, step.end]);
-  const yMin = Math.min(0, ...levels);
-  const yMax = Math.max(0, ...levels);
-  const y = scaleLinear().domain([yMin, yMax * 1.04]).range([innerHeight, 0]).nice();
+  // The axis starts just below the lowest point the bridge reaches, not at zero:
+  // from zero, a $10M driver on a $30B bridge is invisible. The two total bars
+  // are cut at the bottom with a break mark, and a note says where the axis starts.
+  const { domainMin, domainMax, truncated } = bridgeDomain(steps);
+  const y = scaleLinear().domain([domainMin, domainMax]).range([innerHeight, 0]);
   const x = scaleBand<string>()
     .domain(steps.map((step) => step.key))
     .range([0, innerWidth])
@@ -156,7 +157,7 @@ export function HeroSection({ quarter }: SectionProps) {
             {steps.map((step, index) => {
               const cx = (x(step.key) ?? 0) + bandWidth / 2;
               const top = y(Math.max(step.start, step.end));
-              const bottom = y(Math.min(step.start, step.end));
+              const bottom = Math.min(innerHeight, y(Math.min(step.start, step.end)));
               const height = Math.max(BAR_MIN_HEIGHT, bottom - top);
               const glyph = step.kind === "driver" && step.value !== 0 ? (step.value > 0 ? "▲" : "▼") : null;
               const glyphClass = step.favorable ? "is-favorable" : "is-unfavorable";
@@ -176,6 +177,12 @@ export function HeroSection({ quarter }: SectionProps) {
                     width={bandWidth}
                     height={height}
                   />
+                  {truncated && step.kind === "total" ? (
+                    <path
+                      className="hero-break"
+                      d={`M ${(x(step.key) ?? 0) - 3} ${innerHeight - 14} l ${bandWidth + 6} -8 M ${(x(step.key) ?? 0) - 3} ${innerHeight - 6} l ${bandWidth + 6} -8`}
+                    />
+                  ) : null}
                   <text className="hero-value" x={cx} y={top - 9} textAnchor="middle">
                     {glyph ? (
                       <tspan className={`hero-glyph ${glyphClass}`}>{glyph} </tspan>
@@ -193,10 +200,16 @@ export function HeroSection({ quarter }: SectionProps) {
               );
             })}
 
-            <line className="hero-baseline" x1={0} x2={innerWidth} y1={y(0)} y2={y(0)} />
+            <line className="hero-baseline" x1={0} x2={innerWidth} y1={innerHeight} y2={innerHeight} />
           </g>
         </svg>
       </div>
+      {truncated ? (
+        <p className="hero-axis-note">
+          The axis starts at {formatAxisUsd(domainMin)}, not zero, so the drivers are visible. The
+          forecast and actual bars are cut at the bottom.
+        </p>
+      ) : null}
 
       <div className="hero-table-clip">
         <table className="visually-hidden">
@@ -223,4 +236,30 @@ export function HeroSection({ quarter }: SectionProps) {
       <div className="seal-slot" />
     </section>
   );
+}
+
+/** Axis range for the bridge: a padded window around the levels, or from zero if it reaches there. */
+export function bridgeDomain(steps: readonly { start: number; end: number }[]): {
+  domainMin: number;
+  domainMax: number;
+  truncated: boolean;
+} {
+  const levels = steps.flatMap((step) => [step.start, step.end]).filter((level) => level !== 0);
+  const low = Math.min(...levels);
+  const high = Math.max(...levels);
+  const span = high - low || Math.abs(high) * 0.05 || 1;
+  const step = niceStep(span / 3);
+  const paddedMin = Math.floor((low - span * 0.5) / step) * step;
+  const domainMax = Math.ceil((high + span * 0.12) / step) * step;
+  if (paddedMin <= 0 || low <= 0) {
+    return { domainMin: Math.min(0, Math.floor(low / step) * step), domainMax, truncated: false };
+  }
+  return { domainMin: paddedMin, domainMax, truncated: true };
+}
+
+function niceStep(raw: number): number {
+  const power = 10 ** Math.floor(Math.log10(raw));
+  const unit = raw / power;
+  const nice = unit <= 1 ? 1 : unit <= 2 ? 2 : unit <= 5 ? 5 : 10;
+  return nice * power;
 }

@@ -1,7 +1,7 @@
 import { act, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import type { BridgeBar, PnlLine, QuarterView } from "../data/types";
-import { HeroSection } from "./HeroSection";
+import { HeroSection, bridgeDomain } from "./HeroSection";
 import { formatSignedPercent, formatSignedUsd, formatUsd } from "./HeroSectionFormat";
 import { makeTestDashboard } from "../data/testDashboard";
 
@@ -209,5 +209,32 @@ describe("hero formatters", () => {
     expect(formatSignedUsd(-7_481_465_181)).toBe("−$7.48B");
     expect(formatSignedUsd(24_000_000)).toBe("+$24M");
     expect(formatSignedPercent(-21.0583)).toBe("−21.1%");
+  });
+});
+
+describe("bridgeDomain", () => {
+  test("starts below the lowest level with a note when the bridge sits far from zero", () => {
+    const steps = [
+      { start: 0, end: 35.5e9 },
+      { start: 35.5e9, end: 29.9e9 },
+      { start: 29.9e9, end: 28.0e9 },
+      { start: 0, end: 28.0e9 },
+    ];
+    const domain = bridgeDomain(steps);
+    expect(domain.truncated).toBe(true);
+    expect(domain.domainMin).toBeGreaterThan(0);
+    expect(domain.domainMin).toBeLessThan(28.0e9);
+    expect(domain.domainMax).toBeGreaterThan(35.5e9);
+  });
+
+  test("keeps zero when the bridge reaches it", () => {
+    const steps = [
+      { start: 0, end: 100 },
+      { start: 100, end: 10 },
+      { start: 0, end: 10 },
+    ];
+    const domain = bridgeDomain(steps);
+    expect(domain.truncated).toBe(false);
+    expect(domain.domainMin).toBe(0);
   });
 });

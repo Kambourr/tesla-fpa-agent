@@ -123,3 +123,15 @@
     animation: none;
   }
 }
+
+.hero-break {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 4;
+}
+
+.hero-axis-note {
+  margin: 0.5rem 0 0;
+  color: var(--ink-quiet);
+  font-size: 0.875rem;
+}
