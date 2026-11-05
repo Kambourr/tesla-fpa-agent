@@ -5,4 +5,6 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "/tesla-fpa-agent/",
   plugins: [react()],
+  // Emit bundled JSON as JSON.parse("...") rather than an object literal: faster to parse.
+  json: { stringify: true },
 });
