@@ -17,7 +17,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -69,7 +69,7 @@ button {
   position: absolute;
   left: 1rem;
   top: 0;
-  z-index: 2;
+  z-index: 6;
   transform: translateY(-120%);
   padding: 0.5rem 0.75rem;
   background: var(--surface);
@@ -269,13 +269,8 @@ h1 {
   text-wrap: pretty;
 }
 
-/*
-  Figures are proportional everywhere except the quarter picker: in
-  Schibsted Grotesk, tabular figures also make the comma and period full
-  width ("621 , 339"). Tables right-align their figures instead.
-*/
 table {
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 /* A section's own title, where the section has no styled heading of its own. */
@@ -331,9 +326,8 @@ table {
 }
 
 /*
-  Newsreader marks text the model wrote: the hero quote, the memo, and the
-  answers. Everything else, including every number in a table, is Schibsted
-  Grotesk.
+  Source Serif 4 marks text the model wrote: the memo and the answers.
+  Everything else is IBM Plex Sans.
 */
 .narrative {
   max-width: var(--prose);
@@ -376,7 +370,7 @@ table {
   display: block;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 .method-diagram {
@@ -533,36 +527,6 @@ table {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/*
-  Holds the space below the first screen for the moment before the rest of the
-  page renders, so the footer never appears in view and then jumps down.
-*/
-.rest-placeholder {
-  min-height: 100vh;
-}
-
-
-/* M8 first screen: one line on what it is, then the demo and the pipeline. */
-.intro {
-  margin-top: clamp(1.25rem, 3vw, 2rem);
-}
-
-.intro-title {
-  max-width: 30em;
-  font-size: clamp(1.375rem, 1.05rem + 1.3vw, 2.125rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-}
-
-.intro-sub {
-  max-width: 46rem;
-  margin-top: 0.6rem;
-  color: var(--ink-quiet);
-  font-size: 1.0625rem;
-  line-height: 1.5;
 }
 
 .breakit {

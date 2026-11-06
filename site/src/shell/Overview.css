@@ -1,0 +1,77 @@
+.overview {
+  min-width: 0;
+}
+
+.overview-title {
+  max-width: 38rem;
+  margin-top: 0;
+  font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kpi-label {
+  margin: 0;
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.kpi-value {
+  margin: 0.15rem 0 0;
+  font-size: clamp(2.25rem, 1.8rem + 1vw, 2.75rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.kpi-sub {
+  margin: 0.25rem 0 0;
+  color: var(--ink-quiet);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.overview .hero-bridge {
+  margin-top: 0.35rem;
+}
+
+.overview .hero-bridge-scroll {
+  margin-top: 0.45rem;
+}
+
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.25rem;
+  margin: 0.85rem 0 0;
+  padding: 0.75rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-quiet);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.proof li {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .kpis {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

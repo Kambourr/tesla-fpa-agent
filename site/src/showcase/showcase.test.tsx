@@ -5,7 +5,6 @@ import type { Dashboard, FirstDrafts } from "../data/types";
 import { formatCost, formatRunTime, formatStageSeconds } from "../sections/AgentRunFormat";
 import { BreakIt, missText, nudged } from "./BreakIt";
 import { buildExcerpt, editedValueText } from "./breakItModel";
-import { OutputTabs } from "./OutputTabs";
 import { FirstDraftLine, issueText, Pipeline } from "./Pipeline";
 
 const live = published as unknown as Dashboard;
@@ -120,23 +119,6 @@ describe("FirstDraftLine", () => {
     expect(text).toMatch(/1 draft back for a figure pointed to sentence 9 of a 8-sentence text/);
     expect(text).toMatch(/published as not verified/);
     expect(issueText("memo has 300 words, outside 150 to 250")).toBe("300 words, outside the 150 to 250 limit");
-  });
-});
-
-describe("OutputTabs", () => {
-  it("shows one output at a time and switches with the tabs", () => {
-    render(<OutputTabs dashboard={live} quarter={latest} onSelectQuarter={() => undefined} />);
-    expect(screen.getByRole("heading", { name: "Revenue, forecast to actual" })).toBeTruthy();
-    fireEvent.click(screen.getByRole("tab", { name: "Analyst memo" }));
-    expect(screen.getByRole("heading", { name: "Analyst memo" })).toBeTruthy();
-    expect(screen.queryByRole("heading", { name: "Revenue, forecast to actual" })).toBeNull();
-  });
-
-  it("opens the tab a link points into", () => {
-    window.location.hash = "#method-title";
-    render(<OutputTabs dashboard={live} quarter={latest} onSelectQuarter={() => undefined} />);
-    expect(screen.getByRole("tab", { name: "Method" }).getAttribute("aria-selected")).toBe("true");
-    window.location.hash = "";
   });
 });
 

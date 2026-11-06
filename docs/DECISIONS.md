@@ -2,6 +2,34 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-06 — M9: sidebar shell, Overview first, research-desk tokens
+
+**Decision:** One task (`M9-T1`) on one branch (`task/M9-T1-dashboard-shell`) ships the persistent sidebar, hash views, Overview as the default screen, and a new visual system. `docs/BRIEF.md` is not edited. Brief sections 5 and 6 still hold where this plan is silent (ticks, disclaimer, no Tesla branding, AA contrast, reduced motion, no hype, sentence case). This supersedes the M7 sage/Schibsted/Newsreader look and the M8 layout that put "Try to break it" and the pipeline on the first screen.
+
+**Why one branch:** The shell, the views, and the tokens are one layout. A sidebar without Overview, or Overview still wearing M7 paper, would not meet the 30-second screen. Same reason M8-T2 to M8-T4 shared a branch.
+
+**Layout:** Persistent ~220px dark rail; content is a cool light canvas. Hash views (`#/`, `#/overview`, `#/bridge`, `#/memo`, `#/forecast`, `#/accuracy`, `#/ask`, `#/method`) replace `OutputTabs`. Old anchors (`#method-title`, `#analyst-memo-title`, `#forecast-heading`, `#accuracy-heading`, `#ask-heading`) map onto those views. Overview shows one sentence on what the agent does, three labeled KPIs (actual, forecast, variance $ and % with favorable/unfavorable), the waterfall without the old hero headline and seal essay, and a quiet row of counts from `dashboard.json`. `BreakIt` and `Pipeline` move intact to How it works. `HeroSection` is reused (chart variant on Overview; full section on Revenue bridge). Mobile (≤768px) is a drawer, not a squeezed column.
+
+**Visual system (research desk):** Cool canvas `#F4F6F8`, ink `#12171E`, quiet ink `#3E4A57`, rule `#D3DAE3`, surface `#FFFFFF`, forecast/links/focus `#2448C8`, favorable `#0E7A5A`, unfavorable `#A85B00`, sidebar `#12171E`, sidebar ink `#E6EBF0`, sidebar quiet `#8B9AAB` (6.26:1 on the rail), active row `#1C2430`. IBM Plex Sans with tabular nums on figures; Source Serif 4 only for memo body and Q&A answers. Schibsted Grotesk and Newsreader are dropped.
+
+Measured WCAG contrast (normal text AA is 4.5):
+
+| Pair | Light | Ratio |
+|---|---|---|
+| Ink on canvas | `#12171E` on `#F4F6F8` | 16.61 |
+| Quiet ink on canvas | `#3E4A57` on `#F4F6F8` | 8.35 |
+| Quiet ink on surface | `#3E4A57` on `#FFFFFF` | 9.04 |
+| Cobalt on canvas / surface | `#2448C8` | 6.84 / 7.40 |
+| Green on canvas / surface | `#0E7A5A` | 4.91 / 5.32 |
+| Amber on canvas / surface | `#A85B00` | 4.66 / 5.05 |
+| Sidebar ink on rail | `#E6EBF0` on `#12171E` | 15.00 |
+
+Dark: canvas `#10141A`, surface `#171C24`, sidebar `#0B0E12`, ink `#E6EBF0` (15.40 on canvas, 14.26 on surface), quiet `#9AABBC`, cobalt `#7D95E8` (6.45 / 5.97), green `#15B787` (7.17 / 6.64), amber `#E67C00` (6.37 / 5.90). Sidebar quiet `#8B9AAB` is 6.73:1 on `#0B0E12`.
+
+**Overview chart height:** the waterfall viewBox is 320px tall on Overview (400px on Revenue bridge) so actual, forecast, variance, the chart, and the proof chips fit a 1280×800 viewport. Geometry and D3 scales are otherwise unchanged.
+
+**Alternatives rejected:** Another editorial pass (M7 already did that; Jacob rejected the literary paper). A purple-gradient app (template SaaS; the plan forbids it). Leaving the verifier on the first screen (that is the complaint: a recruiter has to scroll through proof before seeing the quarter).
+
 ## 2026-11-05 — M8: lead with the verifier and the pipeline; outputs in tabs
 
 **Decision:** The page opens on an interactive check ("Try to break it") and a six-stage pipeline whose stages open real artifacts; every published output moves into one tabbed panel. The M7 hero quote, five-step chain, and run section are removed. M8-T2 to M8-T4 shipped on one branch because they share one layout and one App rewrite.

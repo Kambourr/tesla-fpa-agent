@@ -1,8 +1,8 @@
 """Acceptance checks for the site shell.
 
 The build command itself runs in CI. These tests lock the Pages base path,
-the M7 redesign palette (which replaced the brief's section 6 palette; see
-docs/DECISIONS.md), both typefaces, tabular figures, and the dark theme.
+the M9 research-desk palette (see docs/DECISIONS.md), both typefaces,
+tabular figures, and the dark theme.
 """
 
 import re
@@ -13,17 +13,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SITE = REPO_ROOT / "site"
 
-LIGHT_PAPER = "#F2F4EF"
-LIGHT_INK = "#1D2321"
-LIGHT_SURFACE = "#FBFCFA"
-LIGHT_ACCENTS = ("#4F5B55", "#3B5878", "#17784C", "#9A5707")
-LIGHT_HEXES = (LIGHT_PAPER, LIGHT_INK, "#C7CDC4", *LIGHT_ACCENTS, LIGHT_SURFACE)
-DARK_PAPER = "#141A18"
-DARK_INK = "#E3E8E4"
-DARK_SURFACE = "#1C2421"
-DARK_COBALT = "#93ACCB"
-DARK_GREEN = "#4CC08A"
-DARK_AMBER = "#E9A04A"
+LIGHT_PAPER = "#F4F6F8"
+LIGHT_INK = "#12171E"
+LIGHT_SURFACE = "#FFFFFF"
+LIGHT_ACCENTS = ("#3E4A57", "#2448C8", "#0E7A5A", "#A85B00")
+LIGHT_HEXES = (LIGHT_PAPER, LIGHT_INK, "#D3DAE3", *LIGHT_ACCENTS, LIGHT_SURFACE)
+DARK_PAPER = "#10141A"
+DARK_INK = "#E6EBF0"
+DARK_SURFACE = "#171C24"
+DARK_COBALT = "#7D95E8"
+DARK_GREEN = "#15B787"
+DARK_AMBER = "#E67C00"
 
 FORBIDDEN_HEXES = (
     "#E31937",
@@ -118,10 +118,10 @@ def test_type_uses_the_redesign_faces_and_tabular_figures() -> None:
     tokens = (SITE / "src" / "styles" / "tokens.css").read_text(encoding="utf-8")
     global_css = (SITE / "src" / "styles" / "global.css").read_text(encoding="utf-8")
     main = (SITE / "src" / "main.tsx").read_text(encoding="utf-8")
-    assert "Schibsted Grotesk" in tokens
-    assert "Newsreader" in tokens
-    assert "@fontsource/schibsted-grotesk/" in main
-    assert "@fontsource/newsreader/" in main
+    assert "IBM Plex Sans" in tokens
+    assert "Source Serif 4" in tokens
+    assert "@fontsource/ibm-plex-sans/" in main
+    assert "@fontsource/source-serif-4/" in main
     assert "font-variant-numeric: tabular-nums" in global_css
     assert "line-height: 1.55" in global_css
     assert "1120px" in tokens
@@ -134,9 +134,12 @@ def test_shell_copy_has_no_hype_emoji_or_brand_red() -> None:
     config = (SITE / "src" / "config.ts").read_text(encoding="utf-8")
     assert "Tesla FP&A Agent" in config
     headline = (
-        "An AI analyst for Tesla's quarter that cannot publish a number code has not checked."
+        "An agent that reads Tesla's public filings, forecasts the quarter, "
+        "explains the miss, and writes the memo."
     )
-    assert headline in app
+    overview = (SITE / "src" / "shell" / "Overview.tsx").read_text(encoding="utf-8")
+    assert headline in overview
+    assert "cannot publish a number" not in app
     disclaimer = (
         "Independent analysis built from Tesla's public SEC filings and investor-relations "
         "releases. Not affiliated with or endorsed by Tesla, Inc. Not investment advice."

@@ -13,7 +13,7 @@
 
 .seal-text {
   margin: 0;
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 .seal-marks {
