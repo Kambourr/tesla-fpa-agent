@@ -9,11 +9,10 @@ export const footerDisclaimer =
   "Independent analysis built from Tesla's public SEC filings and investor-relations releases. Not affiliated with or endorsed by Tesla, Inc. Not investment advice.";
 
 /**
- * Jacob fills these in. Leave them blank until then.
- * Do not guess URLs. M5-T14 reads this object for the about links.
+ * Public profile links for the about footer.
+ * GitHub and LinkedIn only. No résumé, mailto, phone, or personal email.
  */
 export const profileLinks = {
-  github: "",
-  linkedin: "",
-  resume: "",
+  github: "https://github.com/Kambourr",
+  linkedin: "https://www.linkedin.com/in/jacob-kambour-5558a2221/",
 } as const;

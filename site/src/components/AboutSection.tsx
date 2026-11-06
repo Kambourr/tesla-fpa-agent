@@ -5,7 +5,6 @@ const credit = "Built by Jacob Kambour, MS Finance & Analytics, Santa Clara Univ
 const links = [
   { label: "GitHub", href: profileLinks.github },
   { label: "LinkedIn", href: profileLinks.linkedin },
-  { label: "Résumé", href: profileLinks.resume },
 ] as const;
 
 export function AboutSection() {
@@ -18,7 +17,9 @@ export function AboutSection() {
           <li key={link.label}>
             <span className="about-label">{link.label}</span>
             {link.href ? (
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href} rel="noopener noreferrer">
+                {link.label}
+              </a>
             ) : (
               <span className="about-missing">Not filled in yet</span>
             )}

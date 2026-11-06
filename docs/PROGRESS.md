@@ -2,18 +2,28 @@
 
 ## Current status
 
-- **Current milestone:** M9 (sidebar dashboard, Overview first). Live site stays M8 until this branch merges: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 65 of 65 (100%). M9-T1 on `task/M9-T1-dashboard-shell`, PR unmerged.
-- **What's next:** Jacob reviews and merges the PR. Do not merge, deploy, or change Pages from this agent.
+- **Current milestone:** Post-M9 polish. Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 65 of 65 (100%). Profile links on `cursor/fill-profile-links-9728`, PR open for review.
+- **What's next:** Jacob reviews and merges the profile-links PR. Do not merge, deploy, or change Pages from this agent.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
-  - (c) Later: spot-check `deliveries.csv`, fill in links in `site/src/config.ts`, check employer policy.
+  - (c) Later: spot-check `deliveries.csv`, check employer policy. Profile links filled (GitHub + LinkedIn only; no résumé on this public site).
   - (d) Live check of `deliveries.csv`: from this environment every `source_url` returned HTTP 403 (Akamai Access Denied in headless Chrome too). No total was compared and none was changed. Jacob should run `scripts/check_deliveries --fetch` from a network that can open `https://ir.tesla.com`.
   - (e) Resolved 2026-11-04: Jacob set Pages Source to GitHub Actions and asked to check that it works, which is his go-ahead to merge PR #20 (`deploy.yml`). Every push to `main` now deploys the site to `https://kambourr.github.io/tesla-fpa-agent/`.
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-06 — Cursor agent
+
+**Task(s):** Fill public profile links (done)
+**What changed:** `site/src/config.ts` `profileLinks` now has Jacob's GitHub and LinkedIn URLs. Résumé key removed. `AboutSection` renders only those two links (no résumé / mailto / phone / personal email). `tests/test_about.py` expects the filled URLs and asserts résumé is gone. No pipeline, branding, or visual redesign changes.
+**Current state:** `uv run pytest tests/test_about.py` passed; `site/`: `npx tsc -b` clean, npm test 273 passed.
+**Next step:** Open the PR; do not merge.
+**Blockers / questions for Jacob:** none
+**Notes for the next agent:** Brief section 5 still mentions a résumé link; the public site omits it on purpose (see DECISIONS). Do not invent other URLs.
+**Last commit:** (pending) on `cursor/fill-profile-links-9728`
 
 ## 2026-11-06 — Cursor agent
 
