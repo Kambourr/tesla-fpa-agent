@@ -611,4 +611,4 @@ M9 is one task on one branch because the shell, the hash views, Overview, and th
 - **Acceptance:** At 1280×800 the default view shows actual, forecast, variance $ and %, the waterfall, and one sentence on what the agent does, without scrolling through verification copy. Sidebar clicks change the hash and the view. Mobile uses a drawer. `how-it-was-built.html` uses the same tokens. Site tests, `tsc`, and `npm run build` pass in `site/`. `uv run pytest` passes at the repo root. No Python pipeline, data, or verifier behavior change.
 - **Depends on:** M8-T5
 - **Can run in parallel with:** none
-- **Status:** done (509db1e539fa21b592f8e8e00e204977eb235d26)
+- **Status:** done (fec38ef)

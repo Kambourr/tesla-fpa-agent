@@ -23,7 +23,7 @@
 **Next step:** Open the PR; do not merge.
 **Blockers / questions for Jacob:** none
 **Notes for the next agent:** Overview chart viewBox is 320px tall so the first viewport fits; the Revenue bridge view keeps 400px. OG image was not re-rendered (optional in the plan). Screenshots also at `/cursor/stores/self/media/overview-1280.png` and `overview-375.png`.
-**Last commit:** 509db1e539fa21b592f8e8e00e204977eb235d26 on `task/M9-T1-dashboard-shell`
+**Last commit:** fec38ef on `task/M9-T1-dashboard-shell`
 
 ## 2026-11-06 — Cursor agent
 
