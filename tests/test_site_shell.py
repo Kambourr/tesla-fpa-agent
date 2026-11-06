@@ -134,7 +134,8 @@ def test_shell_copy_has_no_hype_emoji_or_brand_red() -> None:
     config = (SITE / "src" / "config.ts").read_text(encoding="utf-8")
     assert "Tesla FP&A Agent" in config
     headline = (
-        "An agent that reads Tesla's public filings, forecasts the quarter, explains the miss, and writes the memo."
+        "An agent that reads Tesla's public filings, forecasts the quarter, "
+        "explains the miss, and writes the memo."
     )
     overview = (SITE / "src" / "shell" / "Overview.tsx").read_text(encoding="utf-8")
     assert headline in overview
