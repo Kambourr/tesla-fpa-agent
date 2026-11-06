@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 64 of 64 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 64 of 65 (98%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -598,3 +598,17 @@ Added 2026-11-05 at Jacob's request: the M7 page still took too long to show wha
 - **Depends on:** M8-T1, M8-T4
 - **Can run in parallel with:** none
 - **Status:** done (25f878a1e381c4e5971538ed857c22e807e8bca8)
+
+## M9 — Sidebar dashboard
+
+Added 2026-11-06 at Jacob's request, after M8: the live first screen still spends itself on verification copy. A recruiter at about 1280×800 should see actual, forecast, variance, the waterfall, and one sentence on what the agent does, then open detail from a sidebar. This supersedes the M7 visual system and the M8 "lead with the verifier" layout. `docs/BRIEF.md` is not edited; the deviation is in `docs/DECISIONS.md`.
+
+M9 is one task on one branch because the shell, the hash views, Overview, and the token change are one layout (same reason M8-T2 to M8-T4 shared a branch).
+
+### M9-T1 — Dashboard shell, Overview, and visual system
+
+- **Goal:** Persistent left sidebar, client-side hash views, Overview as the default first screen (KPIs, waterfall, quiet proof chips), verifier and pipeline moved to How it works, research-desk tokens (IBM Plex Sans, Source Serif 4, cool canvas, dark rail).
+- **Acceptance:** At 1280×800 the default view shows actual, forecast, variance $ and %, the waterfall, and one sentence on what the agent does, without scrolling through verification copy. Sidebar clicks change the hash and the view. Mobile uses a drawer. `how-it-was-built.html` uses the same tokens. Site tests, `tsc`, and `npm run build` pass in `site/`. `uv run pytest` passes at the repo root. No Python pipeline, data, or verifier behavior change.
+- **Depends on:** M8-T5
+- **Can run in parallel with:** none
+- **Status:** in progress (Cursor agent, 2026-11-06)

@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M8 complete (verifier and pipeline first, outputs in tabs). Live site: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 64 of 64 (100%).
-- **What's next:** Nothing for an agent. Jacob's list in the 2026-11-05 06:12 entry still stands.
+- **Current milestone:** M9 in progress (sidebar dashboard, Overview first). Live site is still the M8 layout until this branch merges: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 64 of 65 (98%). M9-T1 claimed on `task/M9-T1-dashboard-shell`.
+- **What's next:** Implement the shell, hash views, Overview, and research-desk tokens. Do not merge, deploy, or change Pages.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -14,6 +14,16 @@
   - (f) Resolved 2026-11-04: `data.sec.gov` and `www.sec.gov` are allowed in this cloud environment, and SEC answers with the configured `SEC_USER_AGENT`.
   - (g) A stray branch `tmp-m3-base` was pushed by mistake while preparing branches on 2026-11-05. This environment cannot delete remote branches (proxy 403). It is unused; please delete it on GitHub (Branches page).
 - **How to run the project right now:** Install [uv](https://docs.astral.sh/uv/) and Node 22. `uv sync`, copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` and `SEC_USER_AGENT`, then `uv run python -m agent run` (about seven minutes, about $0.03 when every narrative is regenerated). Tests: `uv run pytest`, and in `site/` `npm ci`, `npm test`, `npm run build`. In GitHub: Actions, "Refresh data", Run workflow; the site redeploys after it commits.
+
+## 2026-11-06 — Cursor agent
+
+**Task(s):** M9-T1 (in progress)
+**What changed:** Added M9 to `docs/PLAN.md` and claimed `M9-T1`. Logged the one-branch choice and the deviation from M7/M8 (and from brief section 6 where the plan overrides it) in `docs/DECISIONS.md`. No product code in this commit.
+**Current state:** Branch `task/M9-T1-dashboard-shell` off latest `origin/main` (125a825). M8 remains live.
+**Next step:** Build the sidebar shell, hash views, Overview, and tokens in `site/`.
+**Blockers / questions for Jacob:** none
+**Notes for the next agent:** Spec is the project redesign plan; `docs/BRIEF.md` is not edited. Do not change the Python pipeline, data, or verifier behavior.
+**Last commit:** (this claim commit) on `task/M9-T1-dashboard-shell`
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 
