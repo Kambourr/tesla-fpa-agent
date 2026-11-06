@@ -21,7 +21,8 @@ const DRAW_MS = 1200;
 const BAR_MIN_HEIGHT = 2;
 
 const WIDTH = 800;
-const HEIGHT = 400;
+const HEIGHT_FULL = 400;
+const HEIGHT_CHART = 320;
 const MARGIN = { top: 44, right: 8, bottom: 84, left: 64 };
 const LABEL_CHARS = 11;
 
@@ -73,7 +74,14 @@ function summaryLabel(model: RevenueBridgeModel): string {
   return `Revenue bridge for ${model.label}. Forecast ${formatUsd(model.forecast)}, actual ${formatUsd(model.actual)}. ${drivers}.`;
 }
 
-export function HeroSection({ dashboard, quarter }: SectionProps) {
+type HeroVariant = "full" | "chart";
+
+type HeroProps = SectionProps & {
+  /** Overview uses "chart": waterfall only, no headline or seal essay. */
+  variant?: HeroVariant;
+};
+
+export function HeroSection({ dashboard, quarter, variant = "full" }: HeroProps) {
   const headingId = useId();
   const model = buildRevenueBridge(quarter);
   const hasChart = model !== null;
@@ -101,6 +109,8 @@ export function HeroSection({ dashboard, quarter }: SectionProps) {
   // Bars animate only until the first draw finishes. Quarter switches after that never replay it.
   const animating = !drawn;
   const { steps } = model;
+  const chartOnly = variant === "chart";
+  const HEIGHT = chartOnly ? HEIGHT_CHART : HEIGHT_FULL;
   const innerWidth = WIDTH - MARGIN.left - MARGIN.right;
   const innerHeight = HEIGHT - MARGIN.top - MARGIN.bottom;
 
@@ -117,11 +127,23 @@ export function HeroSection({ dashboard, quarter }: SectionProps) {
   const ticks = y.ticks(4);
 
   return (
-    <section className="hero-bridge" aria-labelledby={headingId} data-drawn={drawn ? "true" : undefined}>
-      <h2 id={headingId} className="section-title">
-        Revenue, forecast to actual
-      </h2>
-      <p className="lede">{formatBridgeLede(model)}</p>
+    <section
+      className={chartOnly ? "hero-bridge is-chart" : "hero-bridge"}
+      aria-labelledby={headingId}
+      data-drawn={drawn ? "true" : undefined}
+    >
+      {chartOnly ? (
+        <h2 id={headingId} className="visually-hidden">
+          Revenue bridge
+        </h2>
+      ) : (
+        <>
+          <h2 id={headingId} className="section-title">
+            Revenue, forecast to actual
+          </h2>
+          <p className="lede">{formatBridgeLede(model)}</p>
+        </>
+      )}
 
       <div className="hero-bridge-scroll">
         <svg
@@ -234,7 +256,7 @@ export function HeroSection({ dashboard, quarter }: SectionProps) {
         </table>
       </div>
 
-      <VerificationSeal quarter={quarter} qa={dashboard.qa} drawn={drawn} />
+      {chartOnly ? null : <VerificationSeal quarter={quarter} qa={dashboard.qa} drawn={drawn} />}
     </section>
   );
 }

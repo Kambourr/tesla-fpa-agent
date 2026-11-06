@@ -1,36 +1,44 @@
 /*
-  M7 redesign tokens (docs/DECISIONS.md, 2026-11-05 redesign entry).
-  Ledger paper, graphite ink, plan slate for the forecast, tick green for
-  verified and favorable, flag amber for flagged and unfavorable.
-  Every text color passes WCAG AA on both the paper and the raised surface,
-  in light and dark. The variable names predate the redesign: --cobalt is the
-  forecast ink (now plan slate), --green and --amber keep their meaning.
+  M9 research-desk tokens (docs/DECISIONS.md, 2026-11-06).
+  Cool canvas, dark rail, IBM Plex Sans, Source Serif 4 for narrative only.
+  Measured WCAG AA pairs are in that decision entry. Variable names keep
+  --cobalt / --green / --amber from earlier milestones.
 */
 
 :root {
   color-scheme: light;
-  --paper: #F2F4EF;
-  --ink: #1D2321;
-  --ink-quiet: #4F5B55;
-  --rule: #C7CDC4;
-  --cobalt: #3B5878;
-  --green: #17784C;
-  --amber: #9A5707;
-  --surface: #FBFCFA;
-  --font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --font-narrative: "Newsreader", Georgia, "Times New Roman", serif;
+  --paper: #F4F6F8;
+  --ink: #12171E;
+  --ink-quiet: #3E4A57;
+  --rule: #D3DAE3;
+  --cobalt: #2448C8;
+  --green: #0E7A5A;
+  --amber: #A85B00;
+  --surface: #FFFFFF;
+  --sidebar: #12171E;
+  --sidebar-ink: #E6EBF0;
+  --sidebar-quiet: #8B9AAB;
+  --sidebar-active: #1C2430;
+  --sidebar-focus: #7D95E8;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-narrative: "Source Serif 4", Georgia, "Times New Roman", serif;
   --canvas: 1120px;
   --prose: 680px;
+  --sidebar-width: 13.75rem;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #141A18;
-  --ink: #E3E8E4;
-  --ink-quiet: #A3AFA8;
-  --rule: #33403A;
-  --cobalt: #93ACCB;
-  --green: #4CC08A;
-  --amber: #E9A04A;
-  --surface: #1C2421;
+  --paper: #10141A;
+  --ink: #E6EBF0;
+  --ink-quiet: #9AABBC;
+  --rule: #2A3848;
+  --cobalt: #7D95E8;
+  --green: #15B787;
+  --amber: #E67C00;
+  --surface: #171C24;
+  --sidebar: #0B0E12;
+  --sidebar-ink: #E6EBF0;
+  --sidebar-quiet: #8B9AAB;
+  --sidebar-active: #151A22;
 }

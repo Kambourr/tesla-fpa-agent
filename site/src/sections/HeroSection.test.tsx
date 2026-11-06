@@ -81,6 +81,14 @@ describe("hero revenue bridge", () => {
     ).toBeTruthy();
   });
 
+  test("the chart variant keeps the waterfall and drops the lede and seal", () => {
+    stubReducedMotion(true);
+    render(<HeroSection {...props} quarter={makeQuarter()} variant="chart" />);
+    expect(screen.queryByText(/forecast \$12.00B, actual \$10.50B/)).toBeNull();
+    expect(screen.queryByRole("link", { name: "See how the figures are checked" })).toBeNull();
+    expect(screen.getByRole("img", { name: /Revenue bridge for Q1 2027/ })).toBeTruthy();
+  });
+
   test("renders one bar per driver plus the forecast and actual totals", () => {
     stubReducedMotion(true);
     const { container } = render(<HeroSection {...props} quarter={makeQuarter()} />);

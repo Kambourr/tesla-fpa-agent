@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M9 in progress (sidebar dashboard, Overview first). Live site is still the M8 layout until this branch merges: https://kambourr.github.io/tesla-fpa-agent/
-- **Tasks done:** 64 of 65 (98%). M9-T1 claimed on `task/M9-T1-dashboard-shell`.
-- **What's next:** Implement the shell, hash views, Overview, and research-desk tokens. Do not merge, deploy, or change Pages.
+- **Current milestone:** M9 (sidebar dashboard, Overview first). Live site stays M8 until this branch merges: https://kambourr.github.io/tesla-fpa-agent/
+- **Tasks done:** 65 of 65 (100%). M9-T1 on `task/M9-T1-dashboard-shell`, PR unmerged.
+- **What's next:** Jacob reviews and merges the PR. Do not merge, deploy, or change Pages from this agent.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.
@@ -17,13 +17,23 @@
 
 ## 2026-11-06 — Cursor agent
 
-**Task(s):** M9-T1 (in progress)
-**What changed:** Added M9 to `docs/PLAN.md` and claimed `M9-T1`. Logged the one-branch choice and the deviation from M7/M8 (and from brief section 6 where the plan overrides it) in `docs/DECISIONS.md`. No product code in this commit.
-**Current state:** Branch `task/M9-T1-dashboard-shell` off latest `origin/main` (125a825). M8 remains live.
-**Next step:** Build the sidebar shell, hash views, Overview, and tokens in `site/`.
+**Task(s):** M9-T1 (done)
+**What changed:** Sidebar shell with hash views; Overview is the default screen (headline, three KPIs, waterfall, quiet proof chips). `BreakIt` and `Pipeline` moved to How it works. Research-desk tokens (IBM Plex Sans, Source Serif 4, cool canvas, dark rail). `OutputTabs` removed. Write-up restyled. `docs/images/dashboard.png` is the 1280×800 Overview. No Python pipeline, data, or verifier behavior change. `PUBLISH_FORWARD_FORECAST` still false. Disclaimer and `profileLinks` untouched.
+**Current state:** `site/`: npm test 273 passed; `npx tsc -b` clean; `npm run build` ok. Repo root: `uv run pytest` 346 passed.
+**Next step:** Open the PR; do not merge.
 **Blockers / questions for Jacob:** none
-**Notes for the next agent:** Spec is the project redesign plan; `docs/BRIEF.md` is not edited. Do not change the Python pipeline, data, or verifier behavior.
-**Last commit:** (this claim commit) on `task/M9-T1-dashboard-shell`
+**Notes for the next agent:** Overview chart viewBox is 320px tall so the first viewport fits; the Revenue bridge view keeps 400px. OG image was not re-rendered (optional in the plan). Screenshots also at `/cursor/stores/self/media/overview-1280.png` and `overview-375.png`.
+**Last commit:** 509db1e539fa21b592f8e8e00e204977eb235d26 on `task/M9-T1-dashboard-shell`
+
+## 2026-11-06 — Cursor agent
+
+**Task(s):** M9-T1 (claimed)
+**What changed:** Added M9 to `docs/PLAN.md` and claimed `M9-T1`. Logged the one-branch choice and the deviation from M7/M8 in `docs/DECISIONS.md`. No product code in that commit.
+**Current state:** Claim pushed on `task/M9-T1-dashboard-shell`.
+**Next step:** Implement the shell.
+**Blockers / questions for Jacob:** none
+**Notes for the next agent:** Spec is the project redesign plan; `docs/BRIEF.md` is not edited.
+**Last commit:** 1aa1c2f on `task/M9-T1-dashboard-shell`
 
 ## 2026-11-05 (America/Los_Angeles) — Claude Code
 

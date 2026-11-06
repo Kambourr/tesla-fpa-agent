@@ -24,8 +24,10 @@ def test_example_diagram_names_the_six_stages_and_who_does_them() -> None:
 
 def test_methods_copy_covers_the_controls_and_the_leasing_limit() -> None:
     section = (SITE_SRC / "components" / "MethodSection.tsx").read_text(encoding="utf-8")
-    tabs = (SITE_SRC / "showcase" / "OutputTabs.tsx").read_text(encoding="utf-8")
-    assert "MethodSection" in tabs
+    method_view = (SITE_SRC / "shell" / "MethodView.tsx").read_text(encoding="utf-8")
+    assert "MethodSection" in method_view
+    assert "Pipeline" in method_view
+    assert "BreakIt" in method_view
     assert "This page does not call the model." in section
     assert "verified, flagged, or unsupported" in section
     assert "public SEC filings" in section

@@ -60,7 +60,7 @@
   background: transparent;
   color: inherit;
   font: inherit;
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
   text-align: center;
 }
 

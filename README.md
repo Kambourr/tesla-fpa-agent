@@ -4,9 +4,9 @@ Quarterly variance analysis is slow, manual work. An analyst rebuilds the foreca
 
 **Live dashboard:** https://kambourr.github.io/tesla-fpa-agent/ · **Plain-language write-up:** https://kambourr.github.io/tesla-fpa-agent/how-it-was-built.html
 
-![The dashboard's first screen: the model's Q3 2026 memo with editable figures, one changed from $28.05 billion to $29 billion and flagged by the in-browser verifier (off by 3.4% from the 10-Q), and the six pipeline stages with the Verify stage open](docs/images/dashboard.png)
+![The dashboard Overview at 1280×800: Q3 2026 actual revenue $28.05B, forecast $35.53B, variance −$7.48B (−21.1% unfavorable), and the revenue waterfall from forecast to actual](docs/images/dashboard.png)
 
-On the page you can change any figure the model wrote and watch the verifier's rules, ported to the browser and tested case for case against the Python version, flag it. Each pipeline stage opens the real artifact it produced.
+The Overview is the first screen. A sidebar opens the revenue bridge, memo, forecast, accuracy, Q&A, and how it works. How it works still has the in-browser verifier and the pipeline stages; you can change any figure the model wrote and watch the same rules, ported to the browser and tested case for case against the Python version, flag it.
 
 ## What it does
 

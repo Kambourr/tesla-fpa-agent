@@ -43,7 +43,7 @@
 .forecast-chart-tick {
   fill: var(--ink-quiet);
   font-size: 12px;
-  font-variant-numeric: proportional-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 .forecast-chart-selected {

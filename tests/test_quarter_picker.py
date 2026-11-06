@@ -38,5 +38,6 @@ def test_shell_keeps_the_header_disclaimer_and_history_message() -> None:
     assert DISCLAIMER in config
     assert "QuarterPicker" in app
     assert "needsHistoryMessage" in app
-    headline = "cannot publish a number code has not checked."
-    assert headline in app
+    headline = "An agent that reads Tesla's public filings, forecasts the quarter, explains the miss, and writes the memo."
+    overview = (SITE_SRC / "shell" / "Overview.tsx").read_text(encoding="utf-8")
+    assert headline in overview

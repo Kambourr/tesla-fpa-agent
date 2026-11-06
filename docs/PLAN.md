@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 64 of 65 (98%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 65 of 65 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -611,4 +611,4 @@ M9 is one task on one branch because the shell, the hash views, Overview, and th
 - **Acceptance:** At 1280×800 the default view shows actual, forecast, variance $ and %, the waterfall, and one sentence on what the agent does, without scrolling through verification copy. Sidebar clicks change the hash and the view. Mobile uses a drawer. `how-it-was-built.html` uses the same tokens. Site tests, `tsc`, and `npm run build` pass in `site/`. `uv run pytest` passes at the repo root. No Python pipeline, data, or verifier behavior change.
 - **Depends on:** M8-T5
 - **Can run in parallel with:** none
-- **Status:** in progress (Cursor agent, 2026-11-06)
+- **Status:** done (509db1e539fa21b592f8e8e00e204977eb235d26)
