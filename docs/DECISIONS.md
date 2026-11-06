@@ -2,6 +2,14 @@
 
 Newest entry at the top. Every non-obvious choice goes here: the decision, the alternatives considered, and why. A deviation from `docs/BRIEF.md` is logged here first. The brief is not edited to hide an override.
 
+## 2026-11-06 — Public profile links: GitHub and LinkedIn only; no résumé
+
+**Decision:** `profileLinks` in `site/src/config.ts` holds Jacob's GitHub (`https://github.com/Kambourr`) and LinkedIn (`https://www.linkedin.com/in/jacob-kambour-5558a2221/`). The résumé key and footer row are removed. The public site does not show a résumé URL, PDF, mailto, address, phone, or personal email.
+
+**Why:** Jacob supplied only those two public URLs and does not want private contact info on this GitHub Pages site. Brief section 5 still lists a résumé among the about links; this entry records the override. `docs/BRIEF.md` is not edited.
+
+**Alternatives considered:** Leaving a blank "Not filled in yet" résumé row. Rejected because it advertises a missing private document. Inventing a résumé URL. Rejected; only the two supplied links are used.
+
 ## 2026-11-06 — M9: sidebar shell, Overview first, research-desk tokens
 
 **Decision:** One task (`M9-T1`) on one branch (`task/M9-T1-dashboard-shell`) ships the persistent sidebar, hash views, Overview as the default screen, and a new visual system. `docs/BRIEF.md` is not edited. Brief sections 5 and 6 still hold where this plan is silent (ticks, disclaimer, no Tesla branding, AA contrast, reduced motion, no hype, sentence case). This supersedes the M7 sage/Schibsted/Newsreader look and the M8 layout that put "Try to break it" and the pipeline on the first screen.
