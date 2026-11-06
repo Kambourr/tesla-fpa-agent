@@ -23,7 +23,7 @@
 **Next step:** Open the PR; do not merge.
 **Blockers / questions for Jacob:** none
 **Notes for the next agent:** Brief section 5 still mentions a résumé link; the public site omits it on purpose (see DECISIONS). Do not invent other URLs.
-**Last commit:** (pending) on `cursor/fill-profile-links-9728`
+**Last commit:** 73766d2 on `cursor/fill-profile-links-9728`
 
 ## 2026-11-06 — Cursor agent
 
