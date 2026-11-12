@@ -4,7 +4,7 @@ The build is milestones M0 through M6. Each task is one agent session or less. C
 
 Status values are exactly: `todo`, `in progress (agent name, date)`, `done (commit hash)`, `blocked (reason)`.
 
-**Tasks done:** 65 of 65 (100%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
+**Tasks done:** 65 of 66 (98%). Recompute this from the status lines when you finish a task, and update the current-status block in `docs/PROGRESS.md`.
 
 Acceptance checks are commands or tests. Do not mark a task done if its check has not been run. Product code starts at M1-T1. Add it only on that task's branch, or on a later task branch after its dependencies are on `main`.
 
@@ -612,3 +612,15 @@ M9 is one task on one branch because the shell, the hash views, Overview, and th
 - **Depends on:** M8-T5
 - **Can run in parallel with:** none
 - **Status:** done (fec38ef)
+
+## M9 — Forward forecast
+
+Added 2026-11-12: Jacob asked to turn the forward forecast on. This reverses the "forward forecast off" default from the brief (section 10 checklist); see `docs/DECISIONS.md`.
+
+### M9-T1 — Publish and show the next quarter's forecast
+
+- **Goal:** Forecast the first unreported quarter and show it on the site, clearly labelled as a model forecast.
+- **Acceptance:** The "Refresh data" workflow runs with `PUBLISH_FORWARD_FORECAST=true`. The site shows the forward quarter in its own outlook view: bear, base, and bull for the key lines, the date of the latest filing it is built from, the backtest error as context, and a label that it is a model forecast, not guidance or investment advice. The forward quarter has no memo, bridge, or verification, and the page says why. Backtest views are unchanged. Tests cover the outlook and the workflow setting.
+- **Depends on:** M8-T5
+- **Can run in parallel with:** none
+- **Status:** in progress (Claude Code, 2026-11-12)
