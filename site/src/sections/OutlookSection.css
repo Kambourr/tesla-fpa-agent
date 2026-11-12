@@ -1,0 +1,77 @@
+/* The forward quarter: a scenario table with the base column emphasised and a clear label. */
+.outlook-badge {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--cobalt);
+  border-radius: 999px;
+  color: var(--cobalt);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.outlook h2 {
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+}
+
+.outlook-lede {
+  max-width: var(--prose);
+  margin-top: 0.5rem;
+  line-height: 1.55;
+}
+
+.outlook-table-wrap {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+}
+
+.outlook-table {
+  width: 100%;
+  max-width: 40rem;
+  border-collapse: collapse;
+}
+
+.outlook-table th,
+.outlook-table td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.outlook-table th[scope="row"],
+.outlook-table thead th:first-child {
+  padding-left: 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.outlook-table thead th {
+  color: var(--ink-quiet);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.outlook-table .is-base {
+  background: color-mix(in srgb, var(--cobalt) 8%, transparent);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.outlook-note {
+  max-width: var(--prose);
+  margin-top: 0.75rem;
+  color: var(--ink-quiet);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.outlook-disclaimer {
+  max-width: var(--prose);
+  margin-top: 1rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--cobalt);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}

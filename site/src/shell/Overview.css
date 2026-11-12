@@ -75,3 +75,12 @@
     gap: 1rem;
   }
 }
+
+.overview-next {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+}
+
+.overview-next a {
+  font-weight: 600;
+}

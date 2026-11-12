@@ -9,11 +9,13 @@ import { AskSection } from "./sections/AskSection";
 import { ForecastChart } from "./sections/ForecastChart";
 import { ForecastSection } from "./sections/ForecastSection";
 import { HeroSection } from "./sections/HeroSection";
+import { forwardQuarter, OutlookSection } from "./sections/OutlookSection";
 import { MemoSection } from "./sections/MemoSection";
 import { MethodView } from "./shell/MethodView";
 import { Overview } from "./shell/Overview";
 import { Sidebar } from "./shell/Sidebar";
 import {
+  VIEW_IDS,
   hashForView,
   initialView,
   viewFromHashChange,
@@ -165,6 +167,9 @@ export function App({ initialDashboard }: AppProps = {}) {
       ? { dashboard, quarter, onSelectQuarter: setQuarterId }
       : null;
 
+  const forward = dashboard ? forwardQuarter(dashboard) : null;
+  const views = VIEW_IDS.filter((id) => id !== "outlook" || forward !== null);
+
   let panel: ReactNode = null;
   if (sectionProps && quarter?.has_forecast) {
     if (view === "overview") {
@@ -180,6 +185,10 @@ export function App({ initialDashboard }: AppProps = {}) {
           <ForecastChart {...sectionProps} />
         </>
       );
+    } else if (view === "outlook" && forward) {
+      panel = <OutlookSection dashboard={sectionProps.dashboard} quarter={forward} />;
+    } else if (view === "outlook") {
+      panel = <Overview {...sectionProps} />;
     } else if (view === "accuracy") {
       panel = <AccuracySection {...sectionProps} />;
     } else if (view === "ask") {
@@ -208,6 +217,7 @@ export function App({ initialDashboard }: AppProps = {}) {
         onNavigate={goTo}
         onClose={() => setDrawerOpen(false)}
         drawerRef={drawerRef}
+        views={views}
       />
       <div className="workspace">
         <header className="workspace-bar">

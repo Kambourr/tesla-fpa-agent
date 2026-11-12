@@ -3,6 +3,7 @@ export const VIEW_IDS = [
   "bridge",
   "memo",
   "forecast",
+  "outlook",
   "accuracy",
   "ask",
   "method",
@@ -15,6 +16,7 @@ export const VIEW_LABELS: Record<ViewId, string> = {
   bridge: "Revenue bridge",
   memo: "Analyst memo",
   forecast: "Forecast",
+  outlook: "Next quarter",
   accuracy: "Accuracy",
   ask: "Ask",
   method: "How it works",
@@ -25,6 +27,7 @@ export const VIEW_HASH: Record<ViewId, string> = {
   bridge: "#/bridge",
   memo: "#/memo",
   forecast: "#/forecast",
+  outlook: "#/outlook",
   accuracy: "#/accuracy",
   ask: "#/ask",
   method: "#/method",
@@ -37,6 +40,7 @@ const PATH_VIEW: Record<string, ViewId> = {
   "/bridge": "bridge",
   "/memo": "memo",
   "/forecast": "forecast",
+  "/outlook": "outlook",
   "/accuracy": "accuracy",
   "/ask": "ask",
   "/method": "method",
@@ -49,6 +53,7 @@ const ANCHOR_VIEW: Record<string, ViewId> = {
   "forecast-heading": "forecast",
   "accuracy-heading": "accuracy",
   "ask-heading": "ask",
+  "outlook-heading": "outlook",
 };
 
 function rawHash(hash: string): string {

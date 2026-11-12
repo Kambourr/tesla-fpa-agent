@@ -10,9 +10,11 @@ type Props = {
   onNavigate: (view: ViewId) => void;
   onClose: () => void;
   drawerRef: RefObject<HTMLElement | null>;
+  /** Views to list; the outlook only appears when a forward quarter is published. */
+  views?: readonly ViewId[];
 };
 
-export function Sidebar({ view, open, onNavigate, onClose, drawerRef }: Props) {
+export function Sidebar({ view, open, onNavigate, onClose, drawerRef, views = VIEW_IDS }: Props) {
   return (
     <aside
       ref={drawerRef}
@@ -25,7 +27,7 @@ export function Sidebar({ view, open, onNavigate, onClose, drawerRef }: Props) {
         <p className="sidebar-name">{siteName}</p>
       </div>
       <nav className="sidebar-nav" aria-label="Views">
-        {VIEW_IDS.map((id) => {
+        {views.map((id) => {
           const active = id === view;
           return (
             <a

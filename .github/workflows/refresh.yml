@@ -60,7 +60,8 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
-          PUBLISH_FORWARD_FORECAST: "false"
+          # Jacob turned the forward forecast on (2026-11-12, M10-T1).
+          PUBLISH_FORWARD_FORECAST: "true"
           FORCE: ${{ inputs.force }}
         run: |
           if [ "$FORCE" = "true" ]; then

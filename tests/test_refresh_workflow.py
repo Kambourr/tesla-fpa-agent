@@ -58,7 +58,7 @@ def test_run_step_reads_secrets_from_the_secrets_context() -> None:
     run = _run_step(loaded, "Run the pipeline")
     assert run["env"]["OPENAI_API_KEY"] == "${{ secrets.OPENAI_API_KEY }}"
     assert run["env"]["SEC_USER_AGENT"] == "${{ secrets.SEC_USER_AGENT }}"
-    assert run["env"]["PUBLISH_FORWARD_FORECAST"] == "false"
+    assert run["env"]["PUBLISH_FORWARD_FORECAST"] == "true"
     assert "agent run" in run["run"]
     assert "--force" in run["run"]
 

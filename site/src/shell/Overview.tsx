@@ -8,6 +8,8 @@ import {
   formatUsd,
 } from "../sections/HeroSectionFormat";
 import { HeroSection } from "../sections/HeroSection";
+import { forwardQuarter } from "../sections/OutlookSection";
+import { hashForView } from "./hashView";
 import "./Overview.css";
 
 export const OVERVIEW_HEADLINE =
@@ -50,6 +52,7 @@ export function proofChips(dashboard: Dashboard): string[] {
 export function Overview({ dashboard, quarter, onSelectQuarter }: Props) {
   const model = buildRevenueBridge(quarter);
   const chips = proofChips(dashboard);
+  const forward = forwardQuarter(dashboard);
   const varianceWord =
     model === null || model.variance === 0
       ? null
@@ -92,6 +95,12 @@ export function Overview({ dashboard, quarter, onSelectQuarter }: Props) {
             <li key={chip}>{chip}</li>
           ))}
         </ul>
+      ) : null}
+      {forward ? (
+        <p className="overview-next">
+          <a href={hashForView("outlook")}>See the model's {forward.label} forecast</a>, before Tesla
+          reports it.
+        </p>
       ) : null}
     </div>
   );
