@@ -2,9 +2,9 @@
 
 ## Current status
 
-- **Current milestone:** M9 (forward forecast), at Jacob's request. Live site: https://kambourr.github.io/tesla-fpa-agent/
+- **Current milestone:** M10 (forward forecast), at Jacob's request. Live site: https://kambourr.github.io/tesla-fpa-agent/
 - **Tasks done:** 65 of 66 (98%).
-- **What's next:** M9-T1, claimed by Claude Code.
+- **What's next:** M10-T1, claimed by Claude Code.
 - **Open blockers:**
   - (a) Pages is enabled and deploys from GitHub Actions (Jacob's go-ahead, 2026-11-04). The repository itself is still private; making it public is Jacob's call (the README and the site are written for a public audience).
   - (b) Resolved 2026-11-04: Jacob added `OPENAI_API_KEY` and `SEC_USER_AGENT` as GitHub Actions secrets. They reach workflows only. This cloud environment has its own `SEC_USER_AGENT` variable and no OpenAI key, by design: live narration runs in Actions.

@@ -613,14 +613,14 @@ M9 is one task on one branch because the shell, the hash views, Overview, and th
 - **Can run in parallel with:** none
 - **Status:** done (fec38ef)
 
-## M9 — Forward forecast
+## M10 — Forward forecast
 
 Added 2026-11-12: Jacob asked to turn the forward forecast on. This reverses the "forward forecast off" default from the brief (section 10 checklist); see `docs/DECISIONS.md`.
 
-### M9-T1 — Publish and show the next quarter's forecast
+### M10-T1 — Publish and show the next quarter's forecast
 
 - **Goal:** Forecast the first unreported quarter and show it on the site, clearly labelled as a model forecast.
 - **Acceptance:** The "Refresh data" workflow runs with `PUBLISH_FORWARD_FORECAST=true`. The site shows the forward quarter in its own outlook view: bear, base, and bull for the key lines, the date of the latest filing it is built from, the backtest error as context, and a label that it is a model forecast, not guidance or investment advice. The forward quarter has no memo, bridge, or verification, and the page says why. Backtest views are unchanged. Tests cover the outlook and the workflow setting.
-- **Depends on:** M8-T5
+- **Depends on:** M9-T1
 - **Can run in parallel with:** none
 - **Status:** in progress (Claude Code, 2026-11-12)
